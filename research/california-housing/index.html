@@ -13,20 +13,19 @@
             --bg: #f8fafc;
             --text-main: #334155;
             --code-bg: #1e1e1e;
-            --accent: #6366f1;
         }
         body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); margin: 0; color: var(--text-main); line-height: 1.6; }
         
         .header-banner { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 100px 20px; text-align: center; }
         .container { max-width: 1000px; margin: -60px auto 50px; padding: 0 20px; }
 
-        /* Dashboard Stats */
+        /* Dashboard Stats with Algorithm Card */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .stat-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--secondary); }
-        .stat-value { font-size: 2.2rem; font-weight: 800; color: var(--primary); display: block; }
+        .stat-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--secondary); display: flex; flex-direction: column; justify-content: center; }
+        .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 10px 0; }
         .stat-label { color: #64748b; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; }
 
-        /* Professional Link */
+        /* GitHub Button */
         .source-link-container { text-align: center; margin: 35px 0; }
         .btn-github-pro { 
             display: inline-flex; align-items: center; gap: 12px; 
@@ -34,8 +33,7 @@
             padding: 18px 36px; border-radius: 50px; 
             text-decoration: none; font-weight: 600; 
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            transition: all 0.3s ease; border: 2px solid transparent;
         }
         .btn-github-pro:hover { background: #000; transform: translateY(-3px); border-color: var(--secondary); }
 
@@ -44,19 +42,22 @@
         h2 { color: var(--primary); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
         .section-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
 
-        /* Tables (df.describe & df.head) */
+        /* Data Tables */
         .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { background: #f1f5f9; padding: 14px; border-bottom: 2px solid #e2e8f0; text-align: left; color: var(--primary); }
         td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-family: 'Fira Code', monospace; }
 
-        /* Pro Code Block */
-        .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; }
+        /* Professional Code Block (VS Code Style) */
+        .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
         .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
-        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', monospace; font-size: 0.95rem; line-height: 1.6; overflow-x: auto; }
-        
+        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; overflow-x: auto; }
+        .comment { color: #6a9955; font-style: italic; }
+        .keyword { color: #569cd6; }
+        .function { color: #dcdcaa; }
+
         /* Large Viz - One per row */
         .viz-large-row { display: flex; flex-direction: column; gap: 40px; margin-top: 30px; }
         .viz-card-large { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; }
@@ -70,10 +71,6 @@
             padding: 35px; border-radius: 16px;
             position: relative; overflow: hidden;
         }
-        .conclusion-gradient::after {
-            content: '\f11e'; font-family: 'Font Awesome 5 Free'; font-weight: 900;
-            position: absolute; right: 20px; bottom: 10px; font-size: 5rem; color: rgba(59, 130, 246, 0.1);
-        }
 
         footer { text-align: center; padding: 80px 20px; color: #94a3b8; font-size: 0.95rem; }
     </style>
@@ -82,7 +79,7 @@
 
 <div class="header-banner">
     <h1>California House Price Prediction</h1>
-    <p>Predictive Modeling & Statistical Analysis Portfolio</p>
+    <p>Predictive Modeling & Statistical Analysis</p>
     
     <div class="source-link-container">
         <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/California%20House%20Prediction" target="_blank" class="btn-github-pro">
@@ -94,6 +91,10 @@
 
 <div class="container">
     <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-label">Used Algorithm</span>
+            <span class="stat-value" style="font-size: 1.4rem;">Linear Regression</span>
+        </div>
         <div class="stat-card">
             <span class="stat-label">Model MSE</span>
             <span class="stat-value" data-target="0.548">0</span>
@@ -110,9 +111,9 @@
 
     <section>
         <h2><i class="fas fa-search"></i> Data Inspection</h2>
-        <p class="section-desc">Initial exploration of the California Housing dataset to understand feature scales and distributions.</p>
+        <p class="section-desc">Technical review of the dataset features and statistical properties (<code>df.head</code> & <code>df.describe</code>).</p>
         
-        <h3>Dataset Preview (df.head)</h3>
+        <h3>First 3 Records (df.head)</h3>
         <div class="table-wrapper">
             <table>
                 <thead>
@@ -143,31 +144,30 @@
     </section>
 
     <section>
-        <h2><i class="fas fa-terminal"></i> Implementation: Linear Regression</h2>
-        <p class="section-desc">The model utilizes the Scikit-Learn LinearRegression algorithm to find the line of best fit through high-dimensional housing data.</p>
+        <h2><i class="fas fa-terminal"></i> Implementation</h2>
+        <p class="section-desc">Training phase logic and evaluation setup using Linear Regression.</p>
         <div class="code-editor">
             <div class="code-top-bar">
                 <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
             </div>
             <div class="code-content">
 <pre>
-'''
-# Analysis by Amir Mohamad Askari (2024)
-# Core algorithm implementation and evaluation
-'''
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+<span class="comment"># Code by Amir Mohamad Askari (2024)</span>
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, mean_absolute_error
 
-# 1. Initialize Algorithm
-reg_model = LinearRegression()
+<span class="keyword">def</span> <span class="function">train_and_evaluate</span>(x_train, x_test, y_train, y_test):
+    <span class="comment"># Algorithm: Linear Regression</span>
+    reg_model = LinearRegression()
+    reg_model.fit(x_train, y_train)
 
-# 2. Fit Model on Training Data
-reg_model.fit(x_train, y_train)
-
-# 3. Generate Predictions and Metrics
-y_pred = reg_model.predict(x_test)
-mse = mean_squared_error(y_test, y_pred)
-mae = mean_absolute_error(y_test, y_pred)
+    <span class="comment"># Predictions</span>
+    y_pred = reg_model.predict(x_test)
+    
+    <span class="comment"># Metrics calculation</span>
+    mse = mean_squared_error(y_test, y_pred)
+    mae = mean_absolute_error(y_test, y_pred)
+    <span class="keyword">return</span> mse, mae
 </pre>
             </div>
         </div>
@@ -175,11 +175,11 @@ mae = mean_absolute_error(y_test, y_pred)
 
     <section>
         <h2><i class="fas fa-eye"></i> Visual Performance Analysis</h2>
-        <p class="section-desc">Detailed visualizations representing the model's predictive accuracy and error variance.</p>
+        <p class="section-desc">Individual row analysis of model results and error distribution.</p>
         <div class="viz-large-row">
             <div class="viz-card-large">
                 <img src="actual_vs_pred.png" alt="Actual vs Predicted">
-                <div class="viz-label">Actual vs. Predicted Values (Regression Fit)</div>
+                <div class="viz-label">Actual vs. Predicted Values</div>
             </div>
             <div class="viz-card-large">
                 <img src="residuals.png" alt="Residuals">
@@ -187,35 +187,34 @@ mae = mean_absolute_error(y_test, y_pred)
             </div>
             <div class="viz-card-large">
                 <img src="outliers.png" alt="Outliers">
-                <div class="viz-label">Outlier Identification (95th Percentile)</div>
+                <div class="viz-label">Outlier Identification (95th Percentile Error)</div>
             </div>
         </div>
     </section>
 
     <section>
         <h2><i class="fas fa-award"></i> Project Conclusion</h2>
-        <p class="section-desc">Final insights and summary of the 2024 California Housing research.</p>
+        <p class="section-desc">Final synthesis of findings and future research directions.</p>
         <div class="conclusion-gradient">
-            <p>The <strong>Linear Regression</strong> model served as a robust baseline for this housing price prediction task. Achieving an <strong>MSE of 0.548</strong> and an <strong>MAE of 0.538</strong>, the model effectively captured the primary trends within the 20,640 records.</p>
-            <p><strong>Key Insight:</strong> The residual analysis indicates that while the model is highly accurate for mid-range properties, future work should involve feature engineering for geographical density to address higher-variance predictions in luxury markets.</p>
+            <p>This 2024 research confirms <strong>Linear Regression</strong> as a suitable baseline for the California Housing dataset. With an <strong>MSE of 0.548</strong> and <strong>MAE of 0.538</strong>, the model explains the majority of the variance in housing prices across 20,640 records.</p>
+            <p><strong>Moving Forward:</strong> To capture local anomalies and luxury market fluctuations better, future versions should explore non-linear ensemble methods like XGBoost or Gradient Boosting Regressors.</p>
         </div>
     </section>
 </div>
 
 <footer>
     <p>Project Authored by <strong>Amir Mohamad Askari</strong> &bull; 2024</p>
-    <p>Data Science Portfolio | Built with GitHub Pages</p>
 </footer>
 
 <script>
-    const counters = document.querySelectorAll('.stat-value');
+    const counters = document.querySelectorAll('.stat-value[data-target]');
     counters.forEach(counter => {
         const updateCount = () => {
             const target = +counter.getAttribute('data-target');
             const count = +counter.innerText;
             const inc = target / 60;
             if (count < target) {
-                counter.innerText = (count + inc).toFixed(target < 10 ? 3 : 0);
+                counter.innerText = (count + inc).toFixed(target < 1 ? 3 : 0);
                 setTimeout(updateCount, 30);
             } else { counter.innerText = target; }
         };
