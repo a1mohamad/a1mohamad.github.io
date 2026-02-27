@@ -24,7 +24,6 @@
                 radial-gradient(circle at 50% 0%, #1e293b 0%, transparent 50%),
                 radial-gradient(circle at 0% 100%, #0f172a 0%, transparent 50%);
             color: var(--text-primary);
-            /* Pro Mobile Scroll Fix */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -32,6 +31,7 @@
             justify-content: center;
             overflow-x: hidden;
             padding: 40px 0;
+            box-sizing: border-box;
         }
 
         .hero-container {
@@ -40,6 +40,9 @@
             text-align: center;
             z-index: 10;
             width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .glass-card {
@@ -50,6 +53,9 @@
             padding: 60px 40px;
             border-radius: 32px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: auto; /* Allow box to grow with content */
+            box-sizing: border-box;
         }
 
         h1 {
@@ -87,15 +93,21 @@
             flex-wrap: wrap;
         }
 
-        .btn-primary {
-            position: relative;
-            background: var(--accent);
-            color: white !important;
+        .btn-primary, .btn-secondary {
             padding: 16px 32px;
             border-radius: 14px;
             text-decoration: none;
             font-weight: 600;
             transition: 0.3s all ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            position: relative;
+            background: var(--accent);
+            color: white !important;
             box-shadow: 0 0 20px var(--glow);
         }
 
@@ -107,12 +119,7 @@
         .btn-secondary {
             background: rgba(255, 255, 255, 0.05);
             color: white !important;
-            padding: 16px 32px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
         }
 
         .btn-secondary:hover {
@@ -158,12 +165,14 @@
             transform: translateY(-3px);
         }
 
-        /* Mobile specific adjustments */
+        /* --- NASTY MOBILE FIXES --- */
         @media (max-width: 600px) {
+            body { padding: 60px 20px; }
             h1 { font-size: 2.2rem; }
-            .glass-card { padding: 40px 20px; }
-            .button-group { flex-direction: column; width: 100%; }
-            .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+            .glass-card { padding: 40px 20px; } /* Slimmer padding on mobile */
+            .button-group { flex-direction: column; width: 100%; gap: 15px; }
+            .btn-primary, .btn-secondary { width: 100%; box-sizing: border-box; }
+            p { margin-bottom: 30px; }
         }
     </style>
 </head>
@@ -214,9 +223,6 @@
     </div>
 
     <script>
-    /**
-     * Function to copy email and show visual feedback
-     */
     function copyEmailToClipboard() {
         const emailAddr = "a1.mohamad.askari@gmail.com";
         navigator.clipboard.writeText(emailAddr).then(() => {
