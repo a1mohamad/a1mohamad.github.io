@@ -24,24 +24,28 @@
                 radial-gradient(circle at 50% 0%, #1e293b 0%, transparent 50%),
                 radial-gradient(circle at 0% 100%, #0f172a 0%, transparent 50%);
             color: var(--text-primary);
-            height: 100vh;
+            /* Pro Mobile Scroll Fix */
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow-x: hidden;
+            padding: 40px 0;
         }
 
         .hero-container {
             max-width: 800px;
-            padding: 40px;
+            padding: 20px;
             text-align: center;
             z-index: 10;
+            width: 90%;
         }
 
-        /* The Glass Card */
         .glass-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 60px 40px;
             border-radius: 32px;
@@ -49,7 +53,7 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.2rem, 5vw, 4rem);
             font-weight: 800;
             margin: 0;
             background: linear-gradient(to right, #fff, #94a3b8);
@@ -64,7 +68,7 @@
             font-weight: 700;
             letter-spacing: 3px;
             font-size: 0.9rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: block;
         }
 
@@ -73,9 +77,9 @@
             color: var(--text-secondary);
             max-width: 500px;
             margin: 20px auto 40px;
+            line-height: 1.6;
         }
 
-        /* Nasty Buttons */
         .button-group {
             display: flex;
             gap: 20px;
@@ -86,7 +90,7 @@
         .btn-primary {
             position: relative;
             background: var(--accent);
-            color: white;
+            color: white !important;
             padding: 16px 32px;
             border-radius: 14px;
             text-decoration: none;
@@ -102,7 +106,7 @@
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.05);
-            color: white;
+            color: white !important;
             padding: 16px 32px;
             border-radius: 14px;
             text-decoration: none;
@@ -116,7 +120,6 @@
             border-color: rgba(255, 255, 255, 0.3);
         }
 
-        /* Decorative Pulse */
         .pulse {
             position: absolute;
             top: 50%;
@@ -135,22 +138,32 @@
             100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
         }
 
-        /* Bottom Floating Socials */
         .footer-socials {
-            position: absolute;
-            bottom: 40px;
+            margin-top: 50px;
             display: flex;
-            gap: 30px;
+            gap: 35px;
+            align-items: center;
+            position: relative;
         }
 
         .footer-socials a {
             color: var(--text-secondary);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             transition: 0.3s;
+            text-decoration: none;
         }
 
         .footer-socials a:hover {
             color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .glass-card { padding: 40px 20px; }
+            .button-group { flex-direction: column; width: 100%; }
+            .btn-primary, .btn-secondary { width: 100%; text-align: center; }
         }
     </style>
 </head>
@@ -175,48 +188,48 @@
     </div>
 
     <div class="footer-socials">
-    <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-linkedin"></i>
-    </a>
-
-    <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank">
-        <i class="fab fa-kaggle"></i>
-    </a>
-
-    <div style="position: relative; display: inline-block;">
-        <a href="mailto:a1.mohamad.askari@gmail.com?subject=Research%20Inquiry" 
-           id="emailLink" 
-           style="cursor: pointer;">
-            <i class="fas fa-envelope"></i>
+        <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
         </a>
-        
-        <button onclick="copyEmailToClipboard()" 
-                style="position: absolute; top: -12px; right: -12px; background: #3b82f6; color: white; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"
-                title="Copy Email Address">
-            <i class="fas fa-copy"></i>
-        </button>
 
-        <span id="copyToast" style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); background: #22c55e; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; display: none; white-space: nowrap; font-weight: bold;">
-            Copied!
-        </span>
+        <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" title="Kaggle">
+            <i class="fab fa-kaggle"></i>
+        </a>
+
+        <div style="position: relative; display: inline-block;">
+            <a href="mailto:a1.mohamad.askari@gmail.com?subject=Research%20Inquiry" id="emailLink" title="Send Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            <button onclick="copyEmailToClipboard()" 
+                    style="position: absolute; top: -12px; right: -12px; background: #3b82f6; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-size: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.4);"
+                    title="Copy Email Address">
+                <i class="fas fa-copy"></i>
+            </button>
+
+            <span id="copyToast" style="position: absolute; bottom: 45px; left: 50%; transform: translateX(-50%); background: #22c55e; color: white; padding: 5px 12px; border-radius: 8px; font-size: 12px; display: none; white-space: nowrap; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                Copied!
+            </span>
+        </div>
     </div>
-</div>
 
-<script>
-/**
- * Function to handle the 'nasty' email copy move
- */
-function copyEmailToClipboard() {
-    const emailAddr = "a1.mohamad.askari@gmail.com";
-    navigator.clipboard.writeText(emailAddr).then(() => {
-        const toast = document.getElementById('copyToast');
-        toast.style.display = 'block';
-        setTimeout(() => {
-            toast.style.display = 'none';
-        }, 2000);
-    });
-}
-</script>
+    <script>
+    /**
+     * Function to copy email and show visual feedback
+     */
+    function copyEmailToClipboard() {
+        const emailAddr = "a1.mohamad.askari@gmail.com";
+        navigator.clipboard.writeText(emailAddr).then(() => {
+            const toast = document.getElementById('copyToast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }).catch(err => {
+            console.error('Could not copy text: ', err);
+        });
+    }
+    </script>
 
 </body>
 </html>
