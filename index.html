@@ -2,45 +2,183 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Amir Mohamad Askari | AI Engineer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amir Mohamad Askari | AI Research Engineer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #020617;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --accent: #3b82f6;
+            --glow: rgba(59, 130, 246, 0.5);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #0f172a;
-            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1e293b 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, #0f172a 0%, transparent 50%);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 800px;
+            padding: 40px;
             text-align: center;
+            z-index: 10;
         }
-        .container {
-            padding: 80px 20px;
+
+        /* The Glass Card */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 40px;
+            border-radius: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
+
         h1 {
-            font-size: 48px;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin: 0;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
-        h2 {
-            font-weight: normal;
-            color: #94a3b8;
+
+        .role-tag {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
         }
-        .btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 24px;
-            background: #2563eb;
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 20px auto 40px;
+        }
+
+        /* Nasty Buttons */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            position: relative;
+            background: var(--accent);
             color: white;
+            padding: 16px 32px;
+            border-radius: 14px;
             text-decoration: none;
-            border-radius: 6px;
+            font-weight: 600;
+            transition: 0.3s all ease;
+            box-shadow: 0 0 20px var(--glow);
         }
-        .btn:hover {
-            background: #1d4ed8;
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px var(--accent);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Decorative Pulse */
+        .pulse {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 14px;
+            z-index: -1;
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+        }
+
+        /* Bottom Floating Socials */
+        .footer-socials {
+            position: absolute;
+            bottom: 40px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-socials a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .footer-socials a:hover {
+            color: var(--accent);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Amir Mohamad Askari</h1>
-        <h2>AI Engineer | Machine Learning | Deep Learning</h2>
-        <p>Building intelligent systems in Computer Vision and NLP.</p>
-        <a href="https://github.com/a1mohamad" class="btn">View GitHub</a>
+
+    <div class="hero-container">
+        <div class="glass-card">
+            <span class="role-tag">Core Intelligence Systems</span>
+            <h1>Amir Mohamad Askari</h1>
+            <p>Developing state-of-the-art architectures in Computer Vision, NLP, and Predictive Analytics.</p>
+
+            <div class="button-group">
+                <a href="research/index.html" class="btn-primary">
+                    <div class="pulse"></div>
+                    <i class="fas fa-microchip" style="margin-right: 8px;"></i> Enter Research Lab
+                </a>
+                <a href="https://github.com/a1mohamad" class="btn-secondary" target="_blank">
+                    <i class="fab fa-github" style="margin-right: 8px;"></i> Source Code
+                </a>
+            </div>
+        </div>
     </div>
+
+    <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/amirmohamad-askari-057417242/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank"><i class="fab fa-kaggle"></i></a>
+        <a href="mailto:your-email@example.com"><i class="fas fa-envelope"></i></a>
+    </div>
+
 </body>
 </html>
