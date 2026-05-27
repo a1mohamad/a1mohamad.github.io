@@ -77,9 +77,10 @@
         /* Fancy Glassmorphic Metrics Panel */
         .metrics-panel { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 25px; 
             margin-bottom: 45px; 
+            justify-content: center;
         }
 
         .metric-glow-card { 
@@ -105,22 +106,20 @@
             color: var(--text-secondary); 
             font-weight: 700;
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
-        .metric-number { 
-            font-size: 2.4rem; 
-            font-weight: 800; 
+        .metric-line { 
+            font-size: 1.5rem; 
+            font-weight: 700; 
             color: #fff; 
             font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: -0.5px;
-            line-height: 1.2;
+            margin-bottom: 4px;
         }
 
         .metric-subtext {
             font-size: 0.85rem;
             color: var(--accent-glow);
-            margin-top: 6px;
             font-family: monospace;
         }
 
@@ -319,18 +318,13 @@
     <div class="metrics-panel">
         <div class="metric-glow-card">
             <span class="metric-title">Monitored Ingestion Endpoints</span>
-            <span class="metric-number">Active RSS</span>
-            <span class="metric-subtext">XML Stream Parsing</span>
+            <div class="metric-line">Active RSS</div>
+            <div class="metric-subtext">XML Stream Parsing</div>
         </div>
         <div class="metric-glow-card">
             <span class="metric-title">Parsing Efficiency Index</span>
-            <span class="metric-number">O(1) Engine</span>
-            <span class="metric-subtext">Direct Node Ingestion</span>
-        </div>
-        <div class="metric-glow-card">
-            <span class="metric-title">Target Features Aggregated</span>
-            <span class="metric-number">4 Schema</span>
-            <span class="metric-subtext">Title, Author, Date, Body</span>
+            <div class="metric-line">O(1) Engine</div>
+            <div class="metric-subtext">Direct Node Ingestion</div>
         </div>
     </div>
 
