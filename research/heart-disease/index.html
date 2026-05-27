@@ -20,14 +20,14 @@
         .header-banner { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 100px 20px; text-align: center; }
         .container { max-width: 1000px; margin: -60px auto 50px; padding: 0 20px; }
 
-        /* Dashboard Stats with Classification Cards */
+        /* Dashboard Stats */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .stat-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--secondary); display: flex; flex-direction: column; justify-content: center; }
-        .stat-card.alert-card { border-bottom: 4px solid var(--accent); }
+        .stat-card.cv-card { border-bottom: 4px solid #6366f1; }
         .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 10px 0; }
         .stat-label { color: #64748b; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; }
 
-        /* GitHub Link Button */
+        /* GitHub Button */
         .source-link-container { text-align: center; margin: 35px 0; }
         .btn-github-pro { 
             display: inline-flex; align-items: center; gap: 12px; 
@@ -39,18 +39,18 @@
         }
         .btn-github-pro:hover { background: #000; transform: translateY(-3px); border-color: var(--secondary); }
 
-        /* Content Blocks */
+        /* Content Sections */
         section { background: white; padding: 45px; border-radius: 20px; margin-top: 35px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
         h2 { color: var(--primary); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
         .section-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
 
-        /* Tables for EDA & Pipeline Monitoring */
+        /* Feature Matrix Table */
         .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { background: #f1f5f9; padding: 14px; border-bottom: 2px solid #e2e8f0; text-align: left; color: var(--primary); }
         td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-family: 'Fira Code', monospace; }
 
-        /* VS-Code Style IDE Code Window */
+        /* VS-Code Styled IDE Window */
         .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
         .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
@@ -60,13 +60,18 @@
         .keyword { color: #569cd6; }
         .function { color: #dcdcaa; }
 
-        /* Diagnostic Plot Grid Layout */
+        /* Visualization Layout */
         .viz-large-row { display: flex; flex-direction: column; gap: 40px; margin-top: 30px; }
         .viz-card-large { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; }
         .viz-card-large img { width: 100%; display: block; height: auto; }
         .viz-label { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 700; color: var(--primary); }
 
-        /* Narrative Conclusion Panel */
+        /* Theoretical Info Cards */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; }
+        .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; }
+        .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+
+        /* Conclusion Banner */
         .conclusion-gradient { 
             background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%); 
             border-left: 8px solid var(--secondary); 
@@ -80,11 +85,11 @@
 <body>
 
 <div class="header-banner">
-    <h1>10-Year Cardiovascular Disease Risk Evaluation</h1>
-    <p>Supervised Machine Learning Framework for Preventive Diagnostics</p>
+    <h1>Cardiovascular Risk Diagnostics Pipeline</h1>
+    <p>Comparative Classification Modeling via Linear Decision Boundaries</p>
     
     <div class="source-link-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Heart%20Disease%20Prediction" target="_blank" class="btn-github-pro">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main" target="_blank" class="btn-github-pro">
             <i class="fab fa-github fa-lg"></i>
             <span>Examine Source Notebook on GitHub</span>
         </a>
@@ -92,103 +97,150 @@
 </div>
 
 <div class="container">
+
+    <section>
+        <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
+        <p class="section-desc">A clinical data-science study focused on predictive risk management for cardiovascular healthcare systems.</p>
+        <p>This research evaluates statistical approaches to identifying patients at high risk of developing <strong>10-Year Coronary Heart Disease (CHD)</strong>. Utilizing an epidemiological dataset comprising 4,240 records, the framework drop non-predictive administrative features, handles clinical null entries via systematic feature mean imputation, and maps scaled continuous features to optimized binary probability margins. The core objective is to analyze predictive boundaries by pairing an elemental classification architecture with robust cross-validation strategies.</p>
+    </section>
+
     <div class="stats-grid">
         <div class="stat-card">
-            <span class="stat-label">Classifier Base</span>
-            <span class="stat-value" style="font-size: 1.4rem;">Logistic Regression</span>
+            <span class="stat-label">Logistic Regression</span>
+            <span class="stat-value" data-target="86.63">0</span>
+        </div>
+        <div class="stat-card cv-card">
+            <span class="stat-label">LogisticRegressionCV</span>
+            <span class="stat-value" data-target="86.71">0</span>
         </div>
         <div class="stat-card">
-            <span class="stat-label">Model Accuracy</span>
-            <span class="stat-value" data-target="0.85">0</span>
-        </div>
-        <div class="stat-card alert-card">
-            <span class="stat-label">Target Imbalance (0/1)</span>
-            <span class="stat-value" style="font-size: 1.5rem;">3,596 / 644</span>
+            <span class="stat-label">Total Features</span>
+            <span class="stat-value">14</span>
         </div>
         <div class="stat-card">
-            <span class="stat-label">Dataset Cohort Size</span>
+            <span class="stat-label">Total Cohort Records</span>
             <span class="stat-value" data-target="4240">0</span>
         </div>
     </div>
 
     <section>
-        <h2><i class="fas fa-stethoscope"></i> Clinical Feature Engineering & Data Imputation</h2>
-        <p class="section-desc">Analysis of data dimensions, handling structural anomalies, and applying numerical mean imputation across missing patient metrics.</p>
+        <h2><i class="fas fa-book-medical"></i> Technical Machinery Briefing</h2>
+        <p class="section-desc">A mathematical and structural look at the algorithmic baseline and framework choices powering this project.</p>
         
-        <h3>Missing Values Analysis & Execution Strategies</h3>
+        <div class="info-grid">
+            <div class="info-card">
+                <h4><i class="fas fa-brain" style="color: var(--secondary);"></i> Logistic Regression</h4>
+                <p>A fundamental classification algorithm that models the probability of a binary categorical output ($Y \in \{0,1\}$) by passing a linear combination of features through the non-linear Sigmoid Activation function:</p>
+                <p style="text-align: center; font-weight: 600; background: #fff; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    $$P(Y=1|X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+                </p>
+                <p>The variant <code>LogisticRegressionCV</code> goes a step further by executing an internal $K$-fold search directly across a defined grid of $\ell_2$ regularization hyper-parameters ($C$) to combat model overfitting without leaking test-set data boundaries.</p>
+            </div>
+            <div class="info-card">
+                <h4><i class="fas fa-cubes" style="color: #6366f1;"></i> Scikit-Learn Ecosystem</h4>
+                <p>Built upon foundational scientific computing platforms (NumPy, SciPy, and Matplotlib), <strong>Scikit-Learn</strong> offers clean interfaces for structural machine learning tasks. It provides clean components for:</p>
+                <ul style="padding-left: 20px; color: var(--text-main);">
+                    <li><strong>StandardScaler:</strong> Standardizes input magnitudes to zero mean and unit variance.</li>
+                    <li><strong>LogisticRegression/CV:</strong> Highly optimized solver engines (e.g., <code>lbfgs</code>).</li>
+                    <li><strong>Metrics API:</strong> Quantifies evaluation parameters via specialized cross-tabulation routines.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-microscope"></i> Clinical Feature Space</h2>
+        <p class="section-desc">The complete structure of the processed engineering vector consisting of 14 separate physiological indicators.</p>
+        
         <div class="table-wrapper">
             <table>
                 <thead>
-                    <tr><th>Clinical Metric</th><th>Null Counts (Pre)</th><th>Imputation Policy</th><th>Null Counts (Post)</th></tr>
+                    <tr><th>Feature Component Name</th><th>Missing Values (Post-Imputation)</th><th>Data Dimension Role</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>glucose</strong></td><td>388</td><td>Numerical Column Mean Imputation</td><td>0</td></tr>
-                    <tr><td><strong>BPMeds</strong></td><td>53</td><td>Numerical Column Mean Imputation</td><td>0</td></tr>
-                    <tr><td><strong>totChol</strong></td><td>50</td><td>Numerical Column Mean Imputation</td><td>0</td></tr>
-                    <tr><td><strong>cigsPerDay</strong></td><td>29</td><td>Numerical Column Mean Imputation</td><td>0</td></tr>
-                    <tr><td><strong>BMI</strong></td><td>19</td><td>Numerical Column Mean Imputation</td><td>0</td></tr>
+                    <tr><td><code>sex_male</code></td><td>0</td><td>Categorical Demographics Indicator</td></tr>
+                    <tr><td><code>age</code></td><td>0</td><td>Continuous Demographics Variable</td></tr>
+                    <tr><td><code>currentSmoker</code></td><td>0</td><td>Behavioral Lifestyle Feature</td></tr>
+                    <tr><td><code>cigsPerDay</code></td><td>0</td><td>Quantitative Behavioral Feature</td></tr>
+                    <tr><td><code>BPMeds</code></td><td>0</td><td>Clinical History Flag</td></tr>
+                    <tr><td><code>prevalentStroke</code></td><td>0</td><td>Clinical History Flag</td></tr>
+                    <tr><td><code>prevalentHyp</code></td><td>0</td><td>Clinical History Flag</td></tr>
+                    <tr><td><code>diabetes</code></td><td>0</td><td>Clinical Pathology Indicator</td></tr>
+                    <tr><td><code>totChol</code></td><td>0</td><td>Serum Metabolic Metric</td></tr>
+                    <tr><td><code>sysBP</code></td><td>0</td><td>Hemodynamic Blood Pressure Upper Metric</td></tr>
+                    <tr><td><code>diaBP</code></td><td>0</td><td>Hemodynamic Blood Pressure Lower Metric</td></tr>
+                    <tr><td><code>BMI</code></td><td>0</td><td>Physical Anthropometric Measurement</td></tr>
+                    <tr><td><code>heartRate</code></td><td>0</td><td>Vital Cardiovascular Sign Metric</td></tr>
+                    <tr><td><code>glucose</code></td><td>0</td><td>Serum Metabolic Glucose Metric</td></tr>
+                    <tr style="background: #fdf2f2; font-weight: bold;"><td><code>TenYearCHD</code></td><td>0</td><td>Supervised Optimization Target ($Y$)</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
 
     <section>
-        <h2><i class="fas fa-code"></i> Model Orchestration & Validation Pipeline</h2>
-        <p class="section-desc">Split-sample validation mapping (70% Train / 30% Test) using scaled feature blocks optimized for regularized logit boundaries.</p>
+        <h2><i class="fas fa-terminal"></i> Implementation Sandbox</h2>
+        <p class="section-desc">The structural model validation engine loop built within your Jupyter notebook environment.</p>
         <div class="code-editor">
             <div class="code-top-bar">
                 <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
             </div>
             <div class="code-content">
 <pre>
-<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
-<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix, accuracy_score
+<span class="comment">'''
+Model Orchestration Engine for Multi-Model Diagnostics Verification
+Author: Amir Mohamad Askari
+'''</span>
 
-<span class="keyword">def</span> <span class="function">train_classification_pipeline</span>(x_train, x_test, y_train, y_test):
-    <span class="comment"># Initialize Regularized Logistic Regression Classifier</span>
-    model = LogisticRegression(max_iter=1000)
-    model.fit(x_train, y_train)
-
-    <span class="comment"># Extract diagnostic predictions</span>
-    y_pred_train = model.predict(x_train)
-    y_pred_test = model.predict(x_test)
+<span class="keyword">def</span> <span class="function">evaluate_diagnostic_models</span>(x_train, x_test, y_train, y_test):
+    <span class="comment"># Initialize dual modeling engines to compare base and cross-validated estimators</span>
+    models = [
+        LogisticRegression(max_iter=10000), 
+        LogisticRegressionCV(max_iter=10000)
+    ]
     
-    <span class="comment"># Performance scores calculation</span>
-    train_acc = accuracy_score(y_train, y_pred_train)
-    test_acc = accuracy_score(y_test, y_pred_test)
-    <span class="keyword">return</span> model, train_acc, test_acc
+    <span class="keyword">for</span> model <span class="keyword">in</span> models:
+        <span class="comment"># Fit individual binary logit boundary plane</span>
+        model.fit(x_train, y_train)
+        
+        <span class="comment"># Generate operational predictions</span>
+        y_pred = model.predict(x_train)
+        y_pred_test = model.predict(x_test)
+        
+        <span class="comment"># Track metrics inside workspace stream</span>
+        print(f"Accuracy: {accuracy_score(y_test, y_pred_test)}")
 </pre>
             </div>
         </div>
     </section>
 
     <section>
-        <h2><i class="fas fa-chart-line"></i> Evaluation Plots & Error Matrices</h2>
-        <p class="section-desc">Detailed assessment of prediction boundaries, true vs. false positives, and categorical error rates.</p>
+        <h2><i class="fas fa-chart-bar"></i> Visual Performance Metrics</h2>
+        <p class="section-desc">Class distribution graphs and error matrix cross-tabulations exported directly from evaluation cells.</p>
         <div class="viz-large-row">
             <div class="viz-card-large">
-                <img src="confusion_matrix.png" alt="Confusion Matrix Heatmap">
-                <div class="viz-label">Confusion Matrix Heatmap (Actual vs Predicted Classes)</div>
+                <img src="class_proportion.png" alt="Class Proportion Pie Chart">
+                <div class="viz-label">Target Class Cohort Proportions (Negative vs Positive Diagnoses)</div>
             </div>
             <div class="viz-card-large">
-                <img src="roc_curve.png" alt="ROC - AUC Boundary Mapping">
-                <div class="viz-label">Receiver Operating Characteristic (ROC) Curve Analysis</div>
+                <img src="confusion_matrix.png" alt="Confusion Matrix Heatmap Visual">
+                <div class="viz-label">Model Evaluation Error Matrix Plot (Actual vs. Predicted)</div>
             </div>
         </div>
     </section>
 
     <section>
-        <h2><i class="fas fa-notes-medical"></i> Research Synthesis</h2>
-        <p class="section-desc">Final evaluation summary, assessment of the data imbalance challenge, and next architectural upgrades.</p>
+        <h2><i class="fas fa-clipboard-check"></i> Project Synthesis</h2>
+        <p class="section-desc">Final verification of data modeling thresholds and strategic evaluation statements.</p>
         <div class="conclusion-gradient">
-            <p>The <strong>Logistic Regression</strong> classifier established a robust diagnostic accuracy baseline of <strong>85%</strong> across the cohort test segment. Feature checking indicates that variables such as systolic blood pressure (<code>sysBP</code>), age, and blood glucose levels play a key role in regularized weight estimation.</p>
-            <p><strong>Next Phase Optimization:</strong> Due to the significant imbalance in the target class (3,596 negative vs. 644 positive observations), future work will focus on integrating synthetic oversampling techniques like SMOTE alongside non-linear ensembles (XGBoost, CatBoost) to improve model sensitivity and minority class recall performance.</p>
+            <p>This project successfully establishes regularized linear boundaries for cardiovascular diagnosis. The <strong>Logistic Regression</strong> model provided a test set accuracy of <strong>86.63%</strong>. Incorporating internal hyperparameter tuning via <strong>Logistic Regression CV</strong> slightly shifted coefficients to achieve a peak diagnostic test accuracy of <strong>86.71%</strong>.</p>
+            <p><strong>Moving Forward:</strong> Future versions should focus on handling data imbalance directly by using class-weight tuning inside the Scikit-Learn classifiers or implementing synthetic oversampling routines to improve positive-class recall scores.</p>
         </div>
     </section>
 </div>
 
 <footer>
-    <p>Project Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026</p>
+    <p>Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026</p>
 </footer>
 
 <script>
@@ -199,9 +251,9 @@
             const count = +counter.innerText;
             const inc = target / 60;
             if (count < target) {
-                counter.innerText = (count + inc).toFixed(target < 1 ? 2 : 0);
+                counter.innerText = (count + inc).toFixed(2) + '%';
                 setTimeout(updateCount, 30);
-            } else { counter.innerText = target; }
+            } else { counter.innerText = target + '%'; }
         };
         updateCount();
     });
