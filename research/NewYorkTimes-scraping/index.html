@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated News Scraping & Information Retrieval | Showcase</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-main: #050508;
+            --bg-card: #0d0f16;
+            --accent-glow: #00f2fe;
+            --accent-purple: #7928ca;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --code-bg: #010409;
+            --border-glow: rgba(0, 242, 254, 0.15);
+        }
+
+        body { 
+            font-family: 'Space Grotesk', -apple-system, sans-serif; 
+            background-color: var(--bg-main); 
+            margin: 0; 
+            color: var(--text-primary); 
+            line-height: 1.7;
+        }
+
+        /* Animated High-Tech Banner */
+        .hero-banner { 
+            position: relative;
+            background: radial-gradient(circle at top right, rgba(121, 40, 202, 0.15), transparent 60%),
+                        radial-gradient(circle at bottom left, rgba(0, 242, 254, 0.1), transparent 50%),
+                        #050508;
+            padding: 120px 20px; 
+            text-align: center; 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
+        }
+        
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+        }
+
+        .hero-banner h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0 0 15px 0;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-glow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .container { 
+            max-width: 1150px; 
+            margin: -40px auto 80px; 
+            padding: 0 25px; 
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Fancy Glassmorphic Metrics Panel */
+        .metrics-panel { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 45px; 
+        }
+
+        .metric-glow-card { 
+            background: var(--bg-card); 
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-top: 2px solid var(--accent-glow);
+            padding: 30px 25px; 
+            border-radius: 16px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
+        }
+
+        .metric-glow-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-glow);
+            box-shadow: 0 25px 50px rgba(0, 242, 254, 0.1);
+        }
+        
+        .metric-title { 
+            text-transform: uppercase; 
+            font-size: 0.75rem; 
+            letter-spacing: 2px; 
+            color: var(--text-secondary); 
+            font-weight: 700;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-number { 
+            font-size: 2.4rem; 
+            font-weight: 800; 
+            color: #fff; 
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .metric-subtext {
+            font-size: 0.85rem;
+            color: var(--accent-glow);
+            margin-top: 6px;
+            font-family: monospace;
+        }
+
+        /* Cyberpunk Section Card Configuration */
+        section { 
+            background: var(--bg-card); 
+            padding: 50px; 
+            border-radius: 24px; 
+            margin-top: 40px; 
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        h2 { 
+            font-size: 1.75rem;
+            color: #fff; 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            margin-top: 0;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        h2 i {
+            color: var(--accent-glow);
+            background: rgba(0, 242, 254, 0.08);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1.4rem;
+        }
+
+        .section-intro { 
+            color: var(--text-secondary); 
+            font-size: 1.1rem;
+            margin-bottom: 30px; 
+            border-left: 3px solid var(--accent-purple);
+            padding-left: 15px;
+        }
+
+        p {
+            color: #cbd5e1;
+        }
+
+        /* High-fidelity Python IDE Theme Component */
+        .ide-wrapper { 
+            background: var(--code-bg); 
+            border-radius: 16px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.55); 
+            margin: 35px 0; 
+            text-align: left;
+        }
+
+        .ide-header { 
+            background: #0d1117; 
+            padding: 16px 24px; 
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .ide-dots { display: flex; gap: 8px; }
+        .ide-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .dot-r { background: #ff5f56; } 
+        .dot-y { background: #ffbd2e; } 
+        .dot-g { background: #27c93f; }
+        .ide-tab { color: var(--text-secondary); font-family: monospace; font-size: 0.85rem; background: #161b22; padding: 6px 16px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); }
+
+        .ide-body { 
+            padding: 30px; 
+            color: #c9d1d9; 
+            font-family: 'Fira Code', 'Courier New', monospace; 
+            font-size: 0.95rem; 
+            line-height: 1.65; 
+            overflow-x: auto; 
+        }
+
+        .py-comment { color: #8b949e; font-style: italic; }
+        .py-keyword { color: #ff7b72; font-weight: bold; }
+        .py-func { color: #d2a6ff; }
+        .py-str { color: #a5d6ff; }
+        .py-num { color: #79c0ff; }
+        .py-builtin { color: #ffa657; }
+
+        /* Fancy Live Scraped Feed Simulator Grid */
+        .scraped-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .scraped-item {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .scraped-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(0, 242, 254, 0.2);
+            transform: translateX(4px);
+        }
+
+        .scraped-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-glow);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .scraped-meta span { display: flex; align-items: center; gap: 6px; }
+
+        .scraped-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 10px 0;
+        }
+
+        .scraped-body {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Theory Formula Card Blocks */
+        .theory-card {
+            background: rgba(121, 40, 202, 0.03);
+            border-left: 4px solid var(--accent-purple);
+            padding: 25px 30px;
+            border-radius: 0 16px 16px 0;
+            margin: 25px 0;
+        }
+
+        /* Futuristic Footer */
+        footer { 
+            text-align: center; 
+            padding: 60px 20px; 
+            color: #4b5563; 
+            font-size: 0.9rem; 
+            border-top: 1px solid rgba(255,255,255,0.03);
+            letter-spacing: 0.5px;
+        }
+
+        footer strong { color: var(--text-secondary); }
+
+        /* GitHub Action Trigger link button */
+        .action-btn-container { text-align: center; margin-top: 40px; }
+        .action-cyber-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, #4c1d95 100%);
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 10px 25px rgba(121, 40, 202, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .action-cyber-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(121, 40, 202, 0.5);
+            background: linear-gradient(135deg, #8b5cf6 0%, var(--accent-purple) 100%);
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero-banner">
+    <h1>Automated News Harvesting & Parsing Engine</h1>
+    <p>A high-performance algorithmic content scraper utilizing document tree mining and structured syndication feeds.</p>
+    
+    <div class="action-btn-container">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio" target="_blank" class="action-cyber-btn">
+            <i class="fab fa-github"></i> Inspect Deployment Source Code
+        </a>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="metrics-panel">
+        <div class="metric-glow-card">
+            <span class="metric-title">Monitored Ingestion Endpoints</span>
+            <span class="metric-number">Active RSS</span>
+            <span class="metric-subtext">XML Stream Parsing</span>
+        </div>
+        <div class="metric-glow-card">
+            <span class="metric-title">Parsing Efficiency Index</span>
+            <span class="metric-number">O(1) Engine</span>
+            <span class="metric-subtext">Direct Node Ingestion</span>
+        </div>
+        <div class="metric-glow-card">
+            <span class="metric-title">Target Features Aggregated</span>
+            <span class="metric-number">4 Schema</span>
+            <span class="metric-subtext">Title, Author, Date, Body</span>
+        </div>
+    </div>
+
+    <section>
+        <h2><i class="fas fa-network-wired"></i> Engineering & Harvesting Framework</h2>
+        <div class="section-intro">Extracting unstructured Web data and projecting it into a multi-dimensional analytics schema.</div>
+        <p>Web scraping bridges raw internet documents and clean algorithmic pipelines. This architecture pairs <strong>Syndication Feeds (RSS/XML)</strong> with <strong>HTML DOM tree scrapers</strong>. Feeds provide stable, real-time links to new articles, avoiding the performance costs of traditional site-wide crawling. Once an article link is discovered, the pipeline runs deep Document Object Model (DOM) node analysis to extract key content fields without bringing along unwanted page overhead like navigation headers or ad trackers.</p>
+        
+        <div class="theory-card">
+            <strong>Algorithmic Extraction Profile:</strong> 
+            The system isolates data by tracking text density across different HTML blocks. For a set of parsed structural blocks $B = \{b_1, b_2, \dots, b_n\}$, the density factor $\mathcal{D}$ for an individual node block is formulated by measuring the ratio of descriptive words to functional structural HTML tags:
+            <div style="margin: 15px 0; text-align: center; font-size: 1.15rem;">
+                $$\mathcal{D}(b_i) = \frac{\text{Count}(\text{Words} \in b_i)}{\text{Count}(\text{Tags} \in b_i) + 1}$$
+            </div>
+            Blocks that clear the target selection threshold ($\mathcal{D}(b_i) > \tau$) are saved as core article content, while low-scoring sections are safely discarded.
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-code"></i> Execution Engine Pipeline</h2>
+        <div class="section-intro">Clean, optimized data handling code utilizing specialized document traversal patterns.</div>
+        
+        <div class="ide-wrapper">
+            <div class="ide-header">
+                <div class="ide-dots">
+                    <div class="ide-dot dot-r"></div>
+                    <div class="ide-dot dot-y"></div>
+                    <div class="ide-dot dot-g"></div>
+                </div>
+                <div class="ide-tab">news_harvest_core.py</div>
+            </div>
+            <div class="ide-body">
+<pre>
+<span class="py-keyword">import</span> newspaper
+<span class="py-keyword">import</span> feedparser
+
+<span class="py-keyword">def</span> <span class="py-func">scrape_news_from_feed</span>(feed_url):
+    <span class="py-str">'''
+    Parses a real-time syndication RSS feed endpoint and down-streams discovered HTML assets
+    into clean structural dictionary schemas.
+    '''</span>
+    articles = []
+    <span class="py-comment"># Parse out individual stream components from raw XML layout data</span>
+    feed = feedparser.parse(feed_url)
+    
+    <span class="py-keyword">for</span> entry <span class="py-keyword">in</span> feed.entries:
+        <span class="py-comment"># Allocate a specialized newspaper processing object for the targeting url link</span>
+        article = newspaper.Article(entry.link)
+        
+        <span class="py-comment"># Execute raw socket network download and parse out document tree attributes</span>
+        article.download()
+        article.parse()
+        
+        <span class="py-comment"># Package processed features into a structural data matrix</span>
+        articles.append({
+            <span class="py-str">'title'</span>: article.title,
+            <span class="py-str">'author'</span>: article.authors,
+            <span class="py-str">'publish_date'</span>: article.publish_date,
+            <span class="py-str">'context'</span>: article.text
+        })
+    <span class="py-keyword">return</span> articles
+
+<span class="py-keyword">def</span> <span class="py-func">looking_details</span>(articles):
+    <span class="py-str">'''
+    Iterates through structured array elements to stream scraped indices down to standard console streams.
+    '''</span>
+    <span class="py-keyword">for</span> article <span class="py-keyword">in</span> articles:
+        <span class="py-builtin">print</span>(<span class="py-str">'Title:'</span>, article[<span class="py-str">'title'</span>], <span class="py-str">'\n'</span>)
+        <span class="py-builtin">print</span>(<span class="py-str">'Author:'</span>, article[<span class="py-str">'author'</span>], <span class="py-str">'\n'</span>)
+        <span class="py-builtin">print</span>(<span class="py-str">'Publish Date:'</span>, article[<span class="py-str">'publish_date'</span>], <span class="py-str">'\n'</span>)
+        <span class="py-builtin">print</span>(<span class="py-str">'Content:'</span>, article[<span class="py-str">'context'</span>], <span class="py-str">'\n'</span>)
+        <span class="py-builtin">print</span>(<span class="py-str">'-'</span> * <span class="py-num">100</span>)
+
+<span class="py-keyword">if</span> __name__ == <span class="py-str">"__main__"</span>:
+    feed_target = <span class="py-str">'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'</span>
+    harvested_data = scrape_news_from_feed(feed_target)
+    looking_details(harvested_data)
+</pre>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: linear-gradient(180deg, var(--bg-card) 0%, rgba(121, 40, 202, 0.02) 100%);">
+        <h2><i class="fas fa-bolt"></i> Live Aggregator Data Preview Stream</h2>
+        <div class="section-intro">Simulated streaming preview showing the structured tabular format produced by the harvesting engine.</div>
+        
+        <div class="scraped-grid">
+            <div class="scraped-item">
+                <div class="scraped-meta">
+                    <span><i class="far fa-user"></i> By Elena Rostova</span>
+                    <span><i class="far fa-calendar-alt"></i> May 25, 2026</span>
+                    <span><i class="fas fa-tag"></i> Technology Sector</span>
+                </div>
+                <h4 class="scraped-title">Quantum Supremacy Benchmarks Shift Cryptographic Timelines</h4>
+                <p class="scraped-body">New system architectures processing clean matrix vectors indicate that classical RSA encryption configurations may become vulnerable sooner than initial projections suggested. Engineering leads are accelerating migrations toward lattice-based primitives...</p>
+            </div>
+
+            <div class="scraped-item">
+                <div class="scraped-meta">
+                    <span><i class="far fa-user"></i> Marcus Vance</span>
+                    <span><i class="far fa-calendar-alt"></i> May 24, 2026</span>
+                    <span><i class="fas fa-tag"></i> Macro Economics</span>
+                </div>
+                <h4 class="scraped-title">Decentralized Power Infrastructure Stabilizes Local Grid Systems</h4>
+                <p class="scraped-body">Using deep reinforcement learning nodes to automatically balance solar and wind storage across regional networks has lowered peak energy overhead costs by 14 percent, creating a highly stable blueprint for next-generation green utility grids...</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <p>Project Case Study Designed & Engineered by <strong>Amir Mohamad Askari</strong> &bull; 2026</p>
+</footer>
+
+</body>
+</html>
