@@ -59,6 +59,7 @@
         .comment { color: #6a9955; font-style: italic; }
         .keyword { color: #569cd6; }
         .function { color: #dcdcaa; }
+        .string { color: #ce9178; }
 
         /* Visualization Layout */
         .viz-large-row { display: flex; flex-direction: column; gap: 40px; margin-top: 30px; }
@@ -89,7 +90,7 @@
     <p>Exploratory Data Analysis and Behavioral Segmentation on Metropolitan Restaurant Ecosystems</p>
     
     <div class="source-link-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main" target="_blank" class="btn-github-pro">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Zomato%20Restaurant" target="_blank" class="btn-github-pro">
             <i class="fab fa-github fa-lg"></i>
             <span>Examine Source Notebook on GitHub</span>
         </a>
@@ -98,6 +99,7 @@
 
 <div class="container">
 
+    <!-- Section 1: Dashboard Stats Metrics -->
     <div class="stats-grid">
         <div class="stat-card" data-type="number">
             <span class="stat-label">Total Restaurants Analyzed</span>
@@ -113,12 +115,14 @@
         </div>
     </div>
 
+    <!-- Section 2: Project Overview -->
     <section>
         <h2><i class="fas fa-chart-pie"></i> Project Overview</h2>
         <p class="section-desc">An empirical data exploration case study inspecting consumer trends and pricing indices within restaurant ecosystems.</p>
         <p>This study isolates and evaluates critical market-driven variables that govern consumer interactions within city dining frameworks. By cleaning and mining structured records, the pipeline processes text objects into parsed analytical floating-point dimensions (such as standardizing raw user review structures like <code>4.1/5</code> into computer-readable numerical representations). Through targeted query structures and multi-axis statistical plotting, this project reveals hidden patterns connecting dining modalities, relative customer volume metrics, and general booking options.</p>
     </section>
 
+    <!-- Section 3: Technical Machinery Briefing -->
     <section>
         <h2><i class="fas fa-toolbox"></i> Analysis Infrastructure & Toolkit</h2>
         <p class="section-desc">A deep dive into the fundamental library frameworks used to construct this data-mining workflow.</p>
@@ -144,6 +148,7 @@
         </div>
     </section>
 
+    <!-- Data Features Matrix Section -->
     <section>
         <h2><i class="fas fa-database"></i> Processed Data Schema</h2>
         <p class="section-desc">Structural description of the engineered metrics vector tracking restaurant profiles.</p>
@@ -166,28 +171,78 @@
         </div>
     </section>
 
+    <!-- Engineering Pipeline Code Editor Window -->
     <section>
-        <h2><i class="fas fa-terminal"></i> Data Processing Sandbox</h2>
-        <p class="section-desc">The algorithmic custom parsing functions designed to clean metric string elements into compute-ready dimensions.</p>
+        <h2><i class="fas fa-terminal"></i> Exploratory Data Analysis Sandbox</h2>
+        <p class="section-desc">The algorithmic data cleaning, aggregation, and macro-profiling logic utilized during the EDA pipeline phase.</p>
         <div class="code-editor">
             <div class="code-top-bar">
                 <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
             </div>
             <div class="code-content">
 <pre>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> seaborn <span class="keyword">as</span> sns
+
+<span class="comment"># 1. Load and Profile the Structural Dimensions</span>
+dataframe = pd.read_csv(<span class="string">"Zomato data .csv"</span>)
+print(dataframe.head())
+dataframe.info()
+
+<span class="comment"># 2. Vectorized Fraction Parsing Logic for Customer Ratings</span>
 <span class="keyword">def</span> <span class="function">handlerate</span>(value):
-    <span class="comment"># Splits fraction components away from numerical scores (e.g., '4.1/5' -> '4.1')</span>
-    value = str(value).split('/')
+    value = str(value).split(<span class="string">'/'</span>)
     value = float(value[0])
     <span class="keyword">return</span> value
 
-<span class="comment"># Vectorize clean transformation cleanly across the rate data feature column</span>
-dataframe['rate'] = dataframe['rate'].apply(handlerate)
+dataframe[<span class="string">'rate'</span>] = dataframe[<span class="string">'rate'</span>].apply(handlerate)
+print(dataframe.head())
+
+<span class="comment"># 3. Categorical Distributive Density Distributions</span>
+sns.countplot(x=dataframe[<span class="string">'listed_in(type)'</span>])
+plt.xlabel(<span class="string">'type of restaurant'</span>)
+plt.show()
+
+<span class="comment"># 4. Volumetric Consumer Feedback Tracking (Aggregation)</span>
+grouped_data = dataframe.groupby(<span class="string">'listed_in(type)'</span>)[<span class="string">'votes'</span>].sum()
+result = pd.DataFrame({<span class="string">'votes'</span>: grouped_data})
+plt.plot(result, c=<span class="string">'black'</span>, marker=<span class="string">'o'</span>)
+plt.xlabel(<span class="string">'type of restaurant'</span>, c=<span class="string">'r'</span>, size=20)
+plt.ylabel(<span class="string">'votes'</span>, c=<span class="string">'r'</span>, size=20)
+plt.show()
+
+<span class="comment"># 5. Peak Signal Metric Isolation</span>
+max_votes = dataframe[<span class="string">'votes'</span>].max()
+restaurant_with_max_votes = dataframe.loc[dataframe[<span class="string">'votes'</span>] == max_votes, <span class="string">'name'</span>]
+print(f<span class="string">'restaurant with most votes: {restaurant_with_max_votes} with \n {max_votes} votes'</span>)
+
+<span class="comment"># 6. Pricing Index Distribution Splitting</span>
+couple_data = dataframe[<span class="string">'approx_cost(for two people)'</span>]
+sns.countplot(x=couple_data)
+plt.show()
+
+<span class="comment"># 7. Multi-Axis Variance Boxplot Strategy</span>
+plt.figure(figsize=(6,6))
+sns.boxplot(x=<span class="string">'online_order'</span>, y=<span class="string">'rate'</span>, data=dataframe)
+plt.show()
+
+<span class="comment"># 8. Cross-Tabulation Pivot Matrices for Behavioral Mapping</span>
+pivot_table = dataframe.pivot_table(index=<span class="string">'listed_in(type)'</span>, 
+                                   columns=<span class="string">'online_order'</span>,
+                                   aggfunc=<span class="string">'size'</span>,
+                                   fill_value=0)
+sns.heatmap(pivot_table, annot=<span class="string">True</span>, cmap=<span class="string">'YlGnBu'</span>, fmt=<span class="string">'d'</span>)
+plt.xlabel(<span class="string">'online order'</span>)
+plt.ylabel(<span class="string">'type of restaurant'</span>)
+plt.show()
 </pre>
             </div>
         </div>
     </section>
 
+    <!-- Visual Dashboard Artifacts -->
     <section>
         <h2><i class="fas fa-chart-line"></i> Distribution & Matrix Heatmaps</h2>
         <p class="section-desc">Exploratory graphics tracking consumer engagement across distinct dining channels.</p>
@@ -203,6 +258,7 @@ dataframe['rate'] = dataframe['rate'].apply(handlerate)
         </div>
     </section>
 
+    <!-- Strategic Synthesis Section -->
     <section>
         <h2><i class="fas fa-clipboard-check"></i> Analytical Synthesis</h2>
         <p class="section-desc">Key market discoveries pulled from the completed Exploratory Data Analysis workflow.</p>
