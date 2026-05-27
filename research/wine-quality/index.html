@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wine Quality Classification Analysis | Amir Mohamad Askari</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         :root {
             --primary: #0f172a;
@@ -18,15 +20,18 @@
         body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); margin: 0; color: var(--text-main); line-height: 1.6; }
         
         .header-banner { background: linear-gradient(135deg, #0f172a 0%, #4a044e 100%); color: white; padding: 100px 20px; text-align: center; }
-        .container { max-width: 1000px; margin: -60px auto 50px; padding: 0 20px; }
+        .container { max-width: 1100px; margin: -60px auto 50px; padding: 0 20px; }
 
         /* Dashboard Stats Grid */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 35px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 35px; }
         .stat-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--secondary); display: flex; flex-direction: column; justify-content: center; }
         .stat-card.max-card { border-bottom: 4px solid var(--accent); }
-        .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--primary); display: block; margin: 5px 0; }
-        .stat-sub-value { font-size: 1rem; color: #64748b; font-weight: 500; margin-bottom: 10px; }
-        .stat-label { color: #475569; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: 700; margin-top: 5px; }
+        .stat-card.data-card { border-bottom: 4px solid #3b82f6; }
+        
+        /* Clean and high-contrast styling for the numerical metrics */
+        .stat-value { font-family: 'Inter', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 5px 0; letter-spacing: -0.5px; }
+        .stat-sub-value { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #64748b; font-weight: 600; margin-bottom: 10px; }
+        .stat-label { color: #475569; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; margin-top: 5px; }
 
         /* GitHub Button */
         .source-link-container { text-align: center; margin: 35px 0; }
@@ -100,23 +105,30 @@
 <div class="container">
 
     <div class="stats-grid">
-        <div class="stat-card">
-            <span class="stat-label">Logistic Regression Baseline</span>
-            <span class="stat-value" data-target="0.7073">0</span>
-            <span class="stat-sub-value">Validation: 0.6946</span>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 0;">Linear boundary optimizer mapping core likelihood probabilities.</p>
+        <div class="stat-card data-card">
+            <span class="stat-label">Total Sample Size</span>
+            <span class="stat-value">6,497</span>
+            <span class="stat-sub-value">Observations</span>
+        </div>
+        <div class="stat-card data-card">
+            <span class="stat-label">Input Space</span>
+            <span class="stat-value">12</span>
+            <span class="stat-sub-value">Chemical Features</span>
         </div>
         <div class="stat-card">
-            <span class="stat-label">Support Vector Classifier (SVC)</span>
+            <span class="stat-label">Logistic Regression</span>
+            <span class="stat-value" data-target="0.7073">0</span>
+            <span class="stat-sub-value">Val ROC-AUC: 0.6946</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">Support Vector Classifier</span>
             <span class="stat-value" data-target="0.7114">0</span>
-            <span class="stat-sub-value">Validation: 0.6794</span>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 0;">RBF kernel hyperplane max-margin feature space engine.</p>
+            <span class="stat-sub-value">Val ROC-AUC: 0.6794</span>
         </div>
         <div class="stat-card max-card">
             <span class="stat-label">XGBoost Classifier</span>
             <span class="stat-value" data-target="0.9722">0</span>
-            <span class="stat-sub-value" style="color: var(--secondary); font-weight: bold;">Validation: 0.7833</span>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 0;">Extreme gradient boosting ensemble tree algorithm with regularization.</p>
+            <span class="stat-sub-value" style="color: var(--secondary); font-weight: bold;">Val ROC-AUC: 0.7833</span>
         </div>
     </div>
 
@@ -135,19 +147,19 @@
                 <h4><i class="fas fa-project-diagram" style="color: #a855f7;"></i> Support Vector Classifier (SVC) with Radial Basis Function</h4>
                 <p>The Support Vector Classifier targets non-linear multi-dimensional separation boundaries by transforming features into higher-dimensional vector spaces where a linear separation boundary becomes possible. Since the interaction of chemical properties like volatile acidity, residual sugar levels, and pH balances is highly interdependent and non-linear, standard linear separating paths often prove insufficient.</p>
                 <p>This implementation applies the <strong>Radial Basis Function (RBF) Kernel</strong>, defined mathematically as:</p>
-                <p style="text-align: center; font-family: monospace; font-size: 1.1rem; color: var(--primary); font-weight: 600; margin: 15px 0;">
-                    $K(x, x') = \exp(-\gamma ||x - x'||^2)$
-                </p>
-                <p>Here, $||x - x'||^2$ represents the squared Euclidean distance between two data instances, and $\gamma$ is a hyperparameter controlling the radius of influence for individual support vectors. The optimization algorithm seeks to maximize a soft-margin width while applying a regularization penalty parameter ($C$) to manage the balance between training accuracy and generalizability, producing a robust validation baseline of <strong>0.6794</strong>.</p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$K(x, x') = \exp(-\gamma \|x - x'\|^2)$$
+                </div>
+                <p>Here, $\|x - x'\|^2$ represents the squared Euclidean distance between two data instances, and $\gamma$ is a hyperparameter controlling the radius of influence for individual support vectors. The optimization algorithm seeks to maximize a soft-margin width while applying a regularization penalty parameter ($C$) to manage the balance between training accuracy and generalizability, producing a stable validation baseline of <strong>0.6794</strong>.</p>
             </div>
             
             <div class="info-card">
                 <h4><i class="fas fa-bolt" style="color: #eab308;"></i> XGBoost Classifier (Extreme Gradient Boosting Architecture)</h4>
                 <p>XGBoost stands as an optimized distributed gradient boosting framework designed to be highly efficient, flexible, and portable. Unlike traditional ensemble strategies that generate standalone independent decision pathways, gradient tree boosting grows sequential base learners tree-by-tree. Each new tree fits to the negative gradient residuals of the loss function calculated by previous iterations.</p>
                 <p>The core objective function minimized at iteration $t$ integrates an analytical Taylor expansion loss along with explicit regularization constraints to limit leaf node complexity:</p>
-                <p style="text-align: center; font-family: monospace; font-size: 1.1rem; color: var(--primary); font-weight: 600; margin: 15px 0;">
-                    $\mathcal{L}^{(t)} \approx \sum_{i=1}^{n} [l(y_i, \hat{y}_i^{(t-1)}) + g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2$
-                </p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$\mathcal{L}^{(t)} \approx \sum_{i=1}^{n} \left[ l(y_i, \hat{y}_i^{(t-1)}) + g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i) \right] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2$$
+                </div>
                 <p>Where $g_i$ and $h_i$ represent the first and second-order gradient statistics of the objective loss function, $T$ denotes the total number of terminal leaf partitions, and $w_j$ indicates the individual leaf score weights. By systematically regularizing complex tree paths, the model manages multi-collinearity among highly correlated inputs like total sulfur dioxide and free sulfur dioxide. This approach achieved top classification scores, reaching a training score of <strong>0.9722</strong> and a test generalizability performance of <strong>0.7833</strong>.</p>
             </div>
         </div>
@@ -191,8 +203,6 @@
 <span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBClassifier
 <span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
 <span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics
-<span class="keyword">import</span> warnings
-warnings.filterwarnings(<span class="string">'ignore'</span>)
 
 <span class="keyword">def</span> <span class="function">evaluate_wine_models</span>(data_path):
     <span class="string">'''
@@ -212,7 +222,7 @@ warnings.filterwarnings(<span class="string">'ignore'</span>)
     
     <span class="comment"># Create train/test partitions using a deterministic random state splits execution</span>
     xtrain, xtest, ytrain, ytest = train_test_split(
-        features, target, test_size=<span class="numeric">0.2</span>, random_state=<span class="numeric">40</span>
+        features, target, test_size=<span class="numeric">0.2</span>, random_state=<span class="numeric">50</span>
     )
     
     <span class="comment"># Scale features using a MinMax transformation sequence bounded between 0 and 1</span>
@@ -232,7 +242,7 @@ warnings.filterwarnings(<span class="string">'ignore'</span>)
         
         print(f<span class="string">'{models[i].__class__.__name__}:'</span>)
         print(<span class="string">'Training Accuracy (ROC-AUC):'</span>, metrics.roc_auc_score(ytrain, train_preds))
-        print('Validation Accuracy (ROC-AUC):', metrics.roc_auc_score(ytest, test_preds))
+        print(<span class="string">'Validation Accuracy (ROC-AUC):'</span>, metrics.roc_auc_score(ytest, test_preds))
 
 <span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
     evaluate_wine_models(<span class="string">'./dataset/wine_quality.csv'</span>)
@@ -273,7 +283,9 @@ warnings.filterwarnings(<span class="string">'ignore'</span>)
     document.addEventListener("DOMContentLoaded", () => {
         const elements = document.querySelectorAll('.stat-value');
         elements.forEach(el => {
-            const target = parseFloat(el.getAttribute('data-target'));
+            const targetAttr = el.getAttribute('data-target');
+            if (!targetAttr) return; // Skip animating dataset shape integers
+            const target = parseFloat(targetAttr);
             let current = 0;
             const increment = target / 30;
             const updateCounter = () => {
