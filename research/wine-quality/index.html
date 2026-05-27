@@ -50,6 +50,9 @@
         h2 { color: var(--primary); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
         .section-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
 
+        /* Highlight styled text numbers for clear presentation */
+        .num-highlight { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--primary); }
+
         /* Data Matrix Tables */
         .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
@@ -95,7 +98,7 @@
     <p>Supervised Classification Benchmarking via Support Vector Machinery and Extreme Gradient Boosting</p>
     
     <div class="source-link-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio/Wine\ Quality/" target="_blank" class="btn-github-pro">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Wine%20Quality" target="_blank" class="btn-github-pro">
             <i class="fab fa-github fa-lg"></i>
             <span>Examine Source Notebook on GitHub</span>
         </a>
@@ -135,12 +138,12 @@
     <section>
         <h2><i class="fas fa-glass-cheers"></i> Project Overview</h2>
         <p class="section-desc">An empirical classification pipeline optimizing viniculture grade categorizations using physiochemical attributes.</p>
-        <p>This research maps complex chemical interactions—such as volatile acidity profiles, density limits, and sulfur structures—to isolate quality variations. Using supervised training models, the pipeline handles missing indices with feature-wide mean updates and scales raw feature matrices using MinMax processing. Quality thresholds are separated into a binary classification variable (<strong>1</strong> for quality values <strong>&gt; 5</strong>, indicating premium grades, and <strong>0</strong> otherwise), providing clear target definitions for comparison across different machine learning models.</p>
+        <p>This research maps complex chemical interactions—such as volatile acidity profiles, density limits, and sulfur structures—to isolate quality variations. Using supervised training models, the pipeline handles missing indices with feature-wide mean updates and scales raw feature matrices using MinMax processing. Quality thresholds are separated into a binary classification variable (<span class="num-highlight">1</span> for quality values <span class="num-highlight">&gt; 5</span>, indicating premium grades, and <span class="num-highlight">0</span> otherwise), providing clear target definitions for comparison across different machine learning models.</p>
     </section>
 
     <section>
         <h2><i class="fas fa-book-open"></i> Advanced Machine Learning Theory</h2>
-        <p class="section-desc">A deep mathematical and conceptual exploration of the core learning architectures deployed in this analysis.</p>
+        <p class="section-desc">A deep mathematical and conceptual exploration of the core learning architectures and metric diagnostics deployed in this analysis.</p>
         
         <div class="info-grid">
             <div class="info-card">
@@ -161,6 +164,16 @@
                     $$\mathcal{L}^{(t)} \approx \sum_{i=1}^{n} \left[ l(y_i, \hat{y}_i^{(t-1)}) + g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i) \right] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2$$
                 </div>
                 <p>Where $g_i$ and $h_i$ represent the first and second-order gradient statistics of the objective loss function, $T$ denotes the total number of terminal leaf partitions, and $w_j$ indicates the individual leaf score weights. By systematically regularizing complex tree paths, the model manages multi-collinearity among highly correlated inputs like total sulfur dioxide and free sulfur dioxide. This approach achieved top classification scores, reaching a training score of <strong>0.9722</strong> and a test generalizability performance of <strong>0.7833</strong>.</p>
+            </div>
+
+            <div class="info-card">
+                <h4><i class="fas fa-chart-line" style="color: #3b82f6;"></i> Area Under the Receiver Operating Characteristic Curve (ROC-AUC)</h4>
+                <p>The Receiver Operating Characteristic (ROC) curve is a fundamental diagnostic plot illustrating the performance of a binary classifier system as its discrimination threshold varies. It tracks the relationship between sensitivity and specificity across all possible decision boundaries.</p>
+                <p>The curve maps the <strong>True Positive Rate (TPR)</strong> against the <strong>False Positive Rate (FPR)</strong>, defined algebraically as:</p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}}, \quad \text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}}$$
+                </div>
+                <p>The <strong>Area Under the Curve (AUC)</strong> quantifies this relationship into a single metric ranging from $0.5$ (equivalent to random guessing) to $1.0$ (perfect classification discriminability). AUC represents the probability that a randomly chosen positive example (premium wine) will be ranked higher by the classifier than a randomly chosen negative example (standard wine). This makes it highly robust against class imbalances, ensuring objective evaluation independent of arbitrary probability cutoffs.</p>
             </div>
         </div>
     </section>
@@ -260,7 +273,7 @@
         print(<span class="string">'\nClassification Report:\n'</span>, metrics.classification_report(ytest, test_preds))
 
 <span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
-    evaluate_wine_models(<span class="string">'./dataset/wine_quality.csv'</span>)
+    evaluate_wine_models('./dataset/wine_quality.csv')
 </pre>
             </div>
         </div>
@@ -285,7 +298,7 @@
         <h2><i class="fas fa-paste"></i> Analytical Synthesis</h2>
         <p class="section-desc">Key findings and model comparison insights from the wine quality classification pipeline.</p>
         <div class="conclusion-gradient">
-            <p><strong>Performance Review:</strong> Evaluating model outputs confirms that the <strong>XGBoost Classifier</strong> outperforms competing setups, achieving a strong validation accuracy score of <strong>0.7833</strong>. While the Support Vector Classifier and Logistic Regression baselines show stable, generalizable trends, XGBoost's sequential tree architecture proves highly effective at capturing non-linear chemical interactions within the dataset features.</p>
+            <p><strong>Performance Review:</strong> Evaluating model outputs confirms that the <strong>XGBoost Classifier</strong> outperforms competing setups, achieving a top diagnostic validation score of <strong>0.7833</strong> ROC-AUC. Deforming complex inputs using sequential boosting architectures preserves the target discriminability far better than linear spaces or generic kernel boundaries alone.</p>
         </div>
     </section>
 </div>
@@ -299,7 +312,7 @@
         const elements = document.querySelectorAll('.stat-value');
         elements.forEach(el => {
             const targetAttr = el.getAttribute('data-target');
-            if (!targetAttr) return; // Skip animating fixed dataset details integers
+            if (!targetAttr) return; // Skip animating fixed structural data cards integers
             const target = parseFloat(targetAttr);
             let current = 0;
             const increment = target / 30;
