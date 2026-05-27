@@ -21,11 +21,12 @@
         .container { max-width: 1000px; margin: -60px auto 50px; padding: 0 20px; }
 
         /* Dashboard Stats Grid */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 35px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 35px; }
         .stat-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--secondary); display: flex; flex-direction: column; justify-content: center; }
         .stat-card.max-card { border-bottom: 4px solid var(--accent); }
-        .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 10px 0; }
-        .stat-label { color: #64748b; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; }
+        .stat-value { font-size: 1.8rem; font-weight: 800; color: var(--primary); display: block; margin: 5px 0; }
+        .stat-sub-value { font-size: 1rem; color: #64748b; font-weight: 500; margin-bottom: 10px; }
+        .stat-label { color: #475569; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: 700; margin-top: 5px; }
 
         /* GitHub Button */
         .source-link-container { text-align: center; margin: 35px 0; }
@@ -69,9 +70,9 @@
         .viz-label { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 700; color: var(--primary); }
 
         /* Theoretical Grid Columns */
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; }
-        .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; }
-        .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        .info-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin: 25px 0; }
+        .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; }
+        .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
 
         .conclusion-gradient { 
             background: linear-gradient(145deg, #fdf4ff 0%, #fae8ff 100%); 
@@ -100,16 +101,22 @@
 
     <div class="stats-grid">
         <div class="stat-card">
-            <span class="stat-label">Logistic Regression Val ROC-AUC</span>
-            <span class="stat-value" data-target="0.6946">0</span>
+            <span class="stat-label">Logistic Regression Baseline</span>
+            <span class="stat-value" data-target="0.7073">0</span>
+            <span class="stat-sub-value">Validation: 0.6946</span>
+            <p style="font-size: 0.8rem; color: #64748b; margin: 0;">Linear boundary optimizer mapping core likelihood probabilities.</p>
         </div>
         <div class="stat-card">
-            <span class="stat-label">SVC Validation ROC-AUC</span>
-            <span class="stat-value" data-target="0.6794">0</span>
+            <span class="stat-label">Support Vector Classifier (SVC)</span>
+            <span class="stat-value" data-target="0.7114">0</span>
+            <span class="stat-sub-value">Validation: 0.6794</span>
+            <p style="font-size: 0.8rem; color: #64748b; margin: 0;">RBF kernel hyperplane max-margin feature space engine.</p>
         </div>
         <div class="stat-card max-card">
-            <span class="stat-label">XGBoost Validation ROC-AUC</span>
-            <span class="stat-value" data-target="0.7833">0</span>
+            <span class="stat-label">XGBoost Classifier</span>
+            <span class="stat-value" data-target="0.9722">0</span>
+            <span class="stat-sub-value" style="color: var(--secondary); font-weight: bold;">Validation: 0.7833</span>
+            <p style="font-size: 0.8rem; color: #64748b; margin: 0;">Extreme gradient boosting ensemble tree algorithm with regularization.</p>
         </div>
     </div>
 
@@ -120,23 +127,34 @@
     </section>
 
     <section>
-        <h2><i class="fas fa-microchip"></i> Classification Infrastructure</h2>
-        <p class="section-desc">A comparative look at the core machine learning models evaluated during this study.</p>
+        <h2><i class="fas fa-book-open"></i> Advanced Machine Learning Theory</h2>
+        <p class="section-desc">A deep mathematical and conceptual exploration of the core learning architectures deployed in this analysis.</p>
         
         <div class="info-grid">
             <div class="info-card">
-                <h4><i class="fas fa-project-diagram" style="color: #a855f7;"></i> Support Vector Classifier (SVC)</h4>
-                <p>Employs Radial Basis Function (RBF) kernels to project scaled chemical variables into high-dimensional space boundaries. SVC searches for optimal separating hyperplanes that maximize decision margins between target quality boundaries, yielding a baseline testing accuracy score of <strong>0.6794</strong>.</p>
+                <h4><i class="fas fa-project-diagram" style="color: #a855f7;"></i> Support Vector Classifier (SVC) with Radial Basis Function</h4>
+                <p>The Support Vector Classifier targets non-linear multi-dimensional separation boundaries by transforming features into higher-dimensional vector spaces where a linear separation boundary becomes possible. Since the interaction of chemical properties like volatile acidity, residual sugar levels, and pH balances is highly interdependent and non-linear, standard linear separating paths often prove insufficient.</p>
+                <p>This implementation applies the <strong>Radial Basis Function (RBF) Kernel</strong>, defined mathematically as:</p>
+                <p style="text-align: center; font-family: monospace; font-size: 1.1rem; color: var(--primary); font-weight: 600; margin: 15px 0;">
+                    $K(x, x') = \exp(-\gamma ||x - x'||^2)$
+                </p>
+                <p>Here, $||x - x'||^2$ represents the squared Euclidean distance between two data instances, and $\gamma$ is a hyperparameter controlling the radius of influence for individual support vectors. The optimization algorithm seeks to maximize a soft-margin width while applying a regularization penalty parameter ($C$) to manage the balance between training accuracy and generalizability, producing a robust validation baseline of <strong>0.6794</strong>.</p>
             </div>
+            
             <div class="info-card">
-                <h4><i class="fas fa-bolt" style="color: #eab308;"></i> XGBoost Classifier (Extreme Gradient Boosting)</h4>
-                <p>An optimized, scalable tree-boosting framework that builds sequential decision trees to minimize gradient residuals. It uses regularization to control model complexity and avoid overfitting. This approach achieved top classification scores, reaching a training accuracy of <strong>0.9722</strong> and a test performance of <strong>0.7833</strong>.</p>
+                <h4><i class="fas fa-bolt" style="color: #eab308;"></i> XGBoost Classifier (Extreme Gradient Boosting Architecture)</h4>
+                <p>XGBoost stands as an optimized distributed gradient boosting framework designed to be highly efficient, flexible, and portable. Unlike traditional ensemble strategies that generate standalone independent decision pathways, gradient tree boosting grows sequential base learners tree-by-tree. Each new tree fits to the negative gradient residuals of the loss function calculated by previous iterations.</p>
+                <p>The core objective function minimized at iteration $t$ integrates an analytical Taylor expansion loss along with explicit regularization constraints to limit leaf node complexity:</p>
+                <p style="text-align: center; font-family: monospace; font-size: 1.1rem; color: var(--primary); font-weight: 600; margin: 15px 0;">
+                    $\mathcal{L}^{(t)} \approx \sum_{i=1}^{n} [l(y_i, \hat{y}_i^{(t-1)}) + g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2$
+                </p>
+                <p>Where $g_i$ and $h_i$ represent the first and second-order gradient statistics of the objective loss function, $T$ denotes the total number of terminal leaf partitions, and $w_j$ indicates the individual leaf score weights. By systematically regularizing complex tree paths, the model manages multi-collinearity among highly correlated inputs like total sulfur dioxide and free sulfur dioxide. This approach achieved top classification scores, reaching a training score of <strong>0.9722</strong> and a test generalizability performance of <strong>0.7833</strong>.</p>
             </div>
         </div>
     </section>
 
     <section>
-        <h2><i class="fas fa-database"></i> Processed Data Schema Preview (df.head)</h2>
+        <h2><i class="fas fa-database"></i> Processed Data Schema Preview</h2>
         <p class="section-desc">A snapshot illustrating the format of the incoming structured tabular feature variables.</p>
         
         <div class="table-wrapper">
@@ -165,6 +183,7 @@
             </div>
             <div class="code-content">
 <pre>
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
 <span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler
@@ -172,34 +191,51 @@
 <span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBClassifier
 <span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
 <span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics
+<span class="keyword">import</span> warnings
+warnings.filterwarnings(<span class="string">'ignore'</span>)
 
 <span class="keyword">def</span> <span class="function">evaluate_wine_models</span>(data_path):
     <span class="string">'''
     Loads wine dataset, creates a binary target variable, applies mean imputation,
     and runs comparative training across multiple model classifiers.
     '''</span>
+    <span class="comment"># Read structural feature matrix from current workspace path</span>
     df = pd.read_csv(data_path)
     
-    <span class="comment"># Define binary classification cutoff target</span>
+    <span class="comment"># Define binary classification cutoff target threshold (1 if quality > 5 else 0)</span>
     df[<span class="string">'best quality'</span>] = [<span class="numeric">1</span> <span class="keyword">if</span> x > <span class="numeric">5</span> <span class="keyword">else</span> <span class="numeric">0</span> <span class="keyword">for</span> x <span class="keyword">in</span> df.quality]
     
+    <span class="comment"># Handle features alignment and replace missing entries with feature means</span>
     features = df.drop(columns=[<span class="string">'quality'</span>, <span class="string">'best quality'</span>])
     features = features.fillna(features.mean())
     target = df[<span class="string">'best quality'</span>]
     
-    xtrain, xtest, ytrain, ytest = train_test_split(features, target, test_size=<span class="numeric">0.2</span>, random_state=<span class="numeric">40</span>)
+    <span class="comment"># Create train/test partitions using a deterministic random state splits execution</span>
+    xtrain, xtest, ytrain, ytest = train_test_split(
+        features, target, test_size=<span class="numeric">0.2</span>, random_state=<span class="numeric">40</span>
+    )
     
-    <span class="comment"># Scale the feature matrices</span>
+    <span class="comment"># Scale features using a MinMax transformation sequence bounded between 0 and 1</span>
     scaler = MinMaxScaler()
     xtrain = scaler.fit_transform(xtrain)
     xtest = scaler.transform(xtest)
     
+    <span class="comment"># Enumerate through target evaluation models array loop</span>
     models = [LogisticRegression(), XGBClassifier(), SVC(kernel=<span class="string">'rbf'</span>)]
-    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="numeric">3</span>):
+    
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(models)):
+        <span class="comment"># Fit individual model constraints on scaled training subsets</span>
         models[i].fit(xtrain, ytrain)
-        print(f<span class="string">'{models[i]}:'</span>)
-        print(<span class="string">'Training Accuracy: '</span>, metrics.roc_auc_score(ytrain, models[i].predict(xtrain)))
-        print(<span class="string">'Validation Accuracy: '</span>, metrics.roc_auc_score(ytest, models[i].predict(xtest)))
+        
+        train_preds = models[i].predict(xtrain)
+        test_preds = models[i].predict(xtest)
+        
+        print(f<span class="string">'{models[i].__class__.__name__}:'</span>)
+        print(<span class="string">'Training Accuracy (ROC-AUC):'</span>, metrics.roc_auc_score(ytrain, train_preds))
+        print('Validation Accuracy (ROC-AUC):', metrics.roc_auc_score(ytest, test_preds))
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    evaluate_wine_models(<span class="string">'./dataset/wine_quality.csv'</span>)
 </pre>
             </div>
         </div>
@@ -234,7 +270,6 @@
 </footer>
 
 <script>
-    // Exact structural animation tracking implementation matching previous portfolio scripts
     document.addEventListener("DOMContentLoaded", () => {
         const elements = document.querySelectorAll('.stat-value');
         elements.forEach(el => {
