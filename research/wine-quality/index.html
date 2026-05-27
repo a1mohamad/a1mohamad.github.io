@@ -28,7 +28,7 @@
         .stat-card.max-card { border-bottom: 4px solid var(--accent); }
         .stat-card.data-card { border-bottom: 4px solid #3b82f6; }
         
-        /* Clean and high-contrast styling for the numerical metrics */
+        /* Premium, high-contrast typography for the dashboard values */
         .stat-value { font-family: 'Inter', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 5px 0; letter-spacing: -0.5px; }
         .stat-sub-value { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #64748b; font-weight: 600; margin-bottom: 10px; }
         .stat-label { color: #475569; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; margin-top: 5px; }
@@ -95,7 +95,7 @@
     <p>Supervised Classification Benchmarking via Support Vector Machinery and Extreme Gradient Boosting</p>
     
     <div class="source-link-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio" target="_blank" class="btn-github-pro">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/Wine\ Quality/" target="_blank" class="btn-github-pro">
             <i class="fab fa-github fa-lg"></i>
             <span>Examine Source Notebook on GitHub</span>
         </a>
@@ -135,7 +135,7 @@
     <section>
         <h2><i class="fas fa-glass-cheers"></i> Project Overview</h2>
         <p class="section-desc">An empirical classification pipeline optimizing viniculture grade categorizations using physiochemical attributes.</p>
-        <p>This research maps complex chemical interactions—such as volatile acidity profiles, density limits, and sulfur structures—to isolate quality variations. Using supervised training models, the pipeline handles missing indices with feature-wide mean updates and scales raw feature matrices using MinMax processing. Quality thresholds are separated into a binary classification variable ($1$ for quality values $> 5$, indicating premium grades, and $0$ otherwise), providing clear target definitions for comparison across different machine learning models.</p>
+        <p>This research maps complex chemical interactions—such as volatile acidity profiles, density limits, and sulfur structures—to isolate quality variations. Using supervised training models, the pipeline handles missing indices with feature-wide mean updates and scales raw feature matrices using MinMax processing. Quality thresholds are separated into a binary classification variable (<strong>1</strong> for quality values <strong>&gt; 5</strong>, indicating premium grades, and <strong>0</strong> otherwise), providing clear target definitions for comparison across different machine learning models.</p>
     </section>
 
     <section>
@@ -199,6 +199,7 @@
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
 <span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler
+<span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> SimpleImputer
 <span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
 <span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBClassifier
 <span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
@@ -209,40 +210,54 @@
     Loads wine dataset, creates a binary target variable, applies mean imputation,
     and runs comparative training across multiple model classifiers.
     '''</span>
-    <span class="comment"># Read structural feature matrix from current workspace path</span>
+    <span class="comment"># Read structural feature matrix from workspace path</span>
     df = pd.read_csv(data_path)
     
     <span class="comment"># Define binary classification cutoff target threshold (1 if quality > 5 else 0)</span>
     df[<span class="string">'best quality'</span>] = [<span class="numeric">1</span> <span class="keyword">if</span> x > <span class="numeric">5</span> <span class="keyword">else</span> <span class="numeric">0</span> <span class="keyword">for</span> x <span class="keyword">in</span> df.quality]
     
-    <span class="comment"># Handle features alignment and replace missing entries with feature means</span>
+    <span class="comment"># Separate target column and feature spaces</span>
     features = df.drop(columns=[<span class="string">'quality'</span>, <span class="string">'best quality'</span>])
-    features = features.fillna(features.mean())
+    
+    <span class="comment"># Encode categorical variables if any exist</span>
+    if <span class="string">'type'</span> <span class="keyword">in</span> features.columns:
+        features = pd.get_dummies(features, columns=[<span class="string">'type'</span>], drop_first=<span class="keyword">True</span>)
+        
     target = df[<span class="string">'best quality'</span>]
     
-    <span class="comment"># Create train/test partitions using a deterministic random state splits execution</span>
+    <span class="comment"># Split matrices using a deterministic random state splits execution</span>
     xtrain, xtest, ytrain, ytest = train_test_split(
         features, target, test_size=<span class="numeric">0.2</span>, random_state=<span class="numeric">50</span>
     )
     
-    <span class="comment"># Scale features using a MinMax transformation sequence bounded between 0 and 1</span>
+    <span class="comment"># Impute missing elements using mean values strategies</span>
+    imputer = SimpleImputer(strategy=<span class="string">'mean'</span>)
+    xtrain = imputer.fit_transform(xtrain)
+    xtest = imputer.transform(xtest)
+    
+    <span class="comment"># Scale matrices using a MinMax transformation bounded between 0 and 1</span>
     scaler = MinMaxScaler()
     xtrain = scaler.fit_transform(xtrain)
     xtest = scaler.transform(xtest)
     
-    <span class="comment"># Enumerate through target evaluation models array loop</span>
-    models = [LogisticRegression(), XGBClassifier(), SVC(kernel=<span class="string">'rbf'</span>)]
+    <span class="comment"># Array structure holding targeted learning models</span>
+    models = [
+        LogisticRegression(max_iter=<span class="numeric">1000</span>), 
+        XGBClassifier(eval_metric=<span class="string">'logloss'</span>), 
+        SVC(kernel=<span class="string">'rbf'</span>, probability=<span class="keyword">True</span>)
+    ]
     
-    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(models)):
-        <span class="comment"># Fit individual model constraints on scaled training subsets</span>
-        models[i].fit(xtrain, ytrain)
+    <span class="keyword">for</span> model <span class="keyword">in</span> models:
+        <span class="comment"># Fit individual model constraints on training matrices</span>
+        model.fit(xtrain, ytrain)
         
-        train_preds = models[i].predict(xtrain)
-        test_preds = models[i].predict(xtest)
+        train_preds = model.predict(xtrain)
+        test_preds = model.predict(xtest)
         
-        print(f<span class="string">'{models[i].__class__.__name__}:'</span>)
+        print(f<span class="string">"====== {model.__class__.__name__} Evaluation Metrics ======"</span>)
         print(<span class="string">'Training Accuracy (ROC-AUC):'</span>, metrics.roc_auc_score(ytrain, train_preds))
         print(<span class="string">'Validation Accuracy (ROC-AUC):'</span>, metrics.roc_auc_score(ytest, test_preds))
+        print(<span class="string">'\nClassification Report:\n'</span>, metrics.classification_report(ytest, test_preds))
 
 <span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
     evaluate_wine_models(<span class="string">'./dataset/wine_quality.csv'</span>)
@@ -284,7 +299,7 @@
         const elements = document.querySelectorAll('.stat-value');
         elements.forEach(el => {
             const targetAttr = el.getAttribute('data-target');
-            if (!targetAttr) return; // Skip animating dataset shape integers
+            if (!targetAttr) return; // Skip animating fixed dataset details integers
             const target = parseFloat(targetAttr);
             let current = 0;
             const increment = target / 30;
