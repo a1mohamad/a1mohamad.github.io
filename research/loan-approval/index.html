@@ -19,7 +19,7 @@
             }
         };
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <style>
         :root {
@@ -213,7 +213,7 @@
                 <div style="margin: 20px 0; text-align: center;">
                     $$\min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i$$
                 </div>
-                <p>Subject to structural margin constraint paths, evaluating data records through slack variables \(\xi_i\) to protect validation cross-entropy balances:</p>
+                <p>Subject to structural margin constraint paths, evaluating data records through slack variables $ \xi_i $ to protect validation cross-entropy balances:</p>
                 <div style="margin: 20px 0; text-align: center;">
                     $$y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0$$
                 </div>
@@ -352,7 +352,7 @@
         <h2><i class="fas fa-clipboard-check"></i> Project Synthesis</h2>
         <p class="section-desc">Performance deductions and forward-looking research strategies for the next version.</p>
         <div class="conclusion-gradient">
-            <p style="color: #065f46; margin-top: 0;"><strong>Empirical Conclusions:</strong> The <strong>Random Forest Classifier</strong> outpaced all individual estimators, registering a peak accuracy score of <strong>97.50%</strong> during validation testing. Non-linear tree distributions accurately isolated high-variance features like <code>ApplicantIncome</code> and <code>Credit_History</code> where linear hyperplanes struggled to establish clean class partitions.</p>
+            <p style="color: #065f46; margin-top: 0;"><strong>Empirical Conclusions:</strong> The <strong>Random Forest Classifier</strong> outpaced all individual estimators, registering a peak accuracy score of <strong>97.50%</strong> during validation testing. Non-linear tree distributions accurately islands high-variance features like <code>ApplicantIncome</code> and <code>Credit_History</code> where linear hyperplanes struggled to establish clean class partitions.</p>
             <p style="color: #065f46; margin-bottom: 0;"><strong>Moving Forward:</strong> To optimize generalization boundaries across noisy out-of-sample datasets, the next development stage will introduce advanced ensemble variants—specifically gradient boosting models (XGBoost, LightGBM) paired with automated grid searches to secure micro-tuned hyperparameters.</p>
         </div>
     </section>
