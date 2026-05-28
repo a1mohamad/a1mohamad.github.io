@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Approval Prediction | Amir Mohamad Askari</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js"></script>
+    
     <style>
         :root {
             --primary: #0f172a;
@@ -22,7 +36,7 @@
         .header-banner { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 100px 20px; text-align: center; }
         .container { max-width: 1000px; margin: -60px auto 50px; padding: 0 20px; }
 
-        /* Dashboard Stats Grid placed at the top */
+        /* Dashboard Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 35px; }
         .stat-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--secondary); display: flex; flex-direction: column; justify-content: center; }
         .stat-card.best-card { border-bottom: 4px solid var(--accent); }
@@ -46,25 +60,35 @@
         h2 { color: var(--primary); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
         .section-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
 
+        /* Libraries Section Styling */
+        .lib-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .lib-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; gap: 15px; align-items: flex-start; }
+        .lib-icon { font-size: 1.8rem; color: var(--secondary); padding: 5px; }
+        .lib-title { font-weight: 700; color: var(--primary); margin: 0 0 5px 0; font-size: 1.05rem; }
+        .lib-desc { font-size: 0.88rem; color: #64748b; margin: 0; }
+
         /* Feature Matrix Table */
         .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { background: #f1f5f9; padding: 14px; border-bottom: 2px solid #e2e8f0; text-align: left; color: var(--primary); }
         td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-family: 'Fira Code', monospace; }
 
-        /* VS-Code Styled IDE Window */
+        /* IDE Window Box Styling */
         .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
         .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
-        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; overflow-x: auto; }
+        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.90rem; line-height: 1.6; overflow-x: auto; max-height: 550px; }
+        
+        /* IDE Highlighting Tokens */
         .comment { color: #6a9955; font-style: italic; }
         .keyword { color: #569cd6; }
         .function { color: #dcdcaa; }
         .string { color: #ce9178; }
+        .number { color: #b5cea8; }
 
-        /* Formula Window Block */
-        .formula-block { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: center; margin: 15px 0; font-size: 1.1rem; }
+        /* Formula Typography Wrappers */
+        .formula-block { background: #fafafa; border-left: 4px solid var(--secondary); padding: 20px; text-align: center; margin: 20px 0; font-size: 1.25rem; font-family: 'Times New Roman', serif; color: #111111; border-radius: 0 8px 8px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02); }
 
         /* Visualization Layout */
         .viz-large-row { display: flex; flex-direction: column; gap: 40px; margin-top: 30px; }
@@ -124,6 +148,42 @@
     </div>
 
     <section>
+        <h2><i class="fas fa-cubes"></i> Libraries & Project Dependencies</h2>
+        <p class="section-desc">The algorithmic workspace structure relies heavily on core python packages to orchestrate data manipulations, mathematical operations, and matrix loading routines.</p>
+        
+        <div class="lib-grid">
+            <div class="lib-item">
+                <div class="lib-icon"><i class="fas fa-table" style="color: #1f4068;"></i></div>
+                <div>
+                    <h5 class="lib-title">Pandas</h5>
+                    <p class="lib-desc">Provides vectors and programmatic DataFrames to handle high-dimensional file matrix parsing and administrative structure sanitization.</p>
+                </div>
+            </div>
+            <div class="lib-item">
+                <div class="lib-icon"><i class="fas fa-calculator" style="color: #4f8a10;"></i></div>
+                <div>
+                    <h5 class="lib-title">NumPy</h5>
+                    <p class="lib-desc">Supplies high-performance vectorized arrays and low-level multidimensional matrix arithmetic primitives required by core layers.</p>
+                </div>
+            </div>
+            <div class="lib-item">
+                <div class="lib-icon"><i class="fas fa-project-diagram" style="color: #e94560;"></i></div>
+                <div>
+                    <h5 class="lib-title">Scikit-Learn</h5>
+                    <p class="lib-desc">Exposes classification frameworks, mathematical label encoders, matrix cross-validation parsers, and validation score evaluation metrics.</p>
+                </div>
+            </div>
+            <div class="lib-item">
+                <div class="lib-icon"><i class="fas fa-chart-line" style="color: #ff9a00;"></i></div>
+                <div>
+                    <h5 class="lib-title">Seaborn & Matplotlib</h5>
+                    <p class="lib-desc">Renders exploratory feature maps, correlation matrices, discrete histograms, and localized visual diagnostics layout blocks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
         <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
         <p class="section-desc">A computational financial study focused on mitigating risk and optimizing retail banking credit infrastructure.</p>
         <p>This project evaluates performance boundaries across multiple supervised algorithms to predict retail consumer credit qualification. Using an engineering pipeline written in Python, the codebase drops arbitrary administrative tokens, isolates numeric and non-numeric channels, executes structural data transformations via label encoding, and partitions matrices for out-of-sample evaluation. The validation cycle systematically checks parametric models against non-parametric decision boundaries and ensemble architectures.</p>
@@ -131,25 +191,31 @@
 
     <section>
         <h2><i class="fas fa-book"></i> Algorithmic Machinery & Mathematical Formulations</h2>
-        <p class="section-desc">Deep technical look at the optimization paradigms under observation inside the validation engine.</p>
+        <p class="section-desc">Deep technical look at the optimization paradigms under observation inside the validation engine with adjusted typography.</p>
         
         <div class="info-grid">
             <div class="info-card">
                 <h4><i class="fas fa-brain" style="color: var(--secondary);"></i> Logistic Regression Baseline</h4>
                 <p>Models posterior binary status using the nonlinear Transcendental Sigmoid function mapping inputs to spatial probabilities:</p>
                 <div class="formula-block">
-                    $$P(Y=1|X) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+                    \[ P(Y = 1 \mid X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}} \]
                 </div>
-                <p>Weights are systematically optimized by minimization of the binary cross-entropy loss function over the training instance rows.</p>
+                <p>Weights are systematically optimized by minimization of the binary cross-entropy loss function over the training instance rows:</p>
+                <div class="formula-block">
+                    \[ \mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right] \]
+                </div>
             </div>
             
             <div class="info-card">
                 <h4><i class="fas fa-vector-square" style="color: #6366f1;"></i> Support Vector Classifier</h4>
                 <p>Constructs an optimal separating boundary hyperplane that maximizes geometric margins between separate classes:</p>
                 <div class="formula-block">
-                    $$\min_{W, b, \xi} \frac{1}{2} ||W||^2 + C \sum_{i=1}^{N} \xi_i$$
+                    \[ \min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i \]
                 </div>
-                <p>Subject to structural boundary soft constraints, incorporating slack variables \(\xi_i\) to handle non-separable instances smoothly.</p>
+                <p>Subject to structural boundary soft constraints, incorporating slack variables \(\xi_i\) to handle non-separable instances smoothly:</p>
+                <div class="formula-block">
+                    \[ y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0 \]
+                </div>
             </div>
         </div>
 
@@ -158,7 +224,7 @@
                 <h4><i class="fas fa-route" style="color: #f59e0b;"></i> K-Nearest Neighbors (KNN)</h4>
                 <p>An instance-based distance algorithm that classifies values based on localized majority voting of neighbors projected into an n-dimensional Euclidean vector space:</p>
                 <div class="formula-block">
-                    $$d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2}$$
+                    \[ d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2} \]
                 </div>
             </div>
 
@@ -166,7 +232,7 @@
                 <h4><i class="fas fa-tree" style="color: var(--accent);"></i> Random Forest Ensemble</h4>
                 <p>A non-parametric bootstrap ensemble method that creates multiple independent, uncorrelated decision trees built over random row and feature samples:</p>
                 <div class="formula-block">
-                    $$\hat{Y} = \text{mode} \{ h_1(X), h_2(X), \dots, h_B(X) \}$$
+                    \[ \hat{Y} = \text{mode} \left\{ h_1(X), h_2(X), \dots, h_B(X) \right\} \]
                 </div>
                 <p>Averages variance down to achieve a peak out-of-sample diagnostic accuracy of <strong>97.50%</strong>.</p>
             </div>
@@ -210,7 +276,37 @@
             </div>
             <div class="code-content">
 <pre>
-<span class="keyword">def</span> <span class="function">evaluate_predictive_models</span>(models, X_test, Y_test):
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+
+<span class="keyword">def</span> <span class="function">preprocess_credit_dataset</span>(filepath):
+    <span class="comment">'''
+    Loads raw CSV matrix, handles missing fields, maps nominal strings to discrete
+    numeric categories using encoders, and builds clean feature split planes.
+    '''</span>
+    df = pd.read_csv(filepath)
+    
+    <span class="comment"># Drop arbitrary administrative tracker rows</span>
+    df.drop([<span class="string">'Loan_ID'</span>], axis=<span class="number">1</span>, inplace=<span class="keyword">True</span>)
+    
+    <span class="comment"># Drop sample vectors containing invalid null structures</span>
+    df.dropna(inplace=<span class="keyword">True</span>)
+    
+    <span class="comment"># Encode categorical text string labels down to discrete continuous channels</span>
+    le = LabelEncoder()
+    categorical_columns = [<span class="string">'Gender'</span>, <span class="string">'Married'</span>, <span class="string">'Education'</span>, <span class="string">'Self_Employed'</span>, <span class="string">'Property_Area'</span>, <span class="string">'Loan_Status'</span>]
+    <span class="keyword">for</span> col <span class="keyword">in</span> categorical_columns:
+        df[col] = le.fit_transform(df[col])
+        
+    X = df.drop([<span class="string">'Loan_Status'</span>], axis=<span class="number">1</span>).values
+    Y = df[<span class="string">'Loan_Status'</span>].values
+    
+    <span class="keyword">return</span> train_test_split(X, Y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)
+
+<span class="keyword">def</span> <span class="function">evaluate_predictive_models</span>(models, X_train, X_test, Y_train, Y_test):
     <span class="comment">'''
     Executes systematic validation testing across an array of scikit-learn models.
     Calculates operational accuracy scores and handles model signature identification.
@@ -218,10 +314,10 @@
     print(<span class="string">"Initializing Empirical Assessment Loop...\n"</span> + <span class="string">"="</span>*50)
     
     <span class="keyword">for</span> model <span class="keyword">in</span> models:
-        <span class="comment"># Execute fitting routines across the isolated workspace arrays</span>
-        model.fit(X_test, Y_test)
+        <span class="comment"># Train estimators strictly on standard training splits</span>
+        model.fit(X_train, Y_train)
         
-        <span class="comment"># Evaluate predictions against target bounds</span>
+        <span class="comment"># Evaluate predictions against structural target bounds</span>
         Y_pred = model.predict(X_test)
         
         <span class="comment"># Parse class names dynamically via reflection</span>
@@ -230,6 +326,7 @@
         
         <span class="comment"># Output quantified metrics directly to workspace log</span>
         print(<span class="keyword">f</span><span class="string">"Accuracy score of {model_name:&lt;25} = {100 * accuracy:.2f}%"</span>)
+    print(<span class="string">"="</span>*50 + <span class="string">"\nValidation Loop Finished Successfully."</span>)
 </pre>
             </div>
         </div>
