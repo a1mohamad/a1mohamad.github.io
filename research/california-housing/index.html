@@ -69,11 +69,12 @@
         .string { color: #ce9178; }
         .numeric { color: #b5cea8; }
 
-        /* Visualization Cards */
-        .viz-large-row { display: flex; flex-direction: column; gap: 40px; margin-top: 30px; }
-        .viz-card-large { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; }
-        .viz-card-large img { width: 100%; display: block; height: auto; }
-        .viz-label { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 700; color: var(--primary); }
+        /* Responsive Visualization Grid */
+        .viz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
+        .viz-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
+        .viz-card:hover { transform: translateY(-5px); }
+        .viz-card img { width: 100%; display: block; height: auto; }
+        .viz-label { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 700; color: var(--primary); font-size: 0.95rem; }
 
         /* Theoretical Grid Columns */
         .info-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin: 25px 0; }
@@ -85,6 +86,14 @@
             border-left: 8px solid var(--secondary); 
             padding: 35px; border-radius: 16px;
         }
+
+        /* Contact Me Component */
+        .contact-buttons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 25px; }
+        .btn-contact { display: inline-flex; align-items: center; gap: 10px; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .btn-contact:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15); }
+        .btn-email { background: #3b82f6; }
+        .btn-linkedin { background: #0a66c2; }
+        .btn-github { background: #24292e; }
 
         footer { text-align: center; padding: 80px 20px; color: #94a3b8; font-size: 0.95rem; }
     </style>
@@ -108,22 +117,22 @@
     <div class="stats-grid">
         <div class="stat-card data-card">
             <span class="stat-label">Total Sample Size</span>
-            <span class="stat-value">20,640</span>
+            <span class="stat-value" data-target="20640">0</span>
             <span class="stat-sub-value">Observations</span>
         </div>
         <div class="stat-card data-card">
             <span class="stat-label">Features</span>
-            <span class="stat-value">8</span>
+            <span class="stat-value" data-target="8">0</span>
             <span class="stat-sub-value">Predictors</span>
         </div>
         <div class="stat-card">
             <span class="stat-label">Model MSE</span>
-            <span class="stat-value" data-target="0.548">0.548</span>
+            <span class="stat-value" data-target="0.548">0.000</span>
             <span class="stat-sub-value">Mean Squared Error</span>
         </div>
         <div class="stat-card">
             <span class="stat-label">Model MAE</span>
-            <span class="stat-value" data-target="0.538">0.538</span>
+            <span class="stat-value" data-target="0.538">0.000</span>
             <span class="stat-sub-value">Mean Absolute Error</span>
         </div>
     </div>
@@ -132,6 +141,27 @@
         <h2><i class="fas fa-home"></i> Project Overview</h2>
         <p class="section-desc">An empirical regression pipeline predicting median house values based on census block district statistics.</p>
         <p>This project leverages the classic California Housing dataset to predict median house values (in units of $100,000$). The feature space comprises metrics including median income, house age, average room counts, and geographic coordinates. We employ a <strong>Linear Regression</strong> model to map these independent variables to the target output, establishing a robust baseline for predicting real estate market valuation.</p>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-cubes"></i> Required Libraries</h2>
+        <p class="section-desc">Core software development kits and frameworks assigned to establish the data engineering pipeline.</p>
+        <div class="code-editor">
+            <div class="code-top-bar">
+                <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+            </div>
+            <div class="code-content">
+<pre>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> seaborn <span class="keyword">as</span> sns
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, mean_absolute_error
+</pre>
+            </div>
+        </div>
     </section>
 
     <section>
@@ -213,17 +243,17 @@
 
     <section>
         <h2><i class="fas fa-eye"></i> Visual Performance Analysis</h2>
-        <p class="section-desc">Individual row analysis of model results and error distribution.</p>
-        <div class="viz-large-row">
-            <div class="viz-card-large">
+        <p class="section-desc">Individual card analysis of model results and error distribution.</p>
+        <div class="viz-grid">
+            <div class="viz-card">
                 <img src="actual_vs_pred.png" alt="Actual vs Predicted">
                 <div class="viz-label">Actual vs. Predicted Values</div>
             </div>
-            <div class="viz-card-large">
+            <div class="viz-card">
                 <img src="residuals.png" alt="Residuals">
                 <div class="viz-label">Residual Distribution Analysis</div>
             </div>
-            <div class="viz-card-large">
+            <div class="viz-card">
                 <img src="outliers.png" alt="Outliers">
                 <div class="viz-label">Outlier Identification (95th Percentile Error)</div>
             </div>
@@ -238,11 +268,59 @@
             <p><strong>Moving Forward:</strong> To capture local anomalies and luxury market fluctuations, future versions should explore non-linear ensemble methods like XGBoost or Gradient Boosting Regressors.</p>
         </div>
     </section>
+
+    <section id="contact">
+        <h2><i class="fas fa-paper-plane"></i> Contact Me</h2>
+        <p class="section-desc">Reach out for collaborations, professional inquiries, or technical discussions regarding research engineering pipelines.</p>
+        <div class="contact-buttons">
+            <a href="mailto:amirmohammadaskari@example.com" class="btn-contact btn-email">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+            <a href="https://linkedin.com/in/amirmohammadaskari" target="_blank" class="btn-contact btn-linkedin">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="btn-contact btn-github">
+                <i class="fab fa-github"></i> GitHub Profile
+            </a>
+        </div>
+    </section>
 </div>
 
 <footer>
     <p>Project Authored by <strong>Amir Mohamad Askari</strong> &bull; 2024</p>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const counters = document.querySelectorAll('.stat-value');
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const isFloat = target % 1 !== 0;
+            const duration = 2000;
+            const startTime = performance.now();
+
+            const animate = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = progress * (2 - progress);
+                let current = easeProgress * target;
+                
+                if (isFloat) {
+                    counter.textContent = current.toFixed(3);
+                } else {
+                    counter.textContent = Math.floor(current).toLocaleString();
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    counter.textContent = isFloat ? target.toFixed(3) : target.toLocaleString();
+                }
+            };
+            requestAnimationFrame(animate);
+        });
+    });
+</script>
 
 </body>
 </html>
