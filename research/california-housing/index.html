@@ -3,15 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>California Housing Prediction | Amir Mohamad Askari</title>
+    <title>Loan Approval Prediction | Amir Mohamad Askari</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            chtml: {
+                scale: 1.05,
+                displayAlign: 'center'
+            }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
     <style>
         :root {
             --primary: #0f172a;
             --secondary: #3b82f6;
-            --accent: #fbbc05;
+            --accent: #10b981;
             --github-gray: #24292e;
             --bg: #f8fafc;
             --text-main: #334155;
@@ -20,19 +34,16 @@
         body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); margin: 0; color: var(--text-main); line-height: 1.6; }
         
         .header-banner { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 100px 20px; text-align: center; }
-        .container { max-width: 1100px; margin: -60px auto 50px; padding: 0 20px; }
+        .container { max-width: 1050px; margin: -60px auto 50px; padding: 0 20px; }
 
         /* Dashboard Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 35px; }
         .stat-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--secondary); display: flex; flex-direction: column; justify-content: center; }
-        .stat-card.max-card { border-bottom: 4px solid var(--accent); }
-        .stat-card.data-card { border-bottom: 4px solid #3b82f6; }
-        
-        .stat-value { font-family: 'Inter', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 5px 0; letter-spacing: -0.5px; }
-        .stat-sub-value { font-family: 'Inter', sans-serif; font-size: 0.95rem; color: #64748b; font-weight: 600; margin-bottom: 10px; }
-        .stat-label { color: #475569; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; margin-top: 5px; }
+        .stat-card.best-card { border-bottom: 4px solid var(--accent); }
+        .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 10px 0; }
+        .stat-label { color: #64748b; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; }
 
-        /* GitHub Button */
+        /* GitHub Action Trigger Link */
         .source-link-container { text-align: center; margin: 35px 0; }
         .btn-github-pro { 
             display: inline-flex; align-items: center; gap: 12px; 
@@ -49,53 +60,50 @@
         h2 { color: var(--primary); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
         .section-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
 
-        .num-highlight { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--primary); }
+        /* 4-Column Core Dependencies Grid */
+        .lib-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px; }
+        .lib-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+        .lib-icon { font-size: 1.8rem; color: var(--secondary); }
+        .lib-title { font-weight: 700; color: var(--primary); margin: 0; font-size: 1.05rem; }
+        .lib-desc { font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5; }
 
-        /* Data Matrix Tables */
+        /* Feature Matrix Table */
         .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { background: #f1f5f9; padding: 14px; border-bottom: 2px solid #e2e8f0; text-align: left; color: var(--primary); }
         td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-family: 'Fira Code', monospace; }
 
-        /* IDE Window Component */
+        /* IDE Code Container Layout */
         .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
         .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
-        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; overflow-x: auto; }
+        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.88rem; line-height: 1.6; overflow-x: auto; max-height: 550px; }
+        
+        /* IDE Highlighting Engine */
         .comment { color: #6a9955; font-style: italic; }
         .keyword { color: #569cd6; }
         .function { color: #dcdcaa; }
         .string { color: #ce9178; }
-        .numeric { color: #b5cea8; }
+        .number { color: #b5cea8; }
 
-        /* Responsive Visualization Grid */
-        .viz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
-        .viz-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
-        .viz-card:hover { transform: translateY(-5px); }
-        .viz-card img { width: 100%; display: block; height: auto; cursor: pointer; }
-        .viz-label { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 700; color: var(--primary); font-size: 0.95rem; }
-
-        /* Theoretical Grid Columns */
-        .info-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin: 25px 0; }
-        .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; }
-        .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+        /* Info Grid Layout rules */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; }
+        .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; }
+        .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
 
         .conclusion-gradient { 
-            background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%); 
-            border-left: 8px solid var(--secondary); 
+            background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%); 
+            border-left: 8px solid var(--accent); 
             padding: 35px; border-radius: 16px;
         }
 
-        /* Contact Me Component */
-        .contact-buttons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 25px; }
-        .btn-contact { display: inline-flex; align-items: center; gap: 10px; color: white; padding: 14px 28px; border-radius: 30px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease; }
-        .btn-contact:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.15); }
-        .btn-email { background: #3b82f6; }
-        .btn-linkedin { background: #0a66c2; }
-        .btn-github { background: #24292e; }
+        /* Diagnostic Visual Elements & Zoom View Styles */
+        .viz-card-large img { width: 100%; display: block; height: auto; cursor: pointer; transition: transform 0.3s ease; }
+        .viz-card-large { border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .viz-card-large:hover img { transform: scale(1.01); }
 
-        /* Lightbox Overlay Framework */
+        /* Lightbox Overlay System */
         .lightbox-overlay {
             display: none;
             position: fixed;
@@ -103,7 +111,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(15, 23, 42, 0.9);
+            background-color: rgba(15, 23, 42, 0.95);
             z-index: 2000;
             justify-content: center;
             align-items: center;
@@ -134,10 +142,10 @@
         }
         .lightbox-close {
             position: absolute;
-            top: -40px;
+            top: -45px;
             right: 0;
             color: #fff;
-            font-size: 30px;
+            font-size: 32px;
             cursor: pointer;
             transition: color 0.2s;
         }
@@ -145,19 +153,39 @@
             color: var(--secondary);
         }
 
-        footer { text-align: center; padding: 80px 20px; color: #94a3b8; font-size: 0.95rem; }
+        /* REDESIGNED PORTFOLIO DEV FOOTER PANEL (Replacing Bulky Box Layout) */
+        .dev-footer-dashboard { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; background: #0f172a; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); margin-top: 80px; text-align: left; }
+        .dev-json-pane { background: #090d16; padding: 35px; font-family: 'Fira Code', monospace; font-size: 0.85rem; border-right: 1px solid #1e293b; color: #38bdf8; }
+        .dev-json-pane .key { color: #f43f5e; }
+        .dev-json-pane .str { color: #e2e8f0; }
+        .dev-json-pane .num { color: #fbbf24; }
+        .dev-connect-pane { padding: 40px; display: flex; flex-direction: column; justify-content: center; color: white; }
+        .dev-connect-pane h3 { margin: 0 0 10px 0; font-size: 1.5rem; letter-spacing: -0.5px; }
+        .dev-connect-pane p { color: #94a3b8; font-size: 0.92rem; margin: 0 0 25px 0; line-height: 1.5; }
+        .dev-links-stack { display: flex; flex-direction: column; gap: 12px; }
+        .dev-link-row { display: flex; align-items: center; gap: 14px; background: #1e293b; padding: 14px 20px; border-radius: 10px; text-decoration: none; color: #f1f5f9; font-size: 0.9rem; font-weight: 600; transition: 0.2s; border: 1px solid #334155; }
+        .dev-link-row:hover { background: #3b82f6; border-color: #3b82f6; transform: translateX(5px); color: white; }
+        .dev-link-row i { font-size: 1.2rem; width: 24px; text-align: center; color: #3b82f6; transition: 0.2s; }
+        .dev-link-row:hover i { color: white; }
+
+        .case-footer { text-align: center; margin-top: 40px; padding: 30px 0; color: #64748b; font-size: 0.85rem; border-top: 1px solid #e2e8f0; }
+
+        @media (max-width: 960px) { 
+            .lib-grid, .info-grid, .dev-footer-dashboard { grid-template-columns: 1fr; } 
+            .dev-json-pane { border-right: none; border-bottom: 1px solid #1e293b; }
+        }
     </style>
 </head>
 <body>
 
 <div class="header-banner">
-    <h1>California House Price Prediction</h1>
-    <p>Predictive Modeling & Statistical Analysis via Linear Regression</p>
+    <h1>Automated Loan Approval Predictive Architecture</h1>
+    <p>Comparative Empirical Evaluation of Ensemble and Parametric Classifiers</p>
     
     <div class="source-link-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/California%20House%20Prediction" target="_blank" class="btn-github-pro">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Loan%20Approval" target="_blank" class="btn-github-pro">
             <i class="fab fa-github fa-lg"></i>
-            <span>Examine Source Notebook on GitHub</span>
+            <span>Source Notebook on GitHub</span>
         </a>
     </div>
 </div>
@@ -165,37 +193,139 @@
 <div class="container">
 
     <div class="stats-grid">
-        <div class="stat-card data-card">
-            <span class="stat-label">Total Sample Size</span>
-            <span class="stat-value" data-target="20640">0</span>
-            <span class="stat-sub-value">Observations</span>
+        <div class="stat-card best-card" data-type="percent">
+            <span class="stat-label">Random Forest Classifier</span>
+            <span class="stat-value" data-target="97.50">0</span>
         </div>
-        <div class="stat-card data-card">
-            <span class="stat-label">Features</span>
-            <span class="stat-value" data-target="8">0</span>
-            <span class="stat-sub-value">Predictors</span>
+        <div class="stat-card" data-type="percent">
+            <span class="stat-label">K-Nearest Neighbors</span>
+            <span class="stat-value" data-target="81.66">0</span>
         </div>
-        <div class="stat-card">
-            <span class="stat-label">Model MSE</span>
-            <span class="stat-value" data-target="0.548">0.000</span>
-            <span class="stat-sub-value">Mean Squared Error</span>
+        <div class="stat-card" data-type="percent">
+            <span class="stat-label">Logistic Regression</span>
+            <span class="stat-value" data-target="80.83">0</span>
         </div>
-        <div class="stat-card">
-            <span class="stat-label">Model MAE</span>
-            <span class="stat-value" data-target="0.538">0.000</span>
-            <span class="stat-sub-value">Mean Absolute Error</span>
+        <div class="stat-card" data-type="percent">
+            <span class="stat-label">Support Vector Classifier</span>
+            <span class="stat-value" data-target="70.83">0</span>
         </div>
     </div>
 
     <section>
-        <h2><i class="fas fa-home"></i> Project Overview</h2>
-        <p class="section-desc">An empirical regression pipeline predicting median house values based on census block district statistics.</p>
-        <p>This project leverages the classic California Housing dataset to predict median house values (in units of $100,000$). The feature space comprises metrics including median income, house age, average room counts, and geographic coordinates. We employ a <strong>Linear Regression</strong> model to map these independent variables to the target output, establishing a robust baseline for predicting real estate market valuation.</p>
+        <h2><i class="fas fa-cubes"></i> Libraries & Project Dependencies</h2>
+        <p class="section-desc">The computational environment is anchored by four key data science modules to load files, perform linear operations, execute vector modeling, and map parameters.</p>
+        
+        <div class="lib-grid">
+            <div class="lib-item">
+                <div class="lib-icon"><i class="fas fa-table" style="color: #3b82f6;"></i></div>
+                <h5 class="lib-title">Pandas</h5>
+                <p class="lib-desc">Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</p>
+            </div>
+            <div class="lib-item">
+                <div class="lib-icon"><i class="fas fa-calculator" style="color: #10b981;"></i></div>
+                <h5 class="lib-title">NumPy</h5>
+                <p class="lib-desc">Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</p>
+            </div>
+            <div class="lib-item">
+                <div class="lib-icon"><i class="fas fa-project-diagram" style="color: #6366f1;"></i></div>
+                <h5 class="lib-title">Scikit-Learn</h5>
+                <p class="lib-desc">Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</p>
+            </div>
+            <div class="lib-item">
+                <div class="lib-icon"><i class="fas fa-chart-line" style="color: #f59e0b;"></i></div>
+                <h5 class="lib-title">Seaborn Viz</h5>
+                <p class="lib-desc">Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</p>
+            </div>
+        </div>
     </section>
 
     <section>
-        <h2><i class="fas fa-cubes"></i> Required Libraries</h2>
-        <p class="section-desc">Core software development kits and frameworks assigned to establish the data engineering pipeline.</p>
+        <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
+        <p class="section-desc">A computational financial study focused on mitigating risk and optimizing retail banking credit infrastructure.</p>
+        <p>This project evaluates performance boundaries across multiple supervised algorithms to predict retail consumer credit qualification. Using an engineering pipeline written in Python, the codebase drops arbitrary administrative tokens, isolates numeric and non-numeric channels, executes structural data transformations via label encoding, and partitions matrices for out-of-sample evaluation. The validation cycle systematically checks parametric models against non-parametric decision boundaries and ensemble architectures.</p>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-book-open"></i> Advanced Machine Learning Theory</h2>
+        <p class="section-desc">A deep mathematical and conceptual exploration of the core learning architectures and metric diagnostics deployed in this analysis.</p>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h4><i class="fas fa-brain" style="color: #3b82f6;"></i> Logistic Regression Baseline</h4>
+                <p>Models posterior binary risk status using the nonlinear Transcendental Sigmoid function mapping input layers to target structural probability bounds:</p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$P(Y = 1 \mid X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+                </div>
+                <p>Weights are systematically optimized by the strict minimization of the binary cross-entropy loss function over the calculated data matrix frames:</p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$\mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$$
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h4><i class="fas fa-project-diagram" style="color: #a855f7;"></i> Support Vector Classifier (SVC)</h4>
+                <p>Constructs an optimal multi-dimensional separating hyperplane boundary that targets geometric soft-margins between non-separable classification vectors:</p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$\min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i$$
+                </div>
+                <p>Subject to structural margin constraint paths, evaluating data records through slack variables $ \xi_i $ to protect validation cross-entropy balances:</p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0$$
+                </div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h4><i class="fas fa-bolt" style="color: #eab308;"></i> K-Nearest Neighbors (KNN) Layout</h4>
+                <p>An instance-based predictive metric framework that maps validation vectors using strict localized spatial distance paths in an $n$-dimensional Euclidean workspace:</p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2}$$
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h4><i class="fas fa-tree" style="color: #10b981;"></i> Random Forest Ensemble Architecture</h4>
+                <p>A non-parametric bootstrap bagging model that aggregates structural decision metrics across independent deep tree pipelines to scale validation precision:</p>
+                <div style="margin: 20px 0; text-align: center;">
+                    $$\hat{Y} = \text{mode} \left\{ h_1(X), h_2(X), \dots, h_B(X) \right\}$$
+                </div>
+                <p>Averages individual tree variance down to achieve a peak out-of-sample notebook validation accuracy scoring rate of <strong>97.50%</strong>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-microscope"></i> Feature Space Configuration</h2>
+        <p class="section-desc">The internal dimensions and variable taxonomy consisting of 13 separate applicant metrics.</p>
+        
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>Feature Component Name</th><th>Data Dimension Description / Role</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>Loan_ID</code></td><td>Unique Record Identifier (Dropped during engineering phase)</td></tr>
+                    <tr><td><code>Gender</code></td><td>Demographic Indicator (Male / Female)</td></tr>
+                    <tr><td><code>Married</code></td><td>Applicant Marital Status Indicator (Yes / No)</td></tr>
+                    <tr><td><code>Dependents</code></td><td>Quantitative Household Count Feature</td></tr>
+                    <tr><td><code>Education</code></td><td>Academic Level Classification Flag (Graduate / Not Graduate)</td></tr>
+                    <tr><td><code>Self_Employed</code></td><td>Professional Structural Variable (Yes / No)</td></tr>
+                    <tr><td><code>ApplicantIncome</code></td><td>Continuous Metric measuring primary applicant revenue stream</td></tr>
+                    <tr><td><code>CoapplicantIncome</code></td><td>Continuous Metric measuring secondary applicant revenue stream</td></tr>
+                    <tr><td><code>LoanAmount</code></td><td>Quantitative capital request metric (Expressed in thousands)</td></tr>
+                    <tr><td><code>Loan_Amount_Term</code></td><td>Temporal baseline dimension (Expressed in monthly durations)</td></tr>
+                    <tr><td><code>Credit_History</code></td><td>Systemic Indicator tracking previous repayment compliance</td></tr>
+                    <tr><td><code>Property_Area</code></td><td>Geographic Sector Classification (Rural / Urban / Semi-Urban)</td></tr>
+                    <tr style="background: #f0fdf4; font-weight: bold;"><td><code>Loan_Status</code></td><td>Supervised Target Vector Optimization Variable (Y)</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-terminal"></i> Complete Production Data Engineering Pipeline</h2>
+        <p class="section-desc">The true executed Python pipeline script matching the multi-model loop configurations inside the analytical workspace.</p>
         <div class="code-editor">
             <div class="code-top-bar">
                 <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
@@ -204,198 +334,182 @@
 <pre>
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
-<span class="keyword">import</span> seaborn <span class="keyword">as</span> sns
+<span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder
 <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
-<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
-<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, mean_absolute_error
-</pre>
-            </div>
-        </div>
-    </section>
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
+<span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
+<span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
 
-    <section>
-        <h2><i class="fas fa-book-open"></i> Regression Theory & Metrics</h2>
-        <p class="section-desc">Conceptual exploration of the linear regression architecture and the error metrics used for performance validation.</p>
-        
-        <div class="info-grid">
-            <div class="info-card">
-                <h4><i class="fas fa-project-diagram" style="color: #3b82f6;"></i> Multiple Linear Regression</h4>
-                <p>Linear regression models the relationship between a dependent variable $y$ and one or more independent variables $X$ by fitting a linear equation to observed data. The hypothesis function is defined as:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$\hat{y} = \beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_nx_n + \epsilon$$
-                </div>
-                <p>Where $\hat{y}$ is the predicted value, $\beta_0$ is the intercept, $\beta_i$ are the regression coefficients, and $\epsilon$ represents the error term. The model minimizes the sum of squared residuals to find the optimal coefficients.</p>
-            </div>
-            
-            <div class="info-card">
-                <h4><i class="fas fa-calculator" style="color: #eab308;"></i> Performance Metrics (MSE & MAE)</h4>
-                <p>To evaluate the model's predictive accuracy, we utilize two primary metrics:</p>
-                <p><strong>Mean Squared Error (MSE):</strong> Penalizes larger errors by squaring the differences between predicted and actual values:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$$
-                </div>
-                <p><strong>Mean Absolute Error (MAE):</strong> Provides an average magnitude of errors in a set of predictions, without considering direction:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$\text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-database"></i> Data Inspection</h2>
-        <p class="section-desc">Technical preview of the dataset structure and statistical summaries.</p>
-        
-        <h3>First 3 Records (df.head)</h3>
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr><th>MedInc</th><th>HouseAge</th><th>AveRooms</th><th>AveBedrms</th><th>Population</th><th>Latitude</th><th>Longitude</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>8.3252</td><td>41.0</td><td>6.9841</td><td>1.0238</td><td>322.0</td><td>37.88</td><td>-122.23</td></tr>
-                    <tr><td>8.3014</td><td>21.0</td><td>6.2381</td><td>0.9718</td><td>2401.0</td><td>37.86</td><td>-122.22</td></tr>
-                    <tr><td>7.2574</td><td>52.0</td><td>8.2881</td><td>1.0734</td><td>496.0</td><td>37.85</td><td>-122.24</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-terminal"></i> Implementation</h2>
-        <p class="section-desc">Training phase logic and evaluation setup using Linear Regression.</p>
-        <div class="code-editor">
-            <div class="code-top-bar">
-                <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-            </div>
-            <div class="code-content">
-<pre>
-<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
-<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, mean_absolute_error
-
-<span class="keyword">def</span> <span class="function">train_and_evaluate</span>(x_train, x_test, y_train, y_test):
-    <span class="comment"># Algorithm: Linear Regression</span>
-    reg_model = LinearRegression()
-    reg_model.fit(x_train, y_train)
-
-    <span class="comment"># Predictions</span>
-    y_pred = reg_model.predict(x_test)
+<span class="keyword">def</span> <span class="function">run_loan_pipeline</span>(data_path):
+    <span class="comment">'''
+    Loads target dataframes, drops tracking index IDs, eliminates null instances,
+    transforms categoricals into encoded tokens, and runs multi-model validation.
+    '''</span>
+    <span class="comment"># Load data paths from workspace environment</span>
+    df = pd.read_csv(data_path)
     
-    <span class="comment"># Metrics calculation</span>
-    mse = mean_squared_error(y_test, y_pred)
-    mae = mean_absolute_error(y_test, y_pred)
-    <span class="keyword">return</span> mse, mae
+    <span class="comment"># Remove uninformative token attributes to protect variance matrices</span>
+    df = df.drop([<span class="string">'Loan_ID'</span>], axis=<span class="number">1</span>)
+    
+    <span class="comment"># Clean sample spaces by removing floating NaN records</span>
+    df = df.dropna()
+    
+    <span class="comment"># Map categoricals to localized distinct labels</span>
+    le = LabelEncoder()
+    categorical_columns = [<span class="string">'Gender'</span>, <span class="string">'Married'</span>, <span class="string">'Education'</span>, <span class="string">'Self_Employed'</span>, <span class="string">'Property_Area'</span>, <span class="string">'Loan_Status'</span>]
+    <span class="keyword">for</span> col <span class="keyword">in</span> categorical_columns:
+        df[col] = le.fit_transform(df[col])
+        
+    <span class="comment"># Split target planes out from feature spaces</span>
+    X = df.drop([<span class="string">'Loan_Status'</span>], axis=<span class="number">1</span>).values
+    Y = df[<span class="string">'Loan_Status'</span>].values
+    
+    <span class="comment"># Isolate training steps from valuation evaluation scopes</span>
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)
+    
+    <span class="comment"># Instantiate active estimators tracking experimental objectives</span>
+    models = [
+        LogisticRegression(max_iter=<span class="number">1000</span>),
+        SVC(),
+        KNeighborsClassifier(),
+        RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)
+    ]
+    
+    <span class="comment"># Execute validation benchmarking cycles over test matrix sets</span>
+    <span class="keyword">for</span> model <span class="keyword">in</span> models:
+        model.fit(X_train, Y_train)
+        Y_pred = model.predict(X_test)
+        accuracy = metrics.accuracy_score(Y_test, Y_pred)
+        print(<span class="keyword">f</span><span class="string">"Accuracy score of {model.__class__.__name__} = {100 * accuracy:.14f}"</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    <span class="comment"># Entry block running the live predictive pipeline matching the workspace environment</span>
+    run_loan_pipeline(<span class="string">"loan_approval_dataset.csv"</span>)
 </pre>
             </div>
         </div>
     </section>
 
     <section>
-        <h2><i class="fas fa-eye"></i> Visual Performance Analysis</h2>
-        <p class="section-desc">Individual card analysis of model results and error distribution. Click on any image to inspect it in wide, expanded view mode.</p>
-        <div class="viz-grid">
-            <div class="viz-card">
-                <img src="actual_vs_pred.png" alt="Actual vs Predicted Values">
-                <div class="viz-label">Actual vs. Predicted Values</div>
-            </div>
-            <div class="viz-card">
-                <img src="residuals.png" alt="Residual Distribution Analysis">
-                <div class="viz-label">Residual Distribution Analysis</div>
-            </div>
-            <div class="viz-card">
-                <img src="outliers.png" alt="Outlier Identification (95th Percentile Error)">
-                <div class="viz-label">Outlier Identification (95th Percentile Error)</div>
+        <h2><i class="fas fa-chart-bar"></i> Exploratory Visual Diagnostics</h2>
+        <p class="section-desc">Statistical layouts and spatial correlation heatmaps exported from your visualization loops. Click the image block below to initialize the high-resolution expanded view mode.</p>
+        <div class="viz-large-row">
+            <div class="viz-card-large">
+                <img src="dataset/correlation_heatmap.png" alt="Feature Correlation Heatmap" onerror="this.style.display='none'; this.nextElementSibling.style.background='#1e293b'; this.nextElementSibling.style.color='#64748b';">
+                <div class="viz-label" style="padding:40px; text-align:center;"><i class="fas fa-th fa-3x" style="margin-bottom:15px; display:block; color:#3b82f6;"></i>Feature Correlation Matrix (Seaborn Heatmap Visualization Layer)</div>
             </div>
         </div>
     </section>
 
     <section>
-        <h2><i class="fas fa-award"></i> Project Conclusion</h2>
-        <p class="section-desc">Final synthesis of findings and future research directions.</p>
+        <h2><i class="fas fa-clipboard-check"></i> Project Synthesis</h2>
+        <p class="section-desc">Performance deductions and forward-looking research strategies for the next version.</p>
         <div class="conclusion-gradient">
-            <p>This research confirms <strong>Linear Regression</strong> as a suitable baseline for the California Housing dataset. With an <strong>MSE of 0.548</strong> and <strong>MAE of 0.538</strong>, the model effectively explains the variance in housing prices.</p>
-            <p><strong>Moving Forward:</strong> To capture local anomalies and luxury market fluctuations, future versions should explore non-linear ensemble methods like XGBoost or Gradient Boosting Regressors.</p>
+            <p style="color: #065f46; margin-top: 0;"><strong>Empirical Conclusions:</strong> The <strong>Random Forest Classifier</strong> outpaced all individual estimators, registering a peak accuracy score of <strong>97.50%</strong> during validation testing. Non-linear tree distributions accurately islands high-variance features like <code>ApplicantIncome</code> and <code>Credit_History</code> where linear hyperplanes struggled to establish clean class partitions.</p>
+            <p style="color: #065f46; margin-bottom: 0;"><strong>Moving Forward:</strong> To optimize generalization boundaries across noisy out-of-sample datasets, the next development stage will introduce advanced ensemble variants—specifically gradient boosting models (XGBoost, LightGBM) paired with automated grid searches to secure micro-tuned hyperparameters.</p>
         </div>
     </section>
 
-    <section id="contact">
-        <h2><i class="fas fa-paper-plane"></i> Contact Me</h2>
-        <p class="section-desc">Reach out for collaborations, professional inquiries, or technical discussions regarding research engineering pipelines.</p>
-        <div class="contact-buttons">
-            <a href="mailto:amirmohammadaskari@example.com" class="btn-contact btn-email">
-                <i class="fas fa-envelope"></i> Email Me
-            </a>
-            <a href="https://linkedin.com/in/amirmohammadaskari" target="_blank" class="btn-contact btn-linkedin">
-                <i class="fab fa-linkedin"></i> LinkedIn
-            </a>
-            <a href="https://github.com/a1mohamad" target="_blank" class="btn-contact btn-github">
-                <i class="fab fa-github"></i> GitHub Profile
-            </a>
+    <div class="dev-footer-dashboard">
+        <div class="dev-json-pane">
+            <span style="color: #64748b; font-style: italic; display: block; margin-bottom: 10px;">// runtime_profile.json</span>
+            {<br>
+            &nbsp;&nbsp;<span class="key">"engineer"</span>: <span class="str">"Amir Mohamad Askari"</span>,<br>
+            &nbsp;&nbsp;<span class="key">"role"</span>: <span class="str">"AI Research, Developer and ML Engineer"</span>,<br>
+            &nbsp;&nbsp;<span class="key">"affiliation"</span>: <span class="str">"Sharif University of Technology"</span>,<br>
+            &nbsp;&nbsp;<span class="key">"core_focus"</span>: [<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Deep Learning and Neural Networks"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Computer Vision and NLP"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"MLOps Automation Engines and Deployment"</span><br>
+            &nbsp;&nbsp;]<br>
+            }
         </div>
-    </section>
+        <div class="dev-connect-pane">
+            <h3>Contact Me!</h3>
+            <p>Access repositories, code logs, and deep classification blueprints via alternative endpoints.</p>
+            <div class="dev-links-stack">
+                <a href="https://github.com/a1mohamad" class="dev-link-row" target="_blank">
+                    <i class="fab fa-github"></i> <span>GitHub Main Page</span>
+                </a>
+                <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="dev-link-row" target="_blank">
+                    <i class="fab fa-linkedin-in"></i> <span>LinkedIn Profile</span>
+                </a>
+                <a href="https://www.kaggle.com/amirmohamadaskari" class="dev-link-row" target="_blank">
+                    <i class="fab fa-kaggle"></i> <span>Kaggle Platform</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="lightbox-overlay" id="lightboxOverlay">
     <div class="lightbox-wrapper">
         <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
-        <img id="lightboxImage" src="" alt="Expanded View">
+        <img id="lightboxImage" src="" alt="Expanded Diagnostic Workspace View">
     </div>
 </div>
 
-<footer>
-    <p>Project Authored by <strong>Amir Mohamad Askari</strong> &bull; 2024</p>
-</footer>
+<div class="case-footer">
+    Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026
+</div>
 
 <script>
+    const cards = document.querySelectorAll('.stat-card');
+    cards.forEach(card => {
+        const counter = card.querySelector('.stat-value');
+        const type = card.getAttribute('data-type');
+        const target = +counter.getAttribute('data-target');
+        
+        let count = 0;
+        const duration = 1000;
+        const steps = 40;
+        const stepValue = target / steps;
+        let currentStep = 0;
+
+        const updateCount = () => {
+            currentStep++;
+            count += stepValue;
+            
+            if (currentStep < steps) {
+                if (type === 'percent') {
+                    counter.innerText = count.toFixed(2) + '%';
+                } else {
+                    counter.innerText = Math.floor(count);
+                }
+                setTimeout(updateCount, duration / steps);
+            } else {
+                if (type === 'percent') {
+                    counter.innerText = target.toFixed(2) + '%';
+                } else {
+                    counter.innerText = target;
+                }
+            }
+        };
+        updateCount();
+    });
+
+    // Integrated Image Wide-Mode Zoom Engine Trigger 
     document.addEventListener('DOMContentLoaded', () => {
-        // Countable Number Dashboard Animation Logic
-        const counters = document.querySelectorAll('.stat-value');
-        counters.forEach(counter => {
-            const target = parseFloat(counter.getAttribute('data-target'));
-            const isFloat = target % 1 !== 0;
-            const duration = 2000;
-            const startTime = performance.now();
-
-            const animate = (currentTime) => {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easeProgress = progress * (2 - progress);
-                let current = easeProgress * target;
-                
-                if (isFloat) {
-                    counter.textContent = current.toFixed(3);
-                } else {
-                    counter.textContent = Math.floor(current).toLocaleString();
-                }
-
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
-                } else {
-                    counter.textContent = isFloat ? target.toFixed(3) : target.toLocaleString();
-                }
-            };
-            requestAnimationFrame(animate);
-        });
-
-        // Interactive Lightbox Wide Mode System
         const overlay = document.getElementById('lightboxOverlay');
         const lightboxImg = document.getElementById('lightboxImage');
         const closeBtn = document.getElementById('lightboxClose');
-        const portfolioImages = document.querySelectorAll('.viz-card img');
+        const scalableImages = document.querySelectorAll('.viz-card-large img');
 
-        portfolioImages.forEach(image => {
+        scalableImages.forEach(image => {
             image.addEventListener('click', () => {
                 lightboxImg.src = image.src;
                 lightboxImg.alt = image.alt;
                 overlay.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Lock main scroll context
+                document.body.style.overflow = 'hidden'; // Restrict background scrolling context
             });
         });
 
         const dismissLightbox = () => {
             overlay.classList.remove('active');
-            document.body.style.overflow = ''; // Release scroll context
+            document.body.style.overflow = ''; // Re-enable workflow viewport scroll context
         };
 
         closeBtn.addEventListener('click', dismissLightbox);
@@ -406,6 +520,5 @@
         });
     });
 </script>
-
 </body>
 </html>
