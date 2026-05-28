@@ -73,7 +73,7 @@
         .viz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
         .viz-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
         .viz-card:hover { transform: translateY(-5px); }
-        .viz-card img { width: 100%; display: block; height: auto; }
+        .viz-card img { width: 100%; display: block; height: auto; cursor: pointer; }
         .viz-label { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 700; color: var(--primary); font-size: 0.95rem; }
 
         /* Theoretical Grid Columns */
@@ -94,6 +94,56 @@
         .btn-email { background: #3b82f6; }
         .btn-linkedin { background: #0a66c2; }
         .btn-github { background: #24292e; }
+
+        /* Lightbox Overlay Framework */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-wrapper {
+            position: relative;
+            max-width: 90%;
+            max-height: 85%;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .lightbox-overlay.active .lightbox-wrapper {
+            transform: scale(1);
+        }
+        .lightbox-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .lightbox-close:hover {
+            color: var(--secondary);
+        }
 
         footer { text-align: center; padding: 80px 20px; color: #94a3b8; font-size: 0.95rem; }
     </style>
@@ -243,18 +293,18 @@
 
     <section>
         <h2><i class="fas fa-eye"></i> Visual Performance Analysis</h2>
-        <p class="section-desc">Individual card analysis of model results and error distribution.</p>
+        <p class="section-desc">Individual card analysis of model results and error distribution. Click on any image to inspect it in wide, expanded view mode.</p>
         <div class="viz-grid">
             <div class="viz-card">
-                <img src="actual_vs_pred.png" alt="Actual vs Predicted">
+                <img src="actual_vs_pred.png" alt="Actual vs Predicted Values">
                 <div class="viz-label">Actual vs. Predicted Values</div>
             </div>
             <div class="viz-card">
-                <img src="residuals.png" alt="Residuals">
+                <img src="residuals.png" alt="Residual Distribution Analysis">
                 <div class="viz-label">Residual Distribution Analysis</div>
             </div>
             <div class="viz-card">
-                <img src="outliers.png" alt="Outliers">
+                <img src="outliers.png" alt="Outlier Identification (95th Percentile Error)">
                 <div class="viz-label">Outlier Identification (95th Percentile Error)</div>
             </div>
         </div>
@@ -286,12 +336,20 @@
     </section>
 </div>
 
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+
 <footer>
     <p>Project Authored by <strong>Amir Mohamad Askari</strong> &bull; 2024</p>
 </footer>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Countable Number Dashboard Animation Logic
         const counters = document.querySelectorAll('.stat-value');
         counters.forEach(counter => {
             const target = parseFloat(counter.getAttribute('data-target'));
@@ -318,6 +376,33 @@
                 }
             };
             requestAnimationFrame(animate);
+        });
+
+        // Interactive Lightbox Wide Mode System
+        const overlay = document.getElementById('lightboxOverlay');
+        const lightboxImg = document.getElementById('lightboxImage');
+        const closeBtn = document.getElementById('lightboxClose');
+        const portfolioImages = document.querySelectorAll('.viz-card img');
+
+        portfolioImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightboxImg.src = image.src;
+                lightboxImg.alt = image.alt;
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Lock main scroll context
+            });
+        });
+
+        const dismissLightbox = () => {
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // Release scroll context
+        };
+
+        closeBtn.addEventListener('click', dismissLightbox);
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                dismissLightbox();
+            }
         });
     });
 </script>
