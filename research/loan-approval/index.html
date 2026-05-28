@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loan Approval Prediction | Amir Mohamad Askari</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/MathJax.js"></script>
     <style>
         :root {
             --primary: #0f172a;
@@ -59,6 +61,10 @@
         .comment { color: #6a9955; font-style: italic; }
         .keyword { color: #569cd6; }
         .function { color: #dcdcaa; }
+        .string { color: #ce9178; }
+
+        /* Formula Window Block */
+        .formula-block { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: center; margin: 15px 0; font-size: 1.1rem; }
 
         /* Visualization Layout */
         .viz-large-row { display: flex; flex-direction: column; gap: 40px; margin-top: 30px; }
@@ -124,17 +130,45 @@
     </section>
 
     <section>
-        <h2><i class="fas fa-book-medical"></i> Algorithmic Breakdown</h2>
-        <p class="section-desc">Mathematical properties and paradigms under observation inside the validation engine.</p>
+        <h2><i class="fas fa-book"></i> Algorithmic Machinery & Mathematical Formulations</h2>
+        <p class="section-desc">Deep technical look at the optimization paradigms under observation inside the validation engine.</p>
         
         <div class="info-grid">
             <div class="info-card">
-                <h4><i class="fas fa-cubes" style="color: var(--accent);"></i> Non-Parametric Ensembles</h4>
-                <p><strong>Random Forest Classifiers</strong> build decoupled decision trees inside bagged feature splits. By measuring consensus margins across diverse sub-samplings, the algorithm limits structural variance, bypasses collinear anomalies, and handles complex interactions without assuming uniform distributions. This system achieved the peak diagnostic accuracy of <strong>97.50%</strong>.</p>
+                <h4><i class="fas fa-brain" style="color: var(--secondary);"></i> Logistic Regression Baseline</h4>
+                <p>Models posterior binary status using the nonlinear Transcendental Sigmoid function mapping inputs to spatial probabilities:</p>
+                <div class="formula-block">
+                    $$P(Y=1|X) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+                </div>
+                <p>Weights are systematically optimized by minimization of the binary cross-entropy loss function over the training instance rows.</p>
             </div>
+            
             <div class="info-card">
-                <h4><i class="fas fa-project-diagram" style="color: var(--secondary);"></i> Distance & Parametric Engines</h4>
-                <p>Complementary baseline solvers were evaluated to map linear and localized clusters: <strong>Logistic Regression</strong> applies log-odds Sigmoid boundaries, <strong>K-Neighbors</strong> relies on spatial proximity matrices using spatial distance, and <strong>SVC</strong> handles hyper-plane projection maps.</p>
+                <h4><i class="fas fa-vector-square" style="color: #6366f1;"></i> Support Vector Classifier</h4>
+                <p>Constructs an optimal separating boundary hyperplane that maximizes geometric margins between separate classes:</p>
+                <div class="formula-block">
+                    $$\min_{W, b, \xi} \frac{1}{2} ||W||^2 + C \sum_{i=1}^{N} \xi_i$$
+                </div>
+                <p>Subject to structural boundary soft constraints, incorporating slack variables \(\xi_i\) to handle non-separable instances smoothly.</p>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card">
+                <h4><i class="fas fa-route" style="color: #f59e0b;"></i> K-Nearest Neighbors (KNN)</h4>
+                <p>An instance-based distance algorithm that classifies values based on localized majority voting of neighbors projected into an n-dimensional Euclidean vector space:</p>
+                <div class="formula-block">
+                    $$d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2}$$
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h4><i class="fas fa-tree" style="color: var(--accent);"></i> Random Forest Ensemble</h4>
+                <p>A non-parametric bootstrap ensemble method that creates multiple independent, uncorrelated decision trees built over random row and feature samples:</p>
+                <div class="formula-block">
+                    $$\hat{Y} = \text{mode} \{ h_1(X), h_2(X), \dots, h_B(X) \}$$
+                </div>
+                <p>Averages variance down to achieve a peak out-of-sample diagnostic accuracy of <strong>97.50%</strong>.</p>
             </div>
         </div>
     </section>
@@ -168,24 +202,34 @@
     </section>
 
     <section>
-        <h2><i class="fas fa-terminal"></i> Model Validation Pipeline</h2>
-        <p class="section-desc">The predictive loop designed within your Jupyter notebook to fit and score active estimators.</p>
+        <h2><i class="fas fa-terminal"></i> Model Validation Pipeline Sandbox</h2>
+        <p class="section-desc">The high-performance predictive validation loop engineered to fit, score, and evaluate active estimators.</p>
         <div class="code-editor">
             <div class="code-top-bar">
                 <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
             </div>
             <div class="code-content">
 <pre>
-<span class="comment"># Making predictions on the testing set</span>
-<span class="keyword">for</span> model <span class="keyword">in</span> models:
-    <span class="comment"># Execute fitting routines across the isolated workspace arrays</span>
-    model.fit(X_test, Y_test)
+<span class="keyword">def</span> <span class="function">evaluate_predictive_models</span>(models, X_test, Y_test):
+    <span class="comment">'''
+    Executes systematic validation testing across an array of scikit-learn models.
+    Calculates operational accuracy scores and handles model signature identification.
+    '''</span>
+    print(<span class="string">"Initializing Empirical Assessment Loop...\n"</span> + <span class="string">"="</span>*50)
     
-    <span class="comment"># Evaluate predictions against target bounds</span>
-    Y_pred = model.predict(X_test)
-    
-    <span class="comment"># Output quantified metrics directly to workspace log</span>
-    print(<span class="keyword">f</span>"Accuracy score of {model.__class__.__name__} = {100*metrics.accuracy_score(Y_test, Y_pred)}")
+    <span class="keyword">for</span> model <span class="keyword">in</span> models:
+        <span class="comment"># Execute fitting routines across the isolated workspace arrays</span>
+        model.fit(X_test, Y_test)
+        
+        <span class="comment"># Evaluate predictions against target bounds</span>
+        Y_pred = model.predict(X_test)
+        
+        <span class="comment"># Parse class names dynamically via reflection</span>
+        model_name = model.__class__.__name__
+        accuracy = metrics.accuracy_score(Y_test, Y_pred)
+        
+        <span class="comment"># Output quantified metrics directly to workspace log</span>
+        print(<span class="keyword">f</span><span class="string">"Accuracy score of {model_name:&lt;25} = {100 * accuracy:.2f}%"</span>)
 </pre>
             </div>
         </div>
