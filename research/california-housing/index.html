@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Approval Prediction | Amir Mohamad Askari</title>
+    <title>California Housing Prediction | Amir Mohamad Askari</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <script>
@@ -179,11 +179,11 @@
 <body>
 
 <div class="header-banner">
-    <h1>Automated Loan Approval Predictive Architecture</h1>
-    <p>Comparative Empirical Evaluation of Ensemble and Parametric Classifiers</p>
+    <h1>California Housing Predictive Architecture</h1>
+    <p>Empirical Analysis and Price Regression Modeling</p>
     
     <div class="source-link-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Loan%20Approval" target="_blank" class="btn-github-pro">
+        <a href="#" class="btn-github-pro">
             <i class="fab fa-github fa-lg"></i>
             <span>Source Notebook on GitHub</span>
         </a>
@@ -191,25 +191,6 @@
 </div>
 
 <div class="container">
-
-    <div class="stats-grid">
-        <div class="stat-card best-card" data-type="percent">
-            <span class="stat-label">Random Forest Classifier</span>
-            <span class="stat-value" data-target="97.50">0</span>
-        </div>
-        <div class="stat-card" data-type="percent">
-            <span class="stat-label">K-Nearest Neighbors</span>
-            <span class="stat-value" data-target="81.66">0</span>
-        </div>
-        <div class="stat-card" data-type="percent">
-            <span class="stat-label">Logistic Regression</span>
-            <span class="stat-value" data-target="80.83">0</span>
-        </div>
-        <div class="stat-card" data-type="percent">
-            <span class="stat-label">Support Vector Classifier</span>
-            <span class="stat-value" data-target="70.83">0</span>
-        </div>
-    </div>
 
     <section>
         <h2><i class="fas fa-cubes"></i> Libraries & Project Dependencies</h2>
@@ -236,179 +217,6 @@
                 <h5 class="lib-title">Seaborn Viz</h5>
                 <p class="lib-desc">Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</p>
             </div>
-        </div>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
-        <p class="section-desc">A computational financial study focused on mitigating risk and optimizing retail banking credit infrastructure.</p>
-        <p>This project evaluates performance boundaries across multiple supervised algorithms to predict retail consumer credit qualification. Using an engineering pipeline written in Python, the codebase drops arbitrary administrative tokens, isolates numeric and non-numeric channels, executes structural data transformations via label encoding, and partitions matrices for out-of-sample evaluation. The validation cycle systematically checks parametric models against non-parametric decision boundaries and ensemble architectures.</p>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-book-open"></i> Advanced Machine Learning Theory</h2>
-        <p class="section-desc">A deep mathematical and conceptual exploration of the core learning architectures and metric diagnostics deployed in this analysis.</p>
-        
-        <div class="info-grid">
-            <div class="info-card">
-                <h4><i class="fas fa-brain" style="color: #3b82f6;"></i> Logistic Regression Baseline</h4>
-                <p>Models posterior binary risk status using the nonlinear Transcendental Sigmoid function mapping input layers to target structural probability bounds:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$P(Y = 1 \mid X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}}$$
-                </div>
-                <p>Weights are systematically optimized by the strict minimization of the binary cross-entropy loss function over the calculated data matrix frames:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$\mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$$
-                </div>
-            </div>
-            
-            <div class="info-card">
-                <h4><i class="fas fa-project-diagram" style="color: #a855f7;"></i> Support Vector Classifier (SVC)</h4>
-                <p>Constructs an optimal multi-dimensional separating hyperplane boundary that targets geometric soft-margins between non-separable classification vectors:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$\min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i$$
-                </div>
-                <p>Subject to structural margin constraint paths, evaluating data records through slack variables $ \xi_i $ to protect validation cross-entropy balances:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0$$
-                </div>
-            </div>
-        </div>
-
-        <div class="info-grid">
-            <div class="info-card">
-                <h4><i class="fas fa-bolt" style="color: #eab308;"></i> K-Nearest Neighbors (KNN) Layout</h4>
-                <p>An instance-based predictive metric framework that maps validation vectors using strict localized spatial distance paths in an $n$-dimensional Euclidean workspace:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2}$$
-                </div>
-            </div>
-
-            <div class="info-card">
-                <h4><i class="fas fa-tree" style="color: #10b981;"></i> Random Forest Ensemble Architecture</h4>
-                <p>A non-parametric bootstrap bagging model that aggregates structural decision metrics across independent deep tree pipelines to scale validation precision:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$\hat{Y} = \text{mode} \left\{ h_1(X), h_2(X), \dots, h_B(X) \right\}$$
-                </div>
-                <p>Averages individual tree variance down to achieve a peak out-of-sample notebook validation accuracy scoring rate of <strong>97.50%</strong>.</p>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-microscope"></i> Feature Space Configuration</h2>
-        <p class="section-desc">The internal dimensions and variable taxonomy consisting of 13 separate applicant metrics.</p>
-        
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr><th>Feature Component Name</th><th>Data Dimension Description / Role</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>Loan_ID</code></td><td>Unique Record Identifier (Dropped during engineering phase)</td></tr>
-                    <tr><td><code>Gender</code></td><td>Demographic Indicator (Male / Female)</td></tr>
-                    <tr><td><code>Married</code></td><td>Applicant Marital Status Indicator (Yes / No)</td></tr>
-                    <tr><td><code>Dependents</code></td><td>Quantitative Household Count Feature</td></tr>
-                    <tr><td><code>Education</code></td><td>Academic Level Classification Flag (Graduate / Not Graduate)</td></tr>
-                    <tr><td><code>Self_Employed</code></td><td>Professional Structural Variable (Yes / No)</td></tr>
-                    <tr><td><code>ApplicantIncome</code></td><td>Continuous Metric measuring primary applicant revenue stream</td></tr>
-                    <tr><td><code>CoapplicantIncome</code></td><td>Continuous Metric measuring secondary applicant revenue stream</td></tr>
-                    <tr><td><code>LoanAmount</code></td><td>Quantitative capital request metric (Expressed in thousands)</td></tr>
-                    <tr><td><code>Loan_Amount_Term</code></td><td>Temporal baseline dimension (Expressed in monthly durations)</td></tr>
-                    <tr><td><code>Credit_History</code></td><td>Systemic Indicator tracking previous repayment compliance</td></tr>
-                    <tr><td><code>Property_Area</code></td><td>Geographic Sector Classification (Rural / Urban / Semi-Urban)</td></tr>
-                    <tr style="background: #f0fdf4; font-weight: bold;"><td><code>Loan_Status</code></td><td>Supervised Target Vector Optimization Variable (Y)</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-terminal"></i> Complete Production Data Engineering Pipeline</h2>
-        <p class="section-desc">The true executed Python pipeline script matching the multi-model loop configurations inside the analytical workspace.</p>
-        <div class="code-editor">
-            <div class="code-top-bar">
-                <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
-            </div>
-            <div class="code-content">
-<pre>
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics
-<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder
-<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
-<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
-<span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
-<span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier
-<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
-
-<span class="keyword">def</span> <span class="function">run_loan_pipeline</span>(data_path):
-    <span class="comment">'''
-    Loads target dataframes, drops tracking index IDs, eliminates null instances,
-    transforms categoricals into encoded tokens, and runs multi-model validation.
-    '''</span>
-    <span class="comment"># Load data paths from workspace environment</span>
-    df = pd.read_csv(data_path)
-    
-    <span class="comment"># Remove uninformative token attributes to protect variance matrices</span>
-    df = df.drop([<span class="string">'Loan_ID'</span>], axis=<span class="number">1</span>)
-    
-    <span class="comment"># Clean sample spaces by removing floating NaN records</span>
-    df = df.dropna()
-    
-    <span class="comment"># Map categoricals to localized distinct labels</span>
-    le = LabelEncoder()
-    categorical_columns = [<span class="string">'Gender'</span>, <span class="string">'Married'</span>, <span class="string">'Education'</span>, <span class="string">'Self_Employed'</span>, <span class="string">'Property_Area'</span>, <span class="string">'Loan_Status'</span>]
-    <span class="keyword">for</span> col <span class="keyword">in</span> categorical_columns:
-        df[col] = le.fit_transform(df[col])
-        
-    <span class="comment"># Split target planes out from feature spaces</span>
-    X = df.drop([<span class="string">'Loan_Status'</span>], axis=<span class="number">1</span>).values
-    Y = df[<span class="string">'Loan_Status'</span>].values
-    
-    <span class="comment"># Isolate training steps from valuation evaluation scopes</span>
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)
-    
-    <span class="comment"># Instantiate active estimators tracking experimental objectives</span>
-    models = [
-        LogisticRegression(max_iter=<span class="number">1000</span>),
-        SVC(),
-        KNeighborsClassifier(),
-        RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)
-    ]
-    
-    <span class="comment"># Execute validation benchmarking cycles over test matrix sets</span>
-    <span class="keyword">for</span> model <span class="keyword">in</span> models:
-        model.fit(X_train, Y_train)
-        Y_pred = model.predict(X_test)
-        accuracy = metrics.accuracy_score(Y_test, Y_pred)
-        print(<span class="keyword">f</span><span class="string">"Accuracy score of {model.__class__.__name__} = {100 * accuracy:.14f}"</span>)
-
-<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
-    <span class="comment"># Entry block running the live predictive pipeline matching the workspace environment</span>
-    run_loan_pipeline(<span class="string">"loan_approval_dataset.csv"</span>)
-</pre>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-chart-bar"></i> Exploratory Visual Diagnostics</h2>
-        <p class="section-desc">Statistical layouts and spatial correlation heatmaps exported from your visualization loops. Click the image block below to initialize the high-resolution expanded view mode.</p>
-        <div class="viz-large-row">
-            <div class="viz-card-large">
-                <img src="dataset/correlation_heatmap.png" alt="Feature Correlation Heatmap" onerror="this.style.display='none'; this.nextElementSibling.style.background='#1e293b'; this.nextElementSibling.style.color='#64748b';">
-                <div class="viz-label" style="padding:40px; text-align:center;"><i class="fas fa-th fa-3x" style="margin-bottom:15px; display:block; color:#3b82f6;"></i>Feature Correlation Matrix (Seaborn Heatmap Visualization Layer)</div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-clipboard-check"></i> Project Synthesis</h2>
-        <p class="section-desc">Performance deductions and forward-looking research strategies for the next version.</p>
-        <div class="conclusion-gradient">
-            <p style="color: #065f46; margin-top: 0;"><strong>Empirical Conclusions:</strong> The <strong>Random Forest Classifier</strong> outpaced all individual estimators, registering a peak accuracy score of <strong>97.50%</strong> during validation testing. Non-linear tree distributions accurately islands high-variance features like <code>ApplicantIncome</code> and <code>Credit_History</code> where linear hyperplanes struggled to establish clean class partitions.</p>
-            <p style="color: #065f46; margin-bottom: 0;"><strong>Moving Forward:</strong> To optimize generalization boundaries across noisy out-of-sample datasets, the next development stage will introduce advanced ensemble variants—specifically gradient boosting models (XGBoost, LightGBM) paired with automated grid searches to secure micro-tuned hyperparameters.</p>
         </div>
     </section>
 
@@ -445,80 +253,5 @@
 
 </div>
 
-<div class="lightbox-overlay" id="lightboxOverlay">
-    <div class="lightbox-wrapper">
-        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
-        <img id="lightboxImage" src="" alt="Expanded Diagnostic Workspace View">
-    </div>
-</div>
-
-<div class="case-footer">
-    Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026
-</div>
-
-<script>
-    const cards = document.querySelectorAll('.stat-card');
-    cards.forEach(card => {
-        const counter = card.querySelector('.stat-value');
-        const type = card.getAttribute('data-type');
-        const target = +counter.getAttribute('data-target');
-        
-        let count = 0;
-        const duration = 1000;
-        const steps = 40;
-        const stepValue = target / steps;
-        let currentStep = 0;
-
-        const updateCount = () => {
-            currentStep++;
-            count += stepValue;
-            
-            if (currentStep < steps) {
-                if (type === 'percent') {
-                    counter.innerText = count.toFixed(2) + '%';
-                } else {
-                    counter.innerText = Math.floor(count);
-                }
-                setTimeout(updateCount, duration / steps);
-            } else {
-                if (type === 'percent') {
-                    counter.innerText = target.toFixed(2) + '%';
-                } else {
-                    counter.innerText = target;
-                }
-            }
-        };
-        updateCount();
-    });
-
-    // Integrated Image Wide-Mode Zoom Engine Trigger 
-    document.addEventListener('DOMContentLoaded', () => {
-        const overlay = document.getElementById('lightboxOverlay');
-        const lightboxImg = document.getElementById('lightboxImage');
-        const closeBtn = document.getElementById('lightboxClose');
-        const scalableImages = document.querySelectorAll('.viz-card-large img');
-
-        scalableImages.forEach(image => {
-            image.addEventListener('click', () => {
-                lightboxImg.src = image.src;
-                lightboxImg.alt = image.alt;
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Restrict background scrolling context
-            });
-        });
-
-        const dismissLightbox = () => {
-            overlay.classList.remove('active');
-            document.body.style.overflow = ''; // Re-enable workflow viewport scroll context
-        };
-
-        closeBtn.addEventListener('click', dismissLightbox);
-        overlay.addEventListener('click', (event) => {
-            if (event.target === overlay) {
-                dismissLightbox();
-            }
-        });
-    });
-</script>
 </body>
 </html>
