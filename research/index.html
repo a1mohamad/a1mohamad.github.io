@@ -26,7 +26,7 @@
         .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
         
         /* Capability Chips */
-        .stack-tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+        .stack-tags { margin-top: 20px; display: flex flex-wrap: wrap; gap: 10px; }
         .tag { background: #f1f5f9; color: var(--text-slate); padding: 6px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; border: 1px solid #e2e8f0; }
         .tag-highlight { background: #eff6ff; color: var(--secondary); border-color: #dbeafe; }
 
@@ -37,7 +37,12 @@
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
         .card-img { height: 200px; width: 100%; object-fit: cover; }
         .card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-content h3 { margin: 0 0 15px 0; font-size: 1.4rem; }
+        .card-content h3 { margin: 15px 0 10px 0; font-size: 1.4rem; }
+        
+        /* Separated Algorithmic Badge Track Styles */
+        .algo-track { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 5px; }
+        .algo-pill { background: #f8fafc; color: #64748b; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0; text-transform: uppercase; letter-spacing: 0.5px; }
+        
         .btn-view { margin-top: auto; display: block; text-align: center; background: var(--primary); color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: 600; }
 
         /* Footer & About Me */
@@ -98,7 +103,13 @@
                     <i class="fas fa-hand-holding-usd fa-4x"></i>
                 </div>
                 <div class="card-content">
-                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 10px;">CLASSIFICATION / SCILIKT-LEARN</span>
+                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 8px;">CLASSIFICATION / SCIKIT-LEARN</span>
+                    <div class="algo-track">
+                        <span class="algo-pill">Logistic Regression</span>
+                        <span class="algo-pill">SVC</span>
+                        <span class="algo-pill">KNN</span>
+                        <span class="algo-pill">Random Forest</span>
+                    </div>
                     <h3>Loan Approval Risk Modeling</h3>
                     <p>A comparative mathematical and algorithmic assessment validating performance across parametric models, distance-based boundaries, and non-parametric bootstrap ensembles.</p>
                     <a href="loan-approval/index.html" class="btn-view">Access Case Study</a>
@@ -108,7 +119,10 @@
             <article class="card">
                 <img src="california-housing/actual_vs_pred.png" alt="Regression Project" class="card-img">
                 <div class="card-content">
-                    <span class="tag" style="width: fit-content; margin-bottom: 10px;">TABULAR / SKLEARN</span>
+                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 8px;">REGRESSION / SCIKIT-LEARN</span>
+                    <div class="algo-track">
+                        <span class="algo-pill">Linear Regression</span>
+                    </div>
                     <h3>California House Price Analysis</h3>
                     <p>A benchmark regression study focused on feature scaling and statistical interpretation of housing economic indicators.</p>
                     <a href="california-housing/index.html" class="btn-view">Access Case Study</a>
@@ -120,7 +134,10 @@
                     <i class="fas fa-heartbeat fa-4x"></i>
                 </div>
                 <div class="card-content">
-                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 10px;">CLASSIFICATION / SCILIKT-LEARN</span>
+                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 8px;">CLASSIFICATION / SCIKIT-LEARN</span>
+                    <div class="algo-track">
+                        <span class="algo-pill">Logistic Regression</span>
+                    </div>
                     <h3>Heart Disease Risk Prognosis</h3>
                     <p>A supervised classification study leveraging Logistic Regression to estimate 10-year Coronary Heart Disease (CHD) risk from clinical metrics.</p>
                     <a href="heart-disease/index.html" class="btn-view">Access Case Study</a>
@@ -132,7 +149,11 @@
                     <i class="fas fa-utensils fa-4x"></i>
                 </div>
                 <div class="card-content">
-                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 10px;">EDA / PANDAS</span>
+                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 8px;">EDA & VISUALIZATION / PANDAS</span>
+                    <div class="algo-track">
+                        <span class="algo-pill">Descriptive Stats</span>
+                        <span class="algo-pill">Distribution Maps</span>
+                    </div>
                     <h3>Zomato Market Diagnostics</h3>
                     <p>An exploratory data analysis study investigating metropolitan restaurant trends, pricing indexes, and consumer booking habits.</p>
                     <a href="zomato-analysis/index.html" class="btn-view">Access Case Study</a>
@@ -144,7 +165,11 @@
                     <i class="fas fa-wine-glass-alt fa-4x"></i>
                 </div>
                 <div class="card-content">
-                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 10px;">CLASSIFICATION / XGBOOST & SVC</span>
+                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 8px;">CLASSIFICATION / XGBOOST & SCIKIT-LEARN</span>
+                    <div class="algo-track">
+                        <span class="algo-pill">SVC</span>
+                        <span class="algo-pill">XGBoost</span>
+                    </div>
                     <h3>Wine Quality Predictive System</h3>
                     <p>A comparative evaluation study utilizing Support Vector Classifiers (SVC) and XGBoost models to determine grade metrics based on chemical property features.</p>
                     <a href="wine-quality/index.html" class="btn-view">Access Case Study</a>
@@ -156,7 +181,11 @@
                     <i class="fas fa-leaf fa-4x"></i>
                 </div>
                 <div class="card-content">
-                    <span class="tag" style="width: fit-content; margin-bottom: 10px;">COMPUTER VISION</span>
+                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 8px;">COMPUTER VISION / TENSORFLOW</span>
+                    <div class="algo-track">
+                        <span class="algo-pill">EfficientNetB3</span>
+                        <span class="algo-pill">CNN</span>
+                    </div>
                     <h3>Cassava Leaf Disease Detection</h3>
                     <p>Coming Soon: Deep Learning classification using Convolutional Neural Networks (CNN) to identify crop diseases from leaf imagery.</p>
                     <span style="color: #94a3b8; font-size: 0.8rem; font-style: italic;">Status: Development</span>
@@ -168,7 +197,11 @@
                     <i class="fas fa-language fa-4x"></i>
                 </div>
                 <div class="card-content">
-                    <span class="tag" style="width: fit-content; margin-bottom: 10px;">NLP / TRANSFORMERS</span>
+                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 8px;">NLP / TRANSFORMERS</span>
+                    <div class="algo-track">
+                        <span class="algo-pill">BERT</span>
+                        <span class="algo-pill">Siamese Networks</span>
+                    </div>
                     <h3>Quora Question Similarity</h3>
                     <p>Coming Soon: Detecting duplicate questions using Siamese Networks and BERT-based fine-tuning for semantic similarity.</p>
                     <span style="color: #94a3b8; font-size: 0.8rem; font-style: italic;">Status: Researching</span>
@@ -180,7 +213,11 @@
                     <i class="fas fa-newspaper fa-4x"></i>
                 </div>
                 <div class="card-content">
-                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 10px;">SCRAPING / AUTOMATION</span>
+                    <span class="tag tag-highlight" style="width: fit-content; margin-bottom: 8px;">AUTOMATION & SCRAPING / BEAUTIFULSOUP</span>
+                    <div class="algo-track">
+                        <span class="algo-pill">RSS Text Parsing</span>
+                        <span class="algo-pill">Metadata Extraction</span>
+                    </div>
                     <h3>NYT News Harvesting Engine</h3>
                     <p>Automated intelligence gathering layer to perform text parsing from RSS feeds, extracting title, author, and content metadata.</p>
                     <a href="NewYorkTimes-scraping/index.html" class="btn-view">Access Scraper</a>
