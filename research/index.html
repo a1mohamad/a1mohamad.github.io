@@ -25,8 +25,8 @@
         .intro-section h1 { font-size: 2.5rem; margin-top: 0; margin-bottom: 25px; }
         .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
         
-        /* Capability Chips */
-        .stack-tags { margin-top: 20px; display: flex flex-wrap: wrap; gap: 10px; }
+        /* Fixed: Corrected Syntax to Prevent Chip Overlapping */
+        .stack-tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
         .tag { background: #f1f5f9; color: var(--text-slate); padding: 6px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; border: 1px solid #e2e8f0; }
         .tag-highlight { background: #eff6ff; color: var(--secondary); border-color: #dbeafe; }
 
@@ -39,7 +39,6 @@
         .card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
         .card-content h3 { margin: 15px 0 10px 0; font-size: 1.4rem; }
         
-        /* Separated Algorithmic Badge Track Styles */
         .algo-track { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 5px; }
         .algo-pill { background: #f8fafc; color: #64748b; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0; text-transform: uppercase; letter-spacing: 0.5px; }
         
