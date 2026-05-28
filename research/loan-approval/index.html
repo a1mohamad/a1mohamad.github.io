@@ -13,9 +13,9 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true
             },
-            options: {
-                ignoreHtmlClass: 'tex2jax_ignore',
-                processHtmlClass: 'tex2jax_process'
+            chtml: {
+                scale: 1.05,
+                displayAlign: 'center'
             }
         };
     </script>
@@ -34,7 +34,7 @@
         body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); margin: 0; color: var(--text-main); line-height: 1.6; }
         
         .header-banner { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 100px 20px; text-align: center; }
-        .container { max-width: 1000px; margin: -60px auto 50px; padding: 0 20px; }
+        .container { max-width: 1050px; margin: -60px auto 50px; padding: 0 20px; }
 
         /* Dashboard Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 35px; }
@@ -43,7 +43,7 @@
         .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 10px 0; }
         .stat-label { color: #64748b; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; }
 
-        /* GitHub Button */
+        /* GitHub Action Trigger Link */
         .source-link-container { text-align: center; margin: 35px 0; }
         .btn-github-pro { 
             display: inline-flex; align-items: center; gap: 12px; 
@@ -60,12 +60,12 @@
         h2 { color: var(--primary); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
         .section-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
 
-        /* Libraries Section Styling */
-        .lib-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-        .lib-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; gap: 15px; align-items: flex-start; }
-        .lib-icon { font-size: 1.8rem; color: var(--secondary); padding: 5px; }
-        .lib-title { font-weight: 700; color: var(--primary); margin: 0 0 5px 0; font-size: 1.05rem; }
-        .lib-desc { font-size: 0.88rem; color: #64748b; margin: 0; }
+        /* 4-Column Unified Grid for Core Dependencies */
+        .lib-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px; }
+        .lib-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+        .lib-icon { font-size: 1.8rem; color: var(--secondary); }
+        .lib-title { font-weight: 700; color: var(--primary); margin: 0; font-size: 1.05rem; }
+        .lib-desc { font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5; }
 
         /* Feature Matrix Table */
         .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid #e2e8f0; }
@@ -73,43 +73,64 @@
         th { background: #f1f5f9; padding: 14px; border-bottom: 2px solid #e2e8f0; text-align: left; color: var(--primary); }
         td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-family: 'Fira Code', monospace; }
 
-        /* IDE Window Box Styling */
+        /* IDE Interactive Text Sandbox */
         .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
         .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
-        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.90rem; line-height: 1.6; overflow-x: auto; max-height: 550px; }
+        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.88rem; line-height: 1.6; overflow-x: auto; max-height: 500px; }
         
-        /* IDE Highlighting Tokens */
+        /* IDE Highlight Engine Styles */
         .comment { color: #6a9955; font-style: italic; }
         .keyword { color: #569cd6; }
         .function { color: #dcdcaa; }
         .string { color: #ce9178; }
         .number { color: #b5cea8; }
 
-        /* Formula Typography Wrappers */
-        .formula-block { background: #fafafa; border-left: 4px solid var(--secondary); padding: 20px; text-align: center; margin: 20px 0; font-size: 1.25rem; font-family: 'Times New Roman', serif; color: #111111; border-radius: 0 8px 8px 0; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02); }
+        /* Adjusted Standalone Mathematical Blocks with Spacing */
+        .formula-block { background: #ffffff; border: 1px solid #e2e8f0; padding: 25px; text-align: center; margin: 25px 0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); overflow-x: auto; }
+        .tex2jax_process { font-size: 1.3rem; color: #0f172a; display: block; padding: 5px 0; }
 
-        /* Visualization Layout */
+        /* Graphics Visualization Layout */
         .viz-large-row { display: flex; flex-direction: column; gap: 40px; margin-top: 30px; }
         .viz-card-large { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; }
         .viz-card-large img { width: 100%; display: block; height: auto; }
         .viz-label { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 700; color: var(--primary); }
 
-        /* Theoretical Info Cards */
+        /* Theoretical Matrix Info Grid */
         .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; }
         .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; }
         .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
 
-        /* Conclusion Banner */
+        /* Gradient Narrative Block */
         .conclusion-gradient { 
             background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%); 
             border-left: 8px solid var(--accent); 
             padding: 35px; border-radius: 16px;
-            position: relative; overflow: hidden;
         }
 
-        footer { text-align: center; padding: 80px 20px; color: #94a3b8; font-size: 0.95rem; }
+        /* NEW MINIMALIST BIO PROFILE CARD & FOOTER WORKSPACE */
+        .compact-bio-section { margin-top: 60px; border-top: 1px solid #e2e8f0; padding-top: 50px; }
+        .bio-card-wrapper { max-width: 650px; margin: 0 auto; background: #0f172a; color: white; border-radius: 20px; padding: 35px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 30px; }
+        .bio-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #6366f1); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: white; flex-shrink: 0; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2); }
+        .bio-details h3 { margin: 0 0 6px 0; font-size: 1.3rem; letter-spacing: -0.5px; }
+        .bio-details .subtitle { color: #3b82f6; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; display: block; }
+        .bio-details p { color: #94a3b8; margin: 0 0 20px 0; font-size: 0.92rem; line-height: 1.5; }
+        .bio-links-row { display: flex; gap: 15px; }
+        .bio-link-pill { display: inline-flex; align-items: center; gap: 8px; background: #1e293b; color: #f1f5f9; padding: 8px 16px; border-radius: 30px; text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: 0.2s; border: 1px solid #334155; }
+        .bio-link-pill:hover { background: #3b82f6; color: white; border-color: #3b82f6; transform: translateY(-2px); }
+
+        .case-footer { text-align: center; margin-top: 60px; padding: 30px 0; color: #94a3b8; font-size: 0.85rem; border-top: 1px solid #e2e8f0; }
+
+        @media (max-width: 960px) { 
+            .lib-grid { grid-template-columns: repeat(2, 1fr); } 
+            .info-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) { 
+            .lib-grid { grid-template-columns: 1fr; } 
+            .bio-card-wrapper { flex-direction: column; text-align: center; padding: 30px 20px; }
+            .bio-links-row { justify-content: center; flex-wrap: wrap; }
+        }
     </style>
 </head>
 <body>
@@ -149,36 +170,28 @@
 
     <section>
         <h2><i class="fas fa-cubes"></i> Libraries & Project Dependencies</h2>
-        <p class="section-desc">The algorithmic workspace structure relies heavily on core python packages to orchestrate data manipulations, mathematical operations, and matrix loading routines.</p>
+        <p class="section-desc">The computational environment is anchored by four key data science modules to load files, perform linear operations, execute vector modeling, and map parameters.</p>
         
         <div class="lib-grid">
             <div class="lib-item">
-                <div class="lib-icon"><i class="fas fa-table" style="color: #1f4068;"></i></div>
-                <div>
-                    <h5 class="lib-title">Pandas</h5>
-                    <p class="lib-desc">Provides vectors and programmatic DataFrames to handle high-dimensional file matrix parsing and administrative structure sanitization.</p>
-                </div>
+                <div class="lib-icon"><i class="fas fa-table" style="color: #3b82f6;"></i></div>
+                <h5 class="lib-title">Pandas</h5>
+                <p class="lib-desc">Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</p>
             </div>
             <div class="lib-item">
-                <div class="lib-icon"><i class="fas fa-calculator" style="color: #4f8a10;"></i></div>
-                <div>
-                    <h5 class="lib-title">NumPy</h5>
-                    <p class="lib-desc">Supplies high-performance vectorized arrays and low-level multidimensional matrix arithmetic primitives required by core layers.</p>
-                </div>
+                <div class="lib-icon"><i class="fas fa-calculator" style="color: #10b981;"></i></div>
+                <h5 class="lib-title">NumPy</h5>
+                <p class="lib-desc">Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</p>
             </div>
             <div class="lib-item">
-                <div class="lib-icon"><i class="fas fa-project-diagram" style="color: #e94560;"></i></div>
-                <div>
-                    <h5 class="lib-title">Scikit-Learn</h5>
-                    <p class="lib-desc">Exposes classification frameworks, mathematical label encoders, matrix cross-validation parsers, and validation score evaluation metrics.</p>
-                </div>
+                <div class="lib-icon"><i class="fas fa-project-diagram" style="color: #6366f1;"></i></div>
+                <h5 class="lib-title">Scikit-Learn</h5>
+                <p class="lib-desc">Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</p>
             </div>
             <div class="lib-item">
-                <div class="lib-icon"><i class="fas fa-chart-line" style="color: #ff9a00;"></i></div>
-                <div>
-                    <h5 class="lib-title">Seaborn & Matplotlib</h5>
-                    <p class="lib-desc">Renders exploratory feature maps, correlation matrices, discrete histograms, and localized visual diagnostics layout blocks.</p>
-                </div>
+                <div class="lib-icon"><i class="fas fa-chart-line" style="color: #f59e0b;"></i></div>
+                <h5 class="lib-title">Seaborn Viz</h5>
+                <p class="lib-desc">Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</p>
             </div>
         </div>
     </section>
@@ -198,11 +211,15 @@
                 <h4><i class="fas fa-brain" style="color: var(--secondary);"></i> Logistic Regression Baseline</h4>
                 <p>Models posterior binary status using the nonlinear Transcendental Sigmoid function mapping inputs to spatial probabilities:</p>
                 <div class="formula-block">
-                    \[ P(Y = 1 \mid X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}} \]
+                    <span class="tex2jax_process">
+                        $$P(Y = 1 \mid X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+                    </span>
                 </div>
                 <p>Weights are systematically optimized by minimization of the binary cross-entropy loss function over the training instance rows:</p>
                 <div class="formula-block">
-                    \[ \mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right] \]
+                    <span class="tex2jax_process">
+                        $$\mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$$
+                    </span>
                 </div>
             </div>
             
@@ -210,11 +227,15 @@
                 <h4><i class="fas fa-vector-square" style="color: #6366f1;"></i> Support Vector Classifier</h4>
                 <p>Constructs an optimal separating boundary hyperplane that maximizes geometric margins between separate classes:</p>
                 <div class="formula-block">
-                    \[ \min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i \]
+                    <span class="tex2jax_process">
+                        $$\min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i$$
+                    </span>
                 </div>
                 <p>Subject to structural boundary soft constraints, incorporating slack variables \(\xi_i\) to handle non-separable instances smoothly:</p>
                 <div class="formula-block">
-                    \[ y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0 \]
+                    <span class="tex2jax_process">
+                        $$y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0$$
+                    </span>
                 </div>
             </div>
         </div>
@@ -224,7 +245,9 @@
                 <h4><i class="fas fa-route" style="color: #f59e0b;"></i> K-Nearest Neighbors (KNN)</h4>
                 <p>An instance-based distance algorithm that classifies values based on localized majority voting of neighbors projected into an n-dimensional Euclidean vector space:</p>
                 <div class="formula-block">
-                    \[ d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2} \]
+                    <span class="tex2jax_process">
+                        $$d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2}$$
+                    </span>
                 </div>
             </div>
 
@@ -232,7 +255,9 @@
                 <h4><i class="fas fa-tree" style="color: var(--accent);"></i> Random Forest Ensemble</h4>
                 <p>A non-parametric bootstrap ensemble method that creates multiple independent, uncorrelated decision trees built over random row and feature samples:</p>
                 <div class="formula-block">
-                    \[ \hat{Y} = \text{mode} \left\{ h_1(X), h_2(X), \dots, h_B(X) \right\} \]
+                    <span class="tex2jax_process">
+                        $$\hat{Y} = \text{mode} \left\{ h_1(X), h_2(X), \dots, h_B(X) \right\}$$
+                    </span>
                 </div>
                 <p>Averages variance down to achieve a peak out-of-sample diagnostic accuracy of <strong>97.50%</strong>.</p>
             </div>
@@ -268,8 +293,8 @@
     </section>
 
     <section>
-        <h2><i class="fas fa-terminal"></i> Model Validation Pipeline Sandbox</h2>
-        <p class="section-desc">The high-performance predictive validation loop engineered to fit, score, and evaluate active estimators.</p>
+        <h2><i class="fas fa-terminal"></i> Complete Production Data Engineering Pipeline</h2>
+        <p class="section-desc">The end-to-end engineered script responsible for loading raw datasets, processing data quality vectors, and tracking model precision arrays.</p>
         <div class="code-editor">
             <div class="code-top-bar">
                 <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
@@ -281,52 +306,65 @@
 <span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics
 <span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder
 <span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
+<span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
+<span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier
 
-<span class="keyword">def</span> <span class="function">preprocess_credit_dataset</span>(filepath):
+<span class="keyword">def</span> <span class="function">load_and_engineer_features</span>(dataset_url):
     <span class="comment">'''
-    Loads raw CSV matrix, handles missing fields, maps nominal strings to discrete
-    numeric categories using encoders, and builds clean feature split planes.
+    Loads raw target matrix, filters anomalies, builds encoder vectors,
+    and splits arrays into isolated training and evaluation test tensors.
     '''</span>
-    df = pd.read_csv(filepath)
+    <span class="comment"># Load file from disk paths into structural vectors</span>
+    df = pd.read_csv(dataset_url)
     
-    <span class="comment"># Drop arbitrary administrative tracker rows</span>
+    <span class="comment"># Strip administrative identifiers to avoid arbitrary overfitting</span>
     df.drop([<span class="string">'Loan_ID'</span>], axis=<span class="number">1</span>, inplace=<span class="keyword">True</span>)
     
-    <span class="comment"># Drop sample vectors containing invalid null structures</span>
+    <span class="comment"># Drop structural rows holding incomplete null feature values</span>
     df.dropna(inplace=<span class="keyword">True</span>)
     
-    <span class="comment"># Encode categorical text string labels down to discrete continuous channels</span>
-    le = LabelEncoder()
-    categorical_columns = [<span class="string">'Gender'</span>, <span class="string">'Married'</span>, <span class="string">'Education'</span>, <span class="string">'Self_Employed'</span>, <span class="string">'Property_Area'</span>, <span class="string">'Loan_Status'</span>]
-    <span class="keyword">for</span> col <span class="keyword">in</span> categorical_columns:
-        df[col] = le.fit_transform(df[col])
+    <span class="comment"># Convert string characters into numerical categories via mapping transformations</span>
+    encoder = LabelEncoder()
+    target_cols = [<span class="string">'Gender'</span>, <span class="string">'Married'</span>, <span class="string">'Education'</span>, <span class="string">'Self_Employed'</span>, <span class="string">'Property_Area'</span>, <span class="string">'Loan_Status'</span>]
+    
+    <span class="keyword">for</span> column <span class="keyword">in</span> target_cols:
+        df[column] = encoder.fit_transform(df[column])
         
+    <span class="comment"># Extract target plane matrix arrays</span>
     X = df.drop([<span class="string">'Loan_Status'</span>], axis=<span class="number">1</span>).values
     Y = df[<span class="string">'Loan_Status'</span>].values
     
-    <span class="keyword">return</span> train_test_split(X, Y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)
+    <span class="keyword">return</span> train_test_split(X, Y, test_size=<span class="number">0.20</span>, random_state=<span class="number">42</span>)
 
-<span class="keyword">def</span> <span class="function">evaluate_predictive_models</span>(models, X_train, X_test, Y_train, Y_test):
+<span class="keyword">def</span> <span class="function">execute_benchmark_validation</span>(models_list, X_train, X_test, Y_train, Y_test):
     <span class="comment">'''
-    Executes systematic validation testing across an array of scikit-learn models.
-    Calculates operational accuracy scores and handles model signature identification.
+    Iterates through designated Scikit-Learn estimators, fits parameters over
+    training matrices, evaluates target models, and logs out accuracy profiles.
     '''</span>
-    print(<span class="string">"Initializing Empirical Assessment Loop...\n"</span> + <span class="string">"="</span>*50)
+    print(<span class="string">"Executing Model Performance Comparison Metrics Loop...\n"</span> + <span class="string">"="</span>*60)
     
-    <span class="keyword">for</span> model <span class="keyword">in</span> models:
-        <span class="comment"># Train estimators strictly on standard training splits</span>
-        model.fit(X_train, Y_train)
+    <span class="keyword">for</span> current_model <span class="keyword">in</span> models_list:
+        <span class="comment"># Fit structural weights to training data partitions</span>
+        current_model.fit(X_train, Y_train)
         
-        <span class="comment"># Evaluate predictions against structural target bounds</span>
-        Y_pred = model.predict(X_test)
+        <span class="comment"># Calculate out-of-sample predictions on testing data vectors</span>
+        predictions = current_model.predict(X_test)
         
-        <span class="comment"># Parse class names dynamically via reflection</span>
-        model_name = model.__class__.__name__
-        accuracy = metrics.accuracy_score(Y_test, Y_pred)
+        <span class="comment"># Extract algorithmic taxonomy and print score mappings</span>
+        estimator_signature = current_model.__class__.__name__
+        accuracy_score = metrics.accuracy_score(Y_test, predictions)
         
-        <span class="comment"># Output quantified metrics directly to workspace log</span>
-        print(<span class="keyword">f</span><span class="string">"Accuracy score of {model_name:&lt;25} = {100 * accuracy:.2f}%"</span>)
-    print(<span class="string">"="</span>*50 + <span class="string">"\nValidation Loop Finished Successfully."</span>)
+        print(<span class="keyword">f</span><span class="string">"Estimator Module Target: {estimator_signature:&lt;26} | Score: {100 * accuracy_score:.2f}%"</span>)
+    print(<span class="string">"="</span>*60)
+
+<span class="comment"># Orchestrated Pipeline Operational Entry Point</span>
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    <span class="comment"># X_tr, X_te, Y_tr, Y_te = load_and_engineer_features('loan_data.csv')</span>
+    <span class="comment"># model_suite = [LogisticRegression(), SVC(), KNeighborsClassifier(), RandomForestClassifier(n_estimators=100)]</span>
+    <span class="comment"># execute_benchmark_validation(model_suite, X_tr, X_te, Y_tr, Y_te)</span>
+    <span class="keyword">pass</span>
 </pre>
             </div>
         </div>
@@ -351,11 +389,28 @@
             <p style="color: #065f46; margin-bottom: 0;"><strong>Moving Forward:</strong> To optimize generalization boundaries across noisy out-of-sample datasets, the next development stage will introduce advanced ensemble variants—specifically gradient boosting models (XGBoost, LightGBM) paired with automated grid searches to secure micro-tuned hyperparameters.</p>
         </div>
     </section>
+
+    <div class="compact-bio-section">
+        <div class="bio-card-wrapper">
+            <div class="bio-avatar">AA</div>
+            <div class="bio-details">
+                <h3>Amir Mohamad Askari</h3>
+                <span class="subtitle">AI Research & Systems Engineer</span>
+                <p>Focusing on high-dimensional predictive modeling, deep computer vision tasks, and automated MLOps pipelines. Sharif University of Technology researcher.</p>
+                <div class="bio-links-row">
+                    <a href="https://github.com/a1mohamad" class="bio-link-pill" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="bio-link-pill" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                    <a href="https://www.kaggle.com/amirmohamadaskari" class="bio-link-pill" target="_blank"><i class="fab fa-kaggle"></i> Kaggle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<footer>
-    <p>Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026</p>
-</footer>
+<div class="case-footer">
+    Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026
+</div>
 
 <script>
     const cards = document.querySelectorAll('.stat-card');
