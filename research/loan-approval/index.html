@@ -45,7 +45,6 @@
 
 <div class="main-layout">
 
-    <!-- Metric Strip -->
     <div class="metrics-strip">
         <div class="metric-block" data-metric-type="percentage" data-metric-target="97.50">
             <div class="metric-label">Random Forest Classifier</div>
@@ -65,7 +64,6 @@
         </div>
     </div>
 
-    <!-- Project Overview Panel -->
     <div class="panel">
         <div class="panel-header">
             <span class="panel-tag">Contextual Briefing</span>
@@ -77,14 +75,12 @@
         </div>
     </div>
 
-    <!-- Libraries & Dependencies Panel -->
     <div class="panel">
         <div class="panel-header">
             <span class="panel-tag">Infrastructure</span>
             <h2>Core Pipeline Dependencies</h2>
             <p class="panel-desc">The computational environment is anchored by four key data science modules to load files, perform linear operations, execute vector modeling, and map parameters.</p>
         </div>
-        
         <div class="dependencies-matrix">
             <div class="dependency-card">
                 <div class="dep-icon"><i class="fa-solid fa-table"></i></div>
@@ -109,7 +105,6 @@
         </div>
     </div>
 
-    <!-- System Architecture Overview (NEW) -->
     <section class="panel">
         <div class="panel-header">
             <span class="panel-tag">Configuration</span>
@@ -159,7 +154,6 @@
         </div>
     </section>
 
-    <!-- Machine Learning Theory Panel -->
     <div class="panel">
         <div class="panel-header">
             <span class="panel-tag">Mathematical Mechanics</span>
@@ -245,14 +239,12 @@
         </div>
     </div>
 
-    <!-- Feature Space Table Panel -->
     <div class="panel">
         <div class="panel-header">
             <span class="panel-tag">Data Taxonomy</span>
             <h2>Feature Space Configuration</h2>
             <p class="panel-desc">The internal dimensions and variable taxonomy consisting of 13 separate applicant metrics.</p>
         </div>
-
         <div class="matrix-table-container">
             <table>
                 <thead>
@@ -263,92 +255,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><code>Loan_ID</code></td>
-                        <td><span class="taxonomy-tag">Identifier</span></td>
-                        <td>Unique applicant record identifier removed during preprocessing.</td>
-                    </tr>
-                    <tr>
-                        <td><code>Gender</code></td>
-                        <td><span class="taxonomy-tag">Demographic</span></td>
-                        <td>Applicant gender information.</td>
-                    </tr>
-                    <tr>
-                        <td><code>Married</code></td>
-                        <td><span class="taxonomy-tag">Demographic</span></td>
-                        <td>Marital status indicator.</td>
-                    </tr>
-                    <tr>
-                        <td><code>Dependents</code></td>
-                        <td><span class="taxonomy-tag">Family</span></td>
-                        <td>Number of dependents supported by applicant.</td>
-                    </tr>
-                    <tr>
-                        <td><code>Education</code></td>
-                        <td><span class="taxonomy-tag">Profile</span></td>
-                        <td>Graduate or non-graduate education level.</td>
-                    </tr>
-                    <tr>
-                        <td><code>Self_Employed</code></td>
-                        <td><span class="taxonomy-tag">Profile</span></td>
-                        <td>Employment structure indicator.</td>
-                    </tr>
-                    <tr>
-                        <td><code>ApplicantIncome</code></td>
-                        <td><span class="taxonomy-tag">Financial</span></td>
-                        <td>Primary applicant monthly income.</td>
-                    </tr>
-                    <tr>
-                        <td><code>CoapplicantIncome</code></td>
-                        <td><span class="taxonomy-tag">Financial</span></td>
-                        <td>Secondary applicant monthly income.</td>
-                    </tr>
-                    <tr>
-                        <td><code>LoanAmount</code></td>
-                        <td><span class="taxonomy-tag">Financial</span></td>
-                        <td>Requested loan amount.</td>
-                    </tr>
-                    <tr>
-                        <td><code>Loan_Amount_Term</code></td>
-                        <td><span class="taxonomy-tag">Financial</span></td>
-                        <td>Loan repayment duration.</td>
-                    </tr>
-                    <tr>
-                        <td><code>Credit_History</code></td>
-                        <td><span class="taxonomy-tag">Risk</span></td>
-                        <td>Historical repayment behavior indicator.</td>
-                    </tr>
-                    <tr>
-                        <td><code>Property_Area</code></td>
-                        <td><span class="taxonomy-tag">Geographic</span></td>
-                        <td>Property location classification.</td>
-                    </tr>
-                    <tr class="target-row-highlight">
-                        <td><code>Loan_Status</code></td>
-                        <td><span class="taxonomy-tag target-style">Target</span></td>
-                        <td>Final loan approval prediction label.</td>
-                    </tr>
+                    <tr><td><code>Loan_ID</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Unique applicant record identifier removed during preprocessing.</td></tr>
+                    <tr><td><code>Gender</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Applicant gender information.</td></tr>
+                    <tr><td><code>Married</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Marital status indicator.</td></tr>
+                    <tr><td><code>Dependents</code></td><td><span class="taxonomy-tag">Family</span></td><td>Number of dependents supported by applicant.</td></tr>
+                    <tr><td><code>Education</code></td><td><span class="taxonomy-tag">Profile</span></td><td>Graduate or non-graduate education level.</td></tr>
+                    <tr><td><code>Self_Employed</code></td><td><span class="taxonomy-tag">Profile</span></td><td>Employment structure indicator.</td></tr>
+                    <tr><td><code>ApplicantIncome</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Primary applicant monthly income.</td></tr>
+                    <tr><td><code>CoapplicantIncome</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Secondary applicant monthly income.</td></tr>
+                    <tr><td><code>LoanAmount</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Requested loan amount.</td></tr>
+                    <tr><td><code>Loan_Amount_Term</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Loan repayment duration.</td></tr>
+                    <tr><td><code>Credit_History</code></td><td><span class="taxonomy-tag">Risk</span></td><td>Historical repayment behavior indicator.</td></tr>
+                    <tr><td><code>Property_Area</code></td><td><span class="taxonomy-tag">Geographic</span></td><td>Property location classification.</td></tr>
+                    <tr class="target-row-highlight"><td><code>Loan_Status</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Final loan approval prediction label.</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Pipeline Code Panel -->
     <div class="panel">
         <div class="panel-header">
             <span class="panel-tag">Implementation</span>
             <h2>Model Optimization Sandbox</h2>
             <p class="panel-desc">Complete automated python compilation engine managing training steps, matrix scaling, and validation loops.</p>
         </div>
-
         <div class="terminal-panel">
             <div class="terminal-header">
-                <div class="terminal-dots">
-                    <div class="terminal-dot"></div>
-                    <div class="terminal-dot"></div>
-                    <div class="terminal-dot"></div>
-                </div>
+                <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
                 <div class="terminal-title">loan_pipeline.py</div>
+                <div></div>
             </div>
             <div class="terminal-body">
 <pre>
@@ -403,14 +338,12 @@
         </div>
     </div>
 
-    <!-- Visualization Panel -->
     <div class="panel">
         <div class="panel-header">
             <span class="panel-tag">Analytics Layer</span>
             <h2>Exploratory Visual Diagnostics</h2>
             <p class="panel-desc">Statistical layouts and spatial correlation heatmaps exported from your visualization loops.</p>
         </div>
-
         <div class="viz-display-grid">
             <div class="viz-wrapper-card">
                 <div class="viz-placeholder-frame">
@@ -424,7 +357,6 @@
         </div>
     </div>
 
-    <!-- Performance Diagnostics (NEW – styled exactly like Wine Quality template) -->
     <section class="panel">
         <div class="panel-header">
             <span class="panel-tag">Evaluation Matrix</span>
@@ -495,14 +427,12 @@
         </div>
     </section>
 
-    <!-- Synthesis Panel (ranking removed, only gradient box remains) -->
     <div class="panel">
         <div class="panel-header">
-            <span class="panel-tag">Analytical Summary</span>
+            <span class="panel-tag">Conclusions</span>
             <h2>Project Synthesis</h2>
             <p class="panel-desc">Performance deductions and forward-looking research strategies for the next version.</p>
         </div>
-
         <div class="synthesis-gradient-box">
             <p style="font-size: 1.05rem; color: var(--text-primary); margin-bottom: 16px;">
                 <strong>Empirical Breakdown:</strong> The ensemble architecture outclasses simpler models because its non-parametric bootstrap aggregations natively capture complex interaction thresholds across mixed variables (e.g., matching <code>Credit_History</code> weight markers against non-linear variations in <code>ApplicantIncome</code>) without succumbing to overfitting or localized variance skew.
@@ -513,7 +443,6 @@
         </div>
     </div>
 
-    <!-- Footer (compact grid, exactly like Wine Quality) -->
     <div class="portfolio-footer-gate">
         <div class="footer-profile-json">
             <span style="color: #475569; font-style: italic; display: block; margin-bottom: 8px;">// runtime_profile.json</span>
@@ -530,14 +459,13 @@
         </div>
         <div class="footer-action-links">
             <div>
-                <h3>Communication Terminal</h3>
+                <h3>Contact Me!</h3>
                 <p>Access source repositories and active communication pipelines through organized gateways.</p>
             </div>
             
             <div class="contacts-matrix-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <!-- Column 1: Direct Channels -->
                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;">// Direct Channels</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
                     <a href="mailto:a1mohamad.askari@gmail.com" class="gate-link-row">
                         <span>Gmail</span> <i class="fas fa-envelope"></i>
                     </a>
@@ -548,10 +476,8 @@
                         <span>Phone</span> <i class="fas fa-phone"></i>
                     </a>
                 </div>
-                
-                <!-- Column 2: Ecosystem Gateways -->
                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;">// Ecosystem Gateways</span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
                     <a href="https://github.com/a1mohamad" class="gate-link-row" target="_blank">
                         <span>GitHub</span> <i class="fa-brands fa-github"></i>
                     </a>
@@ -571,7 +497,7 @@
     Amir Mohamad Askari &bull; 2026 Analytical Document
 </div>
 
-<!-- External JS (unchanged) -->
+<!-- External JS -->
 <script src="script.js"></script>
 </body>
 </html>
