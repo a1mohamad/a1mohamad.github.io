@@ -49,15 +49,25 @@
         h2 { color: var(--primary); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
         .section-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
 
-        .num-highlight { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--primary); }
+        /* Visualization Grid & Lightbox */
+        .viz-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
+        .viz-card { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; cursor: pointer; transition: transform 0.2s; }
+        .viz-card:hover { transform: translateY(-5px); }
+        .viz-card img { width: 100%; display: block; height: auto; }
+        .viz-label { padding: 15px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 600; color: var(--primary); font-size: 0.9rem; text-align: center;}
+        
+        .lightbox-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-wrapper { position: relative; max-width: 90%; max-height: 90%; }
+        .lightbox-wrapper img { max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .lightbox-close { position: absolute; top: -40px; right: 0; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* Data Matrix Tables */
+        /* Other UI */
         .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         th { background: #f1f5f9; padding: 14px; border-bottom: 2px solid #e2e8f0; text-align: left; color: var(--primary); }
         td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-family: 'Fira Code', monospace; }
 
-        /* IDE Window Component */
         .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
         .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
@@ -66,43 +76,24 @@
         .comment { color: #6a9955; font-style: italic; }
         .keyword { color: #569cd6; }
         .function { color: #dcdcaa; }
-        .string { color: #ce9178; }
-        .numeric { color: #b5cea8; }
-
-        /* Visualization Cards */
-        .viz-large-row { display: flex; flex-direction: column; gap: 40px; margin-top: 30px; }
-        .viz-card-large { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; }
-        .viz-card-large img { width: 100%; display: block; height: auto; }
-        .viz-label { padding: 20px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 700; color: var(--primary); }
-
-        /* Theoretical Grid Columns */
+        
         .info-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin: 25px 0; }
         .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; }
         .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+        .conclusion-gradient { background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%); border-left: 8px solid var(--secondary); padding: 35px; border-radius: 16px; }
 
-        .conclusion-gradient { 
-            background: linear-gradient(145deg, #eff6ff 0%, #dbeafe 100%); 
-            border-left: 8px solid var(--secondary); 
-            padding: 35px; border-radius: 16px;
-        }
-
-        /* Added Section Styles */
         .lib-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
         .lib-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; }
         .lib-icon { font-size: 1.5rem; margin-bottom: 10px; }
-        .lib-title { margin: 0 0 5px; color: var(--primary); }
-        .lib-desc { font-size: 0.9rem; margin: 0; color: #64748b; }
         
         .dev-footer-dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; background: #0f172a; padding: 30px; border-radius: 16px; color: white; }
         .dev-json-pane { font-family: monospace; font-size: 0.85rem; color: #94a3b8; }
         .key { color: #fbbf24; }
         .str { color: #60a5fa; }
-        .dev-connect-pane h3 { margin-top: 0; }
         .dev-links-stack { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
         .dev-link-row { color: #f8fafc; text-decoration: none; display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 6px; transition: 0.3s; }
         .dev-link-row:hover { background: #1e293b; }
         .case-footer { text-align: center; margin-top: 20px; color: #64748b; font-size: 0.9rem; }
-
         footer { text-align: center; padding: 80px 20px; color: #94a3b8; font-size: 0.95rem; }
     </style>
 </head>
@@ -125,22 +116,22 @@
     <div class="stats-grid">
         <div class="stat-card data-card">
             <span class="stat-label">Total Sample Size</span>
-            <span class="stat-value">20,640</span>
+            <span class="stat-value" data-target="20640">0</span>
             <span class="stat-sub-value">Observations</span>
         </div>
         <div class="stat-card data-card">
             <span class="stat-label">Features</span>
-            <span class="stat-value">8</span>
+            <span class="stat-value" data-target="8">0</span>
             <span class="stat-sub-value">Predictors</span>
         </div>
         <div class="stat-card">
             <span class="stat-label">Model MSE</span>
-            <span class="stat-value" data-target="0.548">0.548</span>
+            <span class="stat-value" data-target="0.548">0.000</span>
             <span class="stat-sub-value">Mean Squared Error</span>
         </div>
         <div class="stat-card">
             <span class="stat-label">Model MAE</span>
-            <span class="stat-value" data-target="0.538">0.538</span>
+            <span class="stat-value" data-target="0.538">0.000</span>
             <span class="stat-sub-value">Mean Absolute Error</span>
         </div>
     </div>
@@ -153,8 +144,6 @@
 
     <section>
         <h2><i class="fas fa-cubes"></i> Libraries & Project Dependencies</h2>
-        <p class="section-desc">The computational environment is anchored by four key data science modules to load files, perform linear operations, execute vector modeling, and map parameters.</p>
-        
         <div class="lib-grid">
             <div class="lib-item">
                 <div class="lib-icon"><i class="fas fa-table" style="color: #3b82f6;"></i></div>
@@ -181,8 +170,6 @@
 
     <section>
         <h2><i class="fas fa-book-open"></i> Regression Theory & Metrics</h2>
-        <p class="section-desc">Conceptual exploration of the linear regression architecture and the error metrics used for performance validation.</p>
-        
         <div class="info-grid">
             <div class="info-card">
                 <h4><i class="fas fa-project-diagram" style="color: #3b82f6;"></i> Multiple Linear Regression</h4>
@@ -191,7 +178,6 @@
                     $$\hat{y} = \beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_nx_n + \epsilon$$
                 </div>
             </div>
-            
             <div class="info-card">
                 <h4><i class="fas fa-calculator" style="color: #eab308;"></i> Performance Metrics (MSE & MAE)</h4>
                 <p>To evaluate the model's predictive accuracy, we utilize two primary metrics:</p>
@@ -199,18 +185,12 @@
                 <div style="margin: 20px 0; text-align: center;">
                     $$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$$
                 </div>
-                <p><strong>Mean Absolute Error (MAE):</strong> Provides an average magnitude of errors in a set of predictions, without considering direction:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$\text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$
-                </div>
             </div>
         </div>
     </section>
 
     <section>
         <h2><i class="fas fa-database"></i> Data Inspection</h2>
-        <p class="section-desc">Technical preview of the dataset structure and statistical summaries.</p>
-        
         <h3>First 3 Records (df.head)</h3>
         <div class="table-wrapper">
             <table>
@@ -228,7 +208,6 @@
 
     <section>
         <h2><i class="fas fa-terminal"></i> Implementation</h2>
-        <p class="section-desc">Training phase logic and evaluation setup using Linear Regression.</p>
         <div class="code-editor">
             <div class="code-top-bar">
                 <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
@@ -257,18 +236,18 @@
 
     <section>
         <h2><i class="fas fa-eye"></i> Visual Performance Analysis</h2>
-        <p class="section-desc">Individual row analysis of model results and error distribution.</p>
-        <div class="viz-large-row">
-            <div class="viz-card-large">
-                <img src="actual_vs_pred.png" alt="Actual vs Predicted">
+        <p class="section-desc">Individual card analysis of model results and error distribution. Click on any image to inspect it in wide, expanded view mode.</p>
+        <div class="viz-grid">
+            <div class="viz-card">
+                <img src="actual_vs_pred.png" alt="Actual vs Predicted Values">
                 <div class="viz-label">Actual vs. Predicted Values</div>
             </div>
-            <div class="viz-card-large">
-                <img src="residuals.png" alt="Residuals">
+            <div class="viz-card">
+                <img src="residuals.png" alt="Residual Distribution Analysis">
                 <div class="viz-label">Residual Distribution Analysis</div>
             </div>
-            <div class="viz-card-large">
-                <img src="outliers.png" alt="Outliers">
+            <div class="viz-card">
+                <img src="outliers.png" alt="Outlier Identification (95th Percentile Error)">
                 <div class="viz-label">Outlier Identification (95th Percentile Error)</div>
             </div>
         </div>
@@ -276,7 +255,6 @@
 
     <section>
         <h2><i class="fas fa-award"></i> Project Conclusion</h2>
-        <p class="section-desc">Final synthesis of findings and future research directions.</p>
         <div class="conclusion-gradient">
             <p>This research confirms <strong>Linear Regression</strong> as a suitable baseline for the California Housing dataset. With an <strong>MSE of 0.548</strong> and <strong>MAE of 0.538</strong>, the model effectively explains the variance in housing prices.</p>
             <p><strong>Moving Forward:</strong> To capture local anomalies and luxury market fluctuations, future versions should explore non-linear ensemble methods like XGBoost or Gradient Boosting Regressors.</p>
@@ -319,9 +297,72 @@
     </div>
 </div>
 
-<footer>
-    <p>Project Authored by <strong>Amir Mohamad Askari</strong> &bull; 2024</p>
-</footer>
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Countable Number Dashboard Animation Logic
+        const counters = document.querySelectorAll('.stat-value');
+        counters.forEach(counter => {
+            const target = parseFloat(counter.getAttribute('data-target'));
+            const isFloat = target % 1 !== 0;
+            const duration = 2000;
+            const startTime = performance.now();
+
+            const animate = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeProgress = progress * (2 - progress);
+                let current = easeProgress * target;
+                
+                if (isFloat) {
+                    counter.textContent = current.toFixed(3);
+                } else {
+                    counter.textContent = Math.floor(current).toLocaleString();
+                }
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    counter.textContent = isFloat ? target.toFixed(3) : target.toLocaleString();
+                }
+            };
+            requestAnimationFrame(animate);
+        });
+
+        // Interactive Lightbox Wide Mode System
+        const overlay = document.getElementById('lightboxOverlay');
+        const lightboxImg = document.getElementById('lightboxImage');
+        const closeBtn = document.getElementById('lightboxClose');
+        const portfolioImages = document.querySelectorAll('.viz-card img');
+
+        portfolioImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightboxImg.src = image.src;
+                lightboxImg.alt = image.alt;
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Lock main scroll context
+            });
+        });
+
+        const dismissLightbox = () => {
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // Release scroll context
+        };
+
+        closeBtn.addEventListener('click', dismissLightbox);
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                dismissLightbox();
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
