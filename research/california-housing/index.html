@@ -62,20 +62,53 @@
         .lightbox-wrapper img { max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .lightbox-close { position: absolute; top: -40px; right: 0; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* Other UI */
-        .table-wrapper { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid #e2e8f0; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-        th { background: #f1f5f9; padding: 14px; border-bottom: 2px solid #e2e8f0; text-align: left; color: var(--primary); }
-        td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-family: 'Fira Code', monospace; }
+        /* Sexy Modern Table (Loan Approval Inspired) */
+        .table-wrapper { 
+            overflow-x: auto; 
+            margin: 30px 0; 
+            border-radius: 16px; 
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        thead { background: #0f172a; }
+        th { 
+            padding: 18px 24px; 
+            text-align: left; 
+            color: #ffffff; 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em; 
+            font-weight: 700;
+        }
+        td { 
+            padding: 18px 24px; 
+            border-bottom: 1px solid #f1f5f9; 
+            color: #475569;
+            font-size: 0.9rem;
+        }
+        tbody tr:hover { background-color: #f8fafc; transition: 0.2s; }
+        
+        /* Pill Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .bg-demographic { background: #e0f2fe; color: #0369a1; }
+        .bg-financial { background: #dcfce7; color: #15803d; }
+        .bg-housing { background: #fef3c7; color: #b45309; }
+        .bg-geographic { background: #fce7f3; color: #be185d; }
+        .bg-identifier { background: #f1f5f9; color: #475569; }
 
         .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
         .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
         .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; overflow-x: auto; }
-        .comment { color: #6a9955; font-style: italic; }
-        .keyword { color: #569cd6; }
-        .function { color: #dcdcaa; }
         
         .info-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin: 25px 0; }
         .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; }
@@ -96,12 +129,11 @@
         .dev-connect-pane h3 { margin: 0 0 10px 0; font-size: 1.5rem; letter-spacing: -0.5px; }
         .dev-connect-pane p { color: #94a3b8; font-size: 0.92rem; margin: 0 0 25px 0; line-height: 1.5; }
         .dev-links-stack { display: flex; flex-direction: column; gap: 12px; }
-        .dev-link-row { display: flex; align-items: center; gap: 14px; background: #1e293b; padding: 14px 20px; border-radius: 10px; text-decoration: none; color: #f1f5f9; font-size: 0.9rem; font-weight: 600; transition: 0.2s; border: 1px solid #334155; }
+        .dev-link-row { display: flex; align-items: center; gap: 14px; background: #1e293b; padding: 14px 20px; border-radius: 10px; text-decoration: none; color: #f1f5f9; font-size: 0.9rem; font-weight: 600; transition: 0.2s; border: 1px solid #314155; }
         .dev-link-row:hover { background: #3b82f6; border-color: #3b82f6; transform: translateX(5px); color: white; }
         .dev-link-row i { font-size: 1.2rem; width: 24px; text-align: center; color: #3b82f6; transition: 0.2s; }
         .dev-link-row:hover i { color: white; }
         .case-footer { text-align: center; margin-top: 20px; color: #64748b; font-size: 0.9rem; }
-        footer { text-align: center; padding: 80px 20px; color: #94a3b8; font-size: 0.95rem; }
     </style>
 </head>
 <body>
@@ -197,17 +229,20 @@
     </section>
 
     <section>
-        <h2><i class="fas fa-database"></i> Data Inspection</h2>
-        <h3>First 3 Records (df.head)</h3>
+        <h2><i class="fas fa-database"></i> Feature Dictionary</h2>
         <div class="table-wrapper">
             <table>
                 <thead>
-                    <tr><th>MedInc</th><th>HouseAge</th><th>AveRooms</th><th>AveBedrms</th><th>Population</th><th>Latitude</th><th>Longitude</th></tr>
+                    <tr><th>Feature</th><th>Category</th><th>Description</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>8.3252</td><td>41.0</td><td>6.9841</td><td>1.0238</td><td>322.0</td><td>37.88</td><td>-122.23</td></tr>
-                    <tr><td>8.3014</td><td>21.0</td><td>6.2381</td><td>0.9718</td><td>2401.0</td><td>37.86</td><td>-122.22</td></tr>
-                    <tr><td>7.2574</td><td>52.0</td><td>8.2881</td><td>1.0734</td><td>496.0</td><td>37.85</td><td>-122.24</td></tr>
+                    <tr><td>MedInc</td><td><span class="badge bg-financial">Financial</span></td><td>Median income in block group.</td></tr>
+                    <tr><td>HouseAge</td><td><span class="badge bg-demographic">Demographic</span></td><td>Median house age in block group.</td></tr>
+                    <tr><td>AveRooms</td><td><span class="badge bg-housing">Housing</span></td><td>Average number of rooms per household.</td></tr>
+                    <tr><td>AveBedrms</td><td><span class="badge bg-housing">Housing</span></td><td>Average number of bedrooms per household.</td></tr>
+                    <tr><td>Population</td><td><span class="badge bg-demographic">Demographic</span></td><td>Total population in block group.</td></tr>
+                    <tr><td>Latitude</td><td><span class="badge bg-geographic">Geographic</span></td><td>Block group latitude coordinate.</td></tr>
+                    <tr><td>Longitude</td><td><span class="badge bg-geographic">Geographic</span></td><td>Block group longitude coordinate.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -221,7 +256,6 @@
             </div>
             <div class="code-content">
 <pre>
-'''
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
@@ -237,7 +271,6 @@ def train_and_evaluate(x_train, x_test, y_train, y_test):
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     return mse, mae
-'''
 </pre>
             </div>
         </div>
@@ -299,11 +332,11 @@ def train_and_evaluate(x_train, x_test, y_train, y_test):
                 </a>
             </div>
         </div>
-    </div></div>
-
-    <div class="case-footer">
-        Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026
     </div>
+</div>
+
+<div class="case-footer">
+    Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026
 </div>
 
 <div class="lightbox-overlay" id="lightboxOverlay">
@@ -355,13 +388,13 @@ def train_and_evaluate(x_train, x_test, y_train, y_test):
                 lightboxImg.src = image.src;
                 lightboxImg.alt = image.alt;
                 overlay.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Lock main scroll context
+                document.body.style.overflow = 'hidden'; 
             });
         });
 
         const dismissLightbox = () => {
             overlay.classList.remove('active');
-            document.body.style.overflow = ''; // Release scroll context
+            document.body.style.overflow = '';
         };
 
         closeBtn.addEventListener('click', dismissLightbox);
