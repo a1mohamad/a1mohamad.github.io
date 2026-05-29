@@ -80,8 +80,8 @@
     <!-- Libraries & Dependencies Panel -->
     <div class="panel">
         <div class="panel-header">
-            <span class="panel-tag">Computational Stack</span>
-            <h2>Libraries & Project Dependencies</h2>
+            <span class="panel-tag">Infrastructure</span>
+            <h2>Core Pipeline Dependencies</h2>
             <p class="panel-desc">The computational environment is anchored by four key data science modules to load files, perform linear operations, execute vector modeling, and map parameters.</p>
         </div>
         
@@ -108,6 +108,56 @@
             </div>
         </div>
     </div>
+
+    <!-- System Architecture Overview (NEW) -->
+    <section class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Configuration</span>
+            <h2>System Architecture Overview</h2>
+            <p class="panel-desc">A conceptual blueprint mapping raw credit application data through cleaning, encoding, and model evaluation stages.</p>
+        </div>
+        <div class="pipeline-layout">
+            <div class="pipeline-info-pane">
+                <div class="pipeline-meta-row">
+                    <h4>Target Isolation</h4>
+                    <p>Separates the binary approval flag (<code>Loan_Status</code>) from predictor columns, ensuring clean supervised learning alignment.</p>
+                </div>
+                <div class="pipeline-meta-row">
+                    <h4>Categorical Encoding</h4>
+                    <p>Applies <code>LabelEncoder</code> to all non‑numeric fields (Gender, Education, Property_Area, etc.) converting text tokens into numeric vectors.</p>
+                </div>
+                <div class="pipeline-meta-row">
+                    <h4>Data Sanitization</h4>
+                    <p>Drops the <code>Loan_ID</code> identifier and removes any rows containing missing values via <code>dropna()</code> to maintain matrix integrity.</p>
+                </div>
+            </div>
+            <div class="pipeline-flow-pane">
+                <div class="flow-node">
+                    <div class="flow-index">01</div>
+                    <div class="flow-details">
+                        <strong>Loan Data Ingestion</strong>
+                        <span>Read raw CSV into DataFrame and drop <code>Loan_ID</code>.</span>
+                    </div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-node">
+                    <div class="flow-index">02</div>
+                    <div class="flow-details">
+                        <strong>Categorical Encoding & Cleaning</strong>
+                        <span>Label encode strings and drop rows with null values.</span>
+                    </div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-node">
+                    <div class="flow-index">03</div>
+                    <div class="flow-details">
+                        <strong>Train / Test Partition</strong>
+                        <span>Split data 80/20 with random state 42 for reproducibility.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Machine Learning Theory Panel -->
     <div class="panel">
@@ -286,9 +336,9 @@
     <!-- Pipeline Code Panel -->
     <div class="panel">
         <div class="panel-header">
-            <span class="panel-tag">Source Engine</span>
-            <h2>Complete Production Data Engineering Pipeline</h2>
-            <p class="panel-desc">The true executed Python pipeline script matching the multi-model loop configurations inside the analytical workspace.</p>
+            <span class="panel-tag">Implementation</span>
+            <h2>Model Optimization Sandbox</h2>
+            <p class="panel-desc">Complete automated python compilation engine managing training steps, matrix scaling, and validation loops.</p>
         </div>
 
         <div class="terminal-panel">
@@ -302,52 +352,52 @@
             </div>
             <div class="terminal-body">
 <pre>
-<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
-<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics
-<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder
-<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
-<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
-<span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
-<span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier
-<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+<span class="code-keyword">from</span> sklearn <span class="code-keyword">import</span> metrics
+<span class="code-keyword">from</span> sklearn.preprocessing <span class="code-keyword">import</span> LabelEncoder
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> train_test_split
+<span class="code-keyword">from</span> sklearn.linear_model <span class="code-keyword">import</span> LogisticRegression
+<span class="code-keyword">from</span> sklearn.svm <span class="code-keyword">import</span> SVC
+<span class="code-keyword">from</span> sklearn.neighbors <span class="code-keyword">import</span> KNeighborsClassifier
+<span class="code-keyword">from</span> sklearn.ensemble <span class="code-keyword">import</span> RandomForestClassifier
 
-<span class="keyword">def</span> <span class="function">run_loan_pipeline</span>(data_path):
-    <span class="comment">'''
+<span class="code-keyword">def</span> <span class="code-fn">run_loan_pipeline</span>(data_path):
+    <span class="code-comment">'''
     Loads target dataframes, drops tracking index IDs, eliminates null instances,
     transforms categoricals into encoded tokens, and runs multi-model validation.
     '''</span>
     df = pd.read_csv(data_path)
     
-    df = df.drop([<span class="string">'Loan_ID'</span>], axis=<span class="number">1</span>)
+    df = df.drop([<span class="code-str">'Loan_ID'</span>], axis=<span class="code-num">1</span>)
     
     df = df.dropna()
     
     le = LabelEncoder()
-    categorical_columns = [<span class="string">'Gender'</span>, <span class="string">'Married'</span>, <span class="string">'Education'</span>, <span class="string">'Self_Employed'</span>, <span class="string">'Property_Area'</span>, <span class="string">'Loan_Status'</span>]
-    <span class="keyword">for</span> col <span class="keyword">in</span> categorical_columns:
+    categorical_columns = [<span class="code-str">'Gender'</span>, <span class="code-str">'Married'</span>, <span class="code-str">'Education'</span>, <span class="code-str">'Self_Employed'</span>, <span class="code-str">'Property_Area'</span>, <span class="code-str">'Loan_Status'</span>]
+    <span class="code-keyword">for</span> col <span class="code-keyword">in</span> categorical_columns:
         df[col] = le.fit_transform(df[col])
         
-    X = df.drop([<span class="string">'Loan_Status'</span>], axis=<span class="number">1</span>).values
-    Y = df[<span class="string">'Loan_Status'</span>].values
+    X = df.drop([<span class="code-str">'Loan_Status'</span>], axis=<span class="code-num">1</span>).values
+    Y = df[<span class="code-str">'Loan_Status'</span>].values
     
-    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=<span class="code-num">0.2</span>, random_state=<span class="code-num">42</span>)
     
     models = [
-        LogisticRegression(max_iter=<span class="number">1000</span>),
+        LogisticRegression(max_iter=<span class="code-num">1000</span>),
         SVC(),
         KNeighborsClassifier(),
-        RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)
+        RandomForestClassifier(n_estimators=<span class="code-num">100</span>, random_state=<span class="code-num">42</span>)
     ]
     
-    <span class="keyword">for</span> model <span class="keyword">in</span> models:
+    <span class="code-keyword">for</span> model <span class="code-keyword">in</span> models:
         model.fit(X_train, Y_train)
         Y_pred = model.predict(X_test)
         accuracy = metrics.accuracy_score(Y_test, Y_pred)
-        print(<span class="keyword">f</span><span class="string">"Accuracy score of {model.__class__.__name__} = {100 * accuracy:.14f}"</span>)
+        print(<span class="code-keyword">f</span><span class="code-str">"Accuracy score of {model.__class__.__name__} = {100 * accuracy:.14f}"</span>)
 
-<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
-    run_loan_pipeline(<span class="string">"loan_approval_dataset.csv"</span>)
+<span class="code-keyword">if</span> __name__ == <span class="code-str">"__main__"</span>:
+    run_loan_pipeline(<span class="code-str">"loan_approval_dataset.csv"</span>)
 </pre>
             </div>
         </div>
@@ -374,35 +424,83 @@
         </div>
     </div>
 
-    <!-- Synthesis Panel -->
+    <!-- Performance Diagnostics (NEW – styled exactly like Wine Quality template) -->
+    <section class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Evaluation Matrix</span>
+            <h2>Performance Diagnostics & Engine Insights</h2>
+            <p class="panel-desc">Calculated accuracy metrics and discriminatory capability records observed across predictive estimators.</p>
+        </div>
+        
+        <div class="engine-insights-stack">
+            <div class="insight-row rank-leader">
+                <div class="insight-left-meta">
+                    <div class="insight-rank-index">01</div>
+                    <div class="insight-model-identity">
+                        <strong>Random Forest Classifier</strong>
+                        <span>Bootstrap‑Aggregated Ensemble Architecture</span>
+                    </div>
+                </div>
+                <div class="insight-score-metrics">
+                    <span class="insight-score-value">97.50%</span>
+                    <span class="insight-score-label">Accuracy Target</span>
+                </div>
+            </div>
+
+            <div class="insight-row">
+                <div class="insight-left-meta">
+                    <div class="insight-rank-index">02</div>
+                    <div class="insight-model-identity">
+                        <strong>K‑Nearest Neighbors</strong>
+                        <span>Instance‑Based Proximity Voting Strategy</span>
+                    </div>
+                </div>
+                <div class="insight-score-metrics">
+                    <span class="insight-score-value">81.66%</span>
+                    <span class="insight-score-label">Accuracy Target</span>
+                </div>
+            </div>
+
+            <div class="insight-row">
+                <div class="insight-left-meta">
+                    <div class="insight-rank-index">03</div>
+                    <div class="insight-model-identity">
+                        <strong>Logistic Regression</strong>
+                        <span>Parametric Sigmoid Decision Baseline</span>
+                    </div>
+                </div>
+                <div class="insight-score-metrics">
+                    <span class="insight-score-value">80.83%</span>
+                    <span class="insight-score-label">Accuracy Target</span>
+                </div>
+            </div>
+
+            <div class="insight-row">
+                <div class="insight-left-meta">
+                    <div class="insight-rank-index">04</div>
+                    <div class="insight-model-identity">
+                        <strong>Support Vector Classifier</strong>
+                        <span>Max‑Margin Hyperplane Separation</span>
+                    </div>
+                </div>
+                <div class="insight-score-metrics">
+                    <span class="insight-score-value">70.83%</span>
+                    <span class="insight-score-label">Accuracy Target</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="executive-summary-box">
+            <p><strong>Diagnostic Breakdown:</strong> Evaluating output arrays establishes that the <strong>Random Forest Classifier</strong> outperforms all other baseline estimators, achieving a peak validation accuracy of <strong>97.50%</strong>. Its non‑parametric bagging mechanism captures complex feature interactions without overfitting, delivering superior predictive fidelity compared to linear and distance‑based models.</p>
+        </div>
+    </section>
+
+    <!-- Synthesis Panel (ranking removed, only gradient box remains) -->
     <div class="panel">
         <div class="panel-header">
             <span class="panel-tag">Analytical Summary</span>
             <h2>Project Synthesis</h2>
-            <p class="panel-desc">Performance diagnostics and architectural outcomes established from model verification runs.</p>
-        </div>
-
-        <div class="rank-list">
-            <div class="rank-item champion-rank">
-                <div class="rank-number">01</div>
-                <div class="rank-name">Random Forest Classifier (Champion)</div>
-                <div class="rank-score">97.50%</div>
-            </div>
-            <div class="rank-item">
-                <div class="rank-number">02</div>
-                <div class="rank-name">K-Nearest Neighbors</div>
-                <div class="rank-score">81.66%</div>
-            </div>
-            <div class="rank-item">
-                <div class="rank-number">03</div>
-                <div class="rank-name">Logistic Regression</div>
-                <div class="rank-score">80.83%</div>
-            </div>
-            <div class="rank-item">
-                <div class="rank-number">04</div>
-                <div class="rank-name">Support Vector Classifier</div>
-                <div class="rank-score">70.83%</div>
-            </div>
+            <p class="panel-desc">Performance deductions and forward-looking research strategies for the next version.</p>
         </div>
 
         <div class="synthesis-gradient-box">
@@ -415,7 +513,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer (compact grid, exactly like Wine Quality) -->
     <div class="portfolio-footer-gate">
         <div class="footer-profile-json">
             <span style="color: #475569; font-style: italic; display: block; margin-bottom: 8px;">// runtime_profile.json</span>
@@ -432,14 +530,14 @@
         </div>
         <div class="footer-action-links">
             <div>
-                <h3>Contact Me!</h3>
+                <h3>Communication Terminal</h3>
                 <p>Access source repositories and active communication pipelines through organized gateways.</p>
             </div>
             
             <div class="contacts-matrix-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                 <!-- Column 1: Direct Channels -->
                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;">// Direct Channels</span>
                     <a href="mailto:a1mohamad.askari@gmail.com" class="gate-link-row">
                         <span>Gmail</span> <i class="fas fa-envelope"></i>
                     </a>
@@ -453,7 +551,7 @@
                 
                 <!-- Column 2: Ecosystem Gateways -->
                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;">// Ecosystem Gateways</span>
                     <a href="https://github.com/a1mohamad" class="gate-link-row" target="_blank">
                         <span>GitHub</span> <i class="fa-brands fa-github"></i>
                     </a>
@@ -473,7 +571,7 @@
     Amir Mohamad Askari &bull; 2026 Analytical Document
 </div>
 
-<!-- External JS -->
+<!-- External JS (unchanged) -->
 <script src="script.js"></script>
 </body>
 </html>
