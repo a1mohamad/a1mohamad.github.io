@@ -86,12 +86,20 @@
         .lib-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; }
         .lib-icon { font-size: 1.5rem; margin-bottom: 10px; }
         
-        /* Updated Contact Section Styles */
-        .dev-footer-dashboard { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 50px; background: #0f172a; padding: 50px; border-radius: 20px; color: white; text-align: center; }
-        .dev-footer-dashboard h3 { margin-bottom: 20px; color: white; }
-        .dev-links-stack { display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
-        .dev-link-row { color: #94a3b8; text-decoration: none; display: flex; align-items: center; gap: 10px; padding: 12px 24px; border: 1px solid #1e293b; border-radius: 50px; transition: 0.3s; font-weight: 500; }
-        .dev-link-row:hover { background: #1e293b; color: white; border-color: #3b82f6; }
+        /* Loan Approval Contact Section */
+        .dev-footer-dashboard { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; background: #0f172a; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); margin-top: 80px; text-align: left; }
+        .dev-json-pane { background: #090d16; padding: 35px; font-family: 'Fira Code', monospace; font-size: 0.85rem; border-right: 1px solid #1e293b; color: #38bdf8; }
+        .dev-json-pane .key { color: #f43f5e; }
+        .dev-json-pane .str { color: #e2e8f0; }
+        .dev-json-pane .num { color: #fbbf24; }
+        .dev-connect-pane { padding: 40px; display: flex; flex-direction: column; justify-content: center; color: white; }
+        .dev-connect-pane h3 { margin: 0 0 10px 0; font-size: 1.5rem; letter-spacing: -0.5px; }
+        .dev-connect-pane p { color: #94a3b8; font-size: 0.92rem; margin: 0 0 25px 0; line-height: 1.5; }
+        .dev-links-stack { display: flex; flex-direction: column; gap: 12px; }
+        .dev-link-row { display: flex; align-items: center; gap: 14px; background: #1e293b; padding: 14px 20px; border-radius: 10px; text-decoration: none; color: #f1f5f9; font-size: 0.9rem; font-weight: 600; transition: 0.2s; border: 1px solid #334155; }
+        .dev-link-row:hover { background: #3b82f6; border-color: #3b82f6; transform: translateX(5px); color: white; }
+        .dev-link-row i { font-size: 1.2rem; width: 24px; text-align: center; color: #3b82f6; transition: 0.2s; }
+        .dev-link-row:hover i { color: white; }
         .case-footer { text-align: center; margin-top: 20px; color: #64748b; font-size: 0.9rem; }
         footer { text-align: center; padding: 80px 20px; color: #94a3b8; font-size: 0.95rem; }
     </style>
@@ -263,20 +271,35 @@ def train_and_evaluate(x_train, x_test, y_train, y_test):
     </section>
 
     <div class="dev-footer-dashboard">
-        <h3>Connect with me</h3>
-        <p>Access repositories, code logs, and deep classification blueprints via alternative endpoints.</p>
-        <div class="dev-links-stack">
-            <a href="https://github.com/a1mohamad" class="dev-link-row" target="_blank">
-                <i class="fab fa-github"></i> <span>GitHub Main Page</span>
-            </a>
-            <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="dev-link-row" target="_blank">
-                <i class="fab fa-linkedin-in"></i> <span>LinkedIn Profile</span>
-            </a>
-            <a href="https://www.kaggle.com/amirmohamadaskari" class="dev-link-row" target="_blank">
-                <i class="fab fa-kaggle"></i> <span>Kaggle Platform</span>
-            </a>
+        <div class="dev-json-pane">
+            <span style="color: #64748b; font-style: italic; display: block; margin-bottom: 10px;">// runtime_profile.json</span>
+            {<br>
+            &nbsp;&nbsp;<span class="key">"engineer"</span>: <span class="str">"Amir Mohamad Askari"</span>,<br>
+            &nbsp;&nbsp;<span class="key">"role"</span>: <span class="str">"AI Research, Developer and ML Engineer"</span>,<br>
+            &nbsp;&nbsp;<span class="key">"affiliation"</span>: <span class="str">"Sharif University of Technology"</span>,<br>
+            &nbsp;&nbsp;<span class="key">"core_focus"</span>: [<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Deep Learning and Neural Networks"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Computer Vision and NLP"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"MLOps Automation Engines and Deployment"</span><br>
+            &nbsp;&nbsp;]<br>
+            }
         </div>
-    </div>
+        <div class="dev-connect-pane">
+            <h3>Contact Me!</h3>
+            <p>Access repositories, code logs, and deep classification blueprints via alternative endpoints.</p>
+            <div class="dev-links-stack">
+                <a href="https://github.com/a1mohamad" class="dev-link-row" target="_blank">
+                    <i class="fab fa-github"></i> <span>GitHub Main Page</span>
+                </a>
+                <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="dev-link-row" target="_blank">
+                    <i class="fab fa-linkedin-in"></i> <span>LinkedIn Profile</span>
+                </a>
+                <a href="https://www.kaggle.com/amirmohamadaskari" class="dev-link-row" target="_blank">
+                    <i class="fab fa-kaggle"></i> <span>Kaggle Platform</span>
+                </a>
+            </div>
+        </div>
+    </div></div>
 
     <div class="case-footer">
         Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026
