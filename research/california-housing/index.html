@@ -62,54 +62,32 @@
         .lightbox-wrapper img { max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .lightbox-close { position: absolute; top: -40px; right: 0; color: white; font-size: 1.5rem; cursor: pointer; }
 
-        /* Sexy Modern Table (Loan Approval Inspired) */
-        .table-wrapper { 
-            overflow-x: auto; 
-            margin: 30px 0; 
-            border-radius: 16px; 
-            background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border: 1px solid #e2e8f0;
-        }
+        /* Modern Table */
+        .table-wrapper { overflow-x: auto; margin: 30px 0; border-radius: 16px; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
         thead { background: #0f172a; }
-        th { 
-            padding: 18px 24px; 
-            text-align: left; 
-            color: #ffffff; 
-            font-size: 0.75rem; 
-            text-transform: uppercase; 
-            letter-spacing: 0.05em; 
-            font-weight: 700;
-        }
-        td { 
-            padding: 18px 24px; 
-            border-bottom: 1px solid #f1f5f9; 
-            color: #475569;
-            font-size: 0.9rem;
-        }
+        th { padding: 18px 24px; text-align: left; color: #ffffff; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; }
+        td { padding: 18px 24px; border-bottom: 1px solid #f1f5f9; color: #475569; font-size: 0.9rem; }
         tbody tr:hover { background-color: #f8fafc; transition: 0.2s; }
-        
-        /* Pill Badges */
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
         .bg-demographic { background: #e0f2fe; color: #0369a1; }
         .bg-financial { background: #dcfce7; color: #15803d; }
         .bg-housing { background: #fef3c7; color: #b45309; }
         .bg-geographic { background: #fce7f3; color: #be185d; }
-        .bg-identifier { background: #f1f5f9; color: #475569; }
 
-        .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
+        /* PRO Code Editor */
+        .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left; }
         .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
         .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; overflow-x: auto; }
         
+        /* Syntax Highlighting */
+        .code-content .keyword { color: #c678dd; }
+        .code-content .function { color: #61afef; }
+        .code-content .comment { color: #5c6370; font-style: italic; }
+        .code-content .string { color: #98c379; }
+
         .info-grid { display: grid; grid-template-columns: 1fr; gap: 25px; margin: 25px 0; }
         .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; }
         .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.2rem; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
@@ -119,7 +97,6 @@
         .lib-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; }
         .lib-icon { font-size: 1.5rem; margin-bottom: 10px; }
         
-        /* Loan Approval Contact Section */
         .dev-footer-dashboard { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; background: #0f172a; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); margin-top: 80px; text-align: left; }
         .dev-json-pane { background: #090d16; padding: 35px; font-family: 'Fira Code', monospace; font-size: 0.85rem; border-right: 1px solid #1e293b; color: #38bdf8; }
         .dev-json-pane .key { color: #f43f5e; }
@@ -256,21 +233,21 @@
             </div>
             <div class="code-content">
 <pre>
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, mean_absolute_error
 
-def train_and_evaluate(x_train, x_test, y_train, y_test):
-    # Algorithm: Linear Regression
+<span class="keyword">def</span> <span class="function">train_and_evaluate</span>(x_train, x_test, y_train, y_test):
+    <span class="comment"># Algorithm: Linear Regression</span>
     reg_model = LinearRegression()
     reg_model.fit(x_train, y_train)
 
-    # Predictions
+    <span class="comment"># Predictions</span>
     y_pred = reg_model.predict(x_test)
     
-    # Metrics calculation
+    <span class="comment"># Metrics calculation</span>
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
-    return mse, mae
+    <span class="keyword">return</span> mse, mae
 </pre>
             </div>
         </div>
