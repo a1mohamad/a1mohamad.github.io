@@ -477,93 +477,70 @@
             padding: 35px;
         }
 
-        .dev-footer-grid {
+        /* ---------- FOOTER – MATCHING WINE QUALITY PROJECT ---------- */
+        .portfolio-footer-gate {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            border-top: 1px solid var(--border);
-            padding-top: 60px;
-            margin-top: 60px;
-            gap: 40px;
-        }
-        .json-blueprint-card {
-            background: #07080d;
+            grid-template-columns: 1.10fr 0.90fr;
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--surface);
+            margin-top: 60px;
+        }
+        .footer-profile-json {
+            background: #07080d;
+            padding: 45px;
             font-family: var(--font-mono);
             font-size: 0.82rem;
-            line-height: 1.6;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            line-height: 1.7;
+            border-right: 1px solid var(--border);
         }
-        .json-blueprint-card .key { color: #f43f5e; }
-        .json-blueprint-card .str { color: #e2e8f0; }
+        .json-key { color: #f43f5e; }
+        .json-str { color: #cbd5e1; }
+        .json-num { color: #fbbf24; }
 
-        .dev-profile-summary {
+        .footer-action-links {
+            padding: 45px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
-        .dev-profile-summary h3 {
-            font-size: 1.5rem;
+        .footer-action-links h3 {
+            font-size: 1.4rem;
             font-weight: 700;
+            margin-bottom: 6px;
             letter-spacing: -0.02em;
-            margin-bottom: 12px;
         }
-        .dev-profile-summary p {
+        .footer-action-links p {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             margin-bottom: 24px;
-        }
-        
-        .footer-action-links {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .category-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .category-label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            font-weight: 600;
+            line-height: 1.5;
         }
         .gate-link-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 18px;
-            background: var(--surface);
+            background: var(--surface-card);
             border: 1px solid var(--border);
+            padding: 12px 16px;
             border-radius: 8px;
-            color: var(--text-primary);
             text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
             transition: all 0.2s ease;
         }
         .gate-link-row:hover {
-            background: var(--surface-card);
-            border-color: var(--border-hover);
-            transform: translateX(4px);
+            border-color: var(--accent);
+            background: var(--accent-glow);
         }
         .gate-link-row i {
             color: var(--text-muted);
-            font-size: 1.05rem;
+            font-size: 1rem;
             transition: color 0.2s ease;
         }
-        .gate-link-row:hover i {
-            color: var(--text-primary);
-        }
+        .gate-link-row:hover i { color: var(--accent); }
 
         .editorial-credits {
             text-align: center;
@@ -579,7 +556,8 @@
             .metrics-strip { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .metric-block { border-right: none; padding: 0; }
             .dependencies-matrix, .theory-split { grid-template-columns: 1fr; gap: 30px; }
-            .dev-footer-grid { grid-template-columns: 1fr; gap: 30px; }
+            .portfolio-footer-gate { grid-template-columns: 1fr; }
+            .footer-profile-json { border-right: none; border-bottom: 1px solid var(--border); }
             h1 { font-size: 2.8rem; }
         }
         @media (max-width: 640px) {
@@ -971,6 +949,7 @@
         </div>
     </div>
 
+    <!-- FOOTER – compact two‑column grid (exactly like Wine Quality) -->
     <div class="portfolio-footer-gate">
         <div class="footer-profile-json">
             <span style="color: #475569; font-style: italic; display: block; margin-bottom: 8px;">// runtime_profile.json</span>
@@ -991,9 +970,7 @@
                 <p>Access source repositories and active communication pipelines through organized gateways.</p>
             </div>
             
-            <!-- Compact Structured Sub-sections Grid -->
             <div class="contacts-matrix-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <!-- Column 1: Direct Channels -->
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;">// Direct Channels</span>
                     <a href="mailto:a1mohamad.askari@gmail.com" class="gate-link-row">
@@ -1003,11 +980,9 @@
                         <span>iCloud</span> <i class="fa-brands fa-apple"></i>
                     </a>
                     <a href="tel:+989012223122" class="gate-link-row">
-                        <span>phone</span> <i class="fas fa-phone"></i>
+                        <span>Phone</span> <i class="fas fa-phone"></i>
                     </a>
                 </div>
-                
-                <!-- Column 2: Ecosystem Gateways -->
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;">// Ecosystem Gateways</span>
                     <a href="https://github.com/a1mohamad" class="gate-link-row" target="_blank">
