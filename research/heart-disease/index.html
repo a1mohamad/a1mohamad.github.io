@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heart Disease Prognosis | Amir Mohamad Askari</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
     
     <script>
         window.MathJax = {
@@ -14,368 +21,367 @@
                 processEscapes: true
             },
             chtml: {
-                scale: 1.05,
-                displayAlign: 'center'
+                scale: 1,
+                displayAlign: 'left'
             }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <style>
-        :root {
-            --primary: #0f172a;
-            --secondary: #3b82f6;
-            --accent: #ef4444;
-            --github-gray: #24292e;
-            --bg: #f8fafc;
-            --text-main: #334155;
-            --code-bg: #1e1e1e;
-        }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); margin: 0; color: var(--text-main); line-height: 1.6; }
-        
-        .header-banner { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 100px 20px; text-align: center; }
-        .container { max-width: 1050px; margin: -60px auto 50px; padding: 0 20px; }
-
-        /* Dashboard Stats Grid */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 35px; }
-        .stat-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); text-align: center; border-bottom: 4px solid var(--secondary); display: flex; flex-direction: column; justify-content: center; }
-        .stat-card.best-card { border-bottom: 4px solid var(--accent); }
-        .stat-value { font-size: 2rem; font-weight: 800; color: var(--primary); display: block; margin: 10px 0; }
-        .stat-label { color: #64748b; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; font-weight: 700; }
-
-        /* GitHub Action Trigger Link */
-        .source-link-container { text-align: center; margin: 35px 0; }
-        .btn-github-pro { 
-            display: inline-flex; align-items: center; gap: 12px; 
-            background: var(--github-gray); color: white; 
-            padding: 18px 36px; border-radius: 50px; 
-            text-decoration: none; font-weight: 600; 
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
-            transition: all 0.3s ease; border: 2px solid transparent;
-        }
-        .btn-github-pro:hover { background: #000; transform: translateY(-3px); border-color: var(--secondary); }
-
-        /* Content Sections */
-        section { background: white; padding: 45px; border-radius: 20px; margin-top: 35px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        h2 { color: var(--primary); display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; }
-        .section-desc { color: #64748b; margin-bottom: 25px; font-size: 1.05rem; }
-
-        /* 4-Column Core Dependencies Grid */
-        .lib-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px; }
-        .lib-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
-        .lib-icon { font-size: 1.8rem; color: var(--secondary); }
-        .lib-title { font-weight: 700; color: var(--primary); margin: 0; font-size: 1.05rem; }
-        .lib-desc { font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.5; }
-
-        /* Badge System for Categories */
-        .badge { padding: 4px 12px; border-radius: 50px; font-size: 0.70rem; font-weight: 700; text-transform: uppercase; display: inline-block; }
-        .bg-identifier { background: #e2e8f0; color: #475569; }
-        .bg-demographic { background: #dbeafe; color: #1e40af; }
-        .bg-family { background: #f3e8ff; color: #6b21a8; }
-        .bg-profile { background: #fef3c7; color: #92400e; }
-        .bg-financial { background: #dcfce7; color: #166534; }
-        .bg-accent { background: #fee2e2; color: #991b1b; }
-
-        /* Feature Table styling */
-        .table-wrapper { border: none; border-radius: 18px; overflow: hidden; box-shadow: 0 15px 35px rgba(15,23,42,0.08); margin: 25px 0; }
-        .feature-table { width: 100%; border-collapse: collapse; }
-        .feature-table thead { background: #0f172a; }
-        .feature-table th { color: white; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; padding: 18px 20px; text-align: left; }
-        .feature-table td { padding: 18px 20px; border-bottom: 1px solid #e2e8f0; font-family: inherit; }
-        .feature-table tbody tr:hover { background: #f8fafc; }
-
-        /* IDE Code Container Layout */
-        .code-editor { background: var(--code-bg); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); margin: 25px 0; text-align: left;}
-        .code-top-bar { background: #323233; padding: 12px 18px; display: flex; gap: 8px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot-red { background: #ff5f56; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #27c93f; }
-        .code-content { padding: 25px; color: #d4d4d4; font-family: 'Fira Code', 'Courier New', monospace; font-size: 0.88rem; line-height: 1.6; overflow-x: auto; max-height: 550px; }
-        .comment { color: #6a9955; font-style: italic; }
-        .keyword { color: #569cd6; }
-        .function { color: #dcdcaa; }
-        .string { color: #ce9178; }
-
-        /* Info Grid Layout */
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; }
-        .info-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 25px; }
-        .info-card h4 { margin-top: 0; color: var(--primary); font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
-
-        .conclusion-gradient { 
-            background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%); 
-            border-left: 8px solid var(--accent); 
-            padding: 35px; border-radius: 16px;
-        }
-
-        /* Dev Footer Dashboard */
-        .dev-footer-dashboard { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; background: #0f172a; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); margin-top: 80px; text-align: left; }
-        .dev-json-pane { background: #090d16; padding: 35px; font-family: 'Fira Code', monospace; font-size: 0.85rem; border-right: 1px solid #1e293b; color: #38bdf8; }
-        .dev-json-pane .key { color: #f43f5e; }
-        .dev-json-pane .str { color: #e2e8f0; }
-        .dev-json-pane .num { color: #fbbf24; }
-        .dev-connect-pane { padding: 40px; display: flex; flex-direction: column; justify-content: center; color: white; }
-        .dev-connect-pane h3 { margin: 0 0 10px 0; font-size: 1.5rem; letter-spacing: -0.5px; }
-        .dev-connect-pane p { color: #94a3b8; font-size: 0.92rem; margin: 0 0 25px 0; line-height: 1.5; }
-        .dev-links-stack { display: flex; flex-direction: column; gap: 12px; }
-        .dev-link-row { display: flex; align-items: center; gap: 14px; background: #1e293b; padding: 14px 20px; border-radius: 10px; text-decoration: none; color: #f1f5f9; font-size: 0.9rem; font-weight: 600; transition: 0.2s; border: 1px solid #334155; }
-        .dev-link-row:hover { background: #3b82f6; border-color: #3b82f6; transform: translateX(5px); color: white; }
-        .dev-link-row i { font-size: 1.2rem; width: 24px; text-align: center; color: #3b82f6; transition: 0.2s; }
-
-        .case-footer { text-align: center; margin-top: 40px; padding: 30px 0; color: #64748b; font-size: 0.85rem; border-top: 1px solid #e2e8f0; }
-
-        @media (max-width: 960px) { 
-            .lib-grid, .info-grid, .dev-footer-dashboard { grid-template-columns: 1fr; } 
-            .dev-json-pane { border-right: none; border-bottom: 1px solid #1e293b; }
-        }
-    </style>
 </head>
 <body>
 
-<div class="header-banner">
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Clinical Predictive Blueprint</div>
     <h1>Cardiovascular Risk Diagnostics Pipeline</h1>
-    <p>Comparative Classification Modeling via Linear Decision Boundaries</p>
+    <div class="hero-subtitle">Comparative Classification Modeling via Linear Decision Boundaries</div>
     
-    <div class="source-link-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio" target="_blank" class="btn-github-pro">
-            <i class="fab fa-github fa-lg"></i>
-            <span>Source Notebook on GitHub</span>
+    <div class="btn-github-container">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Heart%20Disease" class="btn-modern-primary" target="_blank">
+            <i class="fa-brands fa-github"></i> <span>Source Notebook Repository</span>
         </a>
     </div>
 </div>
 
-<div class="container">
+<div class="main-layout">
 
-    <div class="stats-grid">
-        <div class="stat-card" data-type="percent">
-            <span class="stat-label">Logistic Regression</span>
-            <span class="stat-value" data-target="86.63">0</span>
+    <div class="metrics-strip">
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="86.63">
+            <div class="metric-label">Logistic Regression</div>
+            <div class="metric-value">0</div>
         </div>
-        <div class="stat-card best-card" data-type="percent">
-            <span class="stat-label">Logistic Regression CV</span>
-            <span class="stat-value" data-target="86.71">0</span>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="86.71">
+            <div class="metric-label">Logistic Regression CV</div>
+            <div class="metric-value champion-color">0</div>
         </div>
-        <div class="stat-card" data-type="number">
-            <span class="stat-label">Total Features</span>
-            <span class="stat-value" data-target="14">0</span>
+        <div class="metric-block" data-metric-type="integer" data-metric-target="14">
+            <div class="metric-label">Total Features</div>
+            <div class="metric-value">0</div>
         </div>
-        <div class="stat-card" data-type="number">
-            <span class="stat-label">Patients Analyzed</span>
-            <span class="stat-value" data-target="4240">0</span>
+        <div class="metric-block" data-metric-type="integer" data-metric-target="4240">
+            <div class="metric-label">Patients Analyzed</div>
+            <div class="metric-value">0</div>
         </div>
     </div>
 
-    <section>
-        <h2><i class="fas fa-cubes"></i> Libraries & Project Dependencies</h2>
-        <p class="section-desc">The clinical analysis environment utilizes standard data science modules for vector operations and probability modeling.</p>
-        
-        <div class="lib-grid">
-            <div class="lib-item">
-                <div class="lib-icon"><i class="fas fa-table" style="color: #3b82f6;"></i></div>
-                <h5 class="lib-title">Pandas</h5>
-                <p class="lib-desc">Orchestrates the loading of clinical record frames and manages feature imputation.</p>
+    <!-- Project Overview -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Contextual Briefing</span>
+            <h2>Project Overview</h2>
+            <p class="panel-desc">A clinical data-science study focused on predictive risk management for cardiovascular healthcare systems.</p>
+        </div>
+        <div style="color: var(--text-secondary); max-width: 900px;">
+            <p>This research evaluates statistical approaches to identifying patients at high risk of developing <strong>10‑Year Coronary Heart Disease (CHD)</strong>. Utilizing an epidemiological dataset of 4,240 records, the framework drops non‑predictive administrative features, handles clinical null entries via systematic feature mean imputation, and maps scaled continuous features to optimized binary probability margins. The core objective is to analyze predictive boundaries by pairing an elemental classification architecture with robust cross‑validation strategies.</p>
+        </div>
+    </div>
+
+    <!-- Dependencies -->
+    <section class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Infrastructure</span>
+            <h2>Core Pipeline Dependencies</h2>
+            <p class="panel-desc">The clinical analysis environment utilizes standard data science modules for vector operations and probability modeling.</p>
+        </div>
+        <div class="dependencies-matrix">
+            <div class="dependency-card">
+                <div class="dep-icon"><i class="fa-solid fa-table"></i></div>
+                <div class="dep-name">Pandas</div>
+                <div class="dep-body">Orchestrates the loading of clinical record frames and manages feature imputation.</div>
             </div>
-            <div class="lib-item">
-                <div class="lib-icon"><i class="fas fa-calculator" style="color: #10b981;"></i></div>
-                <h5 class="lib-title">NumPy</h5>
-                <p class="lib-desc">Executes linear algebra operations and multi-dimensional array mapping.</p>
+            <div class="dependency-card">
+                <div class="dep-icon"><i class="fa-solid fa-calculator"></i></div>
+                <div class="dep-name">NumPy</div>
+                <div class="dep-body">Executes linear algebra operations and multi‑dimensional array mapping.</div>
             </div>
-            <div class="lib-item">
-                <div class="lib-icon"><i class="fas fa-project-diagram" style="color: #6366f1;"></i></div>
-                <h5 class="lib-title">Scikit-Learn</h5>
-                <p class="lib-desc">Provides the logistic regression estimators and automated cross-validation grid search.</p>
+            <div class="dependency-card">
+                <div class="dep-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                <div class="dep-name">Scikit‑Learn</div>
+                <div class="dep-body">Provides logistic regression estimators and automated cross‑validation grid search.</div>
             </div>
-            <div class="lib-item">
-                <div class="lib-icon"><i class="fas fa-chart-line" style="color: #f59e0b;"></i></div>
-                <h5 class="lib-title">Matplotlib</h5>
-                <p class="lib-desc">Visualizes cohort distributions, correlation heatmaps, and diagnostic confusion matrices.</p>
+            <div class="dependency-card">
+                <div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="dep-name">Matplotlib</div>
+                <div class="dep-body">Visualizes cohort distributions, correlation heatmaps, and diagnostic confusion matrices.</div>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
-        <p class="section-desc">A clinical data-science study focused on predictive risk management for cardiovascular healthcare systems.</p>
-        <p>This research evaluates statistical approaches to identifying patients at high risk of developing <strong>10-Year Coronary Heart Disease (CHD)</strong>. Utilizing an epidemiological dataset comprising 4,240 records, the framework drops non-predictive administrative features, handles clinical null entries via systematic feature mean imputation, and maps scaled continuous features to optimized binary probability margins. The core objective is to analyze predictive boundaries by pairing an elemental classification architecture with robust cross-validation strategies.</p>
-    </section>
-
-    <section>
-        <h2><i class="fas fa-book-medical"></i> Technical Machinery Briefing</h2>
-        <p class="section-desc">A mathematical and structural look at the algorithmic baseline and framework choices powering this project.</p>
-        
-        <div class="info-grid">
-            <div class="info-card">
-                <h4><i class="fas fa-brain" style="color: var(--secondary);"></i> Logistic Regression</h4>
-                <p>Models the probability of binary outcomes by passing a linear combination of features through the non-linear Sigmoid activation function:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$P(Y=1|X) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+    <!-- System Architecture Overview -->
+    <section class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Configuration</span>
+            <h2>System Architecture Overview</h2>
+            <p class="panel-desc">A conceptual blueprint mapping raw patient telemetry through cleaning, feature engineering, and cross‑validated model evaluation.</p>
+        </div>
+        <div class="pipeline-layout">
+            <div class="pipeline-info-pane">
+                <div class="pipeline-meta-row">
+                    <h4>Feature Imputation</h4>
+                    <p>Clinical null entries are replaced with feature‑wise mean values to preserve matrix integrity.</p>
+                </div>
+                <div class="pipeline-meta-row">
+                    <h4>Logistic Regression</h4>
+                    <p>Models binary outcome probability via a sigmoid linear boundary, optimized by maximum likelihood.</p>
+                </div>
+                <div class="pipeline-meta-row">
+                    <h4>Cross‑Validation</h4>
+                    <p>Automated regularization tuning through internal K‑fold cross‑validation prevents overfitting.</p>
                 </div>
             </div>
-            <div class="info-card">
-                <h4><i class="fas fa-search" style="color: #6366f1;"></i> Logistic Regression CV</h4>
-                <p>An optimized estimator variant that automates the hyperparameter selection process. It internally performs K-fold cross-validation across a regularization grid to ensure robust coefficient estimation:</p>
-                <div style="margin: 20px 0; text-align: center;">
-                    $$\min_{W} \left( \sum_{i=1}^{N} \mathcal{L}(y_i, f(x_i)) + \lambda ||W||^2 \right)$$
+            <div class="pipeline-flow-pane">
+                <div class="flow-node">
+                    <div class="flow-index">01</div>
+                    <div class="flow-details">
+                        <strong>EDA and Feature Engineering</strong>
+                        <span>Handle nulls via mean imputation and remove irrelevant identifiers.</span>
+                    </div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-node">
+                    <div class="flow-index">02</div>
+                    <div class="flow-details">
+                        <strong>Cross‑Validation Strategy</strong>
+                        <span>Apply LogisticRegressionCV with internal K‑fold to select best regularization.</span>
+                    </div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-node">
+                    <div class="flow-index">03</div>
+                    <div class="flow-details">
+                        <strong>Compare Different Models</strong>
+                        <span>Evaluate standard Logistic Regression against the CV‑tuned variant.</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2><i class="fas fa-microscope"></i> Clinical Feature Space</h2>
-        <p class="section-desc">The internal dimensions and variable taxonomy consisting of 14 separate physiological indicators.</p>
-        
-        <div class="table-wrapper">
-            <table class="feature-table">
+    <!-- Theory -->
+    <section class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Mathematics</span>
+            <h2>Algorithmic Formulations</h2>
+            <p class="panel-desc">A mathematical and structural look at the logistic regression classifiers deployed in this clinical study.</p>
+        </div>
+        <div class="theory-split">
+            <div class="theory-block">
+                <div>
+                    <div class="theory-card-header">
+                        <div class="theory-title">Logistic Regression</div>
+                        <span class="theory-badge">Baseline</span>
+                    </div>
+                    <div class="theory-math-container">
+                        $$P(Y=1|X) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+                    </div>
+                </div>
+                <div class="theory-explanation">
+                    Models the probability of binary outcomes by passing a linear combination of features through the non‑linear Sigmoid activation function.
+                </div>
+            </div>
+            <div class="theory-block">
+                <div>
+                    <div class="theory-card-header">
+                        <div class="theory-title">Logistic Regression CV</div>
+                        <span class="theory-badge champion-badge">Champion</span>
+                    </div>
+                    <div class="theory-math-container">
+                        $$\min_{W} \left( \sum_{i=1}^{N} \mathcal{L}(y_i, f(x_i)) + \lambda ||W||^2 \right)$$
+                    </div>
+                </div>
+                <div class="theory-explanation">
+                    An optimized estimator that automates hyperparameter selection via K‑fold cross‑validation across a regularization grid to ensure robust coefficient estimation.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Table -->
+    <section class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Dimensions</span>
+            <h2>Clinical Feature Space</h2>
+            <p class="panel-desc">The internal dimensions and variable taxonomy consisting of 14 separate physiological indicators.</p>
+        </div>
+        <div class="matrix-table-container">
+            <table>
                 <thead>
                     <tr>
-                        <th>FEATURE</th>
-                        <th>CATEGORY</th>
-                        <th>DESCRIPTION</th>
+                        <th>Feature</th>
+                        <th>Category</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><code>sex_male</code></td><td><span class="badge bg-demographic">Demographic</span></td><td>Categorical Demographic Indicator</td></tr>
-                    <tr><td><code>age</code></td><td><span class="badge bg-demographic">Demographic</span></td><td>Continuous Demographic Variable</td></tr>
-                    <tr><td><code>currentSmoker</code></td><td><span class="badge bg-profile">Behavioral</span></td><td>Behavioral Lifestyle Feature</td></tr>
-                    <tr><td><code>cigsPerDay</code></td><td><span class="badge bg-profile">Behavioral</span></td><td>Quantitative Behavioral Feature</td></tr>
-                    <tr><td><code>BPMeds</code></td><td><span class="badge bg-family">History</span></td><td>Clinical History Flag</td></tr>
-                    <tr><td><code>prevalentStroke</code></td><td><span class="badge bg-family">History</span></td><td>Clinical History Flag</td></tr>
-                    <tr><td><code>prevalentHyp</code></td><td><span class="badge bg-family">History</span></td><td>Clinical History Flag</td></tr>
-                    <tr><td><code>diabetes</code></td><td><span class="badge bg-family">Pathology</span></td><td>Clinical Pathology Indicator</td></tr>
-                    <tr><td><code>totChol</code></td><td><span class="badge bg-financial">Metabolic</span></td><td>Serum Metabolic Metric</td></tr>
-                    <tr><td><code>sysBP</code></td><td><span class="badge bg-financial">Hemodynamic</span></td><td>Hemodynamic Blood Pressure Upper</td></tr>
-                    <tr><td><code>diaBP</code></td><td><span class="badge bg-financial">Hemodynamic</span></td><td>Hemodynamic Blood Pressure Lower</td></tr>
-                    <tr><td><code>BMI</code></td><td><span class="badge bg-profile">Physical</span></td><td>Physical Anthropometric Measurement</td></tr>
-                    <tr><td><code>heartRate</code></td><td><span class="badge bg-financial">Vital</span></td><td>Vital Cardiovascular Sign</td></tr>
-                    <tr><td><code>glucose</code></td><td><span class="badge bg-financial">Metabolic</span></td><td>Serum Metabolic Glucose</td></tr>
-                    <tr><td><code>TenYearCHD</code></td><td><span class="badge bg-accent">Target</span></td><td>Supervised Optimization Target Vector (Y)</td></tr>
+                    <tr><td><code>sex_male</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Categorical Demographic Indicator</td></tr>
+                    <tr><td><code>age</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Continuous Demographic Variable</td></tr>
+                    <tr><td><code>currentSmoker</code></td><td><span class="taxonomy-tag">Behavioral</span></td><td>Behavioral Lifestyle Feature</td></tr>
+                    <tr><td><code>cigsPerDay</code></td><td><span class="taxonomy-tag">Behavioral</span></td><td>Quantitative Behavioral Feature</td></tr>
+                    <tr><td><code>BPMeds</code></td><td><span class="taxonomy-tag">History</span></td><td>Clinical History Flag</td></tr>
+                    <tr><td><code>prevalentStroke</code></td><td><span class="taxonomy-tag">History</span></td><td>Clinical History Flag</td></tr>
+                    <tr><td><code>prevalentHyp</code></td><td><span class="taxonomy-tag">History</span></td><td>Clinical History Flag</td></tr>
+                    <tr><td><code>diabetes</code></td><td><span class="taxonomy-tag">Pathology</span></td><td>Clinical Pathology Indicator</td></tr>
+                    <tr><td><code>totChol</code></td><td><span class="taxonomy-tag">Metabolic</span></td><td>Serum Metabolic Metric</td></tr>
+                    <tr><td><code>sysBP</code></td><td><span class="taxonomy-tag">Hemodynamic</span></td><td>Hemodynamic Blood Pressure Upper</td></tr>
+                    <tr><td><code>diaBP</code></td><td><span class="taxonomy-tag">Hemodynamic</span></td><td>Hemodynamic Blood Pressure Lower</td></tr>
+                    <tr><td><code>BMI</code></td><td><span class="taxonomy-tag">Physical</span></td><td>Physical Anthropometric Measurement</td></tr>
+                    <tr><td><code>heartRate</code></td><td><span class="taxonomy-tag">Vital</span></td><td>Vital Cardiovascular Sign</td></tr>
+                    <tr><td><code>glucose</code></td><td><span class="taxonomy-tag">Metabolic</span></td><td>Serum Metabolic Glucose</td></tr>
+                    <tr class="target-row-highlight"><td><code>TenYearCHD</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Supervised Optimization Target Vector (Y)</td></tr>
                 </tbody>
             </table>
         </div>
     </section>
 
-    <section>
-        <h2><i class="fas fa-terminal"></i> Implementation Sandbox</h2>
-        <p class="section-desc">The structural model validation engine loop built within your Jupyter notebook environment.</p>
-        <div class="code-editor">
-            <div class="code-top-bar">
-                <div class="dot dot-red"></div><div class="dot dot-yellow"></div><div class="dot dot-green"></div>
+    <!-- Code Terminal -->
+    <section class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Implementation</span>
+            <h2>Model Optimization Sandbox</h2>
+            <p class="panel-desc">The structural model validation engine loop built within the Jupyter notebook environment.</p>
+        </div>
+        <div class="terminal-panel">
+            <div class="terminal-header">
+                <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
+                <div class="terminal-title">heart_disease_pipeline.py</div>
+                <div></div>
             </div>
-            <div class="code-content">
+            <div class="terminal-body">
 <pre>
-<span class="keyword">def</span> <span class="function">evaluate_diagnostic_models</span>(x_train, x_test, y_train, y_test):
-    <span class="comment"># Initialize dual modeling engines to compare base and cross-validated estimators</span>
+<span class="code-keyword">def</span> <span class="code-fn">evaluate_diagnostic_models</span>(x_train, x_test, y_train, y_test):
+    <span class="code-comment"># Initialize dual modeling engines to compare base and cross-validated estimators</span>
     models = [
-        LogisticRegression(max_iter=10000), 
-        LogisticRegressionCV(max_iter=10000)
+        LogisticRegression(max_iter=<span class="code-num">10000</span>), 
+        LogisticRegressionCV(max_iter=<span class="code-num">10000</span>)
     ]
     
-    <span class="keyword">for</span> model <span class="keyword">in</span> models:
-        <span class="comment"># Fit individual binary logit boundary plane</span>
+    <span class="code-keyword">for</span> model <span class="code-keyword">in</span> models:
+        <span class="code-comment"># Fit individual binary logit boundary plane</span>
         model.fit(x_train, y_train)
         
-        <span class="comment"># Generate operational predictions</span>
+        <span class="code-comment"># Generate operational predictions</span>
         y_pred_test = model.predict(x_test)
         
-        <span class="comment"># Track metrics inside workspace stream</span>
-        print(<span class="keyword">f</span>"Accuracy: {accuracy_score(y_test, y_pred_test)}")
+        <span class="code-comment"># Track metrics inside workspace stream</span>
+        print(<span class="code-keyword">f</span><span class="code-str">"Accuracy: {accuracy_score(y_test, y_pred_test)}"</span>)
 </pre>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2><i class="fas fa-chart-bar"></i> Exploratory Visual Diagnostics</h2>
-        <div class="info-grid">
-             <div class="info-card">
-                <h4><i class="fas fa-pie-chart" style="color: #ef4444;"></i> Class Proportions</h4>
-                <p>Visualization of positive vs negative class distribution in the patient cohort.</p>
-             </div>
-             <div class="info-card">
-                <h4><i class="fas fa-th" style="color: #3b82f6;"></i> Error Matrix</h4>
-                <p>Cross-tabulation heatmaps visualizing model classification performance.</p>
-             </div>
+    <!-- Performance Diagnostics -->
+    <section class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Evaluation Matrix</span>
+            <h2>Performance Diagnostics & Engine Insights</h2>
+            <p class="panel-desc">Calculated accuracy metrics and discriminatory capability records observed across predictive estimators.</p>
+        </div>
+        
+        <div class="engine-insights-stack">
+            <div class="insight-row">
+                <div class="insight-left-meta">
+                    <div class="insight-rank-index">01</div>
+                    <div class="insight-model-identity">
+                        <strong>Logistic Regression</strong>
+                        <span>Baseline Linear Decision Boundary</span>
+                    </div>
+                </div>
+                <div class="insight-score-metrics">
+                    <span class="insight-score-value">86.63%</span>
+                    <span class="insight-score-label">Accuracy Target</span>
+                </div>
+            </div>
+
+            <div class="insight-row rank-leader">
+                <div class="insight-left-meta">
+                    <div class="insight-rank-index">02</div>
+                    <div class="insight-model-identity">
+                        <strong>Logistic Regression CV</strong>
+                        <span>Cross‑Validated Regularization‑Tuned Variant</span>
+                    </div>
+                </div>
+                <div class="insight-score-metrics">
+                    <span class="insight-score-value">86.71%</span>
+                    <span class="insight-score-label">Accuracy Target</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="executive-summary-box">
+            <p><strong>Diagnostic Breakdown:</strong> The <strong>Logistic Regression</strong> model provided a test set accuracy of <strong>86.63%</strong>. Incorporating internal hyperparameter tuning via <strong>Logistic Regression CV</strong> slightly shifted coefficients to achieve a peak diagnostic test accuracy of <strong>86.71%</strong>.</p>
         </div>
     </section>
 
-    <section>
-        <h2><i class="fas fa-clipboard-check"></i> Project Synthesis</h2>
-        <p class="section-desc">Performance deductions and forward-looking research strategies.</p>
-        <div class="conclusion-gradient">
-            <p style="color: #065f46; margin-top: 0;"><strong>Empirical Conclusions:</strong> The <strong>Logistic Regression</strong> model provided a test set accuracy of <strong>86.63%</strong>. Incorporating internal hyperparameter tuning via <strong>Logistic Regression CV</strong> slightly shifted coefficients to achieve a peak diagnostic test accuracy of <strong>86.71%</strong>.</p>
-            <p style="color: #065f46; margin-bottom: 0;"><strong>Moving Forward:</strong> Future versions should focus on handling data imbalance directly by using class-weight tuning inside the Scikit-Learn classifiers or implementing synthetic oversampling routines to improve positive-class recall scores.</p>
+    <!-- Synthesis -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Conclusions</span>
+            <h2>Project Synthesis</h2>
+            <p class="panel-desc">Performance deductions and forward‑looking research strategies.</p>
         </div>
-    </section>
+        
+        <div class="synthesis-gradient-box">
+            <p><strong>Empirical Conclusions:</strong> The <strong>Logistic Regression CV</strong> variant outperformed the baseline estimator, achieving a peak diagnostic accuracy of <strong>86.71%</strong>. Automated regularization tuning proved beneficial in refining the decision boundary for this clinical cohort.</p>
+            <p><strong>Moving Forward:</strong> Future versions should focus on handling data imbalance directly by using class‑weight tuning inside the Scikit‑Learn classifiers or implementing synthetic oversampling routines to improve positive‑class recall scores.</p>
+        </div>
+    </div>
 
-    <div class="dev-footer-dashboard">
-        <div class="dev-json-pane">
-            <span style="color: #64748b; font-style: italic; display: block; margin-bottom: 10px;">// runtime_profile.json</span>
+    <!-- Footer -->
+    <div class="portfolio-footer-gate">
+        <div class="footer-profile-json">
+            <span style="color: #475569; font-style: italic; display: block; margin-bottom: 8px;"></span>
             {<br>
-            &nbsp;&nbsp;<span class="key">"engineer"</span>: <span class="str">"Amir Mohamad Askari"</span>,<br>
-            &nbsp;&nbsp;<span class="key">"role"</span>: <span class="str">"AI Research, Developer and ML Engineer"</span>,<br>
-            &nbsp;&nbsp;<span class="key">"core_focus"</span>: [<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Predictive Clinical Modeling"</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Statistical Diagnostics"</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"MLOps Automation Engines"</span><br>
+            &nbsp;&nbsp;<span class="json-key">"engineer"</span>: <span class="json-str">"Amir Mohamad Askari"</span>,<br>
+            &nbsp;&nbsp;<span class="json-key">"role"</span>: <span class="json-str">"AI Research, Developer and ML Engineer"</span>,<br>
+            &nbsp;&nbsp;<span class="json-key">"affiliation"</span>: <span class="json-str">"Sharif University of Technology"</span>,<br>
+            &nbsp;&nbsp;<span class="json-key">"core_focus"</span>: [<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"Deep Learning and Neural Networks"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"Computer Vision and NLP"</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"MLOps Automation Engines and Deployment"</span><br>
             &nbsp;&nbsp;]<br>
             }
         </div>
-        <div class="dev-connect-pane">
-            <h3>Contact Me!</h3>
-            <p>Access repositories, code logs, and clinical classification blueprints via alternative endpoints.</p>
-            <div class="dev-links-stack">
-                <a href="https://github.com/a1mohamad" class="dev-link-row" target="_blank">
-                    <i class="fab fa-github"></i> <span>GitHub Main Page</span>
-                </a>
-                <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="dev-link-row" target="_blank">
-                    <i class="fab fa-linkedin-in"></i> <span>LinkedIn Profile</span>
-                </a>
-                <a href="https://www.kaggle.com/amirmohamadaskari" class="dev-link-row" target="_blank">
-                    <i class="fab fa-kaggle"></i> <span>Kaggle Platform</span>
-                </a>
+        <div class="footer-action-links">
+            <div>
+                <h3>Contact Me!</h3>
+                <p>Access source repositories and active communication pipelines through organized gateways.</p>
+            </div>
+            
+            <div class="contacts-matrix-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
+                    <a href="mailto:a1mohamad.askari@gmail.com" class="gate-link-row">
+                        <span>Gmail</span> <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="mailto:amirmohmdaskari@icloud.com" class="gate-link-row">
+                        <span>iCloud</span> <i class="fa-brands fa-apple"></i>
+                    </a>
+                    <a href="tel:+989012223122" class="gate-link-row">
+                        <span>+Phone</span> <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
+                    <a href="https://github.com/a1mohamad" class="gate-link-row" target="_blank">
+                        <span>GitHub</span> <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="gate-link-row" target="_blank">
+                        <span>LinkedIn</span> <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://www.kaggle.com/amirmohamadaskari" class="gate-link-row" target="_blank">
+                        <span>Kaggle</span> <i class="fa-brands fa-kaggle"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
 </div>
-
-<div class="case-footer">
-    Project Case Study Authored by <strong>Amir Mohamad Askari</strong> &bull; 2026
+<div class="editorial-credits">
+    Amir Mohamad Askari &bull; 2026 Analytical Document
 </div>
 
-<script>
-    const cards = document.querySelectorAll('.stat-card');
-    cards.forEach(card => {
-        const counter = card.querySelector('.stat-value');
-        const type = card.getAttribute('data-type');
-        const target = +counter.getAttribute('data-target');
-        
-        let count = 0;
-        const duration = 1000;
-        const steps = 40;
-        const stepValue = target / steps;
-        let currentStep = 0;
-
-        const updateCount = () => {
-            currentStep++;
-            count += stepValue;
-            
-            if (currentStep < steps) {
-                if (type === 'percent') {
-                    counter.innerText = count.toFixed(2) + '%';
-                } else {
-                    counter.innerText = Math.floor(count);
-                }
-                setTimeout(updateCount, duration / steps);
-            } else {
-                if (type === 'percent') {
-                    counter.innerText = target.toFixed(2) + '%';
-                } else {
-                    counter.innerText = target;
-                }
-            }
-        };
-        updateCount();
-    });
-</script>
+<!-- External JS -->
+<script src="script.js"></script>
 </body>
 </html>
