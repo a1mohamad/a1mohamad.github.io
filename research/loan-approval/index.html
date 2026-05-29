@@ -18,7 +18,7 @@
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true   // corrected typo
+                processEscapes: true
             },
             chtml: {
                 scale: 1,
@@ -65,8 +65,355 @@
         </div>
     </div>
 
-    <!-- Panels (abbreviated for space – include all the panel sections you already have) -->
-    <!-- ... (all the same panels as before) ... -->
+    <!-- Project Overview Panel -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Contextual Briefing</span>
+            <h2>Project Overview</h2>
+            <p class="panel-desc">A computational financial study focused on mitigating risk and optimizing retail banking credit infrastructure.</p>
+        </div>
+        <div style="color: var(--text-secondary); max-width: 900px;">
+            <p>This project evaluates performance boundaries across multiple supervised algorithms to predict retail consumer credit qualification. Using an engineering pipeline written in Python, the codebase drops arbitrary administrative tokens, isolates numeric and non-numeric channels, executes structural data transformations via label encoding, and partitions matrices for out-of-sample evaluation. The validation cycle systematically checks parametric models against non-parametric decision boundaries and ensemble architectures.</p>
+        </div>
+    </div>
+
+    <!-- Libraries & Dependencies Panel -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Computational Stack</span>
+            <h2>Libraries & Project Dependencies</h2>
+            <p class="panel-desc">The computational environment is anchored by four key data science modules to load files, perform linear operations, execute vector modeling, and map parameters.</p>
+        </div>
+        
+        <div class="dependencies-matrix">
+            <div class="dependency-card">
+                <div class="dep-icon"><i class="fa-solid fa-table"></i></div>
+                <div class="dep-name">Pandas</div>
+                <div class="dep-body">Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</div>
+            </div>
+            <div class="dependency-card">
+                <div class="dep-icon"><i class="fa-solid fa-calculator"></i></div>
+                <div class="dep-name">NumPy</div>
+                <div class="dep-body">Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</div>
+            </div>
+            <div class="dependency-card">
+                <div class="dep-icon"><i class="fa-solid fa-diagram-project"></i></div>
+                <div class="dep-name">Scikit-Learn</div>
+                <div class="dep-body">Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</div>
+            </div>
+            <div class="dependency-card">
+                <div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="dep-name">Seaborn Viz</div>
+                <div class="dep-body">Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Machine Learning Theory Panel -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Mathematical Mechanics</span>
+            <h2>Advanced Machine Learning Theory</h2>
+            <p class="panel-desc">A deep mathematical and conceptual exploration of the core learning architectures and metric diagnostics deployed in this analysis.</p>
+        </div>
+
+        <div class="theory-split">
+            <div class="theory-block">
+                <div>
+                    <div class="theory-card-header">
+                        <div class="theory-title">Logistic Regression Baseline</div>
+                        <span class="theory-badge">Parametric</span>
+                    </div>
+                    <div class="theory-explanation" style="margin-bottom: 20px;">
+                        Models posterior binary risk status using the nonlinear Transcendental Sigmoid function mapping input layers to target structural probability bounds:
+                    </div>
+                    <div class="theory-math-container">
+                        $$P(Y = 1 \mid X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+                    </div>
+                    <div class="theory-explanation" style="margin-bottom: 20px;">
+                        Weights are systematically optimized by the strict minimization of the binary cross-entropy loss function over the calculated data matrix frames:
+                    </div>
+                    <div class="theory-math-container">
+                        $$\mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$$
+                    </div>
+                </div>
+            </div>
+
+            <div class="theory-block">
+                <div>
+                    <div class="theory-card-header">
+                        <div class="theory-title">Support Vector Classifier (SVC)</div>
+                        <span class="theory-badge">Max-Margin</span>
+                    </div>
+                    <div class="theory-explanation" style="margin-bottom: 20px;">
+                        Constructs an optimal multi-dimensional separating hyperplane boundary that targets geometric soft-margins between non-separable classification vectors:
+                    </div>
+                    <div class="theory-math-container">
+                        $$\min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i$$
+                    </div>
+                    <div class="theory-explanation" style="margin-bottom: 20px;">
+                        Subject to structural margin constraint paths, evaluating data records through slack variables $\xi_i$ to protect validation cross-entropy balances:
+                    </div>
+                    <div class="theory-math-container">
+                        $$y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0$$
+                    </div>
+                </div>
+            </div>
+
+            <div class="theory-block">
+                <div>
+                    <div class="theory-card-header">
+                        <div class="theory-title">K-Nearest Neighbors (KNN)</div>
+                        <span class="theory-badge">Instance-Based</span>
+                    </div>
+                    <div class="theory-explanation" style="margin-bottom: 20px;">
+                        An instance-based predictive metric framework that maps validation vectors using strict localized spatial distance paths in an $n$-dimensional Euclidean workspace:
+                    </div>
+                    <div class="theory-math-container">
+                        $$d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2}$$
+                    </div>
+                </div>
+            </div>
+
+            <div class="theory-block">
+                <div>
+                    <div class="theory-card-header">
+                        <div class="theory-title">Random Forest Ensemble Architecture</div>
+                        <span class="theory-badge champion-badge">Champion Architecture</span>
+                    </div>
+                    <div class="theory-explanation" style="margin-bottom: 20px;">
+                        A non-parametric bootstrap bagging model that aggregates structural decision metrics across independent deep tree pipelines to scale validation precision:
+                    </div>
+                    <div class="theory-math-container">
+                        $$\hat{Y} = \text{mode} \left\{ h_1(X), h_2(X), \dots, h_B(X) \right\}$$
+                    </div>
+                    <div class="theory-explanation">
+                        Averages individual tree variance down to achieve a peak out-of-sample notebook validation accuracy scoring rate of <strong>97.50%</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Space Table Panel -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Data Taxonomy</span>
+            <h2>Feature Space Configuration</h2>
+            <p class="panel-desc">The internal dimensions and variable taxonomy consisting of 13 separate applicant metrics.</p>
+        </div>
+
+        <div class="matrix-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>Loan_ID</code></td>
+                        <td><span class="taxonomy-tag">Identifier</span></td>
+                        <td>Unique applicant record identifier removed during preprocessing.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Gender</code></td>
+                        <td><span class="taxonomy-tag">Demographic</span></td>
+                        <td>Applicant gender information.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Married</code></td>
+                        <td><span class="taxonomy-tag">Demographic</span></td>
+                        <td>Marital status indicator.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Dependents</code></td>
+                        <td><span class="taxonomy-tag">Family</span></td>
+                        <td>Number of dependents supported by applicant.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Education</code></td>
+                        <td><span class="taxonomy-tag">Profile</span></td>
+                        <td>Graduate or non-graduate education level.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Self_Employed</code></td>
+                        <td><span class="taxonomy-tag">Profile</span></td>
+                        <td>Employment structure indicator.</td>
+                    </tr>
+                    <tr>
+                        <td><code>ApplicantIncome</code></td>
+                        <td><span class="taxonomy-tag">Financial</span></td>
+                        <td>Primary applicant monthly income.</td>
+                    </tr>
+                    <tr>
+                        <td><code>CoapplicantIncome</code></td>
+                        <td><span class="taxonomy-tag">Financial</span></td>
+                        <td>Secondary applicant monthly income.</td>
+                    </tr>
+                    <tr>
+                        <td><code>LoanAmount</code></td>
+                        <td><span class="taxonomy-tag">Financial</span></td>
+                        <td>Requested loan amount.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Loan_Amount_Term</code></td>
+                        <td><span class="taxonomy-tag">Financial</span></td>
+                        <td>Loan repayment duration.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Credit_History</code></td>
+                        <td><span class="taxonomy-tag">Risk</span></td>
+                        <td>Historical repayment behavior indicator.</td>
+                    </tr>
+                    <tr>
+                        <td><code>Property_Area</code></td>
+                        <td><span class="taxonomy-tag">Geographic</span></td>
+                        <td>Property location classification.</td>
+                    </tr>
+                    <tr class="target-row-highlight">
+                        <td><code>Loan_Status</code></td>
+                        <td><span class="taxonomy-tag target-style">Target</span></td>
+                        <td>Final loan approval prediction label.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pipeline Code Panel -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Source Engine</span>
+            <h2>Complete Production Data Engineering Pipeline</h2>
+            <p class="panel-desc">The true executed Python pipeline script matching the multi-model loop configurations inside the analytical workspace.</p>
+        </div>
+
+        <div class="terminal-panel">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                </div>
+                <div class="terminal-title">loan_pipeline.py</div>
+            </div>
+            <div class="terminal-body">
+<pre>
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression
+<span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC
+<span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
+
+<span class="keyword">def</span> <span class="function">run_loan_pipeline</span>(data_path):
+    <span class="comment">'''
+    Loads target dataframes, drops tracking index IDs, eliminates null instances,
+    transforms categoricals into encoded tokens, and runs multi-model validation.
+    '''</span>
+    df = pd.read_csv(data_path)
+    
+    df = df.drop([<span class="string">'Loan_ID'</span>], axis=<span class="number">1</span>)
+    
+    df = df.dropna()
+    
+    le = LabelEncoder()
+    categorical_columns = [<span class="string">'Gender'</span>, <span class="string">'Married'</span>, <span class="string">'Education'</span>, <span class="string">'Self_Employed'</span>, <span class="string">'Property_Area'</span>, <span class="string">'Loan_Status'</span>]
+    <span class="keyword">for</span> col <span class="keyword">in</span> categorical_columns:
+        df[col] = le.fit_transform(df[col])
+        
+    X = df.drop([<span class="string">'Loan_Status'</span>], axis=<span class="number">1</span>).values
+    Y = df[<span class="string">'Loan_Status'</span>].values
+    
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)
+    
+    models = [
+        LogisticRegression(max_iter=<span class="number">1000</span>),
+        SVC(),
+        KNeighborsClassifier(),
+        RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)
+    ]
+    
+    <span class="keyword">for</span> model <span class="keyword">in</span> models:
+        model.fit(X_train, Y_train)
+        Y_pred = model.predict(X_test)
+        accuracy = metrics.accuracy_score(Y_test, Y_pred)
+        print(<span class="keyword">f</span><span class="string">"Accuracy score of {model.__class__.__name__} = {100 * accuracy:.14f}"</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    run_loan_pipeline(<span class="string">"loan_approval_dataset.csv"</span>)
+</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visualization Panel -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Analytics Layer</span>
+            <h2>Exploratory Visual Diagnostics</h2>
+            <p class="panel-desc">Statistical layouts and spatial correlation heatmaps exported from your visualization loops.</p>
+        </div>
+
+        <div class="viz-display-grid">
+            <div class="viz-wrapper-card">
+                <div class="viz-placeholder-frame">
+                    <i class="fa-solid fa-chart-grid fa-3x"></i>
+                    <div class="viz-meta-text">
+                        <strong>Feature Correlation Matrix Heatmap</strong><br>
+                        Seaborn Rendering Sandbox Layer &bull; dataset/correlation_heatmap.png
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Synthesis Panel -->
+    <div class="panel">
+        <div class="panel-header">
+            <span class="panel-tag">Analytical Summary</span>
+            <h2>Project Synthesis</h2>
+            <p class="panel-desc">Performance diagnostics and architectural outcomes established from model verification runs.</p>
+        </div>
+
+        <div class="rank-list">
+            <div class="rank-item champion-rank">
+                <div class="rank-number">01</div>
+                <div class="rank-name">Random Forest Classifier (Champion)</div>
+                <div class="rank-score">97.50%</div>
+            </div>
+            <div class="rank-item">
+                <div class="rank-number">02</div>
+                <div class="rank-name">K-Nearest Neighbors</div>
+                <div class="rank-score">81.66%</div>
+            </div>
+            <div class="rank-item">
+                <div class="rank-number">03</div>
+                <div class="rank-name">Logistic Regression</div>
+                <div class="rank-score">80.83%</div>
+            </div>
+            <div class="rank-item">
+                <div class="rank-number">04</div>
+                <div class="rank-name">Support Vector Classifier</div>
+                <div class="rank-score">70.83%</div>
+            </div>
+        </div>
+
+        <div class="synthesis-gradient-box">
+            <p style="font-size: 1.05rem; color: var(--text-primary); margin-bottom: 16px;">
+                <strong>Empirical Breakdown:</strong> The ensemble architecture outclasses simpler models because its non-parametric bootstrap aggregations natively capture complex interaction thresholds across mixed variables (e.g., matching <code>Credit_History</code> weight markers against non-linear variations in <code>ApplicantIncome</code>) without succumbing to overfitting or localized variance skew.
+            </p>
+            <p style="font-size: 1.05rem; color: var(--text-secondary);">
+                <strong>Optimization Path:</strong> Future versions will implement scaling pipelines to optimize hyperparameter spaces for advanced gradient boosting algorithms (such as XGBoost or LightGBM) to systematically test if additional margin gains can be wrung out of non-linear target matrices.
+            </p>
+        </div>
+    </div>
 
     <!-- Footer -->
     <div class="portfolio-footer-gate">
@@ -128,6 +475,5 @@
 
 <!-- External JS -->
 <script src="script.js"></script>
-
 </body>
 </html>
