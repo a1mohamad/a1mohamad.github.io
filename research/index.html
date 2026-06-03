@@ -90,15 +90,23 @@
         .hero-meta {
             font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; letter-spacing:3px;
             color:var(--accent); margin-bottom:20px; font-weight:600;
+            animation: hero-fade-up 0.6s ease 0.1s both;
         }
         h1 {
             font-size:clamp(3rem,6vw,4.5rem); font-weight:800; line-height:1.1; letter-spacing:-0.04em;
             margin-bottom:24px; max-width:900px;
             background:linear-gradient(180deg, #ffffff 0%, #a5b4fc 100%);
             -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+            animation: hero-fade-up 0.6s ease 0.2s both;
         }
-        .hero-subtitle { font-size:1.25rem; color:var(--text-secondary); max-width:700px; font-weight:400; margin-bottom:40px; }
-        .hero-actions { display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:50px; }
+        .hero-subtitle {
+            font-size:1.25rem; color:var(--text-secondary); max-width:700px; font-weight:400; margin-bottom:40px;
+            animation: hero-fade-up 0.6s ease 0.3s both;
+        }
+        .hero-actions {
+            display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-bottom:50px;
+            animation: hero-fade-up 0.6s ease 0.4s both;
+        }
         .btn-primary {
             display:inline-flex; align-items:center; gap:12px; background:var(--text-primary); color:#050508;
             padding:14px 28px; border-radius:8px; text-decoration:none; font-weight:600; font-size:0.95rem;
@@ -116,15 +124,19 @@
             display:grid; grid-template-columns:repeat(4,1fr);
             border-top:1px solid var(--border); border-bottom:1px solid var(--border);
             padding:30px 0; margin-top:20px; gap:20px;
+            animation: hero-fade-up 0.6s ease 0.5s both;
         }
         .stat-block { padding:0 24px; border-right:1px solid var(--border); text-align:center; }
         .stat-block:last-child { border-right:none; }
         .stat-num { font-family:var(--font-mono); font-size:2.2rem; font-weight:700; color:var(--accent); line-height:1; }
         .stat-label { font-size:0.8rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-top:6px; }
 
-        .section {
-            width:100%; padding:80px 40px; position:relative;
+        @keyframes hero-fade-up {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
+        .section { width:100%; padding:80px 40px; position:relative; }
         .section-inner { max-width:1200px; margin:0 auto; }
         .section-alt { background:var(--bg-alt); }
         .section-tag {
@@ -136,54 +148,79 @@
         }
         .section-desc { color:var(--text-secondary); font-size:1rem; max-width:700px; margin-bottom:40px; }
 
-        .approach-grid {
-            display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;
-        }
+        .approach-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
         .approach-text p {
             font-size:0.95rem; color:var(--text-secondary); line-height:1.9; margin-bottom:20px; font-weight:500;
         }
         .approach-text p strong { color:var(--text-primary); font-weight:800; }
         .approach-text p em { color:var(--accent); font-style:normal; font-weight:700; }
 
-        .tech-categories { display:flex; flex-direction:column; gap:24px; }
+        .tech-categories { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 28px; 
+            border-left: 1px solid var(--border);
+            padding-left: 32px;
+        }
         .tech-cat {
-            background: rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px;
-            padding:20px 24px; transition: border-color 0.3s;
+            background: transparent; 
+            border: none; 
+            border-radius: 0;
+            padding: 0; 
+            transition: none;
         }
-        .tech-cat:hover { border-color: var(--accent); }
         .tech-cat h3 {
-            font-size:0.95rem; font-weight:700; margin-bottom:12px; color:var(--text-primary);
-            letter-spacing:-0.3px; display:flex; align-items:center; gap:8px;
+            font-size:0.85rem; 
+            font-weight:700; 
+            margin-bottom:14px; 
+            color:var(--text-muted);
+            letter-spacing:1.5px; 
+            text-transform: uppercase;
+            display:flex; 
+            align-items:center; 
+            gap:10px;
         }
-        .tech-cat h3 i, .tech-cat h3 .emoji { font-size:1rem; color:var(--accent); }
-        .tech-tags { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+        .tech-cat h3 i { font-size:0.9rem; color:var(--accent); }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
         .tech-tag {
-            font-family:var(--font-mono); font-size:0.65rem; padding:4px 8px; border-radius:6px;
-            background:rgba(255,255,255,0.04); border:1px solid var(--border);
-            color:var(--text-secondary); font-weight:500; transition: all 0.2s;
-            display:inline-flex; align-items:center; gap:4px;
+            font-family:var(--font-mono); 
+            font-size:0.7rem; 
+            padding:6px 12px; 
+            border-radius:20px;
+            background:rgba(255,255,255,0.02); 
+            border:1px solid var(--border);
+            color:var(--text-secondary); 
+            font-weight:500; 
+            transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+            display:inline-flex; 
+            align-items:center; 
+            gap:6px;
         }
-        .tech-tag .emoji { font-size:0.9rem; }
-        .tech-tag:hover { border-color:var(--accent); color:var(--accent); background:rgba(99,102,241,0.05); }
+        .tech-tag i, .tech-tag svg { font-size:0.9rem; width: 14px; height: 14px; display: inline-block; vertical-align: middle; }
+        .tech-tag:hover { border-color:var(--text-primary); color:var(--text-primary); background:rgba(255,255,255,0.05); transform: translateY(-1px); }
 
         .tech-marquee {
-            width:100%; overflow:hidden; margin-top:50px; padding:20px 0;
+            width:100%; overflow:hidden; margin-top:50px; padding:24px 0;
             border-top:1px solid var(--border); border-bottom:1px solid var(--border);
         }
         .tech-track {
-            display:flex; gap:60px; animation:scroll 30s linear infinite; width:max-content;
+            display:flex; gap:64px; animation:scroll 35s linear infinite; width:max-content;
             align-items:center;
         }
-        .tech-track i, .tech-logo-badge {
-            font-size:2.2rem; color:var(--text-muted); transition:color 0.3s, transform 0.3s;
+        .tech-track i, .tech-track svg {
+            font-size:2.4rem; color:var(--text-muted); opacity: 0.5; transition: all 0.3s ease;
+            width: auto; height: 38px; display: flex; align-items: center; fill: currentColor;
         }
-        .tech-track i:hover, .tech-logo-badge:hover { color:var(--accent); transform:scale(1.1); }
+        .tech-track i:hover, .tech-track svg:hover { color:var(--text-primary); opacity: 1; transform:scale(1.08); }
         .tech-logo-badge {
-            font-family:var(--font-sans); font-weight:700; font-size:0.9rem; color:var(--text-muted);
-            padding:8px 16px; border-radius:20px; background:rgba(255,255,255,0.04);
-            border:1px solid var(--border); white-space:nowrap; letter-spacing:-0.2px;
-            display:inline-flex; align-items:center; gap:6px;
+            font-family:var(--font-mono); font-weight:600; font-size:0.8rem; color:var(--text-muted);
+            padding:6px 16px; border-radius:20px; background:rgba(255,255,255,0.02); opacity: 0.5;
+            border:1px solid var(--border); white-space:nowrap; letter-spacing:-0.1px;
+            display:inline-flex; align-items:center; gap:8px; height: 38px; transition: all 0.3s ease;
         }
+        .tech-logo-badge svg, .tech-logo-badge i { height: 18px; width: 18px; opacity: 1 !important; color: inherit; fill: currentColor; }
+        .tech-logo-badge:hover { color:var(--text-primary); opacity: 1; border-color: var(--text-primary); transform:scale(1.05); }
+        
         @keyframes scroll {
             0% { transform:translateX(0); }
             100% { transform:translateX(-50%); }
@@ -251,6 +288,7 @@
             .hero-section { padding:100px 20px 60px; }
             .section { padding:60px 20px; }
             .approach-grid { grid-template-columns:1fr; }
+            .tech-categories { border-left: none; padding-left: 0; gap: 24px; }
             .projects-bento { grid-template-columns:1fr; }
             .span-6, .span-4, .span-3 { grid-column:span 1; }
             .stats-strip { grid-template-columns:repeat(2,1fr); border-bottom:none; }
@@ -306,24 +344,32 @@
                     <div class="tech-cat">
                         <h3><i class="fas fa-brain"></i> Deep Learning</h3>
                         <div class="tech-tags">
-                            <span class="tech-tag">PyTorch</span>
-                            <span class="tech-tag">TensorFlow</span>
-                            <span class="tech-tag">Keras</span>
-                            <span class="tech-tag"><span class="emoji">🤗</span> Hugging Face</span>
+                            <span class="tech-tag"><i class="devicon-pytorch-original"></i>PyTorch</span>
+                            <span class="tech-tag"><i class="devicon-tensorflow-original"></i>TensorFlow</span>
+                            <span class="tech-tag"><i class="devicon-keras-plain"></i>Keras</span>
+                            <span class="tech-tag">
+                                <svg viewBox="0 0 40 40" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M20 2C10.06 2 2 10.06 2 20s8.06 18 18 18 18-8.06 18-18S29.94 2 20 2zm6.2 24c-.44.78-1.18 1.34-2.02 1.54-.3.06-.6.08-.9.08-.62 0-1.22-.18-1.74-.52-.36-.24-.68-.54-.94-.88-.26.34-.58.64-.94.88-.52.34-1.12.52-1.74.52-.3 0-.6-.02-.9-.08-.84-.2-1.58-.76-2.02-1.54-.42-.74-.52-1.62-.28-2.46.22-.8.74-1.48 1.44-1.9.46-.28.98-.44 1.52-.46.36-.02.72.02 1.06.12.38.1.72.28 1.04.52.26.2.48.44.66.7.18-.26.4-.5.66-.7.32-.24.66-.42 1.04-.52.34-.1.7-.14 1.06-.12.54.02 1.06.18 1.52.46.7.42 1.22 1.1 1.44 1.9.24.84.14 1.72-.28 2.46zM20 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Hugging Face
+                            </span>
                         </div>
                     </div>
                     <div class="tech-cat">
                         <h3><i class="fas fa-chart-line"></i> Gradient Boosting</h3>
                         <div class="tech-tags">
-                            <span class="tech-tag">XGBoost</span>
-                            <span class="tech-tag">LightGBM</span>
-                            <span class="tech-tag">CatBoost</span>
+                            <span class="tech-tag">
+                                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13h-13L12 7z"/></svg>XGBoost
+                            </span>
+                            <span class="tech-tag">
+                                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M4 2v20h16V2H4zm14 18H6V4h12v16zM8 6h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>LightGBM
+                            </span>
+                            <span class="tech-tag">
+                                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>CatBoost
+                            </span>
                         </div>
                     </div>
                     <div class="tech-cat">
                         <h3><i class="fas fa-cubes"></i> Traditional ML</h3>
                         <div class="tech-tags">
-                            <span class="tech-tag">Scikit‑Learn</span>
+                            <span class="tech-tag"><i class="devicon-scikitlearn-plain"></i>Scikit‑Learn</span>
                             <span class="tech-tag">Random Forest</span>
                             <span class="tech-tag">SVM / SVC</span>
                             <span class="tech-tag">Logistic Regression</span>
@@ -343,44 +389,78 @@
                     <div class="tech-cat">
                         <h3><i class="fas fa-database"></i> Base Tools</h3>
                         <div class="tech-tags">
-                            <span class="tech-tag"><span class="emoji">🐍</span> Python</span>
-                            <span class="tech-tag">NumPy</span>
-                            <span class="tech-tag">Pandas</span>
-                            <span class="tech-tag">Matplotlib</span>
-                            <span class="tech-tag">Seaborn</span>
+                            <span class="tech-tag"><i class="devicon-python-plain"></i>Python</span>
+                            <span class="tech-tag"><i class="devicon-numpy-original"></i>NumPy</span>
+                            <span class="tech-tag"><i class="devicon-pandas-original"></i>Pandas</span>
+                            <span class="tech-tag"><i class="devicon-matplotlib-plain"></i>Matplotlib</span>
+                            <span class="tech-tag"><svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 4H6v5h5V6zm7 0h-5v8h5V6zm-7 7H6v5h5v-5zm7 3h-5v2h5v-2z"/></svg>Seaborn</span>
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div class="tech-marquee">
                 <div class="tech-track">
                     <i class="devicon-pytorch-original"></i>
                     <i class="devicon-tensorflow-original"></i>
-                    <span class="tech-logo-badge"><span style="font-size:1.2rem;">🐍</span> Python</span>
-                    <span class="tech-logo-badge"><span style="font-size:1.2rem;">🤗</span> Hugging Face</span>
+                    <i class="devicon-python-plain"></i>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 40 40"><path d="M20 2C10.06 2 2 10.06 2 20s8.06 18 18 18 18-8.06 18-18S29.94 2 20 2zm6.2 24c-.44.78-1.18 1.34-2.02 1.54-.3.06-.6.08-.9.08-.62 0-1.22-.18-1.74-.52-.36-.24-.68-.54-.94-.88-.26.34-.58.64-.94.88-.52.34-1.12.52-1.74.52-.3 0-.6-.02-.9-.08-.84-.2-1.58-.76-2.02-1.54-.42-.74-.52-1.62-.28-2.46.22-.8.74-1.48 1.44-1.9.46-.28.98-.44 1.52-.46.36-.02.72.02 1.06.12.38.1.72.28 1.04.52.26.2.48.44.66.7.18-.26.4-.5.66-.7.32-.24.66-.42 1.04-.52.34-.1.7-.14 1.06-.12.54.02 1.06.18 1.52.46.7.42 1.22 1.1 1.44 1.9.24.84.14 1.72-.28 2.46zM20 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Hugging Face
+                    </span>
                     <i class="devicon-pandas-original"></i>
                     <i class="devicon-numpy-original"></i>
+                    <i class="devicon-matplotlib-plain"></i>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 4H6v5h5V6zm7 0h-5v8h5V6zm-7 7H6v5h5v-5zm7 3h-5v2h5v-2z"/></svg>
+                        Seaborn
+                    </span>
                     <i class="devicon-scikitlearn-plain"></i>
                     <i class="devicon-jupyter-plain"></i>
                     <i class="devicon-vscode-plain"></i>
                     <i class="devicon-keras-plain"></i>
-                    <span class="tech-logo-badge">XGBoost</span>
-                    <span class="tech-logo-badge">CatBoost</span>
-                    <span class="tech-logo-badge">LightGBM</span>
-                    <!-- duplicate for seamless loop -->
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13h-13L12 7z"/></svg>
+                        XGBoost
+                    </span>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        CatBoost
+                    </span>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 24 24"><path d="M4 2v20h16V2H4zm14 18H6V4h12v16zM8 6h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
+                        LightGBM
+                    </span>
                     <i class="devicon-pytorch-original"></i>
                     <i class="devicon-tensorflow-original"></i>
-                    <span class="tech-logo-badge"><span style="font-size:1.2rem;">🐍</span> Python</span>
-                    <span class="tech-logo-badge"><span style="font-size:1.2rem;">🤗</span> Hugging Face</span>
+                    <i class="devicon-python-plain"></i>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 40 40"><path d="M20 2C10.06 2 2 10.06 2 20s8.06 18 18 18 18-8.06 18-18S29.94 2 20 2zm6.2 24c-.44.78-1.18 1.34-2.02 1.54-.3.06-.6.08-.9.08-.62 0-1.22-.18-1.74-.52-.36-.24-.68-.54-.94-.88-.26.34-.58.64-.94.88-.52.34-1.12.52-1.74.52-.3 0-.6-.02-.9-.08-.84-.2-1.58-.76-2.02-1.54-.42-.74-.52-1.62-.28-2.46.22-.8.74-1.48 1.44-1.9.46-.28.98-.44 1.52-.46.36-.02.72.02 1.06.12.38.1.72.28 1.04.52.26.2.48.44.66.7.18-.26.4-.5.66-.7.32-.24.66-.42 1.04-.52.34-.1.7-.14 1.06-.12.54.02 1.06.18 1.52.46.7.42 1.22 1.1 1.44 1.9.24.84.14 1.72-.28 2.46zM20 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        Hugging Face
+                    </span>
                     <i class="devicon-pandas-original"></i>
                     <i class="devicon-numpy-original"></i>
+                    <i class="devicon-matplotlib-plain"></i>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 4H6v5h5V6zm7 0h-5v8h5V6zm-7 7H6v5h5v-5zm7 3h-5v2h5v-2z"/></svg>
+                        Seaborn
+                    </span>
                     <i class="devicon-scikitlearn-plain"></i>
                     <i class="devicon-jupyter-plain"></i>
                     <i class="devicon-vscode-plain"></i>
                     <i class="devicon-keras-plain"></i>
-                    <span class="tech-logo-badge">XGBoost</span>
-                    <span class="tech-logo-badge">CatBoost</span>
-                    <span class="tech-logo-badge">LightGBM</span>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13h-13L12 7z"/></svg>
+                        XGBoost
+                    </span>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        CatBoost
+                    </span>
+                    <span class="tech-logo-badge">
+                        <svg viewBox="0 0 24 24"><path d="M4 2v20h16V2H4zm14 18H6V4h12v16zM8 6h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
+                        LightGBM
+                    </span>
                 </div>
             </div>
         </div>
