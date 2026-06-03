@@ -105,22 +105,22 @@
         }
         .btns {
             display: flex;
-            gap: 10px;
+            gap: 16px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-bottom: 48px;
+            margin-bottom: 52px;
             align-items: center;
         }
         .btn {
             font-family: 'Inter', sans-serif;
-            font-size: 0.82rem;
-            font-weight: 500;
-            padding: 11px 20px;
-            border-radius: 12px;
+            font-size: 1.08rem;
+            font-weight: 600;
+            padding: 17px 38px;
+            border-radius: 16px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 10px;
             transition: all 0.2s ease;
             position: relative;
             letter-spacing: 0.005em;
@@ -128,7 +128,7 @@
             border: none;
             white-space: nowrap;
         }
-        .btn i { font-size: 0.76rem; opacity: 0.8; }
+        .btn i { font-size: 1rem; opacity: 0.85; }
         .btn-ghost {
             background: rgba(255,255,255,0.04);
             color: rgba(255,255,255,0.72);
@@ -154,7 +154,7 @@
             content: '';
             position: absolute;
             inset: -1px;
-            border-radius: 13px;
+            border-radius: 17px;
             background: #3b82f6;
             z-index: -1;
             animation: glow-ring 2.4s ease-out infinite;
@@ -163,7 +163,6 @@
             0%   { transform: scale(1); opacity: 0.45; }
             100% { transform: scale(1.42); opacity: 0; }
         }
-        .v-sep { width: 1px; height: 22px; background: rgba(255,255,255,0.08); }
         .about-sep {
             width: 100%;
             max-width: 500px;
@@ -188,9 +187,9 @@
         .about-card {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
-            padding: 13px 20px;
-            border-radius: 16px;
+            gap: 20px;
+            padding: 20px 32px;
+            border-radius: 20px;
             border: 1px solid rgba(99,102,241,0.16);
             background: rgba(99,102,241,0.05);
             text-decoration: none;
@@ -198,6 +197,7 @@
             transition: all 0.2s ease;
             margin-bottom: 52px;
             cursor: pointer;
+            min-width: 320px;
         }
         .about-card:hover {
             border-color: rgba(99,102,241,0.32);
@@ -207,32 +207,37 @@
             box-shadow: 0 8px 24px rgba(99,102,241,0.08);
         }
         .about-icon-box {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
             background: rgba(99,102,241,0.12);
             border: 1px solid rgba(99,102,241,0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85rem;
+            font-size: 1.2rem;
             color: #a5b4fc;
             flex-shrink: 0;
         }
-        .about-info { display: flex; flex-direction: column; gap: 2px; }
+        .about-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
         .about-title {
-            font-size: 0.84rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: rgba(199,210,254,0.9);
             letter-spacing: -0.01em;
         }
         .about-sub {
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: rgba(165,180,252,0.4);
             letter-spacing: 0.02em;
         }
         .about-arrow {
-            font-size: 0.72rem;
+            font-size: 0.9rem;
             color: rgba(165,180,252,0.3);
             margin-left: 6px;
             transition: transform 0.2s, color 0.2s;
@@ -244,23 +249,23 @@
         .contacts {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 10px 16px;
+            padding: 14px 22px;
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(255,255,255,0.06);
             border-radius: 999px;
             margin-bottom: 44px;
         }
         .ci {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.0rem;
+            font-size: 1.4rem;
             color: rgba(255,255,255,0.45);
             text-decoration: none;
             transition: all 0.18s ease;
@@ -278,17 +283,18 @@
         .src-pill {
             display: inline-flex !important;
             align-items: center;
-            gap: 6px;
-            padding: 7px 13px !important;
-            border-radius: 10px !important;
+            gap: 9px;
+            padding: 13px 20px !important;
+            border-radius: 14px !important;
             background: rgba(255,255,255,0.06) !important;
             border: 1px solid rgba(255,255,255,0.1) !important;
             color: rgba(255,255,255,0.8) !important;
-            font-size: 0.75rem !important;
+            font-size: 1rem !important;
             font-weight: 600;
             letter-spacing: 0.02em;
             width: auto !important;
             height: auto !important;
+            transition: all 0.18s ease !important;
         }
         .src-pill:hover {
             background: rgba(255,255,255,0.1) !important;
@@ -296,7 +302,7 @@
             color: #fff !important;
             transform: translateY(-2px) !important;
         }
-        .src-pill i { font-size: 0.9rem; }
+        .src-pill i { font-size: 1.2rem; }
         .c-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.07); margin: 0 2px; }
         .cp-wrap {
             position: relative;
@@ -354,7 +360,6 @@
         @media (max-width: 580px) {
             h1 { font-size: 2.6rem; }
             .btns { flex-direction: column; width: 100%; }
-            .btns .v-sep { display: none; }
             .btn { justify-content: center; width: 100%; }
             .contacts { border-radius: 18px; }
         }
@@ -375,11 +380,9 @@
             <a href="research/index.html" class="btn btn-ghost">
                 <i class="fas fa-microchip"></i> Research Lab
             </a>
-            <div class="v-sep"></div>
             <a href="apps/index.html" class="btn btn-primary">
                 <i class="fas fa-layer-group"></i> Apps
             </a>
-            <div class="v-sep"></div>
             <a href="education/index.html" class="btn btn-ghost">
                 <i class="fas fa-graduation-cap"></i> Education Lab
             </a>
@@ -414,7 +417,6 @@
                 <i class="fab fa-kaggle"></i>
             </a>
             <div class="c-sep"></div>
-            <!-- Gmail with copy -->
             <div class="cp-wrap">
                 <a href="mailto:a1.mohamad.askari@gmail.com?subject=Research%20Inquiry"
                    title="Gmail" class="ci">
@@ -426,11 +428,9 @@
                 </button>
                 <span id="toast-email" class="cp-toast">Copied!</span>
             </div>
-            <!-- Phone -->
             <a href="tel:+989012223122" title="+98 901 222 3122" class="ci">
                 <i class="fas fa-phone"></i>
             </a>
-            <!-- iCloud with copy -->
             <div class="cp-wrap">
                 <a href="mailto:amirmohmdaskari@icloud.com" title="iCloud" class="ci">
                     <i class="fab fa-apple"></i>
