@@ -4,238 +4,458 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amir Mohamad Askari | AI Engineer</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #020617;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --accent: #3b82f6;
-            --glow: rgba(59, 130, 246, 0.5);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            margin: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            background-image: 
-                radial-gradient(circle at 50% 0%, #1e293b 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, #0f172a 0%, transparent 50%);
-            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #000;
+            color: #fff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             overflow-x: hidden;
-            padding: 40px 0;
-            box-sizing: border-box;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
         }
-
-        .hero-container {
-            max-width: 800px;
-            padding: 20px;
-            text-align: center;
-            z-index: 10;
-            width: 90%;
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60vw;
+            height: 50vh;
+            background: radial-gradient(ellipse, rgba(59,130,246,0.06) 0%, transparent 72%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.065) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 0;
+            mask-image: radial-gradient(ellipse 75% 55% at 50% 25%, black 0%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 75% 55% at 50% 25%, black 0%, transparent 100%);
+        }
+        .wrap {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 860px;
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 60px 40px;
-            border-radius: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            height: auto; /* Allow box to grow with content */
-            box-sizing: border-box;
-        }
-
-        h1 {
-            font-size: clamp(2.2rem, 5vw, 4rem);
-            font-weight: 800;
-            margin: 0;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-        }
-
-        .role-tag {
-            color: var(--accent);
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 3px;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 20px auto 40px;
-            line-height: 1.6;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 20px;
+            padding: 60px 24px 40px;
+            min-height: 100vh;
             justify-content: center;
-            flex-wrap: wrap;
         }
-
-        .btn-primary, .btn-secondary {
-            padding: 16px 32px;
-            border-radius: 14px;
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.67rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            padding: 6px 14px;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 999px;
+            margin-bottom: 40px;
+        }
+        .badge-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #3b82f6;
+            box-shadow: 0 0 6px #3b82f6;
+            animation: blink 2.5s ease-in-out infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+        h1 {
+            font-size: clamp(2.8rem, 7vw, 5.2rem);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.05;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .desc {
+            font-size: 0.92rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.42);
+            text-align: center;
+            max-width: 400px;
+            line-height: 1.75;
+            margin-bottom: 48px;
+            letter-spacing: 0.01em;
+        }
+        .btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 48px;
+            align-items: center;
+        }
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 11px 20px;
+            border-radius: 12px;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            transition: all 0.2s ease;
+            position: relative;
+            letter-spacing: 0.005em;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+        .btn i { font-size: 0.76rem; opacity: 0.8; }
+        .btn-ghost {
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.72);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.16);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+        .btn-primary {
+            background: #3b82f6;
+            color: #fff;
+            box-shadow: 0 0 18px rgba(59,130,246,0.32);
+        }
+        .btn-primary:hover {
+            background: #5293f7;
+            box-shadow: 0 0 30px rgba(59,130,246,0.52);
+            transform: translateY(-2px);
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 13px;
+            background: #3b82f6;
+            z-index: -1;
+            animation: glow-ring 2.4s ease-out infinite;
+        }
+        @keyframes glow-ring {
+            0%   { transform: scale(1); opacity: 0.45; }
+            100% { transform: scale(1.42); opacity: 0; }
+        }
+        .v-sep { width: 1px; height: 22px; background: rgba(255,255,255,0.08); }
+        .about-sep {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .about-sep::before, .about-sep::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+        }
+        .about-sep-label {
+            font-size: 0.64rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+        }
+        .about-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(99,102,241,0.16);
+            background: rgba(99,102,241,0.05);
+            text-decoration: none;
+            color: rgba(165,180,252,0.8);
+            transition: all 0.2s ease;
+            margin-bottom: 52px;
+            cursor: pointer;
+        }
+        .about-card:hover {
+            border-color: rgba(99,102,241,0.32);
+            background: rgba(99,102,241,0.1);
+            color: #c7d2fe;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99,102,241,0.08);
+        }
+        .about-icon-box {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: rgba(99,102,241,0.12);
+            border: 1px solid rgba(99,102,241,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: #a5b4fc;
+            flex-shrink: 0;
+        }
+        .about-info { display: flex; flex-direction: column; gap: 2px; }
+        .about-title {
+            font-size: 0.84rem;
             font-weight: 600;
-            transition: 0.3s all ease;
+            color: rgba(199,210,254,0.9);
+            letter-spacing: -0.01em;
+        }
+        .about-sub {
+            font-size: 0.7rem;
+            color: rgba(165,180,252,0.4);
+            letter-spacing: 0.02em;
+        }
+        .about-arrow {
+            font-size: 0.72rem;
+            color: rgba(165,180,252,0.3);
+            margin-left: 6px;
+            transition: transform 0.2s, color 0.2s;
+        }
+        .about-card:hover .about-arrow {
+            transform: translateX(3px);
+            color: rgba(165,180,252,0.6);
+        }
+        .contacts {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 999px;
+            margin-bottom: 44px;
+        }
+        .ci {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.0rem;
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            transition: all 0.18s ease;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: inherit;
+        }
+        .ci:hover {
+            color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.06);
+            transform: translateY(-2px);
+        }
+        .src-pill {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 13px !important;
+            border-radius: 10px !important;
+            background: rgba(255,255,255,0.06) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            color: rgba(255,255,255,0.8) !important;
+            font-size: 0.75rem !important;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            width: auto !important;
+            height: auto !important;
+        }
+        .src-pill:hover {
+            background: rgba(255,255,255,0.1) !important;
+            border-color: rgba(255,255,255,0.2) !important;
+            color: #fff !important;
+            transform: translateY(-2px) !important;
+        }
+        .src-pill i { font-size: 0.9rem; }
+        .c-sep { width: 1px; height: 18px; background: rgba(255,255,255,0.07); margin: 0 2px; }
+        .cp-wrap {
+            position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
         }
-
-        .btn-primary {
-            position: relative;
-            background: var(--accent);
-            color: white !important;
-            box-shadow: 0 0 20px var(--glow);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 35px var(--accent);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: white !important;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .pulse {
+        .cp-badge {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: var(--accent);
-            border-radius: 14px;
-            z-index: -1;
-            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-        }
-
-        @keyframes pulse-ring {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
-        }
-
-        .footer-socials {
-            margin-top: 50px;
+            top: -6px;
+            right: -6px;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 7.5px;
             display: flex;
-            gap: 35px;
             align-items: center;
-            position: relative;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            transition: background 0.15s;
+            padding: 0;
         }
-
-        .footer-socials a {
-            color: var(--text-secondary);
-            font-size: 1.6rem;
-            transition: 0.3s;
-            text-decoration: none;
+        .cp-badge:hover { background: #5293f7; }
+        .cp-toast {
+            position: absolute;
+            bottom: 44px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #22c55e;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 7px;
+            font-size: 10px;
+            font-weight: 700;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
-
-        .footer-socials a:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
+        footer {
+            font-size: 0.67rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.2);
+            letter-spacing: 0.04em;
+            text-align: center;
+            padding-bottom: 32px;
         }
-
-        /* --- NASTY MOBILE FIXES --- */
-        @media (max-width: 600px) {
-            body { padding: 60px 20px; }
-            h1 { font-size: 2.2rem; }
-            .glass-card { padding: 40px 20px; } /* Slimmer padding on mobile */
-            .button-group { flex-direction: column; width: 100%; gap: 15px; }
-            .btn-primary, .btn-secondary { width: 100%; box-sizing: border-box; }
-            p { margin-bottom: 30px; }
+        footer span { margin: 0 7px; opacity: 0.5; }
+        @media (max-width: 580px) {
+            h1 { font-size: 2.6rem; }
+            .btns { flex-direction: column; width: 100%; }
+            .btns .v-sep { display: none; }
+            .btn { justify-content: center; width: 100%; }
+            .contacts { border-radius: 18px; }
         }
     </style>
 </head>
 <body>
-
-    <div class="hero-container">
-        <div class="glass-card">
-            <span class="role-tag">Core Intelligence Systems</span>
-            <h1>Amir Mohamad Askari</h1>
-            <p>Developing state-of-the-art architectures in Computer Vision, NLP, and Predictive Analytics.</p>
-
-            <div class="button-group">
-                <a href="research/index.html" class="btn-primary">
-                    <div class="pulse"></div>
-                    <i class="fas fa-microchip" style="margin-right: 8px;"></i> Research Lab
+    <div class="wrap">
+        <span class="badge">
+            <span class="badge-dot"></span>
+            Core Intelligence Systems
+        </span>
+        <h1>Amir Mohamad Askari</h1>
+        <p class="desc">
+            Developing state-of-the-art architectures in Computer Vision,
+            NLP, and Predictive Analytics.
+        </p>
+        <div class="btns">
+            <a href="research/index.html" class="btn btn-ghost">
+                <i class="fas fa-microchip"></i> Research Lab
+            </a>
+            <div class="v-sep"></div>
+            <a href="apps/index.html" class="btn btn-primary">
+                <i class="fas fa-layer-group"></i> Apps
+            </a>
+            <div class="v-sep"></div>
+            <a href="education/index.html" class="btn btn-ghost">
+                <i class="fas fa-graduation-cap"></i> Education Lab
+            </a>
+        </div>
+        <div class="about-sep">
+            <span class="about-sep-label">About</span>
+        </div>
+        <a href="#about" class="about-card">
+            <span class="about-icon-box">
+                <i class="fas fa-user-astronaut"></i>
+            </span>
+            <span class="about-info">
+                <span class="about-title">About Me</span>
+                <span class="about-sub">AI Engineer · Researcher · Builder</span>
+            </span>
+            <span class="about-arrow">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+        </a>
+        <div class="contacts">
+            <a href="https://github.com/a1mohamad" target="_blank" rel="noopener noreferrer"
+               title="Source Code" class="ci src-pill">
+                <i class="fab fa-github"></i> Source Code
+            </a>
+            <div class="c-sep"></div>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank"
+               rel="noopener noreferrer" title="LinkedIn" class="ci">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank"
+               title="Kaggle" class="ci">
+                <i class="fab fa-kaggle"></i>
+            </a>
+            <div class="c-sep"></div>
+            <!-- Gmail with copy -->
+            <div class="cp-wrap">
+                <a href="mailto:a1.mohamad.askari@gmail.com?subject=Research%20Inquiry"
+                   title="Gmail" class="ci">
+                    <i class="fab fa-google"></i>
                 </a>
-                <a href="https://github.com/a1mohamad" class="btn-secondary" target="_blank">
-                    <i class="fab fa-github" style="margin-right: 8px;"></i> Source Code
+                <button class="cp-badge" onclick="copyText('a1.mohamad.askari@gmail.com', 'toast-email')"
+                        title="Copy Gmail" aria-label="Copy email">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <span id="toast-email" class="cp-toast">Copied!</span>
+            </div>
+            <!-- Phone -->
+            <a href="tel:+989012223122" title="+98 901 222 3122" class="ci">
+                <i class="fas fa-phone"></i>
+            </a>
+            <!-- iCloud with copy -->
+            <div class="cp-wrap">
+                <a href="mailto:amirmohmdaskari@icloud.com" title="iCloud" class="ci">
+                    <i class="fab fa-apple"></i>
                 </a>
+                <button class="cp-badge" onclick="copyText('amirmohmdaskari@icloud.com', 'toast-icloud')"
+                        title="Copy iCloud" aria-label="Copy iCloud">
+                    <i class="fas fa-copy"></i>
+                </button>
+                <span id="toast-icloud" class="cp-toast">Copied!</span>
             </div>
         </div>
+        <footer>
+            © 2022–2026 Amir Mohamad Askari
+            <span>·</span>
+            All Rights Reserved
+        </footer>
     </div>
-
-    <div class="footer-socials">
-        <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-        </a>
-
-        <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" title="Kaggle">
-            <i class="fab fa-kaggle"></i>
-        </a>
-
-        <div style="position: relative; display: inline-block;">
-            <a href="mailto:a1.mohamad.askari@gmail.com?subject=Research%20Inquiry" id="emailLink" title="Send Email">
-                <i class="fas fa-envelope"></i>
-            </a>
-            
-            <button onclick="copyEmailToClipboard()" 
-                    style="position: absolute; top: -12px; right: -12px; background: #3b82f6; color: white; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-size: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.4);"
-                    title="Copy Email Address">
-                <i class="fas fa-copy"></i>
-            </button>
-
-            <span id="copyToast" style="position: absolute; bottom: 45px; left: 50%; transform: translateX(-50%); background: #22c55e; color: white; padding: 5px 12px; border-radius: 8px; font-size: 12px; display: none; white-space: nowrap; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
-                Copied!
-            </span>
-        </div>
-    </div>
-
     <script>
-    function copyEmailToClipboard() {
-        const emailAddr = "a1.mohamad.askari@gmail.com";
-        navigator.clipboard.writeText(emailAddr).then(() => {
-            const toast = document.getElementById('copyToast');
-            toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 2000);
-        }).catch(err => {
-            console.error('Could not copy text: ', err);
+    function copyText(text, toastId) {
+        navigator.clipboard.writeText(text).then(() => {
+            const toast = document.getElementById(toastId);
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
         });
     }
     </script>
-
 </body>
 </html>
