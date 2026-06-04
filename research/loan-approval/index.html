@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
     
     <script>
@@ -20,10 +19,7 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true
             },
-            chtml: {
-                scale: 1,
-                displayAlign: 'left'
-            }
+            chtml: { scale: 1, displayAlign: 'left' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -38,14 +34,13 @@
     
     <div class="btn-github-container">
         <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Loan%20Approval" class="btn-modern-primary" target="_blank">
-            <i class="fa-brands fa-github"></i> <span>Source Notebook Repository</span>
+            <i class="fa-brands fa-github"></i> <span>Research Lab</span>
         </a>
     </div>
 </div>
 
 <div class="main-layout">
 
-    <!-- Metric Strip -->
     <div class="metrics-strip">
         <div class="metric-block" data-metric-type="percentage" data-metric-target="97.50">
             <div class="metric-label">Random Forest Classifier</div>
@@ -65,234 +60,252 @@
         </div>
     </div>
 
-    <!-- Project Overview -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Contextual Briefing</span>
-            <h2>Project Overview</h2>
-            <p class="panel-desc">A computational financial study focused on mitigating risk and optimizing retail banking credit infrastructure.</p>
+    <!-- Project Overview (expanded by default) -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Contextual Briefing</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">A computational financial study focused on mitigating risk and optimizing retail banking credit infrastructure.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div style="color: var(--text-secondary); max-width: 900px;">
-            <p>This project evaluates performance boundaries across multiple supervised algorithms to predict retail consumer credit qualification. Using an engineering pipeline written in Python, the codebase drops arbitrary administrative tokens, isolates numeric and non-numeric channels, executes structural data transformations via label encoding, and partitions matrices for out-of-sample evaluation. The validation cycle systematically checks parametric models against non-parametric decision boundaries and ensemble architectures.</p>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This project evaluates performance boundaries across multiple supervised algorithms to predict retail consumer credit qualification. Using an engineering pipeline written in Python, the codebase drops arbitrary administrative tokens, isolates numeric and non-numeric channels, executes structural data transformations via label encoding, and partitions matrices for out-of-sample evaluation. The validation cycle systematically checks parametric models against non-parametric decision boundaries and ensemble architectures.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Dependencies -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Infrastructure</span>
-            <h2>Core Pipeline Dependencies</h2>
-            <p class="panel-desc">The computational environment is anchored by four key data science modules to load files, perform linear operations, execute vector modeling, and map parameters.</p>
+    <!-- Dependencies (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">The computational environment is anchored by four key data science modules to load files, perform linear operations, execute vector modeling, and map parameters.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div class="dependencies-matrix">
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-table"></i></div>
-                <div class="dep-name">Pandas</div>
-                <div class="dep-body">Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</div>
-            </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-calculator"></i></div>
-                <div class="dep-name">NumPy</div>
-                <div class="dep-body">Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</div>
-            </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-diagram-project"></i></div>
-                <div class="dep-name">Scikit-Learn</div>
-                <div class="dep-body">Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</div>
-            </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <div class="dep-name">Seaborn Viz</div>
-                <div class="dep-body">Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- System Architecture (UPDATED) -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Configuration</span>
-            <h2>System Architecture Overview</h2>
-            <p class="panel-desc">A conceptual blueprint mapping raw credit application data through cleaning, encoding, and model evaluation stages.</p>
-        </div>
-        <div class="pipeline-layout">
-            <div class="pipeline-info-pane">
-                <div class="pipeline-meta-row">
-                    <h4>Target Isolation</h4>
-                    <p>Separates the binary approval flag (<code>Loan_Status</code>) from predictor columns, ensuring clean supervised learning alignment.</p>
-                </div>
-                <div class="pipeline-meta-row">
-                    <h4>Categorical Encoding</h4>
-                    <p>Applies <code>LabelEncoder</code> to all non‑numeric fields (Gender, Education, Property_Area, etc.) converting text tokens into numeric vectors.</p>
-                </div>
-                <div class="pipeline-meta-row">
-                    <h4>Data Sanitization</h4>
-                    <p>Drops the <code>Loan_ID</code> identifier and removes any rows containing missing values via <code>dropna()</code> to maintain matrix integrity.</p>
-                </div>
-            </div>
-            <div class="pipeline-flow-pane">
-                <div class="flow-node">
-                    <div class="flow-index">01</div>
-                    <div class="flow-details">
-                        <strong>EDA and Data Cleaning</strong>
-                        <span>Handle missing values, drop irrelevant IDs, and encode categorical features.</span>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-table dep-icon"></i>
+                        <div><strong>Pandas</strong><span>Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</span></div>
                     </div>
-                </div>
-                <div class="flow-connector"></div>
-                <div class="flow-node">
-                    <div class="flow-index">02</div>
-                    <div class="flow-details">
-                        <strong>Feature Engineering Concept</strong>
-                        <span>Transform raw data into numeric vectors ready for model training.</span>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-calculator dep-icon"></i>
+                        <div><strong>NumPy</strong><span>Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</span></div>
                     </div>
-                </div>
-                <div class="flow-connector"></div>
-                <div class="flow-node">
-                    <div class="flow-index">03</div>
-                    <div class="flow-details">
-                        <strong>Compare Multiple Models Concept</strong>
-                        <span>Evaluate Logistic Regression, SVC, KNN, and Random Forest on test data.</span>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-diagram-project dep-icon"></i>
+                        <div><strong>Scikit‑Learn</strong><span>Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</span></div>
+                    </div>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-chart-line dep-icon"></i>
+                        <div><strong>Seaborn Viz</strong><span>Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Theory -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Mathematical Mechanics</span>
-            <h2>Advanced Machine Learning Theory</h2>
-            <p class="panel-desc">A deep mathematical and conceptual exploration of the core learning architectures and metric diagnostics deployed in this analysis.</p>
+    <!-- System Architecture (collapsed) – vertical timeline only -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Configuration</span>
+                <h2>System Architecture Overview</h2>
+                <p class="panel-desc">A conceptual blueprint mapping raw credit application data through cleaning, encoding, and model evaluation stages.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-
-        <div class="theory-split">
-            <div class="theory-block">
-                <div>
-                    <div class="theory-card-header">
-                        <div class="theory-title">Logistic Regression Baseline</div>
-                        <span class="theory-badge">Parametric</span>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">01</span>
+                            <div>
+                                <strong>EDA and Data Cleaning</strong>
+                                <span>Handle missing values, drop irrelevant IDs, and encode categorical features.</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="theory-explanation" style="margin-bottom: 20px;">
-                        Models posterior binary risk status using the nonlinear Transcendental Sigmoid function mapping input layers to target structural probability bounds:
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">02</span>
+                            <div>
+                                <strong>Feature Engineering Concept</strong>
+                                <span>Transform raw data into numeric vectors ready for model training.</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="theory-math-container">
-                        $$P(Y = 1 \mid X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}}$$
-                    </div>
-                    <div class="theory-explanation" style="margin-bottom: 20px;">
-                        Weights are systematically optimized by the strict minimization of the binary cross-entropy loss function over the calculated data matrix frames:
-                    </div>
-                    <div class="theory-math-container">
-                        $$\mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$$
-                    </div>
-                </div>
-            </div>
-
-            <div class="theory-block">
-                <div>
-                    <div class="theory-card-header">
-                        <div class="theory-title">Support Vector Classifier (SVC)</div>
-                        <span class="theory-badge">Max-Margin</span>
-                    </div>
-                    <div class="theory-explanation" style="margin-bottom: 20px;">
-                        Constructs an optimal multi-dimensional separating hyperplane boundary that targets geometric soft-margins between non-separable classification vectors:
-                    </div>
-                    <div class="theory-math-container">
-                        $$\min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i$$
-                    </div>
-                    <div class="theory-explanation" style="margin-bottom: 20px;">
-                        Subject to structural margin constraint paths, evaluating data records through slack variables $\xi_i$ to protect validation cross-entropy balances:
-                    </div>
-                    <div class="theory-math-container">
-                        $$y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0$$
-                    </div>
-                </div>
-            </div>
-
-            <div class="theory-block">
-                <div>
-                    <div class="theory-card-header">
-                        <div class="theory-title">K-Nearest Neighbors (KNN)</div>
-                        <span class="theory-badge">Instance-Based</span>
-                    </div>
-                    <div class="theory-explanation" style="margin-bottom: 20px;">
-                        An instance-based predictive metric framework that maps validation vectors using strict localized spatial distance paths in an $n$-dimensional Euclidean workspace:
-                    </div>
-                    <div class="theory-math-container">
-                        $$d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2}$$
-                    </div>
-                </div>
-            </div>
-
-            <div class="theory-block">
-                <div>
-                    <div class="theory-card-header">
-                        <div class="theory-title">Random Forest Ensemble Architecture</div>
-                        <span class="theory-badge champion-badge">Champion Architecture</span>
-                    </div>
-                    <div class="theory-explanation" style="margin-bottom: 20px;">
-                        A non-parametric bootstrap bagging model that aggregates structural decision metrics across independent deep tree pipelines to scale validation precision:
-                    </div>
-                    <div class="theory-math-container">
-                        $$\hat{Y} = \text{mode} \left\{ h_1(X), h_2(X), \dots, h_B(X) \right\}$$
-                    </div>
-                    <div class="theory-explanation">
-                        Averages individual tree variance down to achieve a peak out-of-sample notebook validation accuracy scoring rate of <strong>97.50%</strong>.
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">03</span>
+                            <div>
+                                <strong>Compare Multiple Models Concept</strong>
+                                <span>Evaluate Logistic Regression, SVC, KNN, and Random Forest on test data.</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Feature Table -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Data Taxonomy</span>
-            <h2>Feature Space Configuration</h2>
-            <p class="panel-desc">The internal dimensions and variable taxonomy consisting of 13 separate applicant metrics.</p>
-        </div>
-        <div class="matrix-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>Loan_ID</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Unique applicant record identifier removed during preprocessing.</td></tr>
-                    <tr><td><code>Gender</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Applicant gender information.</td></tr>
-                    <tr><td><code>Married</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Marital status indicator.</td></tr>
-                    <tr><td><code>Dependents</code></td><td><span class="taxonomy-tag">Family</span></td><td>Number of dependents supported by applicant.</td></tr>
-                    <tr><td><code>Education</code></td><td><span class="taxonomy-tag">Profile</span></td><td>Graduate or non-graduate education level.</td></tr>
-                    <tr><td><code>Self_Employed</code></td><td><span class="taxonomy-tag">Profile</span></td><td>Employment structure indicator.</td></tr>
-                    <tr><td><code>ApplicantIncome</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Primary applicant monthly income.</td></tr>
-                    <tr><td><code>CoapplicantIncome</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Secondary applicant monthly income.</td></tr>
-                    <tr><td><code>LoanAmount</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Requested loan amount.</td></tr>
-                    <tr><td><code>Loan_Amount_Term</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Loan repayment duration.</td></tr>
-                    <tr><td><code>Credit_History</code></td><td><span class="taxonomy-tag">Risk</span></td><td>Historical repayment behavior indicator.</td></tr>
-                    <tr><td><code>Property_Area</code></td><td><span class="taxonomy-tag">Geographic</span></td><td>Property location classification.</td></tr>
-                    <tr class="target-row-highlight"><td><code>Loan_Status</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Final loan approval prediction label.</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Terminal Code -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Implementation</span>
-            <h2>Model Optimization Sandbox</h2>
-            <p class="panel-desc">Complete automated python compilation engine managing training steps, matrix scaling, and validation loops.</p>
-        </div>
-        <div class="terminal-panel">
-            <div class="terminal-header">
-                <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                <div class="terminal-title">loan_pipeline.py</div>
-                <div></div>
+    <!-- Mathematics (collapsed) – 4 theory blocks -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Mathematical Mechanics</span>
+                <h2>Advanced Machine Learning Theory</h2>
+                <p class="panel-desc">A deep mathematical and conceptual exploration of the core learning architectures and metric diagnostics deployed in this analysis.</p>
             </div>
-            <div class="terminal-body">
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header">
+                            <div class="theory-title">Logistic Regression Baseline</div>
+                            <span class="theory-badge">Parametric</span>
+                        </div>
+                        <div class="theory-explanation">
+                            Models posterior binary risk status using the nonlinear Sigmoid function mapping input layers to target structural probability bounds:
+                        </div>
+                        <div class="theory-math-container">
+                            $$P(Y = 1 \mid X) = \sigma(W^T X + b) = \frac{1}{1 + e^{-(W^T X + b)}}$$
+                        </div>
+                        <div class="theory-explanation">
+                            Weights are optimized by minimizing the binary cross-entropy loss:
+                        </div>
+                        <div class="theory-math-container">
+                            $$\mathcal{L}_{BCE} = -\frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$$
+                        </div>
+                    </div>
+
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header">
+                            <div class="theory-title">Support Vector Classifier (SVC)</div>
+                            <span class="theory-badge">Max-Margin</span>
+                        </div>
+                        <div class="theory-explanation">
+                            Constructs an optimal separating hyperplane with soft margins:
+                        </div>
+                        <div class="theory-math-container">
+                            $$\min_{W, b, \xi} \frac{1}{2} \|W\|^2 + C \sum_{i=1}^{N} \xi_i$$
+                        </div>
+                        <div class="theory-explanation">
+                            Subject to constraints with slack variables $\xi_i$:
+                        </div>
+                        <div class="theory-math-container">
+                            $$y_i(W^T X_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0$$
+                        </div>
+                    </div>
+
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header">
+                            <div class="theory-title">K-Nearest Neighbors (KNN)</div>
+                            <span class="theory-badge">Instance-Based</span>
+                        </div>
+                        <div class="theory-explanation">
+                            An instance-based model using Euclidean distance in $n$-dimensional space:
+                        </div>
+                        <div class="theory-math-container">
+                            $$d(X, X') = \sqrt{\sum_{j=1}^{n} (x_j - x'_j)^2}$$
+                        </div>
+                    </div>
+
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header">
+                            <div class="theory-title">Random Forest Ensemble Architecture</div>
+                            <span class="theory-badge champion-badge">Champion Architecture</span>
+                        </div>
+                        <div class="theory-explanation">
+                            A bootstrap‑aggregated ensemble of decision trees:
+                        </div>
+                        <div class="theory-math-container">
+                            $$\hat{Y} = \text{mode} \left\{ h_1(X), h_2(X), \dots, h_B(X) \right\}$$
+                        </div>
+                        <div class="theory-explanation">
+                            Averages individual tree variance to achieve a peak accuracy of <strong>97.50%</strong>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Table (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Data Taxonomy</span>
+                <h2>Feature Space Configuration</h2>
+                <p class="panel-desc">The internal dimensions and variable taxonomy consisting of 13 separate applicant metrics.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>Loan_ID</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Unique applicant record identifier removed during preprocessing.</td></tr>
+                            <tr><td><code>Gender</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Applicant gender information.</td></tr>
+                            <tr><td><code>Married</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Marital status indicator.</td></tr>
+                            <tr><td><code>Dependents</code></td><td><span class="taxonomy-tag">Family</span></td><td>Number of dependents supported by applicant.</td></tr>
+                            <tr><td><code>Education</code></td><td><span class="taxonomy-tag">Profile</span></td><td>Graduate or non-graduate education level.</td></tr>
+                            <tr><td><code>Self_Employed</code></td><td><span class="taxonomy-tag">Profile</span></td><td>Employment structure indicator.</td></tr>
+                            <tr><td><code>ApplicantIncome</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Primary applicant monthly income.</td></tr>
+                            <tr><td><code>CoapplicantIncome</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Secondary applicant monthly income.</td></tr>
+                            <tr><td><code>LoanAmount</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Requested loan amount.</td></tr>
+                            <tr><td><code>Loan_Amount_Term</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Loan repayment duration.</td></tr>
+                            <tr><td><code>Credit_History</code></td><td><span class="taxonomy-tag">Risk</span></td><td>Historical repayment behavior indicator.</td></tr>
+                            <tr><td><code>Property_Area</code></td><td><span class="taxonomy-tag">Geographic</span></td><td>Property location classification.</td></tr>
+                            <tr class="target-row-highlight"><td><code>Loan_Status</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Final loan approval prediction label.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Terminal (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Model Optimization Sandbox</h2>
+                <p class="panel-desc">Complete automated python compilation engine managing training steps, matrix scaling, and validation loops.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header">
+                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
+                        <div class="terminal-title">loan_pipeline.py</div>
+                        <div></div>
+                    </div>
+                    <div class="terminal-body">
 <pre>
 <span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
 <span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
@@ -341,174 +354,148 @@
 <span class="code-keyword">if</span> __name__ == <span class="code-str">"__main__"</span>:
     run_loan_pipeline(<span class="code-str">"loan_approval_dataset.csv"</span>)
 </pre>
-            </div>
-        </div>
-    </div>
-
-    <!-- Visualization -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Analytics Layer</span>
-            <h2>Exploratory Visual Diagnostics</h2>
-            <p class="panel-desc">Statistical layouts and spatial correlation heatmaps exported from your visualization loops.</p>
-        </div>
-        <div class="viz-display-grid">
-            <div class="viz-wrapper-card">
-                <div class="viz-placeholder-frame">
-                    <i class="fa-solid fa-chart-grid fa-3x"></i>
-                    <div class="viz-meta-text">
-                        <strong>Feature Correlation Matrix Heatmap</strong><br>
-                        Seaborn Rendering Sandbox Layer &bull; dataset/correlation_heatmap.png
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Performance Diagnostics -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Evaluation Matrix</span>
-            <h2>Performance Diagnostics & Engine Insights</h2>
-            <p class="panel-desc">Calculated accuracy metrics and discriminatory capability records observed across predictive estimators.</p>
-        </div>
-        
-        <div class="engine-insights-stack">
-            <div class="insight-row rank-leader">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">01</div>
-                    <div class="insight-model-identity">
-                        <strong>Random Forest Classifier</strong>
-                        <span>Bootstrap‑Aggregated Ensemble Architecture</span>
-                    </div>
-                </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">97.50%</span>
-                    <span class="insight-score-label">Accuracy Target</span>
-                </div>
-            </div>
-
-            <div class="insight-row">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">02</div>
-                    <div class="insight-model-identity">
-                        <strong>K‑Nearest Neighbors</strong>
-                        <span>Instance‑Based Proximity Voting Strategy</span>
-                    </div>
-                </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">81.66%</span>
-                    <span class="insight-score-label">Accuracy Target</span>
-                </div>
-            </div>
-
-            <div class="insight-row">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">03</div>
-                    <div class="insight-model-identity">
-                        <strong>Logistic Regression</strong>
-                        <span>Parametric Sigmoid Decision Baseline</span>
-                    </div>
-                </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">80.83%</span>
-                    <span class="insight-score-label">Accuracy Target</span>
-                </div>
-            </div>
-
-            <div class="insight-row">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">04</div>
-                    <div class="insight-model-identity">
-                        <strong>Support Vector Classifier</strong>
-                        <span>Max‑Margin Hyperplane Separation</span>
-                    </div>
-                </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">70.83%</span>
-                    <span class="insight-score-label">Accuracy Target</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="executive-summary-box">
-            <p><strong>Diagnostic Breakdown:</strong> Evaluating output arrays establishes that the <strong>Random Forest Classifier</strong> outperforms all other baseline estimators, achieving a peak validation accuracy of <strong>97.50%</strong>. Its non‑parametric bagging mechanism captures complex feature interactions without overfitting, delivering superior predictive fidelity compared to linear and distance‑based models.</p>
         </div>
     </section>
 
-    <!-- Synthesis -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Conclusions</span>
-            <h2>Project Synthesis</h2>
-            <p class="panel-desc">Performance deductions and forward-looking research strategies for the next version.</p>
+    <!-- Visual Diagnostics (collapsed) – placeholder -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Analytics Layer</span>
+                <h2>Exploratory Visual Diagnostics</h2>
+                <p class="panel-desc">Statistical layouts and spatial correlation heatmaps exported from visualization loops.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div class="synthesis-gradient-box">
-            <p style="font-size: 1.05rem; color: var(--text-primary); margin-bottom: 16px;">
-                <strong>Empirical Breakdown:</strong> The ensemble architecture outclasses simpler models because its non-parametric bootstrap aggregations natively capture complex interaction thresholds across mixed variables (e.g., matching <code>Credit_History</code> weight markers against non-linear variations in <code>ApplicantIncome</code>) without succumbing to overfitting or localized variance skew.
-            </p>
-            <p style="font-size: 1.05rem; color: var(--text-secondary);">
-                <strong>Optimization Path:</strong> Future versions will implement scaling pipelines to optimize hyperparameter spaces for advanced gradient boosting algorithms (such as XGBoost or LightGBM) to systematically test if additional margin gains can be wrung out of non-linear target matrices.
-            </p>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="viz-display-grid stagger-child">
+                    <div class="viz-placeholder-card">
+                        <i class="fas fa-chart-pie fa-3x"></i>
+                        <div class="viz-meta-text">
+                            <strong>Feature Correlation Matrix Heatmap</strong><br>
+                            Seaborn Rendering Sandbox Layer &bull; dataset/correlation_heatmap.png
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <div class="portfolio-footer-gate">
-        <div class="footer-profile-json">
-            <span style="color: #475569; font-style: italic; display: block; margin-bottom: 8px;"></span>
-            {<br>
-            &nbsp;&nbsp;<span class="json-key">"engineer"</span>: <span class="json-str">"Amir Mohamad Askari"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"role"</span>: <span class="json-str">"AI Research, Developer and ML Engineer"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"affiliation"</span>: <span class="json-str">"Sharif University of Technology"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"core_focus"</span>: [<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"Deep Learning and Neural Networks"</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"Computer Vision and NLP"</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"MLOps Automation Engines and Deployment"</span><br>
-            &nbsp;&nbsp;]<br>
-            }
-        </div>
-        <div class="footer-action-links">
-            <div>
-                <h3>Contact Me!</h3>
-                <p>Access source repositories and active communication pipelines through organized gateways.</p>
+    <!-- Performance Diagnostics (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Performance Diagnostics & Engine Insights</h2>
+                <p class="panel-desc">Calculated accuracy metrics and discriminatory capability records observed across predictive estimators.</p>
             </div>
-            
-            <div class="contacts-matrix-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
-                    <a href="mailto:a1mohamad.askari@gmail.com" class="gate-link-row">
-                        <span>Gmail</span> <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="mailto:amirmohmdaskari@icloud.com" class="gate-link-row">
-                        <span>iCloud</span> <i class="fa-brands fa-apple"></i>
-                    </a>
-                    <a href="tel:+989012223122" class="gate-link-row">
-                        <span>Phone</span> <i class="fas fa-phone"></i>
-                    </a>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">01</div>
+                            <div class="insight-model-identity">
+                                <strong>Random Forest Classifier</strong>
+                                <span>Bootstrap‑Aggregated Ensemble Architecture</span>
+                            </div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <span class="insight-score-value">97.50%</span>
+                            <span class="insight-score-label">Accuracy Target</span>
+                        </div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">02</div>
+                            <div class="insight-model-identity">
+                                <strong>K‑Nearest Neighbors</strong>
+                                <span>Instance‑Based Proximity Voting Strategy</span>
+                            </div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <span class="insight-score-value">81.66%</span>
+                            <span class="insight-score-label">Accuracy Target</span>
+                        </div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">03</div>
+                            <div class="insight-model-identity">
+                                <strong>Logistic Regression</strong>
+                                <span>Parametric Sigmoid Decision Baseline</span>
+                            </div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <span class="insight-score-value">80.83%</span>
+                            <span class="insight-score-label">Accuracy Target</span>
+                        </div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">04</div>
+                            <div class="insight-model-identity">
+                                <strong>Support Vector Classifier</strong>
+                                <span>Max‑Margin Hyperplane Separation</span>
+                            </div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <span class="insight-score-value">70.83%</span>
+                            <span class="insight-score-label">Accuracy Target</span>
+                        </div>
+                    </div>
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
-                    <a href="https://github.com/a1mohamad" class="gate-link-row" target="_blank">
-                        <span>GitHub</span> <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="gate-link-row" target="_blank">
-                        <span>LinkedIn</span> <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://www.kaggle.com/amirmohamadaskari" class="gate-link-row" target="_blank">
-                        <span>Kaggle</span> <i class="fa-brands fa-kaggle"></i>
-                    </a>
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Diagnostic Breakdown:</strong> Evaluating output arrays establishes that the <strong>Random Forest Classifier</strong> outperforms all other baseline estimators, achieving a peak validation accuracy of <strong>97.50%</strong>. Its non‑parametric bagging mechanism captures complex feature interactions without overfitting, delivering superior predictive fidelity compared to linear and distance‑based models.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Synthesis (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis</h2>
+                <p class="panel-desc">Performance deductions and forward‑looking research strategies for the next version.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Breakdown:</strong> The ensemble architecture outclasses simpler models because its non-parametric bootstrap aggregations natively capture complex interaction thresholds across mixed variables (e.g., matching <code>Credit_History</code> weight markers against non-linear variations in <code>ApplicantIncome</code>) without succumbing to overfitting or localized variance skew.</p>
+                    <p class="stagger-child"><strong>Optimization Path:</strong> Future versions will implement scaling pipelines to optimize hyperparameter spaces for advanced gradient boosting algorithms (such as XGBoost or LightGBM) to systematically test if additional margin gains can be wrung out of non-linear target matrices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer – icon‑only -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
 
 </div>
+
 <div class="editorial-credits">
     Amir Mohamad Askari &bull; 2026 Analytical Document
 </div>
 
-<!-- External JS -->
 <script src="script.js"></script>
 </body>
 </html>
