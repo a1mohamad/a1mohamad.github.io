@@ -21,7 +21,7 @@
             --accent-glow: rgba(99,102,241,0.15);
             --font-sans: 'Plus Jakarta Sans', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --transition: 0.3s cubic-bezier(0.16,1,0.3,1);
+            --transition: 0.4s cubic-bezier(0.16,1,0.3,1);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -36,6 +36,18 @@
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+        /* Scroll-Driven Down-to-Up Pop-Up Animation Styling */
+        .reveal-section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .reveal-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .cursor-glow {
             position: fixed; width: 500px; height: 500px;
@@ -114,11 +126,12 @@
         }
         .btn-primary:hover { background:#ffffff; transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,255,255,0.2); }
         .btn-secondary {
-            display:inline-flex; align-items:center; gap:8px; font-weight:700; color:var(--text-primary);
+            display:inline-flex; align-items:center; gap:10px; font-weight:700; color:var(--text-primary);
             background:transparent; border:1.5px solid rgba(255,255,255,0.12); border-radius:8px;
             padding:13px 24px; text-decoration:none; font-size:0.95rem; transition:all 0.2s; letter-spacing:-0.2px;
         }
         .btn-secondary:hover { border-color:var(--accent); background:rgba(99,102,241,0.08); transform:translateY(-2px); }
+        .btn-secondary i { font-size: 1.3rem; }
 
         .stats-strip {
             display:grid; grid-template-columns:repeat(4,1fr);
@@ -204,18 +217,18 @@
             border-top:1px solid var(--border); border-bottom:1px solid var(--border);
         }
         .tech-track {
-            display:flex; gap:64px; animation:scroll 35s linear infinite; width:max-content;
+            display:flex; gap:56px; animation:scroll 26s linear infinite; width:max-content;
             align-items:center;
         }
         .tech-track i, .tech-track svg {
-            font-size:2.4rem; color:var(--text-muted); opacity: 0.5; transition: all 0.3s ease;
+            font-size:2.4rem; color:var(--text-secondary); opacity: 0.82; transition: all 0.3s ease;
             width: auto; height: 38px; display: flex; align-items: center; fill: currentColor;
         }
         .tech-track i:hover, .tech-track svg:hover { color:var(--text-primary); opacity: 1; transform:scale(1.08); }
         .tech-logo-badge {
-            font-family:var(--font-mono); font-weight:600; font-size:0.8rem; color:var(--text-muted);
-            padding:6px 16px; border-radius:20px; background:rgba(255,255,255,0.02); opacity: 0.5;
-            border:1px solid var(--border); white-space:nowrap; letter-spacing:-0.1px;
+            font-family:var(--font-mono); font-weight:600; font-size:0.8rem; color:var(--text-secondary);
+            padding:6px 16px; border-radius:20px; background:rgba(255,255,255,0.04); opacity: 0.86;
+            border:1px solid rgba(255,255,255,0.12); white-space:nowrap; letter-spacing:-0.1px;
             display:inline-flex; align-items:center; gap:8px; height: 38px; transition: all 0.3s ease;
         }
         .tech-logo-badge svg, .tech-logo-badge i { height: 18px; width: 18px; opacity: 1 !important; color: inherit; fill: currentColor; }
@@ -226,32 +239,140 @@
             100% { transform:translateX(-50%); }
         }
 
-        .projects-bento {
-            display:grid; grid-template-columns:repeat(12,1fr); gap:20px; margin-bottom:30px;
+        /* Project Vitrine: four image tiles forming one unified showcase */
+        .project-vitrine {
+            --vitrine-radius: 18px;
+            display: grid;
+            grid-template-columns: 1.45fr 1fr;
+            grid-template-rows: 330px 250px;
+            gap: 0;
+            width: 100%;
+            min-height: 580px;
+            border: 1px solid var(--border);
+            border-radius: var(--vitrine-radius);
+            overflow: hidden;
+            background: #050508;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
         }
-        .project-card {
-            background:var(--surface); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-            border:1px solid var(--border); border-radius:20px; padding:28px;
-            display:flex; flex-direction:column; transition:var(--transition);
-            text-decoration:none; color:inherit; position:relative;
+
+        .project-vitrine::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            border-radius: inherit;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.025);
         }
-        .project-card:hover {
-            transform:translateY(-6px); border-color:rgba(99,102,241,0.4);
-            background:rgba(99,102,241,0.03); box-shadow:0 20px 40px rgba(0,0,0,0.4);
+
+        .vitrine-tile {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            min-height: 100%;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--text-primary);
+            background-image: var(--project-image);
+            background-size: cover;
+            background-position: center;
+            isolation: isolate;
         }
-        .card-type { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
-        .card-title { font-size:1.4rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:8px; line-height:1.2; }
-        .card-desc { font-size:0.9rem; color:var(--text-secondary); line-height:1.6; margin-bottom:16px; flex:1; }
-        .card-algos { display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; }
-        .algo-pill {
-            font-family:var(--font-mono); font-size:0.65rem; padding:3px 8px; border-radius:4px;
-            background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--text-muted);
+
+        .vitrine-tile::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            background: inherit;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.01);
+            transition: transform 0.75s cubic-bezier(0.16,1,0.3,1), filter 0.45s ease;
         }
-        .span-6 { grid-column:span 6; }
-        .span-4 { grid-column:span 4; }
-        .span-3 { grid-column:span 3; }
+
+        .vitrine-tile::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background:
+                linear-gradient(180deg, rgba(5,5,8,0.04) 0%, rgba(5,5,8,0.24) 42%, rgba(5,5,8,0.86) 100%),
+                radial-gradient(circle at 20% 0%, rgba(99,102,241,0.18), transparent 40%);
+            transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .vitrine-primary {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .vitrine-secondary {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .vitrine-stack {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            min-height: 0;
+        }
+
+        .vitrine-stack .vitrine-tile + .vitrine-tile {
+            border-left: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .vitrine-title {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            max-width: 92%;
+            font-size: clamp(1.25rem, 2vw, 2rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.045em;
+            text-shadow: 0 14px 34px rgba(0,0,0,0.7);
+            transition: transform 0.45s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .vitrine-primary .vitrine-title {
+            padding: 40px;
+            font-size: clamp(2.1rem, 4vw, 3.4rem);
+            max-width: 78%;
+        }
+
+        .vitrine-small .vitrine-title {
+            padding: 22px;
+            font-size: clamp(1rem, 1.45vw, 1.35rem);
+            letter-spacing: -0.035em;
+        }
+
+        .vitrine-tile:hover::before {
+            transform: scale(1.055);
+            filter: saturate(1.08) contrast(1.05);
+        }
+
+        .vitrine-tile:hover::after {
+            opacity: 0.88;
+        }
+
+        .vitrine-tile:hover .vitrine-title {
+            transform: translateY(-4px);
+        }
+
+        .vitrine-tile:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+            z-index: 10;
+        }
+
         .view-all-link {
-            display:inline-block; margin-top:10px; font-size:0.95rem; font-weight:700;
+            display:inline-block; margin-top:30px; font-size:0.95rem; font-weight:700;
             color:var(--accent); text-decoration:none; border-bottom:2px solid transparent; transition:border-color 0.2s; padding-bottom:2px;
         }
         .view-all-link:hover { border-color:var(--accent); }
@@ -282,6 +403,30 @@
         }
         .footer-bar a { color:var(--accent); text-decoration:none; }
 
+        @media (max-width: 1024px) {
+            .project-vitrine {
+                grid-template-columns: 1fr;
+                grid-template-rows: 420px 280px 260px;
+                min-height: auto;
+            }
+            .vitrine-primary,
+            .vitrine-secondary,
+            .vitrine-stack {
+                grid-column: 1 / 2;
+                grid-row: auto;
+            }
+            .vitrine-primary {
+                border-right: none;
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+            .vitrine-secondary {
+                border-bottom: 1px solid rgba(255,255,255,0.08);
+            }
+            .vitrine-stack {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 900px) {
             nav { padding:0 20px; }
             .nav-links { display:none; }
@@ -289,11 +434,36 @@
             .section { padding:60px 20px; }
             .approach-grid { grid-template-columns:1fr; }
             .tech-categories { border-left: none; padding-left: 0; gap: 24px; }
-            .projects-bento { grid-template-columns:1fr; }
-            .span-6, .span-4, .span-3 { grid-column:span 1; }
             .stats-strip { grid-template-columns:repeat(2,1fr); border-bottom:none; }
             .stat-block { border-right:none; border-bottom:1px solid var(--border); padding:16px 0; }
             .tech-track { gap:40px; }
+            .window-panel, .sub-panel { padding: 24px; }
+        }
+
+
+        @media (max-width: 640px) {
+            .project-vitrine {
+                grid-template-rows: 360px 240px auto;
+            }
+            .vitrine-stack {
+                grid-template-columns: 1fr;
+            }
+            .vitrine-stack .vitrine-tile {
+                min-height: 220px;
+            }
+            .vitrine-stack .vitrine-tile + .vitrine-tile {
+                border-left: none;
+                border-top: 1px solid rgba(255,255,255,0.08);
+            }
+            .vitrine-primary .vitrine-title,
+            .vitrine-title,
+            .vitrine-small .vitrine-title {
+                padding: 24px;
+                max-width: 94%;
+            }
+            .vitrine-primary .vitrine-title {
+                font-size: clamp(2rem, 10vw, 3rem);
+            }
         }
     </style>
 </head>
@@ -312,14 +482,14 @@
         <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="nav-cta" target="_blank">Let's connect</a>
     </nav>
 
-    <section class="hero-section" id="home">
+    <section class="hero-section reveal-section" id="home">
         <div class="hero-accent-blur"></div>
         <div class="hero-meta">AI Engineer · Data Scientist</div>
         <h1>Applied AI<br>Research Archive</h1>
         <p class="hero-subtitle">Machine learning & deep learning research, from classical algorithms to large language models.</p>
         <div class="hero-actions">
             <a href="#projects" class="btn-primary">Explore research <i class="fas fa-arrow-down"></i></a>
-            <a href="https://github.com/a1mohamad" class="btn-secondary" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://github.com/a1mohamad" class="btn-secondary" target="_blank"><i class="fab fa-github"></i> Research Repo</a>
         </div>
         <div class="stats-strip">
             <div class="stat-block"><div class="stat-num">18+</div><div class="stat-label">Research Projects</div></div>
@@ -329,7 +499,7 @@
         </div>
     </section>
 
-    <section class="section section-alt" id="approach">
+    <section class="section section-alt reveal-section" id="approach">
         <div class="section-inner">
             <span class="section-tag">Theoretical Foundations</span>
             <h2 class="section-title">How I approach <span style="color:var(--accent);">machine learning</span></h2>
@@ -401,24 +571,10 @@
             
             <div class="tech-marquee">
                 <div class="tech-track">
-                    <i class="devicon-pytorch-original"></i>
-                    <i class="devicon-tensorflow-original"></i>
-                    <i class="devicon-python-plain"></i>
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 40 40"><path d="M20 2C10.06 2 2 10.06 2 20s8.06 18 18 18 18-8.06 18-18S29.94 2 20 2zm6.2 24c-.44.78-1.18 1.34-2.02 1.54-.3.06-.6.08-.9.08-.62 0-1.22-.18-1.74-.52-.36-.24-.68-.54-.94-.88-.26.34-.58.64-.94.88-.52.34-1.12.52-1.74.52-.3 0-.6-.02-.9-.08-.84-.2-1.58-.76-2.02-1.54-.42-.74-.52-1.62-.28-2.46.22-.8.74-1.48 1.44-1.9.46-.28.98-.44 1.52-.46.36-.02.72.02 1.06.12.38.1.72.28 1.04.52.26.2.48.44.66.7.18-.26.4-.5.66-.7.32-.24.66-.42 1.04-.52.34-.1.7-.14 1.06-.12.54.02 1.06.18 1.52.46.7.42 1.22 1.1 1.44 1.9.24.84.14 1.72-.28 2.46zM20 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        Hugging Face
-                    </span>
-                    <i class="devicon-pandas-original"></i>
-                    <i class="devicon-numpy-original"></i>
-                    <i class="devicon-matplotlib-plain"></i>
                     <span class="tech-logo-badge">
                         <svg viewBox="0 0 24 24"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 4H6v5h5V6zm7 0h-5v8h5V6zm-7 7H6v5h5v-5zm7 3h-5v2h5v-2z"/></svg>
                         Seaborn
                     </span>
-                    <i class="devicon-scikitlearn-plain"></i>
-                    <i class="devicon-jupyter-plain"></i>
-                    <i class="devicon-vscode-plain"></i>
-                    <i class="devicon-keras-plain"></i>
                     <span class="tech-logo-badge">
                         <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13h-13L12 7z"/></svg>
                         XGBoost
@@ -428,35 +584,19 @@
                         CatBoost
                     </span>
                     <span class="tech-logo-badge">
-                        <svg viewBox="0 0 24 24"><path d="M4 2v20h16V2H4zm14 18H6V4h12v16zM8 6h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
-                        LightGBM
-                    </span>
-                    <i class="devicon-pytorch-original"></i>
-                    <i class="devicon-tensorflow-original"></i>
-                    <i class="devicon-python-plain"></i>
-                    <span class="tech-logo-badge">
                         <svg viewBox="0 0 40 40"><path d="M20 2C10.06 2 2 10.06 2 20s8.06 18 18 18 18-8.06 18-18S29.94 2 20 2zm6.2 24c-.44.78-1.18 1.34-2.02 1.54-.3.06-.6.08-.9.08-.62 0-1.22-.18-1.74-.52-.36-.24-.68-.54-.94-.88-.26.34-.58.64-.94.88-.52.34-1.12.52-1.74.52-.3 0-.6-.02-.9-.08-.84-.2-1.58-.76-2.02-1.54-.42-.74-.52-1.62-.28-2.46.22-.8.74-1.48 1.44-1.9.46-.28.98-.44 1.52-.46.36-.02.72.02 1.06.12.38.1.72.28 1.04.52.26.2.48.44.66.7.18-.26.4-.5.66-.7.32-.24.66-.42 1.04-.52.34-.1.7-.14 1.06-.12.54.02 1.06.18 1.52.46.7.42 1.22 1.1 1.44 1.9.24.84.14 1.72-.28 2.46zM20 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                         Hugging Face
                     </span>
                     <i class="devicon-pandas-original"></i>
                     <i class="devicon-numpy-original"></i>
                     <i class="devicon-matplotlib-plain"></i>
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 24 24"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 4H6v5h5V6zm7 0h-5v8h5V6zm-7 7H6v5h5v-5zm7 3h-5v2h5v-2z"/></svg>
-                        Seaborn
-                    </span>
+                    <i class="devicon-pytorch-original"></i>
                     <i class="devicon-scikitlearn-plain"></i>
                     <i class="devicon-jupyter-plain"></i>
                     <i class="devicon-vscode-plain"></i>
                     <i class="devicon-keras-plain"></i>
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13h-13L12 7z"/></svg>
-                        XGBoost
-                    </span>
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                        CatBoost
-                    </span>
+                    <i class="devicon-tensorflow-original"></i>
+                    <i class="devicon-python-plain"></i>
                     <span class="tech-logo-badge">
                         <svg viewBox="0 0 24 24"><path d="M4 2v20h16V2H4zm14 18H6V4h12v16zM8 6h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
                         LightGBM
@@ -466,17 +606,40 @@
         </div>
     </section>
 
-    <section class="section" id="projects">
+    <!-- Projects Section: State-of-the-art Proportional Proportional Panel Matrix -->
+    <section class="section reveal-section" id="projects">
         <div class="section-inner">
-            <span class="section-tag">Research Archive</span>
+            <span class="section-tag">Research Matrix</span>
             <h2 class="section-title">Featured <span style="color:var(--accent);">projects</span></h2>
-            <p class="section-desc">Curated selection of reproducible machine learning studies.</p>
-            <div class="projects-bento" id="projects-bento"></div>
+            <p class="section-desc">A visual project vitrine where image scale represents project priority.</p>
+            
+            <div class="project-vitrine" aria-label="Featured project showcase">
+
+                <a href="titanic/index.html" class="vitrine-tile vitrine-primary" style="--project-image: url('/vitrine-images/titanic.png');">
+                    <span class="vitrine-title">Titanic Survival Diagnostics</span>
+                </a>
+
+                <a href="tesla-stock/index.html" class="vitrine-tile vitrine-secondary" style="--project-image: url('/vitrine-images/Tesla.png');">
+                    <span class="vitrine-title">Tesla Stock Forecasting</span>
+                </a>
+
+                <div class="vitrine-stack">
+                    <a href="breast cancer/index.html" class="vitrine-tile vitrine-small" style="--project-image: url('/vitrine-images/cancer.png');">
+                        <span class="vitrine-title">Breast Cancer Prognosis</span>
+                    </a>
+
+                    <a href="multi-diseases/index.html" class="vitrine-tile vitrine-small" style="--project-image: url('/vitrine-images/disease.png');">
+                        <span class="vitrine-title">Multi-Disease Predictions</span>
+                    </a>
+                </div>
+
+            </div>
+            
             <a href="#" class="view-all-link">View all projects →</a>
         </div>
     </section>
 
-    <section class="section section-alt" id="expertise">
+    <section class="section section-alt reveal-section" id="expertise">
         <div class="section-inner">
             <span class="section-tag">Capabilities</span>
             <h2 class="section-title">Areas of <span style="color:var(--accent);">expertise</span></h2>
@@ -516,7 +679,7 @@
         </div>
     </section>
 
-    <section class="contact-section" id="contact">
+    <section class="contact-section reveal-section" id="contact">
         <div style="max-width:600px; margin:0 auto;">
             <span class="section-tag" style="text-align:center;">Let's build</span>
             <h2 style="font-size:2.2rem; font-weight:800; margin-bottom:16px;">Connect with <span style="color:var(--accent);">me</span></h2>
@@ -544,42 +707,30 @@
             glow.style.top = e.clientY + 'px';
         });
 
-        const projects = [
-            { type:'CLASSIFICATION', title:'Loan Approval Risk', desc:'Comparative assessment of logistic regression, SVC, KNN, and random forest.', algos:['LogReg','SVC','KNN','RF'], link:'loan-approval/index.html', span:'span-6' },
-            { type:'REGRESSION', title:'California Housing', desc:'Feature scaling and statistical interpretation of economic indicators.', algos:['Linear Regression','Scikit‑Learn'], link:'california-housing/index.html', span:'span-3' },
-            { type:'CLASSIFICATION', title:'Heart Disease Prognosis', desc:'Logistic regression for 10‑year CHD risk estimation.', algos:['Logistic Regression'], link:'heart-disease/index.html', span:'span-3' },
-            { type:'EDA', title:'Zomato Market Diagnostics', desc:'Restaurant trends, pricing indexes, and booking habits analysis.', algos:['Pandas','Seaborn'], link:'zomato-analysis/index.html', span:'span-4' },
-            { type:'CLASSIFICATION', title:'Wine Quality', desc:'SVC vs XGBoost for grade prediction from chemical properties.', algos:['SVC','XGBoost'], link:'wine-quality/index.html', span:'span-4' },
-            { type:'COMPUTER VISION', title:'Cassava Leaf Disease', desc:'CNN (EfficientNetB3) for crop disease identification.', algos:['EfficientNetB3','CNN'], link:null, span:'span-4' },
-            { type:'NLP', title:'Quora Question Similarity', desc:'BERT & Siamese Networks for duplicate detection.', algos:['BERT','Siamese'], link:null, span:'span-4' },
-            { type:'SCRAPING', title:'NYT News Harvesting', desc:'Automated RSS parsing for metadata extraction.', algos:['BeautifulSoup'], link:'NewYorkTimes-scraping/index.html', span:'span-4' }
-        ];
+        // High-performance IntersectionObserver orchestrating the sequential down-to-up page pop-up triggers
+        const revealBlocks = document.querySelectorAll('.reveal-section');
+        const revealOptions = {
+            root: null,
+            threshold: 0.12,
+            rootMargin: "0px 0px -50px 0px"
+        };
 
-        const bento = document.getElementById('projects-bento');
-        function renderBento() {
-            bento.innerHTML = projects.map(p => {
-                const card = `
-                <a href="${p.link || '#'}" class="project-card ${p.span}" ${!p.link ? 'style="pointer-events:none;"' : ''}>
-                    <div class="card-type">${p.type}</div>
-                    <div class="card-title">${p.title}</div>
-                    <div class="card-desc">${p.desc}</div>
-                    <div class="card-algos">${p.algos.map(a => `<span class="algo-pill">${a}</span>`).join('')}</div>
-                </a>`;
-                return card;
-            }).join('');
-        }
-        renderBento();
-
-        const barObserver = new IntersectionObserver((entries) => {
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.querySelectorAll('.exp-bar-fill').forEach(fill => {
-                        fill.style.width = fill.dataset.width + '%';
-                    });
+                    entry.target.classList.add('active');
+                    
+                    // Activate progress bars only when entering the view frame bounds
+                    if (entry.target.id === 'expertise') {
+                        entry.target.querySelectorAll('.exp-bar-fill').forEach(fill => {
+                            fill.style.width = fill.dataset.width + '%';
+                        });
+                    }
                 }
             });
-        }, { threshold:0.5 });
-        document.querySelectorAll('.expertise-list').forEach(el => barObserver.observe(el));
+        }, revealOptions);
+
+        revealBlocks.forEach(block => revealObserver.observe(block));
 
         const nav = document.getElementById('main-nav');
         window.addEventListener('scroll', () => {
