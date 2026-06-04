@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction | ML Regression Suite</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Regression Intelligence · Real Estate Analytics</div>
+    <h1>House Price Prediction Engine<br>Multi‑Model Comparative Regression Suite</h1>
+    <div class="hero-subtitle">Evaluating SVR, Random Forest & Linear Regression on a 13‑dimensional feature space to forecast residential sale prices.</div>
+    <div class="btn-group">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/House%20Price%20Prediction" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <!-- Metric strip with MAE scores (lower is better) -->
+    <div class="metrics-strip">
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.1841"><div class="metric-label">SVR (MAE)</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.1860"><div class="metric-label">Random Forest (MAE)</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.1895"><div class="metric-label">Linear Regression (MAE)</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.1895"><div class="metric-label">CatBoost (MAE)</div><div class="metric-value">0</div></div>
+    </div>
+
+    <!-- Project Overview -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Regression Blueprint</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">End‑to‑end pipeline for predicting house sale prices using structured property attributes.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This project implements a complete regression pipeline on a residential dataset (2919 records, 13 features). After exploratory data analysis (correlation heatmap, categorical distribution plots), the pipeline performs data cleaning (drop <code>Id</code>, impute missing <code>SalePrice</code> with mean, drop remaining null rows). Categorical variables are one‑hot encoded, then three regression models — Support Vector Regressor (SVR), Random Forest Regressor, and Linear Regression — are trained and evaluated. The primary metric is Mean Absolute Error (MAE). SVR achieves the lowest error (≈0.184), indicating superior generalisation. An optional CatBoost model is also explored.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dependencies -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">Essential libraries for data manipulation, modelling and evaluation.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas & NumPy</strong><span>Data loading, cleaning, null handling, and numeric transformations.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Scikit‑Learn</strong><span>OneHotEncoder, train_test_split, SVR, RandomForestRegressor, LinearRegression, metrics (mean_absolute_error, r2_score).</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib & Seaborn</strong><span>Correlation heatmap, categorical variable bar plots, distribution analysis.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-simple dep-icon"></i><div><strong>CatBoost (optional)</strong><span>Gradient boosting library for advanced benchmarking (MAE ~0.1895).</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Architecture -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Workflow Blueprint</span>
+                <h2>System Architecture Overview</h2>
+                <p class="panel-desc">From raw property data to price prediction — a five‑stage computational graph.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Data Ingestion & Cleaning</strong><span>Load Excel file, drop `Id`, impute missing `SalePrice` with mean, drop remaining NaN rows (if any).</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Exploratory Data Analysis</strong><span>Generate correlation heatmap (numerical features) and distribution bar plots for categorical variables.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>One‑Hot Encoding</strong><span>Transform categorical columns (MSZoning, LotConfig, BldgType, Exterior1st) into binary vectors.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Train / Test Split</strong><span>70% training, 30% testing (random_state=40).</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Model Training & Evaluation</strong><span>Train SVR, RandomForest, LinearRegression; compute MAE and R². Champion: SVR (lowest MAE). Optional CatBoost provides gradient boosting baseline.</span></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mathematical Mechanics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Mathematical Mechanics</span>
+                <h2>Advanced Regression Theory</h2>
+                <p class="panel-desc">Core formulations of the three regression algorithms plus CatBoost.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Support Vector Regression (SVR)</div><span class="theory-badge">ε‑insensitive</span></div><div class="theory-explanation">Finds a function $f(x) = \langle w, x \rangle + b$ that deviates from actual targets by at most $\varepsilon$ while remaining as flat as possible. Soft margin allows slack variables $\xi_i, \xi_i^*$:</div><div class="theory-math-container">$$\min_{w,b,\xi,\xi^*} \frac{1}{2}\|w\|^2 + C\sum_{i=1}^{N}(\xi_i + \xi_i^*)$$<br>s.t. $y_i - \langle w, x_i \rangle - b \le \varepsilon + \xi_i$, $\langle w, x_i \rangle + b - y_i \le \varepsilon + \xi_i^*$, $\xi_i,\xi_i^* \ge 0$.</div><div class="theory-explanation">RBF kernel maps features to higher dimension for non‑linear relationships.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Random Forest Regressor</div><span class="theory-badge champion-badge">Ensemble</span></div><div class="theory-explanation">Builds $B$ decorrelated decision trees on bootstrap samples, averages predictions:</div><div class="theory-math-container">$$\hat{y} = \frac{1}{B}\sum_{b=1}^{B} h_b(x)$$</div><div class="theory-explanation">Each tree splits on random feature subsets, reducing variance while preserving low bias.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Linear Regression</div><span class="theory-badge">Parametric</span></div><div class="theory-explanation">Models relationship as linear combination of features: $\hat{y} = \beta_0 + \beta_1 x_1 + \dots + \beta_p x_p$. Minimises residual sum of squares:</div><div class="theory-math-container">$$\min_{\beta} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2$$</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">CatBoost (Optional)</div><span class="theory-badge">Gradient Boosting</span></div><div class="theory-explanation">Gradient boosting on decision trees with categorical feature handling. Uses symmetric trees and ordered boosting to reduce overfitting. Optimises MAE or other loss functions:</div><div class="theory-math-container">$$\hat{y} = \sum_{t=1}^{T} \eta \cdot f_t(x)$$</div><div class="theory-explanation">Achieved MAE ≈ 0.1895 on test set.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Space / Dataset Description -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Data Taxonomy</span>
+                <h2>Feature Space Configuration</h2>
+                <p class="panel-desc">13 raw attributes, after one‑hot encoding expanded to 37 dimensions.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead>
+                            <tr><th>Feature</th><th>Category</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>Id</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Record identifier (dropped during preprocessing)</td></tr>
+                            <tr><td><code>MSSubClass</code></td><td><span class="taxonomy-tag">Dwelling</span></td><td>Type of dwelling involved in the sale</td></tr>
+                            <tr><td><code>MSZoning</code></td><td><span class="taxonomy-tag">Zoning</span></td><td>General zoning classification (one‑hot encoded)</td></tr>
+                            <tr><td><code>LotArea</code></td><td><span class="taxonomy-tag">Site</span></td><td>Lot size in square feet</td></tr>
+                            <tr><td><code>LotConfig</code></td><td><span class="taxonomy-tag">Configuration</span></td><td>Lot configuration (one‑hot)</td></tr>
+                            <tr><td><code>BldgType</code></td><td><span class="taxonomy-tag">Dwelling</span></td><td>Type of dwelling (one‑hot)</td></tr>
+                            <tr><td><code>OverallCond</code></td><td><span class="taxonomy-tag">Condition</span></td><td>Overall condition rating (1–10)</td></tr>
+                            <tr><td><code>YearBuilt</code></td><td><span class="taxonomy-tag">Chronological</span></td><td>Original construction year</td></tr>
+                            <tr><td><code>YearRemodAdd</code></td><td><span class="taxonomy-tag">Chronological</span></td><td>Remodel date (same as construction if no remodel)</td></tr>
+                            <tr><td><code>Exterior1st</code></td><td><span class="taxonomy-tag">Exterior</span></td><td>Exterior covering material (one‑hot, 16 categories)</td></tr>
+                            <tr><td><code>BsmtFinSF2</code></td><td><span class="taxonomy-tag">Basement</span></td><td>Type 2 finished square feet of basement area</td></tr>
+                            <tr><td><code>TotalBsmtSF</code></td><td><span class="taxonomy-tag">Basement</span></td><td>Total square feet of basement area</td></tr>
+                            <tr class="target-row-highlight"><td><code>SalePrice</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Sale price of the house (to be predicted)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Terminal -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Model Training & Evaluation Pipeline</h2>
+                <p class="panel-desc">Core Python implementation extracted from the notebook.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">house_price_pipeline.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">from</span> sklearn.preprocessing <span class="code-keyword">import</span> OneHotEncoder
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> train_test_split
+<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> mean_absolute_error
+<span class="code-keyword">from</span> sklearn.svm <span class="code-keyword">import</span> SVR
+<span class="code-keyword">from</span> sklearn.ensemble <span class="code-keyword">import</span> RandomForestRegressor
+<span class="code-keyword">from</span> sklearn.linear_model <span class="code-keyword">import</span> LinearRegression
+
+ds = pd.read_excel(<span class="code-str">'HousePricePrediction.xlsx'</span>)
+ds.drop(<span class="code-str">'Id'</span>, axis=<span class="code-num">1</span>, inplace=<span class="code-keyword">True</span>)
+ds[<span class="code-str">'SalePrice'</span>] = ds[<span class="code-str">'SalePrice'</span>].fillna(ds[<span class="code-str">'SalePrice'</span>].mean())
+ds = ds.dropna()
+
+obj_cols = ds.select_dtypes(include=[<span class="code-str">'object'</span>]).columns
+encoder = OneHotEncoder(sparse=<span class="code-keyword">False</span>, handle_unknown=<span class="code-str">'ignore'</span>)
+encoded = pd.DataFrame(encoder.fit_transform(ds[obj_cols]))
+encoded.index = ds.index
+encoded.columns = encoder.get_feature_names_out()
+final_df = pd.concat([ds.drop(obj_cols, axis=<span class="code-num">1</span>), encoded], axis=<span class="code-num">1</span>)
+
+X = final_df.drop(<span class="code-str">'SalePrice'</span>, axis=<span class="code-num">1</span>)
+y = final_df[<span class="code-str">'SalePrice'</span>]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="code-num">0.3</span>, random_state=<span class="code-num">40</span>)
+
+models = [SVR(), RandomForestRegressor(n_estimators=<span class="code-num">10</span>), LinearRegression()]
+<span class="code-keyword">for</span> model <span class="code-keyword">in</span> models:
+    model.fit(X_train, y_train)
+    preds = model.predict(X_test)
+    mae = mean_absolute_error(y_test, preds)
+    print(<span class="code-keyword">f</span><span class="code-str">"{model.__class__.__name__}: MAE = {mae:.5f}"</span>)
+</pre></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Diagnostics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Analytics Layer</span>
+                <h2>Exploratory Visual Diagnostics</h2>
+                <p class="panel-desc">Correlation heatmap and categorical distributions extracted from EDA.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="viz-display-grid stagger-child">
+                    <div class="viz-placeholder-card">
+                        <i class="fas fa-chart-line fa-3x"></i>
+                        <div class="viz-meta-text"><strong>Correlation Heatmap (numerical features)</strong><br>Shows moderate correlations between `TotalBsmtSF` / `LotArea` and `SalePrice`.</div>
+                    </div>
+                    <div class="viz-placeholder-card">
+                        <i class="fas fa-chart-bar fa-3x"></i>
+                        <div class="viz-meta-text"><strong>Categorical Variable Distribution</strong><br>Bar plots for `MSZoning`, `LotConfig`, `BldgType`, `Exterior1st` (Exterior1st has 16 unique categories).</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Diagnostics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Performance Diagnostics & Engine Insights</h2>
+                <p class="panel-desc">Mean Absolute Error (MAE) comparison on test set (30% holdout).</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>Support Vector Regressor (SVR)</strong><span>ε‑insensitive, RBF kernel</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.1841</span><span class="insight-score-label">MAE (Champion)</span></div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">02</div><div class="insight-model-identity"><strong>Random Forest Regressor</strong><span>10 trees, bootstrap aggregation</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.1860</span><span class="insight-score-label">MAE</span></div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">03</div><div class="insight-model-identity"><strong>Linear Regression</strong><span>Ordinary Least Squares</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.1895</span><span class="insight-score-label">MAE</span></div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">04</div><div class="insight-model-identity"><strong>CatBoost (optional)</strong><span>Gradient boosting on categorical features</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.1895</span><span class="insight-score-label">MAE</span></div>
+                    </div>
+                </div>
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Diagnostic Breakdown:</strong> SVR achieves the lowest MAE (≈0.1841), indicating superior predictive accuracy among the three base models. Random Forest performs comparably (0.1860), while linear regression and CatBoost yield slightly higher errors (0.1895). The dataset’s moderate non‑linearity is better captured by kernel‑based SVR and ensemble methods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Synthesis & Future Work -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis & Roadmap</h2>
+                <p class="panel-desc">Empirical summary and next‑generation enhancements.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Breakdown:</strong> The SVR model outperforms Random Forest and Linear Regression on the test set, achieving the lowest MAE (0.1841). The pipeline effectively handles missing values, one‑hot encodes categorical variables, and splits data for robust evaluation.</p>
+                    <p class="stagger-child"><strong>Future Directions:</strong> Advanced feature engineering (e.g., interaction terms, polynomial features), hyperparameter tuning via GridSearchCV, and implementation of gradient boosting models (XGBoost, LightGBM) could further reduce prediction error. Additionally, deployment as a REST API and SHAP explainability for feature importance analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari · Real Estate Analytics Lab · 2026</div>
+
+<script src="script.js"></script>
+</body>
+</html>
