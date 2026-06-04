@@ -26,7 +26,6 @@ body {
     padding-bottom: 60px;
 }
 
-/* Scroll progress bar – dynamically injected by JS */
 #scroll-progress {
     position: fixed;
     top: 0;
@@ -93,7 +92,6 @@ h1 {
 }
 .section.revealed::after { width: 100%; }
 
-/* Collapsible using grid technique */
 .section-collapsible {
     display: grid;
     grid-template-rows: auto 0fr;
@@ -135,9 +133,7 @@ h1 {
     transform: rotate(180deg);
 }
 
-.section-body {
-    overflow: hidden;
-}
+.section-body { overflow: hidden; }
 .section-body-inner {
     padding-top: 20px;
     padding-bottom: 10px;
@@ -269,6 +265,46 @@ td code {
 .code-fn { color: #38bdf8; }
 .code-str { color: #10b981; }
 .code-num { color: #fbbf24; }
+
+/* Visual placeholder */
+.viz-placeholder {
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    padding: 60px 40px;
+    text-align: center;
+    color: var(--text-muted);
+    transition: border-color 0.2s;
+    background: rgba(255,255,255,0.01);
+}
+.viz-placeholder:hover {
+    border-color: var(--border-hover);
+}
+.viz-placeholder-icon {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+    opacity: 0.6;
+}
+.viz-placeholder p {
+    font-size: 0.95rem;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* For actual images later: uncomment and use .viz-grid 
+.viz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+.viz-grid img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: transform 0.2s;
+}
+.viz-grid img:hover { transform: scale(1.02); }
+*/
 
 .engine-insights-stack { display: flex; flex-direction: column; gap: 4px; margin-bottom: 32px; }
 .insight-row {
