@@ -65,8 +65,9 @@ h1 {
 .btn-modern-primary {
     display: inline-flex; align-items: center; gap: 12px;
     background: var(--text-primary); color: var(--bg);
-    padding: 14px 28px; border-radius: 8px; text-decoration: none;
-    font-weight: 600; font-size: 0.95rem;
+    padding: 16px 32px;       /* larger button */
+    border-radius: 8px; text-decoration: none;
+    font-weight: 600; font-size: 1.05rem;   /* slightly larger text */
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .btn-modern-primary:hover {
@@ -181,18 +182,6 @@ h2 {
 .dependency-row strong { font-size: 1.05rem; font-weight: 600; display: block; margin-bottom: 4px; }
 .dependency-row span { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }
 
-/* Pipeline notes (new) */
-.pipeline-notes {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-bottom: 28px;
-}
-.pipeline-note-row h4 {
-    font-size: 0.95rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;
-}
-.pipeline-note-row p { font-size: 0.88rem; color: var(--text-secondary); }
-
 .timeline-flow { position: relative; padding-left: 28px; }
 .flow-node {
     position: relative; padding-bottom: 24px;
@@ -276,7 +265,7 @@ td code {
 .code-str { color: #10b981; }
 .code-num { color: #fbbf24; }
 
-/* Visualization & Lightbox */
+/* Visualizations & Lightbox */
 .viz-display-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
 }
