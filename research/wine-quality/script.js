@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Counter animation (unchanged)
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
@@ -23,5 +24,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         };
         increment();
+    });
+
+    // Reveal sections on scroll
+    const revealSections = document.querySelectorAll('.section');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealSections.forEach(section => {
+        revealObserver.observe(section);
     });
 });
