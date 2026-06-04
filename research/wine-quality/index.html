@@ -19,10 +19,7 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true
             },
-            chtml: {
-                scale: 1,
-                displayAlign: 'left'
-            }
+            chtml: { scale: 1, displayAlign: 'left' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -44,7 +41,6 @@
 
 <div class="main-layout">
 
-    <!-- Floating metric strip -->
     <div class="metrics-strip">
         <div class="metric-block" data-metric-type="percentage" data-metric-target="78.33">
             <div class="metric-label">XGBoost ROC-AUC</div>
@@ -64,177 +60,192 @@
         </div>
     </div>
 
-    <!-- Project Overview -->
-    <section class="section">
-        <div class="panel-header">
-            <span class="panel-tag">Contextual Briefing</span>
-            <h2>Project Overview</h2>
-            <p class="panel-desc">A machine learning study that classifies wine quality based on its chemical properties.</p>
-        </div>
-        <div class="overview-text">
-            <p>This work evaluates multiple supervised learning models to predict wine quality from physicochemical measurements. The pipeline reads raw vineyard data, handles missing values with mean imputation, scales features using MinMax normalization, and transforms multi-class quality labels into binary categories (premium vs. standard). A systematic comparison of Logistic Regression, Support Vector Classifier, and Extreme Gradient Boosting reveals the most effective boundary for quality discrimination, validated with ROC‑AUC metrics.</p>
-        </div>
-    </section>
-
-    <!-- Dependencies – list rows -->
-    <section class="section">
-        <div class="panel-header">
-            <span class="panel-tag">Infrastructure</span>
-            <h2>Core Pipeline Dependencies</h2>
-            <p class="panel-desc">Underlying math engines, vector layout arrays, and algorithmic frameworks driving model execution metrics.</p>
-        </div>
-        <div class="dependency-list">
-            <div class="dependency-row">
-                <i class="fa-solid fa-layer-group dep-icon"></i>
-                <div>
-                    <strong>Pandas</strong>
-                    <span>Handles core data matrix alignment, feature parsing, and operational structural ingestion configurations.</span>
-                </div>
+    <!-- PROJECT OVERVIEW (expanded by default) -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Contextual Briefing</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">A machine learning study that classifies wine quality based on its chemical properties.</p>
             </div>
-            <div class="dependency-row">
-                <i class="fa-solid fa-wave-square dep-icon"></i>
-                <div>
-                    <strong>NumPy</strong>
-                    <span>Powers vector tensor logic, algebraic matrix processes, and underlying chemical arrays computing operations.</span>
-                </div>
-            </div>
-            <div class="dependency-row">
-                <i class="fa-solid fa-diagram-project dep-icon"></i>
-                <div>
-                    <strong>Scikit-Learn</strong>
-                    <span>Supplies robust scalar processors, baseline estimators, and structural cross-validation parameters.</span>
-                </div>
-            </div>
-            <div class="dependency-row">
-                <i class="fa-solid fa-bolt-lightning dep-icon"></i>
-                <div>
-                    <strong>XGBoost</strong>
-                    <span>Deploys extreme sequential ensemble tree structures to optimize targeted categorical boundaries.</span>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This work evaluates multiple supervised learning models to predict wine quality from physicochemical measurements. The pipeline reads raw vineyard data, handles missing values with mean imputation, scales features using MinMax normalization, and transforms multi-class quality labels into binary categories (premium vs. standard). A systematic comparison of Logistic Regression, Support Vector Classifier, and Extreme Gradient Boosting reveals the most effective boundary for quality discrimination, validated with ROC‑AUC metrics.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pipeline – vertical timeline -->
-    <section class="section">
-        <div class="panel-header">
-            <span class="panel-tag">Configuration</span>
-            <h2>System Architecture Overview</h2>
-            <p class="panel-desc">A conceptual blueprint mapping raw viniculture telemetry inputs through analysis, feature engineering, and model evaluation.</p>
+    <!-- DEPENDENCIES (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">Underlying math engines, vector layout arrays, and algorithmic frameworks.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div class="timeline-flow">
-            <div class="flow-node">
-                <div class="flow-dot"></div>
-                <div class="flow-content">
-                    <span class="flow-step">01</span>
-                    <div>
-                        <strong>EDA and Feature Engineering</strong>
-                        <span>Handle missing values, drop irrelevant columns, and encode categorical variables.</span>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-layer-group dep-icon"></i>
+                        <div><strong>Pandas</strong><span>Handles core data matrix alignment, feature parsing, and operational structural ingestion configurations.</span></div>
                     </div>
-                </div>
-            </div>
-            <div class="flow-node">
-                <div class="flow-dot"></div>
-                <div class="flow-content">
-                    <span class="flow-step">02</span>
-                    <div>
-                        <strong>Global Scaling Engine</strong>
-                        <span>MinMax vector unification mapping variables between 0 and 1.</span>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-wave-square dep-icon"></i>
+                        <div><strong>NumPy</strong><span>Powers vector tensor logic, algebraic matrix processes, and underlying chemical arrays computing operations.</span></div>
                     </div>
-                </div>
-            </div>
-            <div class="flow-node">
-                <div class="flow-dot"></div>
-                <div class="flow-content">
-                    <span class="flow-step">03</span>
-                    <div>
-                        <strong>Compare Different Models</strong>
-                        <span>Evaluate Logistic Regression, SVC, and XGBoost on the test set.</span>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-diagram-project dep-icon"></i>
+                        <div><strong>Scikit-Learn</strong><span>Supplies robust scalar processors, baseline estimators, and structural cross-validation parameters.</span></div>
+                    </div>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-bolt-lightning dep-icon"></i>
+                        <div><strong>XGBoost</strong><span>Deploys extreme sequential ensemble tree structures to optimize targeted categorical boundaries.</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Theory -->
-    <section class="section">
-        <div class="panel-header">
-            <span class="panel-tag">Mathematics</span>
-            <h2>Algorithmic Formulations</h2>
-            <p class="panel-desc">Rigorous conceptual analysis of the loss minimization frameworks and mapping configurations utilized in the models.</p>
-        </div>
-        <div class="theory-split">
-            <div class="theory-block">
-                <div class="theory-card-header">
-                    <div class="theory-title">Support Vector Classifier</div>
-                    <div class="theory-badge">RBF Kernel</div>
-                </div>
-                <div class="theory-math-container">
-                    $$K(x, x') = \exp(-\gamma \|x - x'\|^2)$$
-                </div>
-                <p class="theory-explanation">Projects parameters into higher-dimensional Hilbert spaces to isolate complex non-linear structures, constructing hyperplanes that maximize decision safety margins.</p>
+    <!-- PIPELINE (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Configuration</span>
+                <h2>System Architecture Overview</h2>
+                <p class="panel-desc">A conceptual blueprint mapping raw viniculture telemetry inputs through analysis, feature engineering, and model evaluation.</p>
             </div>
-            <div class="theory-block">
-                <div class="theory-card-header">
-                    <div class="theory-title">Extreme Gradient Boosting</div>
-                    <div class="theory-badge">Objective Function</div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">01</span>
+                            <div><strong>EDA and Feature Engineering</strong><span>Handle missing values, drop irrelevant columns, and encode categorical variables.</span></div>
+                        </div>
+                    </div>
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">02</span>
+                            <div><strong>Global Scaling Engine</strong><span>MinMax vector unification mapping variables between 0 and 1.</span></div>
+                        </div>
+                    </div>
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">03</span>
+                            <div><strong>Compare Different Models</strong><span>Evaluate Logistic Regression, SVC, and XGBoost on the test set.</span></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="theory-math-container">
-                    $$\mathcal{L}^{(t)} \approx \sum_{i=1}^{n} \left[ g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i) \right] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2$$
-                </div>
-                <p class="theory-explanation">Optimizes structural performance metrics via a second-order Taylor expansion while introducing leaf-weight penalties ($\lambda$) and complexity constraints ($\gamma$) to curb validation variance.</p>
             </div>
         </div>
     </section>
 
-    <!-- Feature Table -->
-    <section class="section">
-        <div class="panel-header">
-            <span class="panel-tag">Dimensions</span>
-            <h2>Feature Vector Taxonomy</h2>
-            <p class="panel-desc">Internal vector array mapping structural dimensions extracted across physical and compound attributes.</p>
+    <!-- MATHEMATICS (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Mathematics</span>
+                <h2>Algorithmic Formulations</h2>
+                <p class="panel-desc">Rigorous conceptual analysis of the loss minimization frameworks and mapping configurations utilized in the models.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div class="matrix-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature Identifier</th>
-                        <th>Taxonomy Group</th>
-                        <th>Dimensional Core Function</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>fixed acidity</code></td><td><span class="taxonomy-tag">Chemical Base</span></td><td>Tracks non-volatile acid structures across volume constraints.</td></tr>
-                    <tr><td><code>volatile acidity</code></td><td><span class="taxonomy-tag">Chemical Base</span></td><td>Measures acetic acid tracking bounds affecting sensory outputs.</td></tr>
-                    <tr><td><code>citric acid</code></td><td><span class="taxonomy-tag">Chemical Base</span></td><td>Isolates preservation levels and freshness metrics.</td></tr>
-                    <tr><td><code>residual sugar</code></td><td><span class="taxonomy-tag">Compound Element</span></td><td>Quantifies post-fermentation sugar concentrations.</td></tr>
-                    <tr><td><code>chlorides</code></td><td><span class="taxonomy-tag">Compound Element</span></td><td>Calculates salt compound presence across sample matrix rows.</td></tr>
-                    <tr><td><code>free sulfur dioxide</code></td><td><span class="taxonomy-tag">Preservative Matrix</span></td><td>Calculates active unbound gas molecules preventing microbial shifts.</td></tr>
-                    <tr><td><code>total sulfur dioxide</code></td><td><span class="taxonomy-tag">Preservative Matrix</span></td><td>Computes integrated sulfur gas volumes within vectors.</td></tr>
-                    <tr><td><code>density</code></td><td><span class="taxonomy-tag">Physical Metric</span></td><td>Calculates global moisture-weight ratios against absolute standards.</td></tr>
-                    <tr><td><code>pH</code></td><td><span class="taxonomy-tag">Physical Metric</span></td><td>Evaluates structural acid balance vectors across log scales.</td></tr>
-                    <tr><td><code>sulphates</code></td><td><span class="taxonomy-tag">Preservative Matrix</span></td><td>Monitors potassium additive components tracking antioxidant limits.</td></tr>
-                    <tr><td><code>alcohol</code></td><td><span class="taxonomy-tag">Physical Metric</span></td><td>Maps total absolute ethanol volume scale distributions.</td></tr>
-                    <tr class="target-row-highlight"><td><code>quality</code></td><td><span class="taxonomy-tag target-style">Classification Endpoint</span></td><td>Maps multi-class quality outputs directly down to binary targets.</td></tr>
-                </tbody>
-            </table>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header">
+                            <div class="theory-title">Support Vector Classifier</div>
+                            <div class="theory-badge">RBF Kernel</div>
+                        </div>
+                        <div class="theory-math-container">$$K(x, x') = \exp(-\gamma \|x - x'\|^2)$$</div>
+                        <p class="theory-explanation">Projects parameters into higher-dimensional Hilbert spaces to isolate complex non-linear structures, constructing hyperplanes that maximize decision safety margins.</p>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header">
+                            <div class="theory-title">Extreme Gradient Boosting</div>
+                            <div class="theory-badge">Objective Function</div>
+                        </div>
+                        <div class="theory-math-container">$$\mathcal{L}^{(t)} \approx \sum_{i=1}^{n} \left[ g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i) \right] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2$$</div>
+                        <p class="theory-explanation">Optimizes structural performance metrics via a second-order Taylor expansion while introducing leaf-weight penalties ($\lambda$) and complexity constraints ($\gamma$) to curb validation variance.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Code Terminal -->
-    <section class="section">
-        <div class="panel-header">
-            <span class="panel-tag">Implementation</span>
-            <h2>Model Optimization Sandbox</h2>
-            <p class="panel-desc">Complete automated python compilation engine managing training steps, matrix scaling, and validation loops.</p>
-        </div>
-        <div class="terminal-panel">
-            <div class="terminal-header">
-                <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                <div class="terminal-title">wine_classification_pipeline.py</div>
-                <div></div>
+    <!-- FEATURE TABLE (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Dimensions</span>
+                <h2>Feature Vector Taxonomy</h2>
+                <p class="panel-desc">Internal vector array mapping structural dimensions extracted across physical and compound attributes.</p>
             </div>
-            <div class="terminal-body">
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature Identifier</th>
+                                <th>Taxonomy Group</th>
+                                <th>Dimensional Core Function</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>fixed acidity</code></td><td><span class="taxonomy-tag">Chemical Base</span></td><td>Tracks non-volatile acid structures across volume constraints.</td></tr>
+                            <tr><td><code>volatile acidity</code></td><td><span class="taxonomy-tag">Chemical Base</span></td><td>Measures acetic acid tracking bounds affecting sensory outputs.</td></tr>
+                            <tr><td><code>citric acid</code></td><td><span class="taxonomy-tag">Chemical Base</span></td><td>Isolates preservation levels and freshness metrics.</td></tr>
+                            <tr><td><code>residual sugar</code></td><td><span class="taxonomy-tag">Compound Element</span></td><td>Quantifies post-fermentation sugar concentrations.</td></tr>
+                            <tr><td><code>chlorides</code></td><td><span class="taxonomy-tag">Compound Element</span></td><td>Calculates salt compound presence across sample matrix rows.</td></tr>
+                            <tr><td><code>free sulfur dioxide</code></td><td><span class="taxonomy-tag">Preservative Matrix</span></td><td>Calculates active unbound gas molecules preventing microbial shifts.</td></tr>
+                            <tr><td><code>total sulfur dioxide</code></td><td><span class="taxonomy-tag">Preservative Matrix</span></td><td>Computes integrated sulfur gas volumes within vectors.</td></tr>
+                            <tr><td><code>density</code></td><td><span class="taxonomy-tag">Physical Metric</span></td><td>Calculates global moisture-weight ratios against absolute standards.</td></tr>
+                            <tr><td><code>pH</code></td><td><span class="taxonomy-tag">Physical Metric</span></td><td>Evaluates structural acid balance vectors across log scales.</td></tr>
+                            <tr><td><code>sulphates</code></td><td><span class="taxonomy-tag">Preservative Matrix</span></td><td>Monitors potassium additive components tracking antioxidant limits.</td></tr>
+                            <tr><td><code>alcohol</code></td><td><span class="taxonomy-tag">Physical Metric</span></td><td>Maps total absolute ethanol volume scale distributions.</td></tr>
+                            <tr class="target-row-highlight"><td><code>quality</code></td><td><span class="taxonomy-tag target-style">Classification Endpoint</span></td><td>Maps multi-class quality outputs directly down to binary targets.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CODE (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Model Optimization Sandbox</h2>
+                <p class="panel-desc">Complete automated python compilation engine managing training steps, matrix scaling, and validation loops.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header">
+                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
+                        <div class="terminal-title">wine_classification_pipeline.py</div>
+                        <div></div>
+                    </div>
+                    <div class="terminal-body">
 <pre>
 <span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
 <span class="code-selection">from</span> sklearn.model_selection <span class="code-keyword">import</span> train_test_split
@@ -285,101 +296,83 @@
         print(<span class="code-keyword">f</span><span class="code-str">"Validation Accuracy: {accuracy:.4f}"</span>)
         print(<span class="code-str">"-"</span> * <span class="code-num">30</span>)
 </pre>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Performance Insights -->
-    <section class="section">
-        <div class="panel-header">
-            <span class="panel-tag">Evaluation Matrix</span>
-            <h2>Performance Diagnostics & Engine Insights</h2>
-            <p class="panel-desc">Calculated tracking parameters and discriminatory capability records observed across predictive estimators.</p>
+    <!-- PERFORMANCE (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Performance Diagnostics & Engine Insights</h2>
+                <p class="panel-desc">Calculated tracking parameters and discriminatory capability records observed across predictive estimators.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        
-        <div class="engine-insights-stack">
-            <div class="insight-row rank-leader">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">01</div>
-                    <div class="insight-model-identity">
-                        <strong>Extreme Gradient Boosting (XGBoost)</strong>
-                        <span>Sequential Non-Linear Gradient Descent Optimization Strategy</span>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">01</div>
+                            <div class="insight-model-identity"><strong>Extreme Gradient Boosting (XGBoost)</strong><span>Sequential Non-Linear Gradient Descent Optimization Strategy</span></div>
+                        </div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.7833</span><span class="insight-score-label">ROC-AUC Target</span></div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">02</div>
+                            <div class="insight-model-identity"><strong>Logistic Regression</strong><span>Linear Parameter Reference Architecture Configuration</span></div>
+                        </div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.6946</span><span class="insight-score-label">ROC-AUC Target</span></div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">03</div>
+                            <div class="insight-model-identity"><strong>Support Vector Classifier (RBF Kernel)</strong><span>High-Dimensional Non-Linear Hyperplane Boundaries</span></div>
+                        </div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.6794</span><span class="insight-score-label">ROC-AUC Target</span></div>
                     </div>
                 </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">0.7833</span>
-                    <span class="insight-score-label">ROC-AUC Target</span>
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Diagnostic Breakdown:</strong> Evaluating output arrays establishes that the <strong>XGBoost Classifier</strong> outperforms baseline reference boundaries, reaching a leading classification score of <strong>0.7833 ROC-AUC</strong>. Sequential multi-tree generation isolates target properties with sharper discriminatory clarity than linear planes or basic kernel mappings.</p>
                 </div>
             </div>
-
-            <div class="insight-row">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">02</div>
-                    <div class="insight-model-identity">
-                        <strong>Logistic Regression</strong>
-                        <span>Linear Parameter Reference Architecture Configuration</span>
-                    </div>
-                </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">0.6946</span>
-                    <span class="insight-score-label">ROC-AUC Target</span>
-                </div>
-            </div>
-
-            <div class="insight-row">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">03</div>
-                    <div class="insight-model-identity">
-                        <strong>Support Vector Classifier (RBF Kernel)</strong>
-                        <span>High-Dimensional Non-Linear Hyperplane Boundaries</span>
-                    </div>
-                </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">0.6794</span>
-                    <span class="insight-score-label">ROC-AUC Target</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="executive-summary-box">
-            <p><strong>Diagnostic Breakdown:</strong> Evaluating output arrays establishes that the <strong>XGBoost Classifier</strong> outperforms baseline reference boundaries, reaching a leading classification score of <strong>0.7833 ROC-AUC</strong>. Sequential multi-tree generation isolates target properties with sharper discriminatory clarity than linear planes or basic kernel mappings.</p>
         </div>
     </section>
 
-    <!-- Conclusions -->
-    <section class="section">
-        <div class="panel-header">
-            <span class="panel-tag">Conclusions</span>
-            <h2>Project Synthesis</h2>
-            <p class="panel-desc">Performance deductions and forward-looking research strategies for the next version.</p>
+    <!-- CONCLUSIONS (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis</h2>
+                <p class="panel-desc">Performance deductions and forward-looking research strategies for the next version.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        
-        <div class="synthesis-gradient-box">
-            <p><strong>Empirical Conclusions:</strong> The <strong>XGBoost Classifier</strong> outpaced alternative estimators, achieving a peak performance scoring rate of <strong>0.7833 ROC-AUC</strong>. Tree aggregation isolates high-dimensional chemical correlations like <code>alcohol</code> profiles and <code>volatile acidity</code> bounds with sharper discriminatory clarity than standard kernel mappings.</p>
-            <p><strong>Moving Forward:</strong> To optimize generalization boundaries across noisy out-of-sample data metrics, future development updates will integrate automated hyperparameter tracking strategies paired with deep multi-layer neural classifiers to cross-evaluate structural baseline boundaries.</p>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Conclusions:</strong> The <strong>XGBoost Classifier</strong> outpaced alternative estimators, achieving a peak performance scoring rate of <strong>0.7833 ROC-AUC</strong>. Tree aggregation isolates high-dimensional chemical correlations like <code>alcohol</code> profiles and <code>volatile acidity</code> bounds with sharper discriminatory clarity than standard kernel mappings.</p>
+                    <p class="stagger-child"><strong>Moving Forward:</strong> To optimize generalization boundaries across noisy out-of-sample data metrics, future development updates will integrate automated hyperparameter tracking strategies paired with deep multi-layer neural classifiers to cross-evaluate structural baseline boundaries.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="portfolio-footer-gate minimal">
-        <div class="contact-icons" style="justify-content: center;">
-            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail">
-                <i class="fa-brands fa-google"></i>
-            </a>
-            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud">
-                <i class="fa-brands fa-apple"></i>
-            </a>
-            <a href="tel:+989012223122" class="icon-link" title="Phone">
-                <i class="fas fa-phone"></i>
-            </a>
-            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub">
-                <i class="fa-brands fa-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn">
-                <i class="fa-brands fa-linkedin-in"></i>
-            </a>
-            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle">
-                <i class="fa-brands fa-kaggle"></i>
-            </a>
+    <!-- Footer -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
         </div>
     </footer>
 
