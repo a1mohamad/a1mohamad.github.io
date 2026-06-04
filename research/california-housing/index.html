@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
     
     <script>
@@ -20,10 +19,7 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true
             },
-            chtml: {
-                scale: 1,
-                displayAlign: 'left'
-            }
+            chtml: { scale: 1, displayAlign: 'left' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -38,7 +34,7 @@
     
     <div class="btn-github-container">
         <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/California%20House%20Prediction" class="btn-modern-primary" target="_blank">
-            <i class="fa-brands fa-github"></i> <span>Source Notebook Repository</span>
+            <i class="fa-brands fa-github"></i> <span>Research Lab</span>
         </a>
     </div>
 </div>
@@ -64,93 +60,115 @@
         </div>
     </div>
 
-    <!-- Project Overview -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Contextual Briefing</span>
-            <h2>Project Overview</h2>
-            <p class="panel-desc">An empirical regression pipeline predicting median house values based on census block district statistics.</p>
-        </div>
-        <div style="color: var(--text-secondary); max-width: 900px;">
-            <p>This project leverages the classic California Housing dataset to predict median house values (in units of $100,000$). The feature space comprises metrics including median income, house age, average room counts, and geographic coordinates. We employ a <strong>Linear Regression</strong> model to map these independent variables to the target output, establishing a robust baseline for predicting real estate market valuation.</p>
-        </div>
-    </div>
-
-    <!-- Dependencies -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Infrastructure</span>
-            <h2>Core Pipeline Dependencies</h2>
-            <p class="panel-desc">The computational environment is anchored by four key data science modules for data handling, modeling, and visualization.</p>
-        </div>
-        <div class="dependencies-matrix">
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-table"></i></div>
-                <div class="dep-name">Pandas</div>
-                <div class="dep-body">Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</div>
+    <!-- Project Overview (expanded by default) -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Contextual Briefing</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">An empirical regression pipeline predicting median house values based on census block district statistics.</p>
             </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-calculator"></i></div>
-                <div class="dep-name">NumPy</div>
-                <div class="dep-body">Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</div>
-            </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-diagram-project"></i></div>
-                <div class="dep-name">Scikit‑Learn</div>
-                <div class="dep-body">Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</div>
-            </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <div class="dep-name">Seaborn &amp; Matplotlib</div>
-                <div class="dep-body">Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This project leverages the classic California Housing dataset to predict median house values (in units of $100,000$). The feature space comprises metrics including median income, house age, average room counts, and geographic coordinates. We employ a <strong>Linear Regression</strong> model to map these independent variables to the target output, establishing a robust baseline for predicting real estate market valuation.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- System Architecture Overview -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Configuration</span>
-            <h2>System Architecture Overview</h2>
-            <p class="panel-desc">A conceptual blueprint mapping raw census data through cleaning, splitting, and linear regression evaluation.</p>
+    <!-- Dependencies – converted to list rows -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">The computational environment is anchored by four key data science modules for data handling, modeling, and visualization.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div class="pipeline-layout">
-            <div class="pipeline-info-pane">
-                <div class="pipeline-meta-row">
-                    <h4>Data Loading & EDA</h4>
-                    <p>Loads the California Housing dataset directly from <strong>scikit-learn</strong> and performs initial exploratory analysis to understand feature distributions.</p>
-                </div>
-                <div class="pipeline-meta-row">
-                    <h4>Train/Test Split</h4>
-                    <p>Splits the data into training and testing sets (<strong>60/40</strong>) to evaluate model generalization on unseen data.</p>
-                </div>
-                <div class="pipeline-meta-row">
-                    <h4>Model Fitting</h4>
-                    <p>Applies Ordinary Least Squares (OLS) linear regression to learn coefficients mapping features to house prices.</p>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-table dep-icon"></i>
+                        <div><strong>Pandas</strong><span>Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</span></div>
+                    </div>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-calculator dep-icon"></i>
+                        <div><strong>NumPy</strong><span>Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</span></div>
+                    </div>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-diagram-project dep-icon"></i>
+                        <div><strong>Scikit‑Learn</strong><span>Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</span></div>
+                    </div>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-chart-line dep-icon"></i>
+                        <div><strong>Seaborn &amp; Matplotlib</strong><span>Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</span></div>
+                    </div>
                 </div>
             </div>
-            <div class="pipeline-flow-pane">
-                <div class="flow-node">
-                    <div class="flow-index">01</div>
-                    <div class="flow-details">
-                        <strong>EDA and Data Preprocessing</strong>
-                        <span>Inspect data quality, handle missing values, and scale features if needed.</span>
+        </div>
+    </section>
+
+    <!-- System Architecture – timeline + meta notes -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Configuration</span>
+                <h2>System Architecture Overview</h2>
+                <p class="panel-desc">A conceptual blueprint mapping raw census data through cleaning, splitting, and linear regression evaluation.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="pipeline-notes stagger-child">
+                    <div class="pipeline-note-row">
+                        <h4>Data Loading & EDA</h4>
+                        <p>Loads the California Housing dataset directly from <strong>scikit-learn</strong> and performs initial exploratory analysis to understand feature distributions.</p>
+                    </div>
+                    <div class="pipeline-note-row">
+                        <h4>Train/Test Split</h4>
+                        <p>Splits the data into training and testing sets (<strong>60/40</strong>) to evaluate model generalization on unseen data.</p>
+                    </div>
+                    <div class="pipeline-note-row">
+                        <h4>Model Fitting</h4>
+                        <p>Applies Ordinary Least Squares (OLS) linear regression to learn coefficients mapping features to house prices.</p>
                     </div>
                 </div>
-                <div class="flow-connector"></div>
-                <div class="flow-node">
-                    <div class="flow-index">02</div>
-                    <div class="flow-details">
-                        <strong>Train/Test Partitioning (60/40)</strong>
-                        <span>Separate data to train the model and reserve a holdout set for evaluation.</span>
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">01</span>
+                            <div>
+                                <strong>EDA and Data Preprocessing</strong>
+                                <span>Inspect data quality, handle missing values, and scale features if needed.</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="flow-connector"></div>
-                <div class="flow-node">
-                    <div class="flow-index">03</div>
-                    <div class="flow-details">
-                        <strong>Model Training & Evaluation</strong>
-                        <span>Fit Linear Regression and compute MSE/MAE metrics on test data.</span>
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">02</span>
+                            <div>
+                                <strong>Train/Test Partitioning (60/40)</strong>
+                                <span>Separate data to train the model and reserve a holdout set for evaluation.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">03</span>
+                            <div>
+                                <strong>Model Training & Evaluation</strong>
+                                <span>Fit Linear Regression and compute MSE/MAE metrics on test data.</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -158,87 +176,102 @@
     </section>
 
     <!-- Theory -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Mathematics</span>
-            <h2>Algorithmic Formulations</h2>
-            <p class="panel-desc">A mathematical look at the linear regression model and the performance metrics used for evaluation.</p>
-        </div>
-        <div class="theory-split">
-            <div class="theory-block">
-                <div>
-                    <div class="theory-card-header">
-                        <div class="theory-title">Multiple Linear Regression</div>
-                        <span class="theory-badge">OLS</span>
-                    </div>
-                    <div class="theory-math-container">
-                        $$\hat{y} = \beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_nx_n + \epsilon$$
-                    </div>
-                </div>
-                <div class="theory-explanation">
-                    Models the relationship between a dependent variable and one or more independent variables by minimizing the sum of squared residuals.
-                </div>
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Mathematics</span>
+                <h2>Algorithmic Formulations</h2>
+                <p class="panel-desc">A mathematical look at the linear regression model and the performance metrics used for evaluation.</p>
             </div>
-            <div class="theory-block">
-                <div>
-                    <div class="theory-card-header">
-                        <div class="theory-title">Performance Metrics</div>
-                        <span class="theory-badge">MSE & MAE</span>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header">
+                            <div class="theory-title">Multiple Linear Regression</div>
+                            <span class="theory-badge">OLS</span>
+                        </div>
+                        <div class="theory-math-container">
+                            $$\hat{y} = \beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_nx_n + \epsilon$$
+                        </div>
+                        <div class="theory-explanation">
+                            Models the relationship between a dependent variable and one or more independent variables by minimizing the sum of squared residuals.
+                        </div>
                     </div>
-                    <div class="theory-math-container">
-                        $$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 \quad \text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header">
+                            <div class="theory-title">Performance Metrics</div>
+                            <span class="theory-badge">MSE & MAE</span>
+                        </div>
+                        <div class="theory-math-container">
+                            $$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 \quad \text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$
+                        </div>
+                        <div class="theory-explanation">
+                            MSE penalizes larger errors more heavily, while MAE provides a linear measure of average absolute deviation.
+                        </div>
                     </div>
-                </div>
-                <div class="theory-explanation">
-                    MSE penalizes larger errors more heavily, while MAE provides a linear measure of average absolute deviation.
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Feature Table -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Dimensions</span>
-            <h2>Feature Dictionary</h2>
-            <p class="panel-desc">The eight predictor variables used to estimate median house values.</p>
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Dimensions</span>
+                <h2>Feature Dictionary</h2>
+                <p class="panel-desc">The eight predictor variables used to estimate median house values.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div class="matrix-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>MedInc</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Median income in block group.</td></tr>
-                    <tr><td><code>HouseAge</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Median house age in block group.</td></tr>
-                    <tr><td><code>AveRooms</code></td><td><span class="taxonomy-tag">Housing</span></td><td>Average number of rooms per household.</td></tr>
-                    <tr><td><code>AveBedrms</code></td><td><span class="taxonomy-tag">Housing</span></td><td>Average number of bedrooms per household.</td></tr>
-                    <tr><td><code>Population</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Total population in block group.</td></tr>
-                    <tr><td><code>Latitude</code></td><td><span class="taxonomy-tag">Geographic</span></td><td>Block group latitude coordinate.</td></tr>
-                    <tr><td><code>Longitude</code></td><td><span class="taxonomy-tag">Geographic</span></td><td>Block group longitude coordinate.</td></tr>
-                </tbody>
-            </table>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>MedInc</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Median income in block group.</td></tr>
+                            <tr><td><code>HouseAge</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Median house age in block group.</td></tr>
+                            <tr><td><code>AveRooms</code></td><td><span class="taxonomy-tag">Housing</span></td><td>Average number of rooms per household.</td></tr>
+                            <tr><td><code>AveBedrms</code></td><td><span class="taxonomy-tag">Housing</span></td><td>Average number of bedrooms per household.</td></tr>
+                            <tr><td><code>Population</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Total population in block group.</td></tr>
+                            <tr><td><code>Latitude</code></td><td><span class="taxonomy-tag">Geographic</span></td><td>Block group latitude coordinate.</td></tr>
+                            <tr><td><code>Longitude</code></td><td><span class="taxonomy-tag">Geographic</span></td><td>Block group longitude coordinate.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Code Terminal -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Implementation</span>
-            <h2>Model Optimization Sandbox</h2>
-            <p class="panel-desc">The core regression pipeline implemented with Scikit‑Learn.</p>
-        </div>
-        <div class="terminal-panel">
-            <div class="terminal-header">
-                <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                <div class="terminal-title">california_housing_pipeline.py</div>
-                <div></div>
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Model Optimization Sandbox</h2>
+                <p class="panel-desc">The core regression pipeline implemented with Scikit‑Learn.</p>
             </div>
-            <div class="terminal-body">
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header">
+                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
+                        <div class="terminal-title">california_housing_pipeline.py</div>
+                        <div></div>
+                    </div>
+                    <div class="terminal-body">
 <pre>
 <span class="code-keyword">from</span> sklearn.linear_model <span class="code-keyword">import</span> LinearRegression
 <span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> mean_squared_error, mean_absolute_error
@@ -256,131 +289,115 @@
     mae = mean_absolute_error(y_test, y_pred)
     <span class="code-keyword">return</span> mse, mae
 </pre>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Visual Diagnostics with Lightbox -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Analytics Layer</span>
-            <h2>Exploratory Visual Diagnostics</h2>
-            <p class="panel-desc">Graphical analysis of model predictions, residuals, and outliers. Click any image to enlarge.</p>
+    <!-- Visual Diagnostics (with lightbox) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Analytics Layer</span>
+                <h2>Exploratory Visual Diagnostics</h2>
+                <p class="panel-desc">Graphical analysis of model predictions, residuals, and outliers. Click any image to enlarge.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div class="viz-display-grid">
-            <div class="viz-wrapper-card">
-                <img src="actual_vs_pred.png" alt="Actual vs Predicted Values">
-                <div class="viz-meta-text">Actual vs. Predicted Values</div>
-            </div>
-            <div class="viz-wrapper-card">
-                <img src="residuals.png" alt="Residual Distribution Analysis">
-                <div class="viz-meta-text">Residual Distribution Analysis</div>
-            </div>
-            <div class="viz-wrapper-card">
-                <img src="outliers.png" alt="Outlier Identification (95th Percentile Error)">
-                <div class="viz-meta-text">Outlier Identification (95th Percentile Error)</div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="viz-display-grid">
+                    <div class="viz-wrapper-card stagger-child">
+                        <img src="actual_vs_pred.png" alt="Actual vs Predicted Values">
+                        <div class="viz-meta-text">Actual vs. Predicted Values</div>
+                    </div>
+                    <div class="viz-wrapper-card stagger-child">
+                        <img src="residuals.png" alt="Residual Distribution Analysis">
+                        <div class="viz-meta-text">Residual Distribution Analysis</div>
+                    </div>
+                    <div class="viz-wrapper-card stagger-child">
+                        <img src="outliers.png" alt="Outlier Identification (95th Percentile Error)">
+                        <div class="viz-meta-text">Outlier Identification (95th Percentile Error)</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Performance Diagnostics -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Evaluation Matrix</span>
-            <h2>Performance Diagnostics & Engine Insights</h2>
-            <p class="panel-desc">Calculated error metrics and model assessment records.</p>
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Performance Diagnostics & Engine Insights</h2>
+                <p class="panel-desc">Calculated error metrics and model assessment records.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        
-        <div class="engine-insights-stack">
-            <div class="insight-row rank-leader">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">01</div>
-                    <div class="insight-model-identity">
-                        <strong>Linear Regression</strong>
-                        <span>Ordinary Least Squares (OLS) Baseline</span>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">01</div>
+                            <div class="insight-model-identity">
+                                <strong>Linear Regression</strong>
+                                <span>Ordinary Least Squares (OLS) Baseline</span>
+                            </div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <span class="insight-score-value">0.548 / 0.538</span>
+                            <span class="insight-score-label">MSE / MAE</span>
+                        </div>
                     </div>
                 </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">0.548 / 0.538</span>
-                    <span class="insight-score-label">MSE / MAE</span>
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Diagnostic Breakdown:</strong> The <strong>Linear Regression</strong> model achieved a <strong>Mean Squared Error of 0.548</strong> and <strong>Mean Absolute Error of 0.538</strong>, indicating a moderate fit that effectively captures the main trends in housing prices.</p>
                 </div>
             </div>
-        </div>
-
-        <div class="executive-summary-box">
-            <p><strong>Diagnostic Breakdown:</strong> The <strong>Linear Regression</strong> model achieved a <strong>Mean Squared Error of 0.548</strong> and <strong>Mean Absolute Error of 0.538</strong>, indicating a moderate fit that effectively captures the main trends in housing prices.</p>
         </div>
     </section>
 
     <!-- Synthesis -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Conclusions</span>
-            <h2>Project Synthesis</h2>
-            <p class="panel-desc">Performance deductions and forward‑looking research strategies.</p>
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis</h2>
+                <p class="panel-desc">Performance deductions and forward‑looking research strategies.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        
-        <div class="synthesis-gradient-box">
-            <p><strong>Empirical Conclusions:</strong> This research confirms <strong>Linear Regression</strong> as a suitable baseline for the California Housing dataset. With an MSE of 0.548 and MAE of 0.538, the model explains a significant portion of the variance in housing prices.</p>
-            <p><strong>Moving Forward:</strong> To capture local anomalies and luxury market fluctuations, future versions should explore non‑linear ensemble methods like XGBoost or Gradient Boosting Regressors.</p>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Conclusions:</strong> This research confirms <strong>Linear Regression</strong> as a suitable baseline for the California Housing dataset. With an MSE of 0.548 and MAE of 0.538, the model explains a significant portion of the variance in housing prices.</p>
+                    <p class="stagger-child"><strong>Moving Forward:</strong> To capture local anomalies and luxury market fluctuations, future versions should explore non‑linear ensemble methods like XGBoost or Gradient Boosting Regressors.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer (comments removed) -->
-    <div class="portfolio-footer-gate">
-        <div class="footer-profile-json">
-            {<br>
-            &nbsp;&nbsp;<span class="json-key">"engineer"</span>: <span class="json-str">"Amir Mohamad Askari"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"role"</span>: <span class="json-str">"AI Research, Developer and ML Engineer"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"affiliation"</span>: <span class="json-str">"Sharif University of Technology"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"core_focus"</span>: [<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"Deep Learning and Neural Networks"</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"Computer Vision and NLP"</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"MLOps Automation Engines and Deployment"</span><br>
-            &nbsp;&nbsp;]<br>
-            }
+    <!-- Footer – icon‑only -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
         </div>
-        <div class="footer-action-links">
-            <div>
-                <h3>Contact Me!</h3>
-                <p>Access source repositories and active communication pipelines through organized gateways.</p>
-            </div>
-            
-            <div class="contacts-matrix-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
-                    <a href="mailto:a1mohamad.askari@gmail.com" class="gate-link-row">
-                        <span>Gmail</span> <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="mailto:amirmohmdaskari@icloud.com" class="gate-link-row">
-                        <span>iCloud</span> <i class="fa-brands fa-apple"></i>
-                    </a>
-                    <a href="tel:+989012223122" class="gate-link-row">
-                        <span>Phone</span> <i class="fas fa-phone"></i>
-                    </a>
-                </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
-                    <a href="https://github.com/a1mohamad" class="gate-link-row" target="_blank">
-                        <span>GitHub</span> <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="gate-link-row" target="_blank">
-                        <span>LinkedIn</span> <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://www.kaggle.com/amirmohamadaskari" class="gate-link-row" target="_blank">
-                        <span>Kaggle</span> <i class="fa-brands fa-kaggle"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </footer>
 
 </div>
+
 <div class="editorial-credits">
     Amir Mohamad Askari &bull; 2026 Analytical Document
 </div>
 
-<!-- Lightbox overlay -->
+<!-- Lightbox overlay (kept from original) -->
 <div class="lightbox-overlay" id="lightboxOverlay">
     <div class="lightbox-wrapper">
         <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
@@ -388,7 +405,6 @@
     </div>
 </div>
 
-<!-- External JS -->
 <script src="script.js"></script>
 </body>
 </html>
