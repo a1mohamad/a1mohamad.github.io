@@ -1,0 +1,177 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic Survival Prediction | Neural Network & Feature Engineering</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Deep Learning · Survival Analysis</div>
+    <h1>Titanic Survival Prediction Engine<br>Advanced Feature Engineering & Neural Network</h1>
+    <div class="hero-subtitle">Predicting passenger survival using ensemble age imputation, rich feature construction, and a 9‑fold validated neural network (TensorFlow/Keras).</div>
+    <div class="btn-group">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Titanic%20Prediction" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip">
+        <div class="metric-block" data-metric-target="0.8305" data-is-int="0"><div class="metric-label">Average Accuracy</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="0.4631" data-is-int="0"><div class="metric-label">Average Loss</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="0.8687" data-is-int="0"><div class="metric-label">Best Fold Accuracy</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="96" data-is-int="1"><div class="metric-label">Features (after OHE)</div><div class="metric-value">0</div></div>
+    </div>
+
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content"><span class="panel-tag">Classification Blueprint</span><h2>Project Overview</h2><p class="panel-desc">End‑to‑end pipeline for predicting Titanic passenger survival using neural networks and sophisticated feature engineering.</p></div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner"><div class="overview-text stagger-child"><p>The sinking of the Titanic remains one of history's most tragic maritime disasters. This project builds a predictive model to determine whether a passenger survived, leveraging passenger data such as age, sex, class, fare, and cabin information. After exploratory data analysis (survival distributions, age analysis, feature correlations), we engineer rich features: title extraction, family size, deck information, ticket group size, cabin wealth, and interaction terms. Missing ages are imputed using an ensemble of LightGBM and Random Forest regressors (60%/40% weight). A neural network with two hidden layers (64/16 neurons, ReLU, L2 regularization, dropout) is trained with 9‑fold stratified cross-validation, achieving an average validation accuracy of 83.05%.</p></div></div></div>
+    </section>
+
+    <section class="section section-collapsible">
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Infrastructure</span><h2>Core Pipeline Dependencies</h2><p class="panel-desc">Essential libraries for data processing, machine learning, and deep learning.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-body"><div class="section-body-inner"><div class="dependency-list">
+            <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas & NumPy</strong><span>Data loading, cleaning, missing value handling, feature engineering.</span></div></div>
+            <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Scikit‑Learn</strong><span>LabelEncoder, StandardScaler, OneHotEncoder, StratifiedKFold, RandomForestRegressor.</span></div></div>
+            <div class="dependency-row stagger-child"><i class="fa-solid fa-brain dep-icon"></i><div><strong>TensorFlow / Keras</strong><span>Sequential model, Dense layers, Dropout, L2 regularization, Adam optimizer, EarlyStopping, ReduceLROnPlateau.</span></div></div>
+            <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>LightGBM</strong><span>Gradient boosting for age imputation (80 estimators, categorical feature support).</span></div></div>
+            <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-simple dep-icon"></i><div><strong>Matplotlib & Seaborn</strong><span>Exploratory visualizations: survival rate by feature, age distribution, correlation heatmaps.</span></div></div>
+        </div></div></div>
+    </section>
+
+    <section class="section section-collapsible">
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Workflow Blueprint</span><h2>System Architecture Overview</h2><p class="panel-desc">From raw passenger records to survival prediction — a six‑stage pipeline.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-body"><div class="section-body-inner"><div class="timeline-flow">
+            <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Data Ingestion & Initial Inspection</strong><span>Load train/test CSV, check missing values (Age, Cabin, Embarked), basic statistics.</span></div></div></div>
+            <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Exploratory Data Analysis</strong><span>Survival distribution, age KDE, survival rates by sex/class/title/fare, correlation heatmaps.</span></div></div></div>
+            <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Feature Engineering (Age imputation)</strong><span>Create title, family_size, deck, ticket_group_size, cabin_wealth; impute Age using LightGBM + RF ensemble.</span></div></div></div>
+            <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Advanced Feature Engineering</strong><span>Add interaction features (age_class, fare_class, title_age, social_status, wealth_indicator, etc.) and encode categoricals.</span></div></div></div>
+            <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Neural Network Training (9‑Fold CV)</strong><span>Train feed‑forward network with L2 regularization, dropout, early stopping. Monitor accuracy/loss.</span></div></div></div>
+            <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">06</span><div><strong>Prediction & Submission</strong><span>Generate test set predictions, output submission.csv for Kaggle evaluation.</span></div></div></div>
+        </div></div></div>
+    </section>
+
+    <section class="section section-collapsible">
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Mathematical Mechanics</span><h2>Core Algorithms & Theory</h2><p class="panel-desc">Age imputation ensemble and neural network architecture.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-body"><div class="section-body-inner"><div class="theory-split">
+            <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Ensemble Age Imputation</div><span class="theory-badge">LightGBM + RF</span></div><div class="theory-explanation">Missing ages are predicted using a weighted ensemble of LightGBM (60%) and Random Forest (40%) regressors, trained on engineered features (title, family size, cabin wealth, interaction terms).</div><div class="theory-math-container">$$\hat{y}_{\text{age}} = 0.6 \cdot \text{LGBM}(X) + 0.4 \cdot \text{RF}(X)$$<br>Predictions clipped to [0, 80].</div><div class="theory-explanation">This approach captures non‑linear relationships and reduces bias compared to simple median imputation.</div></div>
+            <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Neural Network Classifier</div><span class="theory-badge champion-badge">Binary Classification</span></div><div class="theory-explanation">A feed‑forward network with two hidden layers, ReLU activation, L2 regularization, and Dropout for overfitting prevention. Output layer uses sigmoid for probability of survival.</div><div class="theory-math-container">$$h_1 = \text{ReLU}(W_1 x + b_1),\quad h_2 = \text{ReLU}(W_2 h_1 + b_2)$$<br>$$\hat{y} = \sigma(W_3 h_2 + b_3)$$</div><div class="theory-explanation">Loss: Binary cross‑entropy. Optimizer: Adam (lr=1e-3). Early stopping (patience=5) and ReduceLROnPlateau (factor=0.2) are used.</div></div>
+        </div></div></div>
+    </section>
+
+    <section class="section section-collapsible">
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Data Taxonomy</span><h2>Engineered Feature Space</h2><p class="panel-desc">23 numerical, 9 categorical, 7 binary features → one‑hot expanded to 96 dimensions.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-body"><div class="section-body-inner"><div class="matrix-table-container stagger-child">
+            <table>
+                <thead><tr><th>Feature Group</th><th>Examples</th><th>Description</th></tr></thead>
+                <tbody>
+                    <tr><td><code>Numerical</code></td><td>Age, SibSp, Parch, family_size, ticket_group_size, cabin_wealth, wealth_indicator, age_class, fare_class</td><td>Scaled (StandardScaler) before network input.</td></tr>
+                    <tr><td><code>Categorical</code></td><td>Pclass, Sex, Embarked, title, primary_deck, fare_quartile, age_group, family_type, ticket_prefix</td><td>One‑hot encoded, handle_unknown='ignore'.</td></tr>
+                    <tr><td><code>Binary</code></td><td>is_alone, is_child, is_parent, has_cabin, has_ticket_prefix, women_children_first, adult_male</td><td>Direct input to network (0/1).</td></tr>
+                    <tr class="target-row-highlight"><td><span class="taxonomy-tag target-style">Target</span></td><td colspan="2">Survived (0 = died, 1 = survived)</td></tr>
+                </tbody>
+            </table>
+        </div></div></div>
+    </section>
+
+    <section class="section section-collapsible">
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Implementation</span><h2>Neural Network Training & Cross‑Validation</h2><p class="panel-desc">Core training loop with 9‑fold stratified K‑Fold, batch pipelines, and callbacks.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-body"><div class="section-body-inner"><div class="terminal-panel stagger-child">
+            <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">titanic_nn_training.py</div><div></div></div>
+            <div class="terminal-body"><pre>
+<span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span> tf
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> StratifiedKFold
+
+kf = StratifiedKFold(<span class="code-num">9</span>, shuffle=True, random_state=<span class="code-num">28</span>)
+fold_accuracies = []
+
+<span class="code-keyword">for</span> fold, (train_idx, val_idx) <span class="code-keyword">in</span> enumerate(kf.split(X_train, y)):
+    model = tf.keras.Sequential([
+        tf.keras.layers.Dense(<span class="code-num">64</span>, activation=<span class="code-str">'relu'</span>, kernel_regularizer=tf.keras.regularizers.l2(<span class="code-num">0.001</span>)),
+        tf.keras.layers.Dropout(<span class="code-num">0.1</span>),
+        tf.keras.layers.Dense(<span class="code-num">16</span>, activation=<span class="code-str">'relu'</span>, kernel_regularizer=tf.keras.regularizers.l2(<span class="code-num">0.001</span>)),
+        tf.keras.layers.Dropout(<span class="code-num">0.1</span>),
+        tf.keras.layers.Dense(<span class="code-num">1</span>, activation=<span class="code-str">'sigmoid'</span>)
+    ])
+    model.compile(optimizer=tf.keras.optimizers.Adam(<span class="code-num">1e-3</span>),
+                  loss=<span class="code-str">'binary_crossentropy'</span>,
+                  metrics=[<span class="code-str">'accuracy'</span>])
+    early_stop = tf.keras.callbacks.EarlyStopping(patience=<span class="code-num">5</span>, restore_best_weights=True)
+    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor=<span class="code-str">'val_loss'</span>, factor=<span class="code-num">0.2</span>, patience=<span class="code-num">3</span>)
+    history = model.fit(train_ds, epochs=<span class="code-num">200</span>, validation_data=val_ds,
+                        callbacks=[early_stop, reduce_lr], verbose=<span class="code-num">0</span>)
+    val_acc = model.evaluate(val_ds, verbose=<span class="code-num">0</span>)[<span class="code-num">1</span>]
+    fold_accuracies.append(val_acc)
+
+<span class="code-fn">print</span>(<span class="code-str">f"Average Accuracy: {np.mean(fold_accuracies):.4f}"</span>)
+</pre></div>
+        </div></div></div>
+    </section>
+
+    <section class="section section-collapsible">
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Analytics Layer</span><h2>Exploratory Visual Diagnostics</h2><p class="panel-desc">Key visual insights from EDA: survival rates by feature, age distribution, fare analysis.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-body"><div class="section-body-inner"><div class="viz-display-grid stagger-child">
+            <div class="viz-placeholder-card"><i class="fas fa-chart-pie fa-3x"></i><div class="viz-meta-text"><strong>Survival Rate by Title / Sex / Class</strong><br>Women, children (Master), and higher passenger classes had significantly higher survival rates.</div></div>
+            <div class="viz-placeholder-card"><i class="fas fa-chart-line fa-3x"></i><div class="viz-meta-text"><strong>Age Distribution & KDE</strong><br>Children (0‑10) show higher survival; young adults (20‑40) lower survival; older passengers also lower.</div></div>
+            <div class="viz-placeholder-card"><i class="fas fa-th-large fa-3x"></i><div class="viz-meta-text"><strong>Correlation Heatmap (engineered features)</strong><br>Title, family size, cabin wealth show moderate correlation with survival.</div></div>
+        </div></div></div>
+    </section>
+
+    <section class="section section-collapsible">
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Evaluation Matrix</span><h2>Performance Diagnostics & Engine Insights</h2><p class="panel-desc">9‑Fold Cross‑Validation results (Accuracy & Loss).</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="engine-insights-stack">
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 1</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8384</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value loss-highlight">0.3972</span></div></div></div>
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 2</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8081</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.4812</span></div></div></div>
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 3</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8485</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.4551</span></div></div></div>
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 4</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8384</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.4740</span></div></div></div>
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 5</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8182</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.4656</span></div></div></div>
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 6</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8182</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.5026</span></div></div></div>
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 7</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8384</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.4818</span></div></div></div>
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 8</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value accuracy-highlight">0.8687</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.4117</span></div></div></div>
+                <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 9</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8283</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.5451</span></div></div></div>
+            </div>
+            <div class="executive-summary-box stagger-child"><p><strong>Diagnostic Breakdown:</strong> The neural network achieves stable performance across folds, with average accuracy of 83.05% and low variance. Fold 8 reaches 86.87% accuracy (best), and Fold 1 achieves the lowest loss (0.3972). The loss values are consistently low, confirming effective binary cross‑entropy minimization. The champion model (Fold 8) is saved and used for final test predictions.</p></div>
+        </div></div>
+    </section>
+
+    <section class="section section-collapsible">
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Conclusions</span><h2>Project Synthesis & Roadmap</h2><p class="panel-desc">Lessons learned and potential enhancements.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-body"><div class="section-body-inner"><div class="synthesis-gradient-box">
+            <p class="stagger-child"><strong>Empirical Breakdown:</strong> The engineered feature set (title, family, cabin wealth, social status) significantly improves age imputation and model expressiveness. The neural network with moderate regularization (L2, dropout) prevents overfitting while capturing non‑linear patterns. Stratified 9‑fold cross‑validation provides reliable performance estimates.</p>
+            <p class="stagger-child"><strong>Future Directions:</strong> Experiment with deeper architectures, hyperparameter tuning via Keras Tuner, incorporate more advanced embedding layers for categorical variables, and deploy the model as a web service. Also, feature selection techniques (SHAP, permutation importance) could reveal dominant survival factors.</p>
+        </div></div></div>
+    </section>
+
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari · Titanic Survival Analytics · 2026</div>
+<script src="script.js"></script>
+</body>
+</html>
