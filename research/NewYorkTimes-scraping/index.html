@@ -3,367 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated News Scraping & Information Retrieval | Showcase</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <title>Automated News Scraping & Information Retrieval | Amir Mohamad Askari</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-        :root {
-            --bg-main: #050508;
-            --bg-card: #0d0f16;
-            --accent-glow: #00f2fe;
-            --accent-purple: #7928ca;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --code-bg: #010409;
-            --border-glow: rgba(0, 242, 254, 0.15);
-        }
-
-        body { 
-            font-family: 'Space Grotesk', -apple-system, sans-serif; 
-            background-color: var(--bg-main); 
-            margin: 0; 
-            color: var(--text-primary); 
-            line-height: 1.7;
-        }
-
-        /* Animated High-Tech Banner */
-        .hero-banner { 
-            position: relative;
-            background: radial-gradient(circle at top right, rgba(121, 40, 202, 0.15), transparent 60%),
-                        radial-gradient(circle at bottom left, rgba(0, 242, 254, 0.1), transparent 50%),
-                        #050508;
-            padding: 120px 20px; 
-            text-align: center; 
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
-        }
-        
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-        }
-
-        .hero-banner h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0 0 15px 0;
-            background: linear-gradient(135deg, #fff 30%, var(--accent-glow) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-banner p {
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .container { 
-            max-width: 1150px; 
-            margin: -40px auto 80px; 
-            padding: 0 25px; 
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Fancy Glassmorphic Metrics Panel */
-        .metrics-panel { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 25px; 
-            margin-bottom: 45px; 
-            justify-content: center;
-        }
-
-        .metric-glow-card { 
-            background: var(--bg-card); 
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-top: 2px solid var(--accent-glow);
-            padding: 30px 25px; 
-            border-radius: 16px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
-        }
-
-        .metric-glow-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-glow);
-            box-shadow: 0 25px 50px rgba(0, 242, 254, 0.1);
-        }
-        
-        .metric-title { 
-            text-transform: uppercase; 
-            font-size: 0.75rem; 
-            letter-spacing: 2px; 
-            color: var(--text-secondary); 
-            font-weight: 700;
-            display: block;
-            margin-bottom: 12px;
-        }
-
-        .metric-line { 
-            font-size: 1.5rem; 
-            font-weight: 700; 
-            color: #fff; 
-            font-family: 'Space Grotesk', sans-serif;
-            margin-bottom: 4px;
-        }
-
-        .metric-subtext {
-            font-size: 0.85rem;
-            color: var(--accent-glow);
-            font-family: monospace;
-        }
-
-        /* Cyberpunk Section Card Configuration */
-        section { 
-            background: var(--bg-card); 
-            padding: 50px; 
-            border-radius: 24px; 
-            margin-top: 40px; 
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        }
-
-        h2 { 
-            font-size: 1.75rem;
-            color: #fff; 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            margin-top: 0;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
-        }
-
-        h2 i {
-            color: var(--accent-glow);
-            background: rgba(0, 242, 254, 0.08);
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 1.4rem;
-        }
-
-        .section-intro { 
-            color: var(--text-secondary); 
-            font-size: 1.1rem;
-            margin-bottom: 30px; 
-            border-left: 3px solid var(--accent-purple);
-            padding-left: 15px;
-        }
-
-        p {
-            color: #cbd5e1;
-        }
-
-        /* High-fidelity Python IDE Theme Component */
-        .ide-wrapper { 
-            background: var(--code-bg); 
-            border-radius: 16px; 
-            overflow: hidden; 
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.55); 
-            margin: 35px 0; 
-            text-align: left;
-        }
-
-        .ide-header { 
-            background: #0d1117; 
-            padding: 16px 24px; 
-            display: flex; 
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .ide-dots { display: flex; gap: 8px; }
-        .ide-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot-r { background: #ff5f56; } 
-        .dot-y { background: #ffbd2e; } 
-        .dot-g { background: #27c93f; }
-        .ide-tab { color: var(--text-secondary); font-family: monospace; font-size: 0.85rem; background: #161b22; padding: 6px 16px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); }
-
-        .ide-body { 
-            padding: 30px; 
-            color: #c9d1d9; 
-            font-family: 'Fira Code', 'Courier New', monospace; 
-            font-size: 0.95rem; 
-            line-height: 1.65; 
-            overflow-x: auto; 
-        }
-
-        .py-comment { color: #8b949e; font-style: italic; }
-        .py-keyword { color: #ff7b72; font-weight: bold; }
-        .py-func { color: #d2a6ff; }
-        .py-str { color: #a5d6ff; }
-        .py-num { color: #79c0ff; }
-        .py-builtin { color: #ffa657; }
-
-        /* Theory Formula Card Blocks */
-        .theory-card {
-            background: rgba(121, 40, 202, 0.03);
-            border-left: 4px solid var(--accent-purple);
-            padding: 25px 30px;
-            border-radius: 0 16px 16px 0;
-            margin: 25px 0;
-        }
-
-        /* Futuristic Footer */
-        footer { 
-            text-align: center; 
-            padding: 60px 20px; 
-            color: #4b5563; 
-            font-size: 0.9rem; 
-            border-top: 1px solid rgba(255,255,255,0.03);
-            letter-spacing: 0.5px;
-        }
-
-        footer strong { color: var(--text-secondary); }
-
-        /* GitHub Action Trigger link button */
-        .action-btn-container { text-align: center; margin-top: 40px; }
-        .action-cyber-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--accent-purple) 0%, #4c1d95 100%);
-            color: #fff;
-            padding: 16px 32px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            box-shadow: 0 10px 25px rgba(121, 40, 202, 0.3);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .action-cyber-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(121, 40, 202, 0.5);
-            background: linear-gradient(135deg, #8b5cf6 0%, var(--accent-purple) 100%);
-        }
-    </style>
 </head>
 <body>
 
-<div class="hero-banner">
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Information Retrieval Blueprint</div>
     <h1>Automated News Harvesting & Parsing Engine</h1>
-    <p>A high-performance algorithmic content scraper utilizing document tree mining and structured syndication feeds.</p>
+    <div class="hero-subtitle">A high-performance algorithmic content scraper utilizing document tree mining and structured syndication feeds.</div>
     
-    <div class="action-btn-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/NewYork%20Times%20news%20scraping" target="_blank" class="action-cyber-btn">
-            <i class="fab fa-github"></i> Source Code
+    <div class="btn-github-container">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/NewYork%20Times%20news%20scraping" class="btn-modern-primary" target="_blank">
+            <i class="fa-brands fa-github"></i> <span>Research Lab</span>
         </a>
     </div>
 </div>
 
-<div class="container">
+<div class="main-layout">
 
-    <div class="metrics-panel">
-        <div class="metric-glow-card">
-            <span class="metric-title">Monitored Ingestion Endpoints</span>
-            <div class="metric-line">Active RSS</div>
-            <div class="metric-subtext">XML Stream Parsing</div>
+    <div class="metrics-strip" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="metric-block" data-metric-type="string" data-metric-target="Active RSS">
+            <div class="metric-label">Monitored Ingestion Endpoints</div>
+            <div class="metric-value">Active RSS</div>
         </div>
-        <div class="metric-glow-card">
-            <span class="metric-title">Parsing Efficiency Index</span>
-            <div class="metric-line">O(1) Engine</div>
-            <div class="metric-subtext">Direct Node Ingestion</div>
+        <div class="metric-block" data-metric-type="string" data-metric-target="O(1) Engine">
+            <div class="metric-label">Parsing Efficiency Index</div>
+            <div class="metric-value">O(1) Engine</div>
         </div>
     </div>
 
-    <section>
-        <h2><i class="fas fa-network-wired"></i> Engineering & Harvesting Framework</h2>
-        <div class="section-intro">Extracting unstructured Web data and projecting it into a multi-dimensional analytics schema.</div>
-        <p>Web scraping bridges raw internet documents and clean algorithmic pipelines. This architecture pairs <strong>Syndication Feeds (RSS/XML)</strong> with <strong>HTML DOM tree scrapers</strong>. Feeds provide stable, real-time links to new articles, avoiding the performance costs of traditional site-wide crawling. Once an article link is discovered, the pipeline runs deep Document Object Model (DOM) node analysis to extract key content fields without bringing along unwanted page overhead like navigation headers or ad trackers.</p>
-        
-        <div class="theory-card">
-            <strong>Algorithmic Extraction Profile:</strong> 
-            The system isolates data by tracking text density across different HTML blocks. For a set of parsed structural blocks $B = \{b_1, b_2, \dots, b_n\}$, the density factor $\mathcal{D}$ for an individual node block is formulated by measuring the ratio of descriptive words to functional structural HTML tags:
-            <div style="margin: 15px 0; text-align: center; font-size: 1.15rem;">
-                $$\mathcal{D}(b_i) = \frac{\text{Count}(\text{Words} \in b_i)}{\text{Count}(\text{Tags} \in b_i) + 1}$$
+    <!-- Project Overview (expanded by default) -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Contextual Briefing</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">Extracting unstructured Web data and projecting it into a multi-dimensional analytics schema.</p>
             </div>
-            Blocks that clear the target selection threshold ($\mathcal{D}(b_i) > \tau$) are saved as core article content, while low-scoring sections are safely discarded.
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>Web scraping bridges raw internet documents and clean algorithmic pipelines. This architecture pairs <strong>Syndication Feeds (RSS/XML)</strong> with <strong>HTML DOM tree scrapers</strong>. Feeds provide stable, real-time links to new articles, avoiding the performance costs of traditional site-wide crawling. Once an article link is discovered, the pipeline runs deep Document Object Model (DOM) node analysis to extract key content fields without bringing along unwanted page overhead like navigation headers or ad trackers.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section>
-        <h2><i class="fas fa-code"></i> Execution Engine Pipeline</h2>
-        <div class="section-intro">Clean, optimized data handling code utilizing specialized document traversal patterns.</div>
-        
-        <div class="ide-wrapper">
-            <div class="ide-header">
-                <div class="ide-dots">
-                    <div class="ide-dot dot-r"></div>
-                    <div class="ide-dot dot-y"></div>
-                    <div class="ide-dot dot-g"></div>
-                </div>
-                <div class="ide-tab">news_harvest_core.py</div>
+    <!-- Dependencies (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">Libraries that power the extraction, parsing, and data manipulation stages.</p>
             </div>
-            <div class="ide-body">
-<pre>
-<span class="py-keyword">import</span> newspaper
-<span class="py-keyword">import</span> feedparser
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-rss dep-icon"></i>
+                        <div><strong>feedparser</strong><span>Parses RSS/XML syndication feeds to retrieve article links and metadata.</span></div>
+                    </div>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-newspaper dep-icon"></i>
+                        <div><strong>newspaper3k</strong><span>High-level article scraping library that handles download, DOM parsing, and content extraction.</span></div>
+                    </div>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-code dep-icon"></i>
+                        <div><strong>lxml & BeautifulSoup</strong><span>Underlying HTML/XML parsers ensuring robust document tree navigation.</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<span class="py-keyword">def</span> <span class="py-func">scrape_news_from_feed</span>(feed_url):
-    <span class="py-str">'''
+    <!-- Mathematics (collapsed) – theory card from original -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Mathematics</span>
+                <h2>Algorithmic Extraction Profile</h2>
+                <p class="panel-desc">Structural content isolation through text‑density analysis across HTML blocks.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-single stagger-child">
+                    <p>The system isolates data by tracking text density across different HTML blocks. For a set of parsed structural blocks $B = \{b_1, b_2, \dots, b_n\}$, the density factor $\mathcal{D}$ for an individual node block is formulated by measuring the ratio of descriptive words to functional structural HTML tags:</p>
+                    <div class="theory-math-container">
+                        $$\mathcal{D}(b_i) = \frac{\text{Count}(\text{Words} \in b_i)}{\text{Count}(\text{Tags} \in b_i) + 1}$$
+                    </div>
+                    <p>Blocks that clear the target selection threshold ($\mathcal{D}(b_i) > \tau$) are saved as core article content, while low‑scoring sections are safely discarded.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Terminal (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Execution Engine Pipeline</h2>
+                <p class="panel-desc">Clean, optimized data handling code utilizing specialized document traversal patterns.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header">
+                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
+                        <div class="terminal-title">news_harvest_core.py</div>
+                        <div></div>
+                    </div>
+                    <div class="terminal-body">
+<pre>
+<span class="code-keyword">import</span> newspaper
+<span class="code-keyword">import</span> feedparser
+
+<span class="code-keyword">def</span> <span class="code-fn">scrape_news_from_feed</span>(feed_url):
+    <span class="code-str">'''
     Parses a real-time syndication RSS feed endpoint and down-streams discovered HTML assets
     into clean structural dictionary schemas.
     '''</span>
     articles = []
-    <span class="py-comment"># Parse out individual stream components from raw XML layout data</span>
+    <span class="code-comment"># Parse out individual stream components from raw XML layout data</span>
     feed = feedparser.parse(feed_url)
     
-    <span class="py-keyword">for</span> entry <span class="py-keyword">in</span> feed.entries:
-        <span class="py-comment"># Allocate a specialized newspaper processing object for the targeting url link</span>
+    <span class="code-keyword">for</span> entry <span class="code-keyword">in</span> feed.entries:
+        <span class="code-comment"># Allocate a specialized newspaper processing object for the targeting url link</span>
         article = newspaper.Article(entry.link)
         
-        <span class="py-comment"># Execute raw socket network download and parse out document tree attributes</span>
+        <span class="code-comment"># Execute raw socket network download and parse out document tree attributes</span>
         article.download()
         article.parse()
         
-        <span class="py-comment"># Package processed features into a structural data matrix</span>
+        <span class="code-comment"># Package processed features into a structural data matrix</span>
         articles.append({
-            <span class="py-str">'title'</span>: article.title,
-            <span class="py-str">'author'</span>: article.authors,
-            <span class="py-str">'publish_date'</span>: article.publish_date,
-            <span class="py-str">'context'</span>: article.text
+            <span class="code-str">'title'</span>: article.title,
+            <span class="code-str">'author'</span>: article.authors,
+            <span class="code-str">'publish_date'</span>: article.publish_date,
+            <span class="code-str">'context'</span>: article.text
         })
-    <span class="py-keyword">return</span> articles
+    <span class="code-keyword">return</span> articles
 
-<span class="py-keyword">def</span> <span class="py-func">looking_details</span>(articles):
-    <span class="py-str">'''
+<span class="code-keyword">def</span> <span class="code-fn">looking_details</span>(articles):
+    <span class="code-str">'''
     Iterates through structured array elements to stream scraped indices down to standard console streams.
     '''</span>
-    <span class="py-keyword">for</span> article <span class="py-keyword">in</span> articles:
-        <span class="py-builtin">print</span>(<span class="py-str">'Title:'</span>, article[<span class="py-str">'title'</span>], <span class="py-str">'\n'</span>)
-        <span class="py-builtin">print</span>(<span class="py-str">'Author:'</span>, article[<span class="py-str">'author'</span>], <span class="py-str">'\n'</span>)
-        <span class="py-builtin">print</span>(<span class="py-str">'Publish Date:'</span>, article[<span class="py-str">'publish_date'</span>], <span class="py-str">'\n'</span>)
-        <span class="py-builtin">print</span>(<span class="py-str">'Content:'</span>, article[<span class="py-str">'context'</span>], <span class="py-str">'\n'</span>)
-        <span class="py-builtin">print</span>(<span class="py-str">'-'</span> * <span class="py-num">100</span>)
+    <span class="code-keyword">for</span> article <span class="code-keyword">in</span> articles:
+        <span class="code-builtin">print</span>(<span class="code-str">'Title:'</span>, article[<span class="code-str">'title'</span>], <span class="code-str">'\n'</span>)
+        <span class="code-builtin">print</span>(<span class="code-str">'Author:'</span>, article[<span class="code-str">'author'</span>], <span class="code-str">'\n'</span>)
+        <span class="code-builtin">print</span>(<span class="code-str">'Publish Date:'</span>, article[<span class="code-str">'publish_date'</span>], <span class="code-str">'\n'</span>)
+        <span class="code-builtin">print</span>(<span class="code-str">'Content:'</span>, article[<span class="code-str">'context'</span>], <span class="code-str">'\n'</span>)
+        <span class="code-builtin">print</span>(<span class="code-str">'-'</span> * <span class="code-num">100</span>)
 
-<span class="py-keyword">if</span> __name__ == <span class="py-str">"__main__"</span>:
-    feed_target = <span class="py-str">'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'</span>
+<span class="code-keyword">if</span> __name__ == <span class="code-str">"__main__"</span>:
+    feed_target = <span class="code-str">'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'</span>
     harvested_data = scrape_news_from_feed(feed_target)
     looking_details(harvested_data)
 </pre>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Key Insights (collapsed) – executive summary style -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Key Architectural Insights</h2>
+                <p class="panel-desc">Core observations from the harvesting pipeline design.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="executive-summary-box stagger-child" style="border-left-color: var(--accent);">
+                    <p><strong>RSS + DOM Hybrid:</strong> By combining RSS feed crawling with targeted HTML parsing, the system avoids full site recursion while still capturing rich article content. The density‑based filtering discards non‑informative blocks, keeping only relevant text.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusions (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis</h2>
+                <p class="panel-desc">Performance deductions and forward‑looking research strategies.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Conclusions:</strong> The engineered pipeline successfully harvests live news data from a premium RSS endpoint (New York Times) and transforms it into structured dictionaries ready for downstream analysis or storage.</p>
+                    <p class="stagger-child"><strong>Moving Forward:</strong> Future enhancements could include real‑time streaming capabilities, multi‑source aggregation, and integration with NLP pipelines for sentiment analysis or topic modeling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer – icon‑only -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+
 </div>
 
-<footer>
-    <p>Project Case Study Designed & Engineered by <strong>Amir Mohamad Askari</strong> &bull; 2026</p>
-</footer>
+<div class="editorial-credits">
+    Amir Mohamad Askari &bull; 2026 Analytical Document
+</div>
 
+<script src="script.js"></script>
 </body>
 </html>
