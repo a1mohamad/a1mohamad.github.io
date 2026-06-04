@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const wasExpanded = section.classList.contains('expanded');
             section.classList.toggle('expanded');
 
-            // stagger animation when expanding
             if (!wasExpanded) {
                 const children = section.querySelectorAll('.stagger-child');
                 children.forEach((child, index) => {
@@ -64,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // if section starts expanded (Overview), reveal its children immediately
         if (section.classList.contains('expanded')) {
             const children = section.querySelectorAll('.stagger-child');
             children.forEach((child, index) => {
@@ -81,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('revealed'); // draws bottom line
+                entry.target.classList.add('revealed');
             }
         });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
