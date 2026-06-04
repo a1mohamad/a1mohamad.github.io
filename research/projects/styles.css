@@ -104,3 +104,145 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
   .winner-hero.public-hero{max-width:100%}
   .contact-icons{justify-content:flex-start}
 }
+
+
+/* Final correction: GitHub CTA belongs in hero; footer contacts are equal-size buttons */
+.hero-actions {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.hero-research-lab {
+  min-height: 58px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.035));
+  color: var(--text-primary);
+  text-decoration: none;
+  box-shadow: 0 24px 70px rgba(0,0,0,.28);
+  transition: transform .22s ease, border-color .22s ease, background .22s ease, box-shadow .22s ease;
+}
+
+.hero-research-lab i {
+  font-size: 2rem;
+}
+
+.hero-research-lab span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.hero-research-lab strong {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -.025em;
+}
+
+.hero-research-lab small {
+  margin-top: 5px;
+  font-family: var(--font-mono);
+  font-size: .64rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-research-lab:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99,102,241,.45);
+  background: var(--accent-glow);
+  box-shadow: 0 28px 80px rgba(99,102,241,.10);
+}
+
+.hero-actions .hero-meta {
+  margin-top: 0 !important;
+}
+
+.footer-contact {
+  margin-top: 56px;
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  color: var(--text-secondary);
+}
+
+.contact-copy strong {
+  display: block;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  letter-spacing: -.025em;
+}
+
+.contact-copy span {
+  display: block;
+  margin-top: 6px;
+  max-width: 760px;
+  font-size: .92rem;
+  line-height: 1.65;
+}
+
+.contact-icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  flex-wrap: nowrap;
+}
+
+.contact-icons a {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: rgba(255,255,255,.02);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 1.05rem;
+  transition: all .22s ease;
+}
+
+.contact-icons a:hover {
+  color: var(--text-primary);
+  background: var(--accent-glow);
+  border-color: rgba(99,102,241,.38);
+  transform: translateY(-2px);
+}
+
+@media(max-width: 900px) {
+  .footer-contact {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .contact-icons {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}
+
+@media(max-width: 640px) {
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero-research-lab {
+    width: 100%;
+    justify-content: center;
+  }
+}

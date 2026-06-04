@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amir Mohammad Askari — Projects Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo"><span class="nav-dot"></span> Amir Mohammad Askari</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#approach">Approach</a></li>
+    <li><a href="#catalog">Projects</a></li>
+    <li><a href="../index.html#expertise">Expertise</a></li>
+    <li><a href="#contact">Connect</a></li>
+  </ul>
+  <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="nav-cta" target="_blank" rel="noopener">Let's connect</a>
+</nav>
+
+<main class="page">
+  <section class="winner-hero public-hero reveal">
+    <span class="eyebrow">Applied AI Research Archive</span>
+    <h1 class="hero-title">Projects built from data, models, and deployment‑ready thinking.</h1>
+    <p class="hero-copy">
+      A curated index of machine learning, deep learning, medical AI, regression, finance, data analysis, and data-engineering projects.
+      Use search, filters, tags, and tool labels to explore the archive as it grows.
+    </p>
+    <div class="hero-actions">
+      <a class="hero-research-lab" href="https://github.com/a1mohamad" target="_blank" rel="noopener" aria-label="Open Research Lab on GitHub">
+        <i class="fab fa-github"></i>
+        <span>
+          <strong>Research Lab</strong>
+          <small>Open source archive</small>
+        </span>
+      </a>
+
+      <div class="hero-meta">
+        <span class="meta-pill">Machine Learning</span>
+        <span class="meta-pill">Deep Learning</span>
+        <span class="meta-pill">Medical AI</span>
+        <span class="meta-pill">Data Engineering</span>
+        <span class="meta-pill">Searchable Catalog</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="catalog-shell reveal" id="catalog">
+    <div class="featured-rail">
+      <a class="featured-card" href="https://a1mohamad.github.io/research/titanic/index.html" target="_blank" rel="noopener" style="--image:linear-gradient(135deg, rgba(99,102,241,.35), rgba(5,5,8,.8)), url(assets/projects/titanic.jpg)">
+        <span class="featured-label">Featured Core · Deep Learning</span>
+        <h3>Titanic Survival Prediction Engine</h3>
+        <p>Advanced tabular survival modeling with engineered signals, age imputation, LightGBM support, and a TensorFlow/Keras neural network.</p>
+      </a>
+      <a class="featured-card" href="https://a1mohamad.github.io/research/tesla-stock/index.html" target="_blank" rel="noopener" style="--image:linear-gradient(135deg, rgba(16,185,129,.28), rgba(5,5,8,.82)), url(assets/projects/tesla-stock.jpg)">
+        <span class="featured-label">Featured Signal · Financial ML</span>
+        <h3>Tesla Stock Direction Forecasting</h3>
+        <p>Financial classification from OHLC market signals with engineered trading features and multi-model benchmarking.</p>
+      </a>
+    </div>
+
+    <div class="catalog-intro">
+      <span class="eyebrow">Full Project Catalog</span>
+      <h2>Search by project, algorithm, tool, dataset, or research domain.</h2>
+      <p>The catalog is structured for scale: more projects can be added directly in <code>script.js</code>, while search and filters keep navigation fast and clean.</p>
+    </div>
+
+    <div class="catalog-toolbar">
+      <div class="search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input id="project-search" placeholder="Search projects by title, model, tool, tag, dataset...">
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="count-label" id="project-count"></span>
+        <button class="clear-btn" id="clear-search">Reset</button>
+      </div>
+    </div>
+
+    <div class="filter-panel">
+      <div>
+        <div class="filter-label">Categories</div>
+        <div class="filter-list" id="category-filters"></div>
+      </div>
+      <div>
+        <div class="filter-label">Tools</div>
+        <div class="filter-list" id="tool-filters"></div>
+      </div>
+    </div>
+
+    <div class="project-grid" id="project-grid"></div>
+    <div class="empty-state" id="empty-state" hidden>No project matched this search.</div>
+    <div class="pagination" id="pagination"></div>
+  </section>
+
+  <footer class="footer-contact" id="contact">
+    <div class="contact-copy">
+      <strong>Want to discuss a project?</strong>
+      <span>Every project links back to the research archive, with code and implementation details connected through the same portfolio system.</span>
+    </div>
+
+    <div class="contact-icons">
+      <a href="mailto:a1mohamad.askari@gmail.com" title="Gmail" aria-label="Gmail"><i class="fab fa-google"></i></a>
+      <a href="mailto:amirmohmdaskari@icloud.com" title="iCloud" aria-label="iCloud"><i class="fab fa-apple"></i></a>
+      <a href="tel:+989012223122" title="Phone" aria-label="Phone"><i class="fas fa-phone"></i></a>
+      <a href="https://github.com/a1mohamad" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" rel="noopener" title="Kaggle" aria-label="Kaggle"><i class="fab fa-kaggle"></i></a>
+    </div>
+  </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
