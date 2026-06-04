@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ========== COUNTER ANIMATION (supports integer, percentage, decimal) ==========
+    // ========== COUNTER ANIMATION ==========
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         revealObserver.observe(section);
     });
 
-    // ========== LIGHTBOX (kept from original) ==========
+    // ========== LIGHTBOX ==========
     const overlay = document.getElementById('lightboxOverlay');
     const lightboxImg = document.getElementById('lightboxImage');
     const closeBtn = document.getElementById('lightboxClose');
