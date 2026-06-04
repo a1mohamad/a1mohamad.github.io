@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Disease Prediction | Symptom-Based Diagnostic Engine</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Diagnostic Intelligence · Clinical Decision Support</div>
+    <h1>Multi‑Disease Prediction Engine<br>Symptom‑Driven Ensemble Classification</h1>
+    <div class="hero-subtitle">Comparative evaluation of SVM, Gaussian Naive Bayes & Random Forest on a 132‑dimensional symptom space covering 41 disease phenotypes.</div>
+    <div class="btn-group">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Multi-Disease%20Prediction" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip">
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="100.00"><div class="metric-label">SVC Test Accuracy</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="100.00"><div class="metric-label">Gaussian NB Accuracy</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="100.00"><div class="metric-label">Random Forest Accuracy</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="100.00"><div class="metric-label">Ensemble (Majority Vote)</div><div class="metric-value champion-color">0</div></div>
+    </div>
+
+    <!-- Project Overview -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Clinical AI Briefing</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">End-to-end automated disease identification from symptom descriptions using heterogeneous machine learning classifiers.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child"><p>This research-grade pipeline loads a rich symptom‑disease dataset (Training.csv), cleans non-informative columns, encodes categorical targets via <code>LabelEncoder</code>, and trains three distinct classifiers: Support Vector Classifier, Gaussian Naive Bayes, and Random Forest. Cross‑validation (10‑fold) yields perfect scores, and a final voting ensemble achieves 100% test accuracy. The system also implements a real‑time symptom‑to‑prediction function that maps textual symptoms to binary feature vectors using a pre‑built symptom index.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dependencies -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">Foundational libraries for data manipulation, numeric computing, modeling, and visualization.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas & NumPy</strong><span>DataFrame loading, cleaning, dropping empty columns, and high‑performance array transformations.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Scikit‑Learn</strong><span>LabelEncoder, train_test_split, SVM, GaussianNB, RandomForestClassifier, cross_val_score, confusion_matrix.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib & Seaborn</strong><span>Balanced disease distribution barplots and confusion matrix heatmaps for diagnostic evaluation.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-simple dep-icon"></i><div><strong>SciPy & Statistics</strong><span>Mode aggregation for ensemble voting and statistical utilities.</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Architecture -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Workflow Blueprint</span>
+                <h2>System Architecture Overview</h2>
+                <p class="panel-desc">From raw symptom records to ensemble prediction — a four‑stage computational graph.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Data Acquisition & Cleaning</strong><span>Load Training.csv, drop extraneous last column, inspect class balance with seaborn barplot.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Label Encoding & Split</strong><span>Transform prognosis column into numeric labels, separate features X (132 symptoms) and target Y, 80/20 train‑test split.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Model Training & Cross‑Validation</strong><span>10‑fold CV on SVC, GaussianNB, RandomForest; all achieve 1.0 mean accuracy.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Ensemble Prediction & Deployment</strong><span>Majority voting on test set, perfect 100% accuracy; symptom‑to‑disease function ready for inference.</span></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mathematical Mechanics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Mathematical Mechanics</span>
+                <h2>Advanced ML Theory</h2>
+                <p class="panel-desc">Core formulations of the three classification paradigms used in the diagnostic engine.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Support Vector Classifier (SVC)</div><span class="theory-badge">Max‑Margin Hyperplane</span></div><div class="theory-explanation">Finds optimal separating hyperplane maximizing margin while allowing soft constraints:</div><div class="theory-math-container">$$\min_{W,b,\xi} \frac{1}{2}\|W\|^2 + C\sum\xi_i$$<br>$$y_i(W^T X_i + b) \ge 1-\xi_i,\quad \xi_i\ge 0$$</div><div class="theory-explanation">RBF kernel projects symptom vectors into higher dimensional space for non‑linear separability.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Gaussian Naive Bayes</div><span class="theory-badge">Probabilistic Generative</span></div><div class="theory-explanation">Assumes feature independence given class, with Gaussian likelihood:</div><div class="theory-math-container">$$P(X_j|Y=k) = \frac{1}{\sqrt{2\pi\sigma_k^2}} \exp\left(-\frac{(X_j-\mu_k)^2}{2\sigma_k^2}\right)$$</div><div class="theory-explanation">Posterior $P(Y|X) \propto P(Y)\prod_j P(X_j|Y)$; decision by MAP estimation.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Random Forest Ensemble</div><span class="theory-badge champion-badge">Champion Architecture</span></div><div class="theory-explanation">Bootstrap aggregation of $B$ decorrelated decision trees:</div><div class="theory-math-container">$$\hat{Y} = \text{mode}\{h_1(X), h_2(X), \dots, h_B(X)\}$$</div><div class="theory-explanation">Each tree splits on random symptom subsets, reducing variance while maintaining low bias, leading to perfect generalization on unseen cases.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Majority Voting Ensemble</div><span class="theory-badge">Late Fusion</span></div><div class="theory-explanation">Combines decisions from SVC, NB, RF via hard voting:</div><div class="theory-math-container">$$\text{Final}(x) = \underset{c}{\operatorname{argmax}} \sum_{m=1}^{3} \mathbb{1}[f_m(x) = c]$$</div><div class="theory-explanation">Leverages model diversity to achieve robust 100% test accuracy.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Space (Symptoms) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Data Taxonomy</span>
+                <h2>Symptom Feature Space</h2>
+                <p class="panel-desc">132 binary symptom indicators and target disease classes (41 unique pathologies).</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead>
+                            <tr><th>Feature Example</th><th>Category</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>itching</code></td><td><span class="taxonomy-tag">Dermatological</span></td><td>Presence of itching sensation</td></tr>
+                            <tr><td><code>skin_rash</code></td><td><span class="taxonomy-tag">Integumentary</span></td><td>Skin eruption indicator</td></tr>
+                            <tr><td><code>nodal_skin_eruptions</code></td><td><span class="taxonomy-tag">Lymphatic/Skin</span></td><td>Nodular skin lesions</td></tr>
+                            <tr><td><code>continuous_sneezing</code></td><td><span class="taxonomy-tag">Respiratory</span></td><td>Allergic/infectious sign</td></tr>
+                            <tr><td><code>shivering</code></td><td><span class="taxonomy-tag">Systemic</span></td><td>Chills/fever prodrome</td></tr>
+                            <tr><td><code>... 127 additional symptoms</code></td><td><span class="taxonomy-tag">Mixed</span></td><td>Complete binary encoding from dataset columns</td></tr>
+                            <tr class="target-row-highlight"><td><code>prognosis</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>41 disease labels (e.g., Fungal infection, Allergy, GERD, etc.)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Terminal -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Model Training & Inference Pipeline</h2>
+                <p class="panel-desc">Core Python implementation extracted from Multi-Disease_prediction.ipynb.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">disease_classifier.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np, pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">from</span> sklearn.preprocessing <span class="code-keyword">import</span> LabelEncoder
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> train_test_split, cross_val_score
+<span class="code-keyword">from</span> sklearn.svm <span class="code-keyword">import</span> SVC
+<span class="code-keyword">from</span> sklearn.naive_bayes <span class="code-keyword">import</span> GaussianNB
+<span class="code-keyword">from</span> sklearn.ensemble <span class="code-keyword">import</span> RandomForestClassifier
+<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> accuracy_score
+
+dataset = pd.read_csv(<span class="code-str">'Training.csv'</span>).dropna(axis=<span class="code-num">1</span>)
+encoder = LabelEncoder()
+dataset[<span class="code-str">'prognosis'</span>] = encoder.fit_transform(dataset[<span class="code-str">'prognosis'</span>])
+
+X = dataset.iloc[:, :-<span class="code-num">1</span>]; Y = dataset.iloc[:, -<span class="code-num">1</span>]
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=<span class="code-num">0.2</span>, random_state=<span class="code-num">24</span>)
+
+svm = SVC(); nb = GaussianNB(); rf = RandomForestClassifier(random_state=<span class="code-num">18</span>)
+
+<span class="code-keyword">for</span> model <span class="code-keyword">in</span> [svm, nb, rf]:
+    scores = cross_val_score(model, X, Y, cv=<span class="code-num">10</span>)
+    model.fit(X_train, Y_train)
+    preds = model.predict(X_test)
+    print(<span class="code-keyword">f</span><span class="code-str">"{model.__class__.__name__} test acc: {accuracy_score(Y_test, preds)*100:.2f}%"</span>)
+
+<span class="code-comment"># Ensemble majority voting (mode)</span>
+<span class="code-keyword">from</span> statistics <span class="code-keyword">import</span> mode
+final_preds = [mode([i,j,k]) <span class="code-keyword">for</span> i,j,k <span class="code-keyword">in</span> zip(svm.predict(X_test), nb.predict(X_test), rf.predict(X_test))]
+print(<span class="code-keyword">f</span><span class="code-str">"Ensemble final accuracy: {accuracy_score(Y_test, final_preds)*100:.2f}%"</span>)
+</pre></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Diagnostics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Analytics Layer</span>
+                <h2>Exploratory Visual Diagnostics</h2>
+                <p class="panel-desc">Disease distribution and confusion matrices extracted from the notebook.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="viz-display-grid stagger-child"><div class="viz-placeholder-card"><i class="fas fa-chart-pie fa-3x"></i><div class="viz-meta-text"><strong>Disease class balance (barplot)</strong><br>All 41 diseases have identical support ~120 samples — perfect balanced dataset.<br><strong>Confusion matrices</strong> (SVM, NB, RF) show perfect diagonal with zero misclassifications.</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Diagnostics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Performance Diagnostics & Engine Insights</h2>
+                <p class="panel-desc">10‑fold cross‑validation and hold‑out test metrics.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <div class="insight-row rank-leader stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>Random Forest</strong><span>Ensemble of 100 trees, Gini impurity splits</span></div></div><div class="insight-score-metrics"><span class="insight-score-value">100.00%</span><span class="insight-score-label">Test Accuracy</span></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">02</div><div class="insight-model-identity"><strong>Support Vector Classifier</strong><span>RBF kernel, C=1.0</span></div></div><div class="insight-score-metrics"><span class="insight-score-value">100.00%</span><span class="insight-score-label">Test Accuracy</span></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">03</div><div class="insight-model-identity"><strong>Gaussian Naive Bayes</strong><span>Conditional independence assumption</span></div></div><div class="insight-score-metrics"><span class="insight-score-value">100.00%</span><span class="insight-score-label">Test Accuracy</span></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">04</div><div class="insight-model-identity"><strong>Majority Voting Ensemble</strong><span>Mode of three base predictions</span></div></div><div class="insight-score-metrics"><span class="insight-score-value">100.00%</span><span class="insight-score-label">Test Accuracy</span></div></div>
+                </div>
+                <div class="executive-summary-box stagger-child"><p><strong>Diagnostic Breakdown:</strong> All three individual classifiers and the ensemble achieve perfect classification due to the highly discriminative symptom‑disease mapping and zero class overlap in the feature space. The Random Forest, however, demonstrates robustness across cross‑validation folds with minimal variance, making it the architectural champion for this structured symptom‑to‑disease task.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Synthesis & Future Work -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis & Roadmap</h2>
+                <p class="panel-desc">Empirical summary and next‑generation enhancements.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Breakdown:</strong> The system achieves 100% test accuracy across all classifiers, validating that symptom presence/absence vectors provide perfect separability for the 41 disease classes. The balanced dataset (each disease equally represented) and absence of missing values significantly contribute to this exceptional performance.</p>
+                    <p class="stagger-child"><strong>Future Directions:</strong> Extend the pipeline to handle real‑world noisy symptom input via fuzzy matching, deploy as a REST API using Flask/FastAPI, and incorporate deep learning (LSTM or transformer) for sequential symptom presentation. Additionally, hyperparameter optimization (GridSearchCV) and SHAP explainability will be integrated for clinical trust.</p>
+                    <p class="stagger-child"><strong>Live inference example:</strong> <code>predictDisease("Itching,Skin Rash,Nodal Skin Eruptions")</code> → Fungal infection (demonstrated in notebook).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari · Intelligent Diagnostics Lab · 2026</div>
+
+<script src="script.js"></script>
+</body>
+</html>
