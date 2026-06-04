@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
     
     <script>
@@ -20,10 +19,7 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true
             },
-            chtml: {
-                scale: 1,
-                displayAlign: 'left'
-            }
+            chtml: { scale: 1, displayAlign: 'left' }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -38,7 +34,7 @@
     
     <div class="btn-github-container">
         <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Zomato%20Restaurant" class="btn-modern-primary" target="_blank">
-            <i class="fa-brands fa-github"></i> <span>Source Notebook Repository</span>
+            <i class="fa-brands fa-github"></i> <span>Research Lab</span>
         </a>
     </div>
 </div>
@@ -60,142 +56,162 @@
         </div>
     </div>
 
-    <!-- Project Overview -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Contextual Briefing</span>
-            <h2>Project Overview</h2>
-            <p class="panel-desc">An empirical data exploration case study inspecting consumer trends and pricing indices within restaurant ecosystems.</p>
-        </div>
-        <div style="color: var(--text-secondary); max-width: 900px;">
-            <p>This study isolates and evaluates critical market-driven variables that govern consumer interactions within city dining frameworks. By cleaning and mining structured records, the pipeline processes text objects into parsed analytical floating-point dimensions (such as standardizing raw user review structures like <code>4.1/5</code> into computer-readable numerical representations). Through targeted query structures and multi-axis statistical plotting, this project reveals hidden patterns connecting dining modalities, relative customer volume metrics, and general booking options.</p>
-        </div>
-    </div>
-
-    <!-- Dependencies -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Infrastructure</span>
-            <h2>Core Pipeline Dependencies</h2>
-            <p class="panel-desc">The computational environment is anchored by four key data science modules for data handling, analysis, and visualization.</p>
-        </div>
-        <div class="dependencies-matrix">
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-table"></i></div>
-                <div class="dep-name">Pandas</div>
-                <div class="dep-body">Provides DataFrames for data ingestion, cleaning, and aggregation operations.</div>
+    <!-- Project Overview (expanded by default) -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Contextual Briefing</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">An empirical data exploration case study inspecting consumer trends and pricing indices within restaurant ecosystems.</p>
             </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-calculator"></i></div>
-                <div class="dep-name">NumPy</div>
-                <div class="dep-body">Supports numerical computations and array manipulations during data transformation.</div>
-            </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <div class="dep-name">Matplotlib</div>
-                <div class="dep-body">Creates foundational plots such as line charts and count distributions.</div>
-            </div>
-            <div class="dependency-card">
-                <div class="dep-icon"><i class="fa-solid fa-chart-pie"></i></div>
-                <div class="dep-name">Seaborn</div>
-                <div class="dep-body">Generates statistical graphics like heatmaps, boxplots, and countplots.</div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This study isolates and evaluates critical market-driven variables that govern consumer interactions within city dining frameworks. By cleaning and mining structured records, the pipeline processes text objects into parsed analytical floating-point dimensions (such as standardizing raw user review structures like <code>4.1/5</code> into computer-readable numerical representations). Through targeted query structures and multi-axis statistical plotting, this project reveals hidden patterns connecting dining modalities, relative customer volume metrics, and general booking options.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- System Architecture Overview -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Configuration</span>
-            <h2>System Architecture Overview</h2>
-            <p class="panel-desc">A conceptual pipeline for the EDA workflow, from raw data to visual insights.</p>
-        </div>
-        <div class="pipeline-layout">
-            <div class="pipeline-info-pane">
-                <div class="pipeline-meta-row">
-                    <h4>Data Loading & Inspection</h4>
-                    <p>Load the CSV file, inspect structure, data types, and check for missing values.</p>
-                </div>
-                <div class="pipeline-meta-row">
-                    <h4>Feature Engineering & Cleaning</h4>
-                    <p>Parse the 'rate' column (e.g., "4.1/5" → 4.1) and convert data types for analysis.</p>
-                </div>
-                <div class="pipeline-meta-row">
-                    <h4>Aggregation & Visualization</h4>
-                    <p>Group, pivot, and visualize to uncover patterns in votes, orders, and restaurant types.</p>
-                </div>
+    <!-- Dependencies (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">The computational environment is anchored by four key data science modules for data handling, analysis, and visualization.</p>
             </div>
-            <div class="pipeline-flow-pane">
-                <div class="flow-node">
-                    <div class="flow-index">01</div>
-                    <div class="flow-details">
-                        <strong>Load & Profile Data</strong>
-                        <span>Read CSV, display head(), info(), check for nulls.</span>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-table dep-icon"></i>
+                        <div><strong>Pandas</strong><span>Provides DataFrames for data ingestion, cleaning, and aggregation operations.</span></div>
                     </div>
-                </div>
-                <div class="flow-connector"></div>
-                <div class="flow-node">
-                    <div class="flow-index">02</div>
-                    <div class="flow-details">
-                        <strong>Clean & Parse Features</strong>
-                        <span>Convert 'rate' to float, rename columns for consistency.</span>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-calculator dep-icon"></i>
+                        <div><strong>NumPy</strong><span>Supports numerical computations and array manipulations during data transformation.</span></div>
                     </div>
-                </div>
-                <div class="flow-connector"></div>
-                <div class="flow-node">
-                    <div class="flow-index">03</div>
-                    <div class="flow-details">
-                        <strong>Analyze & Visualize</strong>
-                        <span>Generate countplots, boxplots, pivot tables, and heatmaps.</span>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-chart-line dep-icon"></i>
+                        <div><strong>Matplotlib</strong><span>Creates foundational plots such as line charts and count distributions.</span></div>
+                    </div>
+                    <div class="dependency-row stagger-child">
+                        <i class="fa-solid fa-chart-pie dep-icon"></i>
+                        <div><strong>Seaborn</strong><span>Generates statistical graphics like heatmaps, boxplots, and countplots.</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Feature Table -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Dimensions</span>
-            <h2>Processed Data Schema</h2>
-            <p class="panel-desc">Structural description of the engineered metrics vector tracking restaurant profiles.</p>
+    <!-- System Architecture (collapsed) – vertical timeline only -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Configuration</span>
+                <h2>System Architecture Overview</h2>
+                <p class="panel-desc">A conceptual pipeline for the EDA workflow, from raw data to visual insights.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        <div class="matrix-table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Category</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td><code>name</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Unique Business Entity Identifier</td></tr>
-                    <tr><td><code>online_order</code></td><td><span class="taxonomy-tag">Binary Categorical</span></td><td>Evaluates digital consumer access alternatives (Yes/No)</td></tr>
-                    <tr><td><code>book_table</code></td><td><span class="taxonomy-tag">Binary Categorical</span></td><td>Tracks physical table reservation infrastructure (Yes/No)</td></tr>
-                    <tr><td><code>rate</code></td><td><span class="taxonomy-tag">Continuous</span></td><td>Normalized user satisfaction score (extracted from fraction string)</td></tr>
-                    <tr><td><code>votes</code></td><td><span class="taxonomy-tag">Quantitative</span></td><td>Accumulated quantitative feedback density</td></tr>
-                    <tr><td><code>approx_cost(for two people)</code></td><td><span class="taxonomy-tag">Quantitative</span></td><td>Economic benchmark pricing variable for consumer profile clustering</td></tr>
-                    <tr><td><code>listed_in(type)</code></td><td><span class="taxonomy-tag">Categorical</span></td><td>Structural classification of the establishment's business model</td></tr>
-                </tbody>
-            </table>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">01</span>
+                            <div>
+                                <strong>Load & Profile Data</strong>
+                                <span>Read CSV, display head(), info(), check for nulls.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">02</span>
+                            <div>
+                                <strong>Clean & Parse Features</strong>
+                                <span>Convert 'rate' to float, rename columns for consistency.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-node stagger-child">
+                        <div class="flow-dot"></div>
+                        <div class="flow-content">
+                            <span class="flow-step">03</span>
+                            <div>
+                                <strong>Analyze & Visualize</strong>
+                                <span>Generate countplots, boxplots, pivot tables, and heatmaps.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Code Terminal -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Implementation</span>
-            <h2>Exploratory Data Analysis Sandbox</h2>
-            <p class="panel-desc">The algorithmic data cleaning, aggregation, and macro-profiling logic utilized during the EDA pipeline phase.</p>
-        </div>
-        <div class="terminal-panel">
-            <div class="terminal-header">
-                <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                <div class="terminal-title">zomato_eda_pipeline.py</div>
-                <div></div>
+    <!-- Feature Table (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Dimensions</span>
+                <h2>Processed Data Schema</h2>
+                <p class="panel-desc">Structural description of the engineered metrics vector tracking restaurant profiles.</p>
             </div>
-            <div class="terminal-body">
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>name</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Unique Business Entity Identifier</td></tr>
+                            <tr><td><code>online_order</code></td><td><span class="taxonomy-tag">Binary Categorical</span></td><td>Evaluates digital consumer access alternatives (Yes/No)</td></tr>
+                            <tr><td><code>book_table</code></td><td><span class="taxonomy-tag">Binary Categorical</span></td><td>Tracks physical table reservation infrastructure (Yes/No)</td></tr>
+                            <tr><td><code>rate</code></td><td><span class="taxonomy-tag">Continuous</span></td><td>Normalized user satisfaction score (extracted from fraction string)</td></tr>
+                            <tr><td><code>votes</code></td><td><span class="taxonomy-tag">Quantitative</span></td><td>Accumulated quantitative feedback density</td></tr>
+                            <tr><td><code>approx_cost(for two people)</code></td><td><span class="taxonomy-tag">Quantitative</span></td><td>Economic benchmark pricing variable for consumer profile clustering</td></tr>
+                            <tr><td><code>listed_in(type)</code></td><td><span class="taxonomy-tag">Categorical</span></td><td>Structural classification of the establishment's business model</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Terminal (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Exploratory Data Analysis Sandbox</h2>
+                <p class="panel-desc">The algorithmic data cleaning, aggregation, and macro-profiling logic utilized during the EDA pipeline phase.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header">
+                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
+                        <div class="terminal-title">zomato_eda_pipeline.py</div>
+                        <div></div>
+                    </div>
+                    <div class="terminal-body">
 <pre>
 <span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
 <span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
@@ -249,122 +265,106 @@ pivot_table = dataframe.pivot_table(index=<span class="code-str">'listed_in(type
 sns.heatmap(pivot_table, annot=<span class="code-keyword">True</span>, cmap=<span class="code-str">'YlGnBu'</span>, fmt=<span class="code-str">'d'</span>)
 plt.show()
 </pre>
-            </div>
-        </div>
-    </section>
-
-    <!-- Visual Diagnostics -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Analytics Layer</span>
-            <h2>Distribution & Matrix Heatmaps</h2>
-            <p class="panel-desc">Exploratory graphics tracking consumer engagement across distinct dining channels. Click any image to enlarge.</p>
-        </div>
-        <div class="viz-display-grid">
-            <div class="viz-wrapper-card">
-                <img src="rating_distribution.png" alt="Zomato Rating Distribution Histogram">
-                <div class="viz-meta-text">Histogram Analysis: Checking Overall User Rating Distribution Spreads</div>
-            </div>
-            <div class="viz-wrapper-card">
-                <img src="online_vs_offline_heatmap.png" alt="Zomato Online Order Heatmap Matrix">
-                <div class="viz-meta-text">Heatmap Analysis: Pivot Cross-Tabulation Mapping Restaurant Category vs. Online Order Frequency</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Key Analytical Findings -->
-    <section class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Evaluation Matrix</span>
-            <h2>Key Analytical Findings</h2>
-            <p class="panel-desc">Primary insights extracted from the exploratory data analysis.</p>
-        </div>
-        
-        <div class="engine-insights-stack">
-            <div class="insight-row rank-leader">
-                <div class="insight-left-meta">
-                    <div class="insight-rank-index">★</div>
-                    <div class="insight-model-identity">
-                        <strong>Empire Restaurant</strong>
-                        <span>Highest user interaction footprint</span>
                     </div>
                 </div>
-                <div class="insight-score-metrics">
-                    <span class="insight-score-value">4,884</span>
-                    <span class="insight-score-label">Total Votes</span>
-                </div>
             </div>
-        </div>
-
-        <div class="executive-summary-box">
-            <p><strong>Diagnostic Breakdown:</strong> Traditional dine‑in restaurants rely heavily on offline orders, while modern cafes drive traffic through online order channels. The pivot heatmap clearly illustrates this behavioral split between restaurant type and ordering preference.</p>
         </div>
     </section>
 
-    <!-- Synthesis -->
-    <div class="panel">
-        <div class="panel-header">
-            <span class="panel-tag">Conclusions</span>
-            <h2>Analytical Synthesis</h2>
-            <p class="panel-desc">Key market discoveries pulled from the completed Exploratory Data Analysis workflow.</p>
+    <!-- Visual Diagnostics (collapsed) – images with lightbox -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Analytics Layer</span>
+                <h2>Distribution & Matrix Heatmaps</h2>
+                <p class="panel-desc">Exploratory graphics tracking consumer engagement across distinct dining channels. Click any image to enlarge.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
         </div>
-        
-        <div class="synthesis-gradient-box">
-            <p><strong>Core Observations:</strong> Our analysis reveals that <strong>Empire Restaurant</strong> generated the highest user interaction footprint, logging a peak of <strong>4,884 total votes</strong> within this dataset. When checking cross-categorical dependencies via pivot matrices, clear structural dining habits emerge: traditional sit-down dining establishments focus heavily on direct offline orders, while modern cafes generate most of their traffic via digital online order pipelines.</p>
-            <p><strong>Conclusion Summary:</strong> Customers explicitly prefer in-person visits when dealing with premium multi-course dining environments, but show a strong preference for digital order setups when engaging with smaller cafe locations.</p>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="viz-display-grid">
+                    <div class="viz-wrapper-card stagger-child">
+                        <img src="rating_distribution.png" alt="Zomato Rating Distribution Histogram">
+                        <div class="viz-meta-text">Histogram Analysis: Checking Overall User Rating Distribution Spreads</div>
+                    </div>
+                    <div class="viz-wrapper-card stagger-child">
+                        <img src="online_vs_offline_heatmap.png" alt="Zomato Online Order Heatmap Matrix">
+                        <div class="viz-meta-text">Heatmap Analysis: Pivot Cross-Tabulation Mapping Restaurant Category vs. Online Order Frequency</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <div class="portfolio-footer-gate">
-        <div class="footer-profile-json">
-            {<br>
-            &nbsp;&nbsp;<span class="json-key">"engineer"</span>: <span class="json-str">"Amir Mohamad Askari"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"role"</span>: <span class="json-str">"AI Research, Developer and ML Engineer"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"affiliation"</span>: <span class="json-str">"Sharif University of Technology"</span>,<br>
-            &nbsp;&nbsp;<span class="json-key">"core_focus"</span>: [<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"Deep Learning and Neural Networks"</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"Computer Vision and NLP"</span>,<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-str">"MLOps Automation Engines and Deployment"</span><br>
-            &nbsp;&nbsp;]<br>
-            }
-        </div>
-        <div class="footer-action-links">
-            <div>
-                <h3>Contact Me!</h3>
-                <p>Access source repositories and active communication pipelines through organized gateways.</p>
+    <!-- Key Analytical Findings (collapsed) – using performance style -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Key Analytical Findings</h2>
+                <p class="panel-desc">Primary insights extracted from the exploratory data analysis.</p>
             </div>
-            
-            <div class="contacts-matrix-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
-                    <a href="mailto:a1mohamad.askari@gmail.com" class="gate-link-row">
-                        <span>Gmail</span> <i class="fas fa-envelope"></i>
-                    </a>
-                    <a href="mailto:amirmohmdaskari@icloud.com" class="gate-link-row">
-                        <span>iCloud</span> <i class="fa-brands fa-apple"></i>
-                    </a>
-                    <a href="tel:+989012223122" class="gate-link-row">
-                        <span>Phone</span> <i class="fas fa-phone"></i>
-                    </a>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">★</div>
+                            <div class="insight-model-identity">
+                                <strong>Empire Restaurant</strong>
+                                <span>Highest user interaction footprint</span>
+                            </div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <span class="insight-score-value">4,884</span>
+                            <span class="insight-score-label">Total Votes</span>
+                        </div>
+                    </div>
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 2px;"></span>
-                    <a href="https://github.com/a1mohamad" class="gate-link-row" target="_blank">
-                        <span>GitHub</span> <i class="fa-brands fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="gate-link-row" target="_blank">
-                        <span>LinkedIn</span> <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a href="https://www.kaggle.com/amirmohamadaskari" class="gate-link-row" target="_blank">
-                        <span>Kaggle</span> <i class="fa-brands fa-kaggle"></i>
-                    </a>
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Diagnostic Breakdown:</strong> Traditional dine‑in restaurants rely heavily on offline orders, while modern cafes drive traffic through online order channels. The pivot heatmap clearly illustrates this behavioral split between restaurant type and ordering preference.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Synthesis (collapsed) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Analytical Synthesis</h2>
+                <p class="panel-desc">Key market discoveries pulled from the completed Exploratory Data Analysis workflow.</p>
+            </div>
+            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Core Observations:</strong> Our analysis reveals that <strong>Empire Restaurant</strong> generated the highest user interaction footprint, logging a peak of <strong>4,884 total votes</strong> within this dataset. When checking cross-categorical dependencies via pivot matrices, clear structural dining habits emerge: traditional sit-down dining establishments focus heavily on direct offline orders, while modern cafes generate most of their traffic via digital online order pipelines.</p>
+                    <p class="stagger-child"><strong>Conclusion Summary:</strong> Customers explicitly prefer in-person visits when dealing with premium multi-course dining environments, but show a strong preference for digital order setups when engaging with smaller cafe locations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer – icon‑only -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
 
 </div>
+
 <div class="editorial-credits">
     Amir Mohamad Askari &bull; 2026 Analytical Document
 </div>
@@ -377,7 +377,6 @@ plt.show()
     </div>
 </div>
 
-<!-- External JS -->
 <script src="script.js"></script>
 </body>
 </html>
