@@ -158,26 +158,6 @@ h1 {
     box-shadow: 0 0 0 rgba(99, 102, 241, 0);
     transition: opacity 0.24s ease, box-shadow 0.24s ease;
 }
-.section-header::after {
-    content: "Tapp forr morre infoo";
-    position: absolute;
-    right: 96px;
-    bottom: 14px;
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 1.1px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    opacity: 0.78;
-    pointer-events: none;
-    transition: color 0.2s ease, opacity 0.2s ease;
-}
-.section.expanded .section-header::after {
-    content: "Showwing detaails";
-    color: var(--accent);
-    opacity: 0.95;
-}
 .section-header:hover,
 .section-header:focus-visible {
     background: linear-gradient(90deg, rgba(99, 102, 241, 0.075), rgba(255, 255, 255, 0.018) 62%, rgba(255, 255, 255, 0));
