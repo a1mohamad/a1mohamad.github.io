@@ -386,27 +386,18 @@ td code {
 
 /* Visualisations & Lightbox */
 .viz-display-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
 }
-.viz-wrapper-card {
-    background: var(--surface-card); border: 1px solid var(--border);
-    border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform 0.2s;
-}
-.viz-wrapper-card:hover { transform: translateY(-5px); }
-.viz-wrapper-card img {
-    width: 100%; display: block; height: auto;
-}
-.viz-meta-text {
-    padding: 15px; font-size: 0.88rem; color: var(--text-secondary); text-align: center;
-    font-weight: 600;
-}
+
+/* CLEAN HOVER EFFECT - NO DUPLICATES */
 .viz-wrapper-card {
     background: var(--surface-card);
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
-    /* NEW LINES BELOW - add only these */
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     will-change: transform;
 }
@@ -415,6 +406,21 @@ td code {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
+
+.viz-wrapper-card img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+.viz-meta-text {
+    padding: 15px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    text-align: center;
+    font-weight: 600;
+}
+
 .lightbox-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.9); display: none; z-index: 1000;
