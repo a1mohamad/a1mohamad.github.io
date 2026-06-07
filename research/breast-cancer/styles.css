@@ -158,26 +158,6 @@ h1 {
     box-shadow: 0 0 0 rgba(99, 102, 241, 0);
     transition: opacity 0.24s ease, box-shadow 0.24s ease;
 }
-.section-header::after {
-    content: "Tap for more info";
-    position: absolute;
-    right: 96px;
-    bottom: 14px;
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 1.1px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    opacity: 0.78;
-    pointer-events: none;
-    transition: color 0.2s ease, opacity 0.2s ease;
-}
-.section.expanded .section-header::after {
-    content: "Showing details";
-    color: var(--accent);
-    opacity: 0.95;
-}
 .section-header:hover,
 .section-header:focus-visible {
     background: linear-gradient(90deg, rgba(99, 102, 241, 0.075), rgba(255, 255, 255, 0.018) 62%, rgba(255, 255, 255, 0));
@@ -395,13 +375,14 @@ td code {
     justify-content: center;
 }
 
-.viz-wrapper-card img {
-    width: 100%;
-    height: auto;
-    max-height: 280px;          /* keeps image from being huge */
-    object-fit: contain;        /* preserves aspect ratio, no cropping */
-    background: #0a0b10;        /* optional: matches dark background */
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+.viz-wrapper-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;                       /* ← hand cursor on hover */
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
 }
 
 .viz-wrapper-card:hover {
@@ -412,13 +393,12 @@ td code {
 .viz-wrapper-card img {
     width: 100%;
     height: auto;
-    max-height: 280px;        /* 👈 Keeps image from being huge */
-    object-fit: contain;      /* 👈 Preserves aspect ratio, no cropping */
-    background: #0a0b10;      /* optional: matches dark background */
+    max-height: 280px;
+    object-fit: contain;
+    background: #0a0b10;
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* On hover, scale the image slightly – but still inside card */
 .viz-wrapper-card:hover img {
     transform: scale(1.02);
 }
@@ -434,7 +414,6 @@ td code {
     font-weight: 600;
     border-top: 1px solid var(--border);
 }
-
 /* Lightbox overlay – unchanged */
 .lightbox-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
