@@ -35,6 +35,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Switch-based accordion disclosure system
     const collapsibleSections = document.querySelectorAll('.section-collapsible');
+    if (collapsibleSections.length) {
+        const guide = document.createElement('div');
+        guide.className = 'accordion-guide';
+        guide.innerHTML = `
+            <div class="accordion-guide-main">
+                <i class="fa-solid fa-toggle-on"></i>
+                <span>Expandable case study</span>
+            </div>
+            <div class="accordion-guide-hint">Use the switch — or tap any title row — for more technical info.</div>
+        `;
+        collapsibleSections[0].parentNode.insertBefore(guide, collapsibleSections[0]);
+    }
+
+    const revealSectionChildren = (section) => {
+        const children = section.querySelectorAll('.stagger-child');
+        children.forEach((child, index) => {
+            child.style.transitionDelay = (index * 0.07) + 's';
+            child.classList.add('revealed');
+        });
+        setTimeout(() => {
+            children.forEach(child => child.style.transitionDelay = '');
+        }, 800);
+    };
+
+    const hideSectionChildren = (section) => {
+        const children = section.querySelectorAll('.stagger-child');
+        children.forEach(child => {
+            child.classList.remove('revealed');
+            child.style.transitionDelay = '';
+        });
+    };
 
     const setBodyHeight = (section) => {
         const body = section.querySelector('.section-body');
@@ -46,27 +77,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    const syncAccordionUI = (section, idx) => {
+    const syncAccordionUI = (section, index) => {
         const header = section.querySelector('.section-header');
+        const body = section.querySelector('.section-body');
         const isExpanded = section.classList.contains('expanded');
-        header.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        const bodyId = body?.id || `section-panel-${index + 1}`;
+        if (body) body.id = bodyId;
+        if (header) {
+            header.setAttribute('role', 'button');
+            header.setAttribute('tabindex', '0');
+            header.setAttribute('aria-expanded', String(isExpanded));
+            header.setAttribute('aria-controls', bodyId);
+            header.setAttribute('title', isExpanded ? 'Tap to hide details' : 'Tap for more info');
+        }
         setBodyHeight(section);
-    };
-
-    const revealSectionChildren = (section) => {
-        const children = section.querySelectorAll('.stagger-child');
-        children.forEach((child, index) => {
-            setTimeout(() => {
-                child.classList.add('revealed');
-            }, index * 100);
-        });
-    };
-
-    const hideSectionChildren = (section) => {
-        const children = section.querySelectorAll('.stagger-child');
-        children.forEach(child => {
-            child.classList.remove('revealed');
-        });
     };
 
     collapsibleSections.forEach((section, idx) => {
@@ -112,33 +136,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.section').forEach(section => revealObserver.observe(section));
-
-    // ========== LIGHTBOX DISPLAY INTEGRATION ==========
-    const overlay = document.getElementById('lightboxOverlay');
-    const lightboxImg = document.getElementById('lightboxImage');
-    const closeBtn = document.getElementById('lightboxClose');
-    const portfolioImages = document.querySelectorAll('.viz-wrapper-card img');
-
-    if (overlay && lightboxImg && closeBtn) {
-        portfolioImages.forEach(image => {
-            image.addEventListener('click', () => {
-                lightboxImg.src = image.src;
-                lightboxImg.alt = image.alt;
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        const dismissLightbox = () => {
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        };
-
-        closeBtn.addEventListener('click', dismissLightbox);
-        overlay.addEventListener('click', (event) => {
-            if (event.target === overlay) {
-                dismissLightbox();
-            }
-        });
-    }
 });
