@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated News Scraping & Information Retrieval | Amir Mohamad Askari</title>
+    <title>Automated News Harvesting & Parsing Engine | Information Retrieval Suite</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="styles.css">
     
     <script>
@@ -31,25 +30,16 @@
     <div class="hero-meta">Information Retrieval Blueprint</div>
     <h1>Automated News Harvesting & Parsing Engine</h1>
     <div class="hero-subtitle">A high-performance algorithmic content scraper utilizing document tree mining and structured syndication feeds.</div>
-    
-    <div class="btn-github-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/NewYork%20Times%20news%20scraping" class="btn-modern-primary" target="_blank">
-            <i class="fa-brands fa-github"></i> <span>Research Lab</span>
-        </a>
+    <div class="btn-group">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/NewYork%20Times%20news%20scraping" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
     </div>
 </div>
 
 <div class="main-layout">
-
-    <div class="metrics-strip" style="grid-template-columns: repeat(2, 1fr);">
-        <div class="metric-block" data-metric-type="string" data-metric-target="Active RSS">
-            <div class="metric-label">Monitored Ingestion Endpoints</div>
-            <div class="metric-value">Active RSS</div>
-        </div>
-        <div class="metric-block" data-metric-type="string" data-metric-target="O(1) Engine">
-            <div class="metric-label">Parsing Efficiency Index</div>
-            <div class="metric-value">O(1) Engine</div>
-        </div>
+    <!-- Metrics strip (string values, no animation needed) -->
+    <div class="metrics-strip">
+        <div class="metric-block" data-metric-type="string" data-metric-target="Active RSS"><div class="metric-label">Monitored Ingestion Endpoints</div><div class="metric-value">Active RSS</div></div>
+        <div class="metric-block" data-metric-type="string" data-metric-target="O(1) Engine"><div class="metric-label">Parsing Efficiency Index</div><div class="metric-value">O(1) Engine</div></div>
     </div>
 
     <!-- Project Overview (expanded by default) -->
@@ -84,24 +74,15 @@
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="dependency-list">
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-rss dep-icon"></i>
-                        <div><strong>feedparser</strong><span>Parses RSS/XML syndication feeds to retrieve article links and metadata.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-newspaper dep-icon"></i>
-                        <div><strong>newspaper3k</strong><span>High-level article scraping library that handles download, DOM parsing, and content extraction.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-code dep-icon"></i>
-                        <div><strong>lxml & BeautifulSoup</strong><span>Underlying HTML/XML parsers ensuring robust document tree navigation.</span></div>
-                    </div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-rss dep-icon"></i><div><strong>feedparser</strong><span>Parses RSS/XML syndication feeds to retrieve article links and metadata.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-newspaper dep-icon"></i><div><strong>newspaper3k</strong><span>High-level article scraping library that handles download, DOM parsing, and content extraction.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-code dep-icon"></i><div><strong>lxml & BeautifulSoup</strong><span>Underlying HTML/XML parsers ensuring robust document tree navigation.</span></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mathematics (collapsed) – theory card from original -->
+    <!-- Mathematical Mechanics (Algorithmic Extraction) -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -124,7 +105,7 @@
         </div>
     </section>
 
-    <!-- Code Terminal (collapsed) -->
+    <!-- Code Terminal / Implementation -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -137,13 +118,8 @@
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="terminal-panel stagger-child">
-                    <div class="terminal-header">
-                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                        <div class="terminal-title">news_harvest_core.py</div>
-                        <div></div>
-                    </div>
-                    <div class="terminal-body">
-<pre>
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">news_harvest_core.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
 <span class="code-keyword">import</span> newspaper
 <span class="code-keyword">import</span> feedparser
 
@@ -188,14 +164,13 @@
     feed_target = <span class="code-str">'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'</span>
     harvested_data = scrape_news_from_feed(feed_target)
     looking_details(harvested_data)
-</pre>
-                    </div>
+</pre></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Key Insights (collapsed) – executive summary style -->
+    <!-- Key Architectural Insights -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -214,7 +189,7 @@
         </div>
     </section>
 
-    <!-- Conclusions (collapsed) -->
+    <!-- Project Synthesis & Roadmap -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -234,7 +209,7 @@
         </div>
     </section>
 
-    <!-- Footer – icon‑only -->
+    <!-- Footer -->
     <footer class="portfolio-footer-gate">
         <div class="contact-icons">
             <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
@@ -245,12 +220,8 @@
             <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
         </div>
     </footer>
-
 </div>
-
-<div class="editorial-credits">
-    Amir Mohamad Askari &bull; 2026 Analytical Document
-</div>
+<div class="editorial-credits">Amir Mohamad Askari · Automated News Intelligence · 2026</div>
 
 <script src="script.js"></script>
 </body>
