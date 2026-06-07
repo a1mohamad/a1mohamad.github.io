@@ -92,7 +92,7 @@ const projects = [
       "Deep Learning",
       "Classification"
     ],
-    "href": "https://a1mohamad.github.io/research/multi-disease/index.html",
+    "href": "https://a1mohamad.github.io/research/multi-diseases/index.html",
     "image": "linear-gradient(135deg, rgba(14,165,233,.28), rgba(5,5,8,.82)), url(assets/projects/multi-disease.jpg)"
   },
   {
