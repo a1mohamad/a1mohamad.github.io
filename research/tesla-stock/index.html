@@ -39,13 +39,13 @@
 
     <!-- project overview (expanded) -->
     <section class="section section-collapsible expanded">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Market Signal Intelligence</span><h2>Project Overview</h2><p class="panel-desc">Binary classification to predict whether Tesla stock price will rise or fall on the next trading day.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Market Signal Intelligence</span><h2>Project Overview</h2><p class="panel-desc">Binary classification to predict whether Tesla stock price will rise or fall on the next trading day.</p></div><div class="chevron"></div></div>
         <div class="section-body"><div class="section-body-inner"><div class="overview-text stagger-child"><p>This project leverages 10 years of Tesla OHLC data (2010–2020) to forecast the direction of daily price movement. After extensive exploratory data analysis (time series plots, distribution analysis, quarterly trends), feature engineering adds <code>open-close</code>, <code>low-high</code>, <code>is_quarter_end</code>, and a binary target (1 if next day’s close > today’s close). Six classifiers — SVC, Decision Tree, Logistic Regression, XGBClassifier, XGBRFClassifier, Random Forest — are trained on scaled features (StandardScaler). Performance is evaluated using accuracy, ROC-AUC, and F1 scores. XGBoost achieves the highest test accuracy (53.51%), while Logistic Regression offers a more balanced, generalisable baseline (52.27% accuracy, ROC-AUC 0.514).</p></div></div></div>
     </section>
 
     <!-- dependencies -->
     <section class="section section-collapsible">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Core Stack</span><h2>Pipeline Dependencies</h2><p class="panel-desc">Python libraries for data manipulation, machine learning & visualisation.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Core Stack</span><h2>Pipeline Dependencies</h2><p class="panel-desc">Python libraries for data manipulation, machine learning & visualisation.</p></div><div class="chevron"></div></div>
         <div class="section-body"><div class="section-body-inner"><div class="dependency-list">
             <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas & NumPy</strong><span>Data loading, date splitting, feature engineering (open-close, low-high, quarter-end flags).</span></div></div>
             <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Scikit‑Learn</strong><span>StandardScaler, train_test_split, LogisticRegression, SVC, DecisionTreeClassifier, RandomForestClassifier, metrics (accuracy, f1, roc_auc).</span></div></div>
@@ -56,7 +56,7 @@
 
     <!-- architecture -->
     <section class="section section-collapsible">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Workflow Blueprint</span><h2>System Architecture</h2><p class="panel-desc">From raw stock data to directional prediction — end‑to‑end pipeline.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Workflow Blueprint</span><h2>System Architecture</h2><p class="panel-desc">From raw stock data to directional prediction — end‑to‑end pipeline.</p></div><div class="chevron"></div></div>
         <div class="section-body"><div class="section-body-inner"><div class="timeline-flow">
             <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Data Ingestion & Cleaning</strong><span>Load Tesla 10-year dataset (2416 records). Drop redundant ‘Adj Close’, check nulls, extract year/month/day.</span></div></div></div>
             <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Feature Engineering</strong><span>Create `open-close`, `low-high`, `is_quarter_end` (month % 3 == 0). Target: 1 if next day’s Close > today’s Close, else 0.</span></div></div></div>
@@ -68,7 +68,7 @@
 
     <!-- mathematical mechanics -->
     <section class="section section-collapsible">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Mathematical Mechanics</span><h2>Core Classification Models</h2><p class="panel-desc">Formal definitions of the six algorithms used in the competition.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Mathematical Mechanics</span><h2>Core Classification Models</h2><p class="panel-desc">Formal definitions of the six algorithms used in the competition.</p></div><div class="chevron"></div></div>
         <div class="section-body"><div class="section-body-inner"><div class="theory-split">
             <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Logistic Regression</div><span class="theory-badge">Linear Classifier</span></div><div class="theory-explanation">Models probability of upward movement using sigmoid function: $P(y=1|x) = \frac{1}{1+e^{-(\beta^T x)}}$. Optimised via maximum likelihood.</div><div class="theory-math-container">$$\min_{\beta} -\sum_{i=1}^{N} [y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]$$</div></div>
             <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">XGBoost (Gradient Boosting)</div><span class="theory-badge champion-badge">Ensemble</span></div><div class="theory-explanation">Sequential additive training of decision trees, optimising regularised objective: $\mathcal{L} = \sum_i l(y_i,\hat{y}_i) + \sum_k \Omega(f_k)$.</div><div class="theory-math-container">$$\hat{y}_i^{(t)} = \hat{y}_i^{(t-1)} + \eta f_t(x_i)$$</div><div class="theory-explanation">Achieves highest test accuracy (53.5%) but prone to overfitting (train accuracy 94.5%).</div></div>
@@ -79,21 +79,21 @@
 
     <!-- feature taxonomy -->
     <section class="section section-collapsible">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Data Taxonomy</span><h2>Feature Space Configuration</h2><p class="panel-desc">Core features after engineering: 4 input dimensions + target.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Data Taxonomy</span><h2>Feature Space Configuration</h2><p class="panel-desc">Core features after engineering: 4 input dimensions + target.</p></div><div class="chevron"></div></div>
         <div class="section-body"><div class="section-body-inner"><div class="matrix-table-container stagger-child">
             <table><thead><tr><th>Feature</th><th>Category</th><th>Description</th></tr></thead><tbody>
-                <tr><td><code>open-close</code></td><td><span class="taxonomy-tag">Momentum</span></td><td>Difference between opening and closing price (daily volatility proxy).</td></tr>
-                <tr><td><code>low-high</code></td><td><span class="taxonomy-tag">Volatility</span></td><td>Daily price range (low minus high, negative).</td></tr>
-                <tr><td><code>is_quarter_end</code></td><td><span class="taxonomy-tag">Temporal</span></td><td>Binary flag indicating end of fiscal quarter (month % 3 == 0).</td></tr>
-                <tr><td><code>Volume</code></td><td><span class="taxonomy-tag">Liquidity</span></td><td>Number of shares traded (log-scale distribution).</td></tr>
-                <tr class="target-row-highlight"><td><code>target</code></td><td><span class="taxonomy-tag target-style">Direction</span></td><td>1 if next day’s Close > current Close, else 0.</td></tr>
+                <tr><td><code>open-close</code></td><td><span class="taxonomy-tag">Momentum</span></td><td>Difference between opening and closing price (daily volatility proxy).</div></div>
+                <tr><td><code>low-high</code></td><td><span class="taxonomy-tag">Volatility</span></td><td>Daily price range (low minus high, negative).</div></div>
+                <tr><td><code>is_quarter_end</code></td><td><span class="taxonomy-tag">Temporal</span></td><td>Binary flag indicating end of fiscal quarter (month % 3 == 0).</div></div>
+                <tr><td><code>Volume</code></td><td><span class="taxonomy-tag">Liquidity</span></td><td>Number of shares traded (log-scale distribution).</div></div>
+                <tr class="target-row-highlight"><td><code>target</code></td><td><span class="taxonomy-tag target-style">Direction</span></td><td>1 if next day’s Close > current Close, else 0.</div></div>
             </tbody></table>
         </div></div></div>
     </section>
 
     <!-- code terminal with full utils logic -->
     <section class="section section-collapsible">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Implementation</span><h2>Model Training & Evaluation Pipeline</h2><p class="panel-desc">Full Python code including <code>utils.py</code> helper functions for metrics and confusion matrix display.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Implementation</span><h2>Model Training & Evaluation Pipeline</h2><p class="panel-desc">Full Python code including <code>utils.py</code> helper functions for metrics and confusion matrix display.</p></div><div class="chevron"></div></div>
         <div class="section-body"><div class="section-body-inner"><div class="terminal-panel stagger-child">
             <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">tesla_price_direction_full.py</div><div></div></div>
             <div class="terminal-body"><pre>
@@ -172,19 +172,30 @@ display_results()
         </div></div></div>
     </section>
 
-    <!-- visual diagnostics -->
+    <!-- visual diagnostics – 8 images, two rows of 4 -->
     <section class="section section-collapsible">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Analytics Layer</span><h2>Exploratory Visual Diagnostics</h2><p class="panel-desc">Time series, distribution plots and correlation heatmap from EDA.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
-        <div class="section-body"><div class="section-body-inner"><div class="viz-display-grid stagger-child">
-            <div class="viz-placeholder-card"><i class="fas fa-chart-line fa-3x"></i><div class="viz-meta-text"><strong>Tesla Closing Price (2010–2020)</strong><br>Upward trend with sharp volatility; price doubled after 2014 and again in 2020.</div></div>
-            <div class="viz-placeholder-card"><i class="fas fa-chart-bar fa-3x"></i><div class="viz-meta-text"><strong>Target Distribution (Pie Chart)</strong><br>49.9% price increase days, 50.1% decrease — balanced binary classification.</div></div>
-            <div class="viz-placeholder-card"><i class="fas fa-th-large fa-3x"></i><div class="viz-meta-text"><strong>Correlation Heatmap</strong><br>High correlation among OHLC features; engineered features (`open-close`, `low-high`, `is_quarter_end`) are not highly correlated, preserving information.</div></div>
-        </div></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Analytics Layer</span><h2>Exploratory Visual Diagnostics</h2><p class="panel-desc">Time series, distribution plots, correlation heatmap, confusion matrices, and feature distributions. Click any image to enlarge.</p></div><div class="chevron"></div></div>
+        <div class="section-body"><div class="section-body-inner">
+            <!-- First row (4 images) -->
+            <div class="viz-display-grid stagger-child">
+                <div class="viz-wrapper-card"><img src="images/price_by_year.png" alt="Tesla Closing Price 2010-2020"><div class="viz-meta-text">Tesla Closing Price (2010–2020)</div></div>
+                <div class="viz-wrapper-card"><img src="images/OHLC_by_year.png" alt="OHLC Distribution by Year"><div class="viz-meta-text">OHLC Distribution by Year</div></div>
+                <div class="viz-wrapper-card"><img src="images/density_per_OHLC.png" alt="Density per OHLC"><div class="viz-meta-text">Density per OHLC Feature</div></div>
+                <div class="viz-wrapper-card"><img src="images/density_per_OHLC_boxplot.png" alt="Boxplots per OHLC"><div class="viz-meta-text">Boxplots – OHLC & Volume</div></div>
+            </div>
+            <!-- Second row (4 images) -->
+            <div class="viz-display-grid stagger-child" style="margin-top: 24px;">
+                <div class="viz-wrapper-card"><img src="images/heatmap.png" alt="Correlation Heatmap"><div class="viz-meta-text">Feature Correlation Heatmap</div></div>
+                <div class="viz-wrapper-card"><img src="images/confusion_matrix.png" alt="Confusion Matrix – Logistic Regression"><div class="viz-meta-text">Confusion Matrix (Logistic Regression)</div></div>
+                <div class="viz-wrapper-card"><img src="images/XGB_cm_train.png" alt="XGBoost Train Confusion Matrix"><div class="viz-meta-text">XGBoost – Train Confusion Matrix</div></div>
+                <div class="viz-wrapper-card"><img src="images/XGB_cm_test.png" alt="XGBoost Test Confusion Matrix"><div class="viz-meta-text">XGBoost – Test Confusion Matrix</div></div>
+            </div>
+        </div></div>
     </section>
 
     <!-- performance diagnostics -->
     <section class="section section-collapsible">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Evaluation Matrix</span><h2>Performance Diagnostics & Engine Insights</h2><p class="panel-desc">Test set performance (20% holdout) for six classifiers.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Evaluation Matrix</span><h2>Performance Diagnostics & Engine Insights</h2><p class="panel-desc">Test set performance (20% holdout) for six classifiers.</p></div><div class="chevron"></div></div>
         <div class="section-body"><div class="section-body-inner">
             <div class="engine-insights-stack">
                 <div class="insight-row rank-leader stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>XGBClassifier</strong><span>Gradient boosting (100 estimators)</span></div></div><div class="insight-score-metrics"><span class="insight-score-value">0.5351</span><span class="insight-score-label">Test Accuracy</span></div></div>
@@ -200,7 +211,7 @@ display_results()
 
     <!-- synthesis -->
     <section class="section section-collapsible">
-        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Conclusions</span><h2>Project Synthesis & Roadmap</h2><p class="panel-desc">Empirical summary and next‑generation enhancements.</p></div><div class="chevron"><i class="fas fa-chevron-down"></i></div></div>
+        <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Conclusions</span><h2>Project Synthesis & Roadmap</h2><p class="panel-desc">Empirical summary and next‑generation enhancements.</p></div><div class="chevron"></div></div>
         <div class="section-body"><div class="section-body-inner"><div class="synthesis-gradient-box">
             <p class="stagger-child"><strong>Empirical Breakdown:</strong> XGBoost outperforms other classifiers in test accuracy, yet linear models (Logistic Regression) show more consistent train‑test gaps. Feature engineering — especially `is_quarter_end` and `open-close` — captures meaningful market microstructure. The balanced target distribution ensures no baseline bias.</p>
             <p class="stagger-child"><strong>Future Directions:</strong> Incorporate technical indicators (RSI, MACD, moving averages), hyperparameter tuning via GridSearchCV, time‑series cross‑validation, and deep learning architectures (LSTM). Additionally, ensemble stacking of XGBoost and logistic regression could improve generalisation.</p>
@@ -219,6 +230,15 @@ display_results()
     </footer>
 </div>
 <div class="editorial-credits">Amir Mohamad Askari · Quantitative Finance Lab · 2026</div>
+
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
