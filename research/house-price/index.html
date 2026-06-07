@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Price Prediction | ML Regression Suite</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    
     <script>
         window.MathJax = {
             tex: {
@@ -44,7 +42,7 @@
         <div class="metric-block" data-metric-type="float" data-metric-target="0.1895"><div class="metric-label">CatBoost (MAE)</div><div class="metric-value">0</div></div>
     </div>
 
-    <!-- Project Overview -->
+    <!-- Project Overview (expanded) -->
     <section class="section section-collapsible expanded">
         <div class="section-header">
             <div class="panel-header-content">
@@ -52,7 +50,7 @@
                 <h2>Project Overview</h2>
                 <p class="panel-desc">End‑to‑end pipeline for predicting house sale prices using structured property attributes.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -71,7 +69,7 @@
                 <h2>Core Pipeline Dependencies</h2>
                 <p class="panel-desc">Essential libraries for data manipulation, modelling and evaluation.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -93,7 +91,7 @@
                 <h2>System Architecture Overview</h2>
                 <p class="panel-desc">From raw property data to price prediction — a five‑stage computational graph.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -116,7 +114,7 @@
                 <h2>Advanced Regression Theory</h2>
                 <p class="panel-desc">Core formulations of the three regression algorithms plus CatBoost.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -138,7 +136,7 @@
                 <h2>Feature Space Configuration</h2>
                 <p class="panel-desc">13 raw attributes, after one‑hot encoding expanded to 37 dimensions.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -176,7 +174,7 @@
                 <h2>Model Training & Evaluation Pipeline</h2>
                 <p class="panel-desc">Core Python implementation extracted from the notebook.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -219,26 +217,30 @@ models = [SVR(), RandomForestRegressor(n_estimators=<span class="code-num">10</s
         </div>
     </section>
 
-    <!-- Visual Diagnostics -->
+    <!-- Visual Diagnostics with three images -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
                 <span class="panel-tag">Analytics Layer</span>
                 <h2>Exploratory Visual Diagnostics</h2>
-                <p class="panel-desc">Correlation heatmap and categorical distributions extracted from EDA.</p>
+                <p class="panel-desc">Correlation heatmap, categorical distributions, and confusion matrix. Click any image to enlarge.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="viz-display-grid stagger-child">
-                    <div class="viz-placeholder-card">
-                        <i class="fas fa-chart-line fa-3x"></i>
-                        <div class="viz-meta-text"><strong>Correlation Heatmap (numerical features)</strong><br>Shows moderate correlations between `TotalBsmtSF` / `LotArea` and `SalePrice`.</div>
+                    <div class="viz-wrapper-card">
+                        <img src="confusion_matrix.png" alt="Confusion Matrix / Correlation Heatmap">
+                        <div class="viz-meta-text">Correlation Matrix – Numerical Features</div>
                     </div>
-                    <div class="viz-placeholder-card">
-                        <i class="fas fa-chart-bar fa-3x"></i>
-                        <div class="viz-meta-text"><strong>Categorical Variable Distribution</strong><br>Bar plots for `MSZoning`, `LotConfig`, `BldgType`, `Exterior1st` (Exterior1st has 16 unique categories).</div>
+                    <div class="viz-wrapper-card">
+                        <img src="categorical_vars.png" alt="Categorical Variables Distribution 1">
+                        <div class="viz-meta-text">Categorical Feature Distributions (Part 1)</div>
+                    </div>
+                    <div class="viz-wrapper-card">
+                        <img src="categorical_vars_distribution.png" alt="Categorical Variables Distribution 2">
+                        <div class="viz-meta-text">Categorical Feature Distributions (Part 2)</div>
                     </div>
                 </div>
             </div>
@@ -253,7 +255,7 @@ models = [SVR(), RandomForestRegressor(n_estimators=<span class="code-num">10</s
                 <h2>Performance Diagnostics & Engine Insights</h2>
                 <p class="panel-desc">Mean Absolute Error (MAE) comparison on test set (30% holdout).</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -290,7 +292,7 @@ models = [SVR(), RandomForestRegressor(n_estimators=<span class="code-num">10</s
                 <h2>Project Synthesis & Roadmap</h2>
                 <p class="panel-desc">Empirical summary and next‑generation enhancements.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -315,6 +317,14 @@ models = [SVR(), RandomForestRegressor(n_estimators=<span class="code-num">10</s
     </footer>
 </div>
 <div class="editorial-credits">Amir Mohamad Askari · Real Estate Analytics Lab · 2026</div>
+
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
 
 <script src="script.js"></script>
 </body>
