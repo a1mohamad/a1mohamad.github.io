@@ -387,25 +387,21 @@ td code {
 .code-str { color: #10b981; }
 .code-num { color: #fbbf24; }
 
-/* Image grid and lightbox (template) */
+/* Fix: single image card should not be full width */
 .viz-display-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
     gap: 24px;
+    justify-content: center;
 }
-/* ... (all existing CSS remains the same up to .viz-display-grid) ... */
 
-/* Fix for oversized images – match template card behavior */
-.viz-wrapper-card {
-    background: var(--surface-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    will-change: transform;
-    display: flex;
-    flex-direction: column;
+.viz-wrapper-card img {
+    width: 100%;
+    height: auto;
+    max-height: 280px;          /* keeps image from being huge */
+    object-fit: contain;        /* preserves aspect ratio, no cropping */
+    background: #0a0b10;        /* optional: matches dark background */
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .viz-wrapper-card:hover {
