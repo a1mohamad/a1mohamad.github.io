@@ -34,7 +34,7 @@
 </div>
 
 <div class="main-layout">
-    <!-- Metric strip: key test accuracies -->
+    <!-- Metric strip -->
     <div class="metrics-strip">
         <div class="metric-block" data-metric-target="1.0000"><div class="metric-label">XGBoost (Test Acc)</div><div class="metric-value champion-color">0</div></div>
         <div class="metric-block" data-metric-target="0.9922"><div class="metric-label">Random Forest (Test Acc)</div><div class="metric-value">0</div></div>
@@ -50,7 +50,7 @@
                 <h2>Project Overview</h2>
                 <p class="panel-desc">Building robust classifiers to distinguish malignant from benign breast tumours using cytological features.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -69,7 +69,7 @@
                 <h2>Pipeline Dependencies</h2>
                 <p class="panel-desc">Libraries used for data augmentation, modelling and evaluation.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -91,7 +91,7 @@
                 <h2>System Architecture Overview</h2>
                 <p class="panel-desc">From raw measurements to final diagnosis — five‑stage pipeline.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -114,7 +114,7 @@
                 <h2>Core Classification Algorithms</h2>
                 <p class="panel-desc">Formal definitions of models used in the competition.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -136,7 +136,7 @@
                 <h2>Feature Space Configuration</h2>
                 <p class="panel-desc">30 numeric features derived from digitised cell nuclei (mean, SE, worst).</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -163,7 +163,7 @@
                 <h2>Model Training & Evaluation Pipeline</h2>
                 <p class="panel-desc">Full Python code including ADASYN, scaling, training, and ensemble.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -180,7 +180,7 @@
 <span class="code-keyword">from</span> sklearn.ensemble <span class="code-keyword">import</span> RandomForestClassifier
 <span class="code-keyword">from</span> sklearn.tree <span class="code-keyword">import</span> DecisionTreeClassifier
 <span class="code-keyword">from</span> xgboost <span class="code-keyword">import</span> XGBClassifier, XGBRFClassifier
-<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> accuracy_score, f1_score, confusion_matrix
+<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> accuracy_score, f1_score
 <span class="code-keyword">from</span> scipy.stats <span class="code-keyword">import</span> mode
 
 <span class="code-comment"># Load and augment data</span>
@@ -219,26 +219,22 @@ print(<span class="code-keyword">f</span><span class="code-str">"Ensemble (major
         </div>
     </section>
 
-    <!-- Visual Diagnostics -->
+    <!-- Visual Diagnostics: single image (confusion matrix) with lightbox -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
                 <span class="panel-tag">Analytics Layer</span>
                 <h2>Exploratory Visual Diagnostics</h2>
-                <p class="panel-desc">Correlation heatmap and class distribution from EDA.</p>
+                <p class="panel-desc">Confusion matrix of the majority vote ensemble – click to enlarge.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="viz-display-grid stagger-child">
-                    <div class="viz-placeholder-card">
-                        <i class="fas fa-chart-line fa-3x"></i>
-                        <div class="viz-meta-text"><strong>Correlation Heatmap (selected features)</strong><br>High correlation between radius, perimeter, area; concavity and concave points strongly associated with malignancy.</div>
-                    </div>
-                    <div class="viz-placeholder-card">
-                        <i class="fas fa-chart-pie fa-3x"></i>
-                        <div class="viz-meta-text"><strong>Diagnosis Distribution (after ADASYN)</strong><br>Balanced: 55.6% Benign, 44.4% Malignant (synthetic oversampling).</div>
+                    <div class="viz-wrapper-card">
+                        <img src="confusion-matrix.png" alt="Confusion Matrix – Majority Vote Ensemble">
+                        <div class="viz-meta-text">Confusion Matrix (Ensemble Model)</div>
                     </div>
                 </div>
             </div>
@@ -253,7 +249,7 @@ print(<span class="code-keyword">f</span><span class="code-str">"Ensemble (major
                 <h2>Performance Diagnostics & Engine Insights</h2>
                 <p class="panel-desc">Test set performance (20% holdout) for seven classifiers and ensemble.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -298,7 +294,7 @@ print(<span class="code-keyword">f</span><span class="code-str">"Ensemble (major
         </div>
     </section>
 
-    <!-- Ensemble Results -->
+    <!-- Ensemble Results (additional confusion matrix) -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -306,7 +302,7 @@ print(<span class="code-keyword">f</span><span class="code-str">"Ensemble (major
                 <h2>Majority Voting Ensemble Performance</h2>
                 <p class="panel-desc">Combining predictions from all seven models improves robustness.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -316,9 +312,9 @@ print(<span class="code-keyword">f</span><span class="code-str">"Ensemble (major
                         <div class="insight-score-metrics"><span class="insight-score-value">0.9969</span><span class="insight-score-label">Accuracy</span><br><span class="insight-score-value">0.9965</span><span class="insight-score-label">F1 Class 1</span><br><span class="insight-score-value">0.9972</span><span class="insight-score-label">F1 Class 0</span></div>
                     </div>
                 </div>
-                <div class="viz-placeholder-card" style="padding: 30px;">
-                    <i class="fas fa-table fa-3x"></i>
-                    <div class="viz-meta-text"><strong>Confusion Matrix (Ensemble)</strong><br>True Negatives: 138, False Positives: 1, False Negatives: 0, True Positives: 118<br>Near‑perfect classification with only 1 misclassified benign case.</div>
+                <div class="viz-wrapper-card" style="max-width: 600px; margin: 20px auto 0 auto;">
+                    <img src="confusion-matrix.png" alt="Confusion Matrix Ensemble">
+                    <div class="viz-meta-text">Confusion Matrix (Ensemble)<br>True Negatives: 138, False Positives: 1, False Negatives: 0, True Positives: 118</div>
                 </div>
             </div>
         </div>
@@ -332,7 +328,7 @@ print(<span class="code-keyword">f</span><span class="code-str">"Ensemble (major
                 <h2>Project Synthesis & Roadmap</h2>
                 <p class="panel-desc">Empirical summary and next‑generation enhancements.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -357,6 +353,15 @@ print(<span class="code-keyword">f</span><span class="code-str">"Ensemble (major
     </footer>
 </div>
 <div class="editorial-credits">Amir Mohamad Askari · Medical AI Lab · 2026</div>
+
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
