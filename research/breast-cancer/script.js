@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Counter animation for metric blocks
+    // ========== METRIC COUNTER ==========
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const steps = 40;
         const intervalVal = targetVal / steps;
         let currentStep = 0;
+
         const increment = () => {
             currentStep++;
             initial += intervalVal;
@@ -22,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         increment();
     });
 
-    // Scroll progress bar
+    // ========== SCROLL PROGRESS BAR ==========
     const progressBar = document.createElement('div');
     progressBar.id = 'scroll-progress';
     document.body.prepend(progressBar);
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         progressBar.style.width = scrollPercent + '%';
     });
 
-    // Switch-based accordion disclosure system
+    // ========== ACCORDION GUIDE ==========
     const collapsibleSections = document.querySelectorAll('.section-collapsible');
     if (collapsibleSections.length) {
         const guide = document.createElement('div');
@@ -129,11 +130,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Section reveal for divider animation
+    // ========== SECTION REVEAL FOR DIVIDER ANIMATION ==========
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('revealed');
         });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.section').forEach(section => revealObserver.observe(section));
+
+    // ========== LIGHTBOX FUNCTIONALITY ==========
+    const overlay = document.getElementById('lightboxOverlay');
+    const lightboxImg = document.getElementById('lightboxImage');
+    const closeBtn = document.getElementById('lightboxClose');
+    const allImages = document.querySelectorAll('.viz-wrapper-card img');
+
+    if (overlay && lightboxImg && closeBtn) {
+        allImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        const dismissLightbox = () => {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        closeBtn.addEventListener('click', dismissLightbox);
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                dismissLightbox();
+            }
+        });
+    }
 });
