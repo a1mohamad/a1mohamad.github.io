@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heart Disease Prognosis | Amir Mohamad Askari</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="styles.css">
-    
     <script>
         window.MathJax = {
             tex: {
@@ -31,8 +28,7 @@
     <div class="hero-meta">Clinical Predictive Blueprint</div>
     <h1>Cardiovascular Risk Diagnostics Pipeline</h1>
     <div class="hero-subtitle">Comparative Classification Modeling via Linear Decision Boundaries</div>
-    
-    <div class="btn-github-container">
+    <div class="btn-group">
         <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Heart%20Disease" class="btn-modern-primary" target="_blank">
             <i class="fa-brands fa-github"></i> <span>Research Lab</span>
         </a>
@@ -40,7 +36,7 @@
 </div>
 
 <div class="main-layout">
-
+    <!-- Metric strip -->
     <div class="metrics-strip">
         <div class="metric-block" data-metric-type="percentage" data-metric-target="86.63">
             <div class="metric-label">Logistic Regression</div>
@@ -60,7 +56,7 @@
         </div>
     </div>
 
-    <!-- Project Overview (expanded by default) -->
+    <!-- Project Overview (expanded) -->
     <section class="section section-collapsible expanded">
         <div class="section-header">
             <div class="panel-header-content">
@@ -68,7 +64,7 @@
                 <h2>Project Overview</h2>
                 <p class="panel-desc">A clinical data-science study focused on predictive risk management for cardiovascular healthcare systems.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -79,7 +75,7 @@
         </div>
     </section>
 
-    <!-- Dependencies (collapsed) -->
+    <!-- Dependencies -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -87,33 +83,21 @@
                 <h2>Core Pipeline Dependencies</h2>
                 <p class="panel-desc">The clinical analysis environment utilizes standard data science modules for vector operations and probability modeling.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="dependency-list">
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-table dep-icon"></i>
-                        <div><strong>Pandas</strong><span>Orchestrates the loading of clinical record frames and manages feature imputation.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-calculator dep-icon"></i>
-                        <div><strong>NumPy</strong><span>Executes linear algebra operations and multi‑dimensional array mapping.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-diagram-project dep-icon"></i>
-                        <div><strong>Scikit‑Learn</strong><span>Provides logistic regression estimators and automated cross‑validation grid search.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-chart-line dep-icon"></i>
-                        <div><strong>Matplotlib</strong><span>Visualizes cohort distributions, correlation heatmaps, and diagnostic confusion matrices.</span></div>
-                    </div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas</strong><span>Orchestrates the loading of clinical record frames and manages feature imputation.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-calculator dep-icon"></i><div><strong>NumPy</strong><span>Executes linear algebra operations and multi‑dimensional array mapping.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-diagram-project dep-icon"></i><div><strong>Scikit‑Learn</strong><span>Provides logistic regression estimators and automated cross‑validation grid search.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib</strong><span>Visualizes cohort distributions, correlation heatmaps, and diagnostic confusion matrices.</span></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- System Architecture (collapsed) – vertical timeline only -->
+    <!-- System Architecture -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -121,47 +105,20 @@
                 <h2>System Architecture Overview</h2>
                 <p class="panel-desc">A conceptual blueprint mapping raw patient telemetry through cleaning, feature engineering, and cross‑validated model evaluation.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="timeline-flow">
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">01</span>
-                            <div>
-                                <strong>EDA and Feature Engineering</strong>
-                                <span>Handle nulls via mean imputation and remove irrelevant identifiers.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">02</span>
-                            <div>
-                                <strong>Cross‑Validation Strategy</strong>
-                                <span>Apply LogisticRegressionCV with internal K‑fold to select best regularization.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">03</span>
-                            <div>
-                                <strong>Compare Different Models</strong>
-                                <span>Evaluate standard Logistic Regression against the CV‑tuned variant.</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>EDA and Feature Engineering</strong><span>Handle nulls via mean imputation and remove irrelevant identifiers.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Cross‑Validation Strategy</strong><span>Apply LogisticRegressionCV with internal K‑fold to select best regularization.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Compare Different Models</strong><span>Evaluate standard Logistic Regression against the CV‑tuned variant.</span></div></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Mathematics (collapsed) -->
+    <!-- Mathematical Mechanics -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -169,41 +126,27 @@
                 <h2>Algorithmic Formulations</h2>
                 <p class="panel-desc">A mathematical and structural look at the logistic regression classifiers deployed in this clinical study.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="theory-split">
                     <div class="theory-block stagger-child">
-                        <div class="theory-card-header">
-                            <div class="theory-title">Logistic Regression</div>
-                            <span class="theory-badge">Baseline</span>
-                        </div>
-                        <div class="theory-math-container">
-                            $$P(Y=1|X) = \frac{1}{1 + e^{-(W^T X + b)}}$$
-                        </div>
-                        <div class="theory-explanation">
-                            Models the probability of binary outcomes by passing a linear combination of features through the non‑linear Sigmoid activation function.
-                        </div>
+                        <div class="theory-card-header"><div class="theory-title">Logistic Regression</div><span class="theory-badge">Baseline</span></div>
+                        <div class="theory-math-container">$$P(Y=1|X) = \frac{1}{1 + e^{-(W^T X + b)}}$$</div>
+                        <div class="theory-explanation">Models the probability of binary outcomes by passing a linear combination of features through the non‑linear Sigmoid activation function.</div>
                     </div>
                     <div class="theory-block stagger-child">
-                        <div class="theory-card-header">
-                            <div class="theory-title">Logistic Regression CV</div>
-                            <span class="theory-badge champion-badge">Champion</span>
-                        </div>
-                        <div class="theory-math-container">
-                            $$\min_{W} \left( \sum_{i=1}^{N} \mathcal{L}(y_i, f(x_i)) + \lambda ||W||^2 \right)$$
-                        </div>
-                        <div class="theory-explanation">
-                            An optimized estimator that automates hyperparameter selection via K‑fold cross‑validation across a regularization grid to ensure robust coefficient estimation.
-                        </div>
+                        <div class="theory-card-header"><div class="theory-title">Logistic Regression CV</div><span class="theory-badge champion-badge">Champion</span></div>
+                        <div class="theory-math-container">$$\min_{W} \left( \sum_{i=1}^{N} \mathcal{L}(y_i, f(x_i)) + \lambda ||W||^2 \right)$$</div>
+                        <div class="theory-explanation">An optimized estimator that automates hyperparameter selection via K‑fold cross‑validation across a regularization grid to ensure robust coefficient estimation.</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Feature Table (collapsed) -->
+    <!-- Feature Table -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -211,18 +154,14 @@
                 <h2>Clinical Feature Space</h2>
                 <p class="panel-desc">The internal dimensions and variable taxonomy consisting of 14 separate physiological indicators.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="matrix-table-container stagger-child">
                     <table>
                         <thead>
-                            <tr>
-                                <th>Feature</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                            </tr>
+                            <tr><th>Feature</th><th>Category</th><th>Description</th></tr>
                         </thead>
                         <tbody>
                             <tr><td><code>sex_male</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Categorical Demographic Indicator</td></tr>
@@ -247,7 +186,7 @@
         </div>
     </section>
 
-    <!-- Code Terminal (collapsed) -->
+    <!-- Code Terminal -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -255,18 +194,13 @@
                 <h2>Model Optimization Sandbox</h2>
                 <p class="panel-desc">The structural model validation engine loop built within the Jupyter notebook environment.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="terminal-panel stagger-child">
-                    <div class="terminal-header">
-                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                        <div class="terminal-title">heart_disease_pipeline.py</div>
-                        <div></div>
-                    </div>
-                    <div class="terminal-body">
-<pre>
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">heart_disease_pipeline.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
 <span class="code-keyword">def</span> <span class="code-fn">evaluate_diagnostic_models</span>(x_train, x_test, y_train, y_test):
     <span class="code-comment"># Initialize dual modeling engines to compare base and cross-validated estimators</span>
     models = [
@@ -283,44 +217,43 @@
         
         <span class="code-comment"># Track metrics inside workspace stream</span>
         print(<span class="code-keyword">f</span><span class="code-str">"Accuracy: {accuracy_score(y_test, y_pred_test)}"</span>)
-</pre>
-                    </div>
+</pre></div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Visual Diagnostics (collapsed) – placeholder for future images -->
+
+    <!-- Visual Diagnostics with three images -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
                 <span class="panel-tag">Analytics Layer</span>
                 <h2>Exploratory Visual Diagnostics</h2>
-                <p class="panel-desc">Key plots such as ROC curves, confusion matrices, or feature importance charts. Replace placeholder with actual images.</p>
+                <p class="panel-desc">Confusion matrices and class distribution. Click any image to enlarge.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="viz-display-grid stagger-child">
-                    <div class="viz-placeholder-card">
-                        <i class="fas fa-chart-line fa-3x"></i>
-                        <div class="viz-meta-text">
-                            <strong>Model Performance Visualization</strong><br>
-                            Add images here, e.g., <code>roc_curve.png</code> or <code>confusion_matrix.png</code>
-                        </div>
+                    <div class="viz-wrapper-card">
+                        <img src="cm_logreg.png" alt="Confusion Matrix – Logistic Regression">
+                        <div class="viz-meta-text">Confusion Matrix – Logistic Regression</div>
+                    </div>
+                    <div class="viz-wrapper-card">
+                        <img src="cm_logreg_cv.png" alt="Confusion Matrix – Logistic Regression CV">
+                        <div class="viz-meta-text">Confusion Matrix – Logistic Regression CV</div>
+                    </div>
+                    <div class="viz-wrapper-card">
+                        <img src="pieplot_TenYearCHD.png" alt="Class Distribution – TenYearCHD">
+                        <div class="viz-meta-text">Class Distribution (TenYearCHD Target)</div>
                     </div>
                 </div>
-                <!-- When images are ready, replace the placeholder with:
-                <div class="viz-wrapper-card stagger-child">
-                    <img src="your_image.png" alt="Description">
-                    <div class="viz-meta-text">Caption</div>
-                </div>
-                -->
             </div>
         </div>
     </section>
 
-    <!-- Performance Diagnostics (collapsed) -->
+    <!-- Performance Diagnostics -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -328,36 +261,18 @@
                 <h2>Performance Diagnostics & Engine Insights</h2>
                 <p class="panel-desc">Calculated accuracy metrics and discriminatory capability records observed across predictive estimators.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="engine-insights-stack">
                     <div class="insight-row rank-leader stagger-child">
-                        <div class="insight-left-meta">
-                            <div class="insight-rank-index">01</div>
-                            <div class="insight-model-identity">
-                                <strong>Logistic Regression CV</strong>
-                                <span>Cross‑Validated Regularization‑Tuned Variant</span>
-                            </div>
-                        </div>
-                        <div class="insight-score-metrics">
-                            <span class="insight-score-value">86.71%</span>
-                            <span class="insight-score-label">Accuracy Target</span>
-                        </div>
+                        <div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>Logistic Regression CV</strong><span>Cross‑Validated Regularization‑Tuned Variant</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">86.71%</span><span class="insight-score-label">Accuracy Target</span></div>
                     </div>
                     <div class="insight-row stagger-child">
-                        <div class="insight-left-meta">
-                            <div class="insight-rank-index">02</div>
-                            <div class="insight-model-identity">
-                                <strong>Logistic Regression</strong>
-                                <span>Baseline Linear Decision Boundary</span>
-                            </div>
-                        </div>
-                        <div class="insight-score-metrics">
-                            <span class="insight-score-value">86.63%</span>
-                            <span class="insight-score-label">Accuracy Target</span>
-                        </div>
+                        <div class="insight-left-meta"><div class="insight-rank-index">02</div><div class="insight-model-identity"><strong>Logistic Regression</strong><span>Baseline Linear Decision Boundary</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">86.63%</span><span class="insight-score-label">Accuracy Target</span></div>
                     </div>
                 </div>
                 <div class="executive-summary-box stagger-child">
@@ -367,7 +282,7 @@
         </div>
     </section>
 
-    <!-- Conclusions (collapsed) -->
+    <!-- Conclusions -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -375,7 +290,7 @@
                 <h2>Project Synthesis</h2>
                 <p class="panel-desc">Performance deductions and forward‑looking research strategies.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -387,7 +302,7 @@
         </div>
     </section>
 
-    <!-- Footer – icon‑only -->
+    <!-- Footer -->
     <footer class="portfolio-footer-gate">
         <div class="contact-icons">
             <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
@@ -398,11 +313,15 @@
             <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
         </div>
     </footer>
-
 </div>
+<div class="editorial-credits">Amir Mohamad Askari · 2026 Analytical Document</div>
 
-<div class="editorial-credits">
-    Amir Mohamad Askari &bull; 2026 Analytical Document
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
 </div>
 
 <script src="script.js"></script>
