@@ -1,28 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Counter animation for metric blocks (supports float values)
+    // ========== METRIC COUNTER (supports float, integer, percentage) ==========
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
+        const type = block.getAttribute('data-metric-type');
         const targetVal = parseFloat(block.getAttribute('data-metric-target'));
         let initial = 0;
         const runtime = 1200;
         const steps = 40;
         const intervalVal = targetVal / steps;
         let currentStep = 0;
+
         const increment = () => {
             currentStep++;
             initial += intervalVal;
             if (currentStep < steps) {
-                targetEl.innerText = initial.toFixed(4);
+                if (type === 'percentage') {
+                    targetEl.innerText = initial.toFixed(2) + '%';
+                } else if (type === 'float') {
+                    targetEl.innerText = initial.toFixed(4);
+                } else {
+                    targetEl.innerText = Math.floor(initial);
+                }
                 setTimeout(increment, runtime / steps);
             } else {
-                targetEl.innerText = targetVal.toFixed(4);
+                if (type === 'percentage') {
+                    targetEl.innerText = targetVal.toFixed(2) + '%';
+                } else if (type === 'float') {
+                    targetEl.innerText = targetVal.toFixed(4);
+                } else {
+                    targetEl.innerText = targetVal;
+                }
             }
         };
         increment();
     });
 
-    // Scroll progress bar
+    // ========== SCROLL PROGRESS BAR ==========
     const progressBar = document.createElement('div');
     progressBar.id = 'scroll-progress';
     document.body.prepend(progressBar);
@@ -33,9 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
         progressBar.style.width = scrollPercent + '%';
     });
 
-    // Switch-based accordion disclosure system
+    // ========== SWITCH-BASED ACCORDION (with guide bar) ==========
     const collapsibleSections = document.querySelectorAll('.section-collapsible');
-
     if (collapsibleSections.length) {
         const guide = document.createElement('div');
         guide.className = 'accordion-guide';
@@ -51,12 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const revealSectionChildren = (section) => {
         const children = section.querySelectorAll('.stagger-child');
-
         children.forEach((child, index) => {
             child.style.transitionDelay = (index * 0.07) + 's';
             child.classList.add('revealed');
         });
-
         setTimeout(() => {
             children.forEach(child => child.style.transitionDelay = '');
         }, 800);
@@ -64,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hideSectionChildren = (section) => {
         const children = section.querySelectorAll('.stagger-child');
-
         children.forEach(child => {
             child.classList.remove('revealed');
             child.style.transitionDelay = '';
@@ -74,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const setBodyHeight = (section) => {
         const body = section.querySelector('.section-body');
         if (!body) return;
-
         if (section.classList.contains('expanded')) {
             body.style.maxHeight = body.scrollHeight + 'px';
         } else {
@@ -85,12 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const syncAccordionUI = (section, index) => {
         const header = section.querySelector('.section-header');
         const body = section.querySelector('.section-body');
-        const switchControl = section.querySelector('.chevron');
         const isExpanded = section.classList.contains('expanded');
         const bodyId = body?.id || `section-panel-${index + 1}`;
-
         if (body) body.id = bodyId;
-
         if (header) {
             header.setAttribute('role', 'button');
             header.setAttribute('tabindex', '0');
@@ -98,42 +104,31 @@ document.addEventListener("DOMContentLoaded", () => {
             header.setAttribute('aria-controls', bodyId);
             header.setAttribute('title', isExpanded ? 'Tap to hide details' : 'Tap for more info');
         }
-
-        if (switchControl) {
-            switchControl.setAttribute('aria-hidden', 'true');
-            switchControl.innerHTML = '';
-        }
-
         setBodyHeight(section);
     };
 
-    collapsibleSections.forEach((section, index) => {
+    collapsibleSections.forEach((section, idx) => {
         const header = section.querySelector('.section-header');
         if (!header) return;
-
-        syncAccordionUI(section, index);
+        syncAccordionUI(section, idx);
 
         const toggleSection = () => {
             const wasExpanded = section.classList.contains('expanded');
             section.classList.toggle('expanded');
-            syncAccordionUI(section, index);
-
+            syncAccordionUI(section, idx);
             if (!wasExpanded) {
                 revealSectionChildren(section);
             } else {
                 hideSectionChildren(section);
             }
         };
-
         header.addEventListener('click', toggleSection);
-
         header.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
                 toggleSection();
             }
         });
-
         if (section.classList.contains('expanded')) {
             revealSectionChildren(section);
         }
@@ -142,18 +137,46 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('resize', () => {
         collapsibleSections.forEach(setBodyHeight);
     });
-
     if (window.MathJax?.startup?.promise) {
         window.MathJax.startup.promise.then(() => {
             collapsibleSections.forEach(setBodyHeight);
         });
     }
 
-    // Section reveal for divider animation
+    // ========== SECTION REVEAL FOR DIVIDER ANIMATION ==========
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('revealed');
         });
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.section').forEach(section => revealObserver.observe(section));
+
+    // ========== LIGHTBOX FUNCTIONALITY ==========
+    const overlay = document.getElementById('lightboxOverlay');
+    const lightboxImg = document.getElementById('lightboxImage');
+    const closeBtn = document.getElementById('lightboxClose');
+    const portfolioImages = document.querySelectorAll('.viz-wrapper-card img');
+
+    if (overlay && lightboxImg && closeBtn) {
+        portfolioImages.forEach(image => {
+            image.addEventListener('click', () => {
+                lightboxImg.src = image.src;
+                lightboxImg.alt = image.alt;
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        const dismissLightbox = () => {
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        closeBtn.addEventListener('click', dismissLightbox);
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                dismissLightbox();
+            }
+        });
+    }
 });
