@@ -408,8 +408,11 @@ td code {
 }
 .viz-wrapper-card img {
     width: 100%;
+    max-width: 500px;        /* ← limits width */
+    max-height: 400px;       /* ← limits height */
     display: block;
-    height: auto;
+    margin: 0 auto;          /* centers the image */
+    object-fit: contain;     /* prevents distortion */
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .viz-wrapper-card:hover img {
