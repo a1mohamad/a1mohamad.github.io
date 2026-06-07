@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>California Housing Prediction | Amir Mohamad Askari</title>
-    
+    <title>California Housing Prediction | Regression Suite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="styles.css">
-    
     <script>
         window.MathJax = {
             tex: {
@@ -31,16 +28,13 @@
     <div class="hero-meta">Regression Blueprint</div>
     <h1>California House Price Prediction</h1>
     <div class="hero-subtitle">Predictive Modeling & Statistical Analysis via Linear Regression</div>
-    
-    <div class="btn-github-container">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/California%20House%20Prediction" class="btn-modern-primary" target="_blank">
-            <i class="fa-brands fa-github"></i> <span>Research Lab</span>
-        </a>
+    <div class="btn-group">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/California%20House%20Prediction" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
     </div>
 </div>
 
 <div class="main-layout">
-
+    <!-- Metric strip -->
     <div class="metrics-strip">
         <div class="metric-block" data-metric-type="integer" data-metric-target="20640">
             <div class="metric-label">Total Sample Size</div>
@@ -60,7 +54,7 @@
         </div>
     </div>
 
-    <!-- PROJECT OVERVIEW (expanded by default) -->
+    <!-- Project Overview (expanded) -->
     <section class="section section-collapsible expanded">
         <div class="section-header">
             <div class="panel-header-content">
@@ -68,7 +62,7 @@
                 <h2>Project Overview</h2>
                 <p class="panel-desc">An empirical regression pipeline predicting median house values based on census block district statistics.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -79,7 +73,7 @@
         </div>
     </section>
 
-    <!-- DEPENDENCIES (collapsed) -->
+    <!-- Dependencies -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -87,33 +81,21 @@
                 <h2>Core Pipeline Dependencies</h2>
                 <p class="panel-desc">The computational environment is anchored by four key data science modules for data handling, modeling, and visualization.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="dependency-list">
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-table dep-icon"></i>
-                        <div><strong>Pandas</strong><span>Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-calculator dep-icon"></i>
-                        <div><strong>NumPy</strong><span>Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-diagram-project dep-icon"></i>
-                        <div><strong>Scikit‑Learn</strong><span>Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-chart-line dep-icon"></i>
-                        <div><strong>Seaborn &amp; Matplotlib</strong><span>Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</span></div>
-                    </div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas</strong><span>Provides vectors and DataFrames to orchestrate loading pipelines and structural drop patterns.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-calculator dep-icon"></i><div><strong>NumPy</strong><span>Exposes fast multidimensional mathematical array blocks and array transformation logic maps.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-diagram-project dep-icon"></i><div><strong>Scikit‑Learn</strong><span>Supplies evaluation models, parameter estimators, metrics matrix functions, and scaling transformers.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Seaborn &amp; Matplotlib</strong><span>Generates underlying spatial figures, distribution line charts, and metric correlation layouts.</span></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SYSTEM ARCHITECTURE / PIPELINE (collapsed) -->
+    <!-- System Architecture -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -121,47 +103,20 @@
                 <h2>System Architecture Overview</h2>
                 <p class="panel-desc">A conceptual blueprint mapping raw census data through cleaning, splitting, and linear regression evaluation.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="timeline-flow">
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">01</span>
-                            <div>
-                                <strong>EDA and Data Preprocessing</strong>
-                                <span>Inspect data quality, handle missing values, and scale features if needed.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">02</span>
-                            <div>
-                                <strong>Train/Test Partitioning (60/40)</strong>
-                                <span>Separate data to train the model and reserve a holdout set for evaluation.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">03</span>
-                            <div>
-                                <strong>Model Training & Evaluation</strong>
-                                <span>Fit Linear Regression and compute MSE/MAE metrics on test data.</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>EDA and Data Preprocessing</strong><span>Inspect data quality, handle missing values, and scale features if needed.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Train/Test Partitioning (60/40)</strong><span>Separate data to train the model and reserve a holdout set for evaluation.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Model Training & Evaluation</strong><span>Fit Linear Regression and compute MSE/MAE metrics on test data.</span></div></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- MATHEMATICS (collapsed) -->
+    <!-- Mathematical Mechanics -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -169,41 +124,27 @@
                 <h2>Algorithmic Formulations</h2>
                 <p class="panel-desc">A mathematical look at the linear regression model and the performance metrics used for evaluation.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="theory-split">
                     <div class="theory-block stagger-child">
-                        <div class="theory-card-header">
-                            <div class="theory-title">Multiple Linear Regression</div>
-                            <span class="theory-badge">OLS</span>
-                        </div>
-                        <div class="theory-math-container">
-                            $$\hat{y} = \beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_nx_n + \epsilon$$
-                        </div>
-                        <div class="theory-explanation">
-                            Models the relationship between a dependent variable and one or more independent variables by minimizing the sum of squared residuals.
-                        </div>
+                        <div class="theory-card-header"><div class="theory-title">Multiple Linear Regression</div><span class="theory-badge">OLS</span></div>
+                        <div class="theory-math-container">$$\hat{y} = \beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_nx_n + \epsilon$$</div>
+                        <div class="theory-explanation">Models the relationship between a dependent variable and one or more independent variables by minimizing the sum of squared residuals.</div>
                     </div>
                     <div class="theory-block stagger-child">
-                        <div class="theory-card-header">
-                            <div class="theory-title">Performance Metrics</div>
-                            <span class="theory-badge">MSE & MAE</span>
-                        </div>
-                        <div class="theory-math-container">
-                            $$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 \quad \text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$
-                        </div>
-                        <div class="theory-explanation">
-                            MSE penalizes larger errors more heavily, while MAE provides a linear measure of average absolute deviation.
-                        </div>
+                        <div class="theory-card-header"><div class="theory-title">Performance Metrics</div><span class="theory-badge">MSE & MAE</span></div>
+                        <div class="theory-math-container">$$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 \quad \text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$$</div>
+                        <div class="theory-explanation">MSE penalizes larger errors more heavily, while MAE provides a linear measure of average absolute deviation.</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FEATURE TABLE (collapsed) -->
+    <!-- Feature Dictionary -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -211,19 +152,13 @@
                 <h2>Feature Dictionary</h2>
                 <p class="panel-desc">The eight predictor variables used to estimate median house values.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="matrix-table-container stagger-child">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Feature</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Feature</th><th>Category</th><th>Description</th></tr></thead>
                         <tbody>
                             <tr><td><code>MedInc</code></td><td><span class="taxonomy-tag">Financial</span></td><td>Median income in block group.</td></tr>
                             <tr><td><code>HouseAge</code></td><td><span class="taxonomy-tag">Demographic</span></td><td>Median house age in block group.</td></tr>
@@ -239,7 +174,7 @@
         </div>
     </section>
 
-    <!-- CODE TERMINAL (collapsed) -->
+    <!-- Code Terminal -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -247,18 +182,13 @@
                 <h2>Model Optimization Sandbox</h2>
                 <p class="panel-desc">The core regression pipeline implemented with Scikit‑Learn.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="terminal-panel stagger-child">
-                    <div class="terminal-header">
-                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                        <div class="terminal-title">california_housing_pipeline.py</div>
-                        <div></div>
-                    </div>
-                    <div class="terminal-body">
-<pre>
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">california_housing_pipeline.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
 <span class="code-keyword">from</span> sklearn.linear_model <span class="code-keyword">import</span> LinearRegression
 <span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> mean_squared_error, mean_absolute_error
 
@@ -274,14 +204,13 @@
     mse = mean_squared_error(y_test, y_pred)
     mae = mean_absolute_error(y_test, y_pred)
     <span class="code-keyword">return</span> mse, mae
-</pre>
-                    </div>
+</pre></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- VISUAL DIAGNOSTICS (collapsed) – images preserved -->
+    <!-- Visual Diagnostics with images (lightbox enabled) -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -289,7 +218,7 @@
                 <h2>Exploratory Visual Diagnostics</h2>
                 <p class="panel-desc">Graphical analysis of model predictions, residuals, and outliers. Click any image to enlarge.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -311,7 +240,7 @@
         </div>
     </section>
 
-    <!-- PERFORMANCE DIAGNOSTICS (collapsed) -->
+    <!-- Performance Diagnostics -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -319,23 +248,14 @@
                 <h2>Performance Diagnostics & Engine Insights</h2>
                 <p class="panel-desc">Calculated error metrics and model assessment records.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="engine-insights-stack">
                     <div class="insight-row rank-leader stagger-child">
-                        <div class="insight-left-meta">
-                            <div class="insight-rank-index">01</div>
-                            <div class="insight-model-identity">
-                                <strong>Linear Regression</strong>
-                                <span>Ordinary Least Squares (OLS) Baseline</span>
-                            </div>
-                        </div>
-                        <div class="insight-score-metrics">
-                            <span class="insight-score-value">0.548 / 0.538</span>
-                            <span class="insight-score-label">MSE / MAE</span>
-                        </div>
+                        <div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>Linear Regression</strong><span>Ordinary Least Squares (OLS) Baseline</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.548 / 0.538</span><span class="insight-score-label">MSE / MAE</span></div>
                     </div>
                 </div>
                 <div class="executive-summary-box stagger-child">
@@ -345,7 +265,7 @@
         </div>
     </section>
 
-    <!-- CONCLUSIONS (collapsed) -->
+    <!-- Conclusions -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -353,7 +273,7 @@
                 <h2>Project Synthesis</h2>
                 <p class="panel-desc">Performance deductions and forward‑looking research strategies.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -365,7 +285,7 @@
         </div>
     </section>
 
-    <!-- Footer – icon‑only -->
+    <!-- Footer -->
     <footer class="portfolio-footer-gate">
         <div class="contact-icons">
             <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
@@ -376,14 +296,10 @@
             <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
         </div>
     </footer>
-
 </div>
+<div class="editorial-credits">Amir Mohamad Askari · 2026 Analytical Document</div>
 
-<div class="editorial-credits">
-    Amir Mohamad Askari &bull; 2026 Analytical Document
-</div>
-
-<!-- Lightbox overlay -->
+<!-- Lightbox overlay (same as original) -->
 <div class="lightbox-overlay" id="lightboxOverlay">
     <div class="lightbox-wrapper">
         <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
