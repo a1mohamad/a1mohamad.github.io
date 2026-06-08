@@ -58,6 +58,19 @@
 </div></div>
 </section>
 <section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Infrastructure</span><h2>Training Environment &amp; Dependencies</h2><p class="panel-desc">Main libraries, accelerator setup, and reproducibility controls used by the YOLOv8 training notebook.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="dependency-list stagger-child">
+<div class="dependency-row"><i class="fa-brands fa-python dep-icon"></i><div><strong>TensorFlow / Keras</strong><span>Distributed training, model compilation, callbacks, checkpointing, optimizer schedules, and the final <code>.keras</code> detector artifact.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-eye dep-icon"></i><div><strong>KerasCV</strong><span>YOLOv8-M backbone and detector head, bounding-box aware augmentation, ragged box utilities, Focal Loss, CIoU box loss, and COCO-style metrics.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-microchip dep-icon"></i><div><strong>TPUStrategy / Accelerator Runtime</strong><span>Detected TPU execution, global batch-size scaling, and <code>steps_per_execution</code> optimization for high-throughput 1024×1024 training.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas, NumPy &amp; JSON</strong><span>CSV parsing, annotation grouping, <code>[x, y, w, h]</code> to <code>xyxy</code> conversion, metadata handling, class mapping, and reproducible split preparation.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-image dep-icon"></i><div><strong>OpenCV, Matplotlib &amp; Seaborn</strong><span>Image inspection, bounding-box visualization, empty-image review, box-density plots, mosaic checks, and training diagnostics.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-shuffle dep-icon"></i><div><strong>Scikit-learn Utilities</strong><span>Train/validation splitting and controlled random-state handling, including the positive/negative sample separation used before dataset construction.</span></div></div>
+</div>
+</div></div>
+</section>
+<section class="section section-collapsible">
 <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Data Intelligence</span><h2>Dataset Structure &amp; Detection Difficulty</h2><p class="panel-desc">EDA revealed dense boxes, rare empty images, and small target objects in full-resolution field photographs.</p></div><div class="chevron"></div></div>
 <div class="section-body"><div class="section-body-inner">
 <div class="kpi-grid stagger-child">
@@ -337,6 +350,19 @@ model.compile(
 <div class="note-card"><strong>TTA views</strong><span>Identity, horizontal flip, vertical flip, and multiple photometric jitter variants are combined.</span></div>
 <div class="note-card"><strong>Final score</strong><span>The submission workflow reached a Kaggle score of <strong>0.6055</strong>.</span></div>
 </div>
+</div>
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Inference Infrastructure</span><h2>Inference Libraries &amp; Dependencies</h2><p class="panel-desc">Runtime tools used to load the saved detector, run TTA, fuse duplicate boxes, and export the Kaggle submission file.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="dependency-list stagger-child">
+<div class="dependency-row"><i class="fa-brands fa-python dep-icon"></i><div><strong>TensorFlow / Keras</strong><span>Loads the saved <code>finetune_best_model.keras</code> artifact with KerasCV custom objects and performs batched prediction on test images.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-eye dep-icon"></i><div><strong>KerasCV</strong><span>Restores <code>YOLOV8Detector</code> and <code>YOLOV8Backbone</code>, preserves the <code>xyxy</code> bounding-box convention, and supports inference visualization.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-layer-group dep-icon"></i><div><strong>Weighted Boxes Fusion</strong><span>The <code>ensemble_boxes</code> WBF utility merges duplicate detections from identity, flip, and color-jitter TTA views into cleaner final boxes.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-wand-magic-sparkles dep-icon"></i><div><strong>TensorFlow Image Ops</strong><span>Horizontal flip, vertical flip, color jitter, and coordinate-reversal helpers create the multi-view TTA prediction set.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas &amp; NumPy</strong><span>Prediction arrays, confidence filtering, WBF normalization/denormalization, and final <code>submission.csv</code> formatting.</span></div></div>
+<div class="dependency-row"><i class="fa-solid fa-chart-simple dep-icon"></i><div><strong>Matplotlib / OpenCV</strong><span>Debug prediction plots, initial inference checks, and final TTA + WBF visual verification before submission.</span></div></div>
 </div>
 </div></div>
 </section>
