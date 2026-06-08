@@ -231,13 +231,13 @@ fold_accuracies = []
         </div>
     </section>
 
-    <!-- Visual Diagnostics -->
+    <!-- Visual Diagnostics (images fixed) -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
                 <span class="panel-tag">Analytics Layer</span>
                 <h2>Exploratory Visual Diagnostics</h2>
-                <p class="panel-desc">Sample digit images, training history plots. Click any image to enlarge.</p>
+                <p class="panel-desc">Sample digit images and training history plots. Click any image to enlarge.</p>
             </div>
             <div class="chevron"></div>
         </div>
@@ -245,16 +245,15 @@ fold_accuracies = []
             <div class="section-body-inner">
                 <div class="viz-display-grid stagger-child">
                     <div class="viz-wrapper-card">
-                        <img src="sample.png' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23121420'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='14' font-family='monospace'%3ESample digit%3C/text%3E%3C/svg%3E" alt="Sample MNIST Digit">
+                        <img src="sample.png" alt="Sample MNIST Digit">
                         <div class="viz-meta-text">Sample training image (label 7) — 28×28 grayscale</div>
                     </div>
                     <div class="viz-wrapper-card">
-                        <img src="training.png' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23121420'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='14' font-family='monospace'%3ETraining history%3C/text%3E%3C/svg%3E" alt="Training History">
+                        <img src="training.png" alt="Training History">
                         <div class="viz-meta-text">Model Accuracy & Loss over epochs (last fold)</div>
                     </div>
-                    </div>
                 </div>
-                <p class="stagger-child" style="margin-top: 20px; color: var(--text-secondary); font-size: 0.9rem;">Note: Actual plots from the notebook include digit visualisations and training/validation accuracy/loss curves. Place the corresponding image files in an <code>images/</code> folder to replace these placeholders.</p>
+                <p class="stagger-child" style="margin-top: 20px; color: var(--text-secondary); font-size: 0.9rem;">The images above show a sample digit from the training set and the training/validation curves of the last fold. Place the actual image files (<code>sample.png</code> and <code>training.png</code>) in the same directory as this HTML to display them.</p>
             </div>
         </div>
     </section>
@@ -272,56 +271,16 @@ fold_accuracies = []
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="engine-insights-stack">
-                    <!-- Fold 1 -->
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 1</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9862</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0597</span></div></div>
-                    </div>
-                    <!-- Fold 2 -->
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 2</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9867</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0536</span></div></div>
-                    </div>
-                    <!-- Fold 3 -->
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 3</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9886</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0552</span></div></div>
-                    </div>
-                    <!-- Fold 4 (lowest loss) -->
-                    <div class="insight-row rank-leader stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 4</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9864</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value loss-highlight">0.0451</span></div></div>
-                    </div>
-                    <!-- Fold 5 -->
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 5</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9836</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0631</span></div></div>
-                    </div>
-                    <!-- Fold 6 -->
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 6</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9867</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0629</span></div></div>
-                    </div>
-                    <!-- Fold 7 -->
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 7</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9838</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0530</span></div></div>
-                    </div>
-                    <!-- Fold 8 (highest accuracy) -->
-                    <div class="insight-row rank-leader stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 8</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value accuracy-highlight">0.9883</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0473</span></div></div>
-                    </div>
-                    <!-- Fold 9 -->
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 9</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9888</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0442</span></div></div>
-                    </div>
-                    <!-- Fold 10 -->
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 10</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
-                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9798</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0634</span></div></div>
-                    </div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 1</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9862</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0597</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 2</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9867</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0536</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 3</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9886</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0552</span></div></div></div>
+                    <div class="insight-row rank-leader stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 4</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9864</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value loss-highlight">0.0451</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 5</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9836</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0631</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 6</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9867</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0629</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 7</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9838</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0530</span></div></div></div>
+                    <div class="insight-row rank-leader stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 8</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value accuracy-highlight">0.9883</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0473</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 9</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9888</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0442</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Fold 10</div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9798</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0634</span></div></div></div>
                 </div>
                 <div class="executive-summary-box stagger-child">
                     <p><strong>Diagnostic Breakdown:</strong> The model achieves high and stable validation accuracy across all 10 folds, ranging from 97.98% to 98.88%. The lowest loss (0.0451) is achieved in Fold 4, and the highest accuracy (0.9888) in Fold 9 (highlighted in green). Early stopping and learning rate reduction prevent overfitting, and the stratified folds ensure each digit class is proportionally represented.</p>
