@@ -25,7 +25,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-5;pointer-events:none;bac
 .nav a:hover{color:var(--text)}
 .hero{position:relative;width:100%;max-width:1160px;margin:0 auto;padding:13vh 0 8vh;display:grid;grid-template-columns:minmax(0,1fr) 292px;align-items:end;gap:74px;overflow:visible}
 .main-copy,.side{position:relative;z-index:2}
-.hero-visual{position:absolute;right:-44px;top:0px;width:clamp(440px, 42vw, 620px);aspect-ratio:1.04;pointer-events:none;z-index:1;opacity:.98}
+.hero-visual{position:absolute;right:-44px;top:0px;width:clamp(440px, 42vw, 620px);aspect-ratio:1.04;pointer-events:auto;z-index:1;opacity:.98;cursor:default}
 .visual-glow{position:absolute;inset:6% 4% 10%;background:radial-gradient(circle at 36% 45%, rgba(255,255,255,.048), transparent 28%),radial-gradient(circle at 64% 46%, rgba(255,255,255,.048), transparent 28%),radial-gradient(circle at 48% 56%, rgba(255,255,255,.02), transparent 44%);filter:blur(20px);border-radius:50%}
 .brain-svg{width:100%;height:100%;overflow:visible}
 .brain-outline-shape{fill:none;stroke:rgba(255,255,255,.12);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
@@ -36,6 +36,9 @@ body::after{content:"";position:fixed;inset:0;z-index:-5;pointer-events:none;bac
 .brain-node-bright{fill:rgba(255,255,255,.90)}
 .brain-center{fill:#ffffff}
 .brain-core-glow{fill:rgba(255,255,255,.10)}
+.hero-visual.is-active .brain-node-bright{filter:drop-shadow(0 0 4px rgba(255,255,255,.4))}
+.hero-visual.is-active .brain-center{filter:drop-shadow(0 0 6px rgba(255,255,255,.6))}
+.hero-visual .brain-svg *{transition:none}
 .ambient-star{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.78);box-shadow:0 0 12px rgba(255,255,255,.22)}
 .ambient-star.s1{top:10%;left:10%}.ambient-star.s2{top:7%;right:17%}.ambient-star.s3{top:27%;right:6%}.ambient-star.s4{bottom:18%;left:12%}.ambient-star.s5{bottom:8%;right:18%}.ambient-star.s6{top:56%;left:4%}.ambient-star.s7{top:16%;left:53%}.ambient-star.s8{bottom:30%;right:7%}
 .kicker{display:flex;align-items:center;gap:12px;margin-bottom:30px;color:var(--muted);font-size:.68rem;font-weight:790;letter-spacing:.22em;text-transform:uppercase}
@@ -2007,7 +2010,144 @@ footer{color:rgba(251,251,246,.28);font-size:.72rem;line-height:1.6;text-align:c
   </section>
 </div>
 <script>
+
 function copyText(text, toastId){const toast=document.getElementById(toastId);const show=()=>{toast.style.opacity='1';setTimeout(()=>toast.style.opacity='0',1600)};if(navigator.clipboard && window.isSecureContext){navigator.clipboard.writeText(text).then(show);}else{const input=document.createElement('textarea');input.value=text;document.body.appendChild(input);input.select();document.execCommand('copy');input.remove();show();}}
+
+(function initNeuralBrainInteraction(){
+  const visual = document.querySelector('.hero-visual');
+  const svg = visual?.querySelector('.brain-svg');
+  if (!visual || !svg) return;
+
+  const vb = svg.viewBox.baseVal;
+  const pointer = { x: 0, y: 0, active: false };
+  const circleStates = [];
+  const lineStates = [];
+  const ambientStates = [];
+
+  const lerp = (a,b,t) => a + (b-a) * t;
+  const mapPoint = (clientX, clientY) => {
+    const rect = svg.getBoundingClientRect();
+    return {
+      x: vb.x + ((clientX - rect.left) / rect.width) * vb.width,
+      y: vb.y + ((clientY - rect.top) / rect.height) * vb.height
+    };
+  };
+
+  const influence = (x, y, strength = 1) => {
+    if (!pointer.active) return { dx: 0, dy: 0, force: 0 };
+    const dx = x - pointer.x;
+    const dy = y - pointer.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+    const radius = 125;
+    if (dist > radius) return { dx: 0, dy: 0, force: 0 };
+    const f = 1 - dist / radius;
+    const mag = (f * f) * 24 * strength;
+    return { dx: (dx / dist) * mag, dy: (dy / dist) * mag, force: f };
+  };
+
+  const influencePixels = (x, y, clientPoint, strength = 1) => {
+    if (!pointer.active || !clientPoint) return { dx: 0, dy: 0, force: 0 };
+    const dx = x - clientPoint.x;
+    const dy = y - clientPoint.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+    const radius = 115;
+    if (dist > radius) return { dx: 0, dy: 0, force: 0 };
+    const f = 1 - dist / radius;
+    const mag = (f * f) * 20 * strength;
+    return { dx: (dx / dist) * mag, dy: (dy / dist) * mag, force: f };
+  };
+
+  let clientPoint = null;
+
+  svg.querySelectorAll('circle').forEach(el => {
+    const cx0 = parseFloat(el.getAttribute('cx'));
+    const cy0 = parseFloat(el.getAttribute('cy'));
+    const r0 = parseFloat(el.getAttribute('r'));
+    let strength = 0.65;
+    if (el.classList.contains('brain-node-bright')) strength = 1.05;
+    if (el.classList.contains('brain-center')) strength = 1.35;
+    if (el.classList.contains('brain-core-glow')) strength = 1.5;
+    circleStates.push({ el, cx0, cy0, r0, cx: cx0, cy: cy0, r: r0, strength });
+  });
+
+  svg.querySelectorAll('line').forEach(el => {
+    const x10 = parseFloat(el.getAttribute('x1'));
+    const y10 = parseFloat(el.getAttribute('y1'));
+    const x20 = parseFloat(el.getAttribute('x2'));
+    const y20 = parseFloat(el.getAttribute('y2'));
+    const strength = el.classList.contains('brain-burst') ? 0.95 : 0.72;
+    lineStates.push({ el, x10, y10, x20, y20, x1: x10, y1: y10, x2: x20, y2: y20, strength });
+  });
+
+  visual.querySelectorAll('.ambient-star').forEach(el => {
+    const rect = visual.getBoundingClientRect();
+    const left = parseFloat(getComputedStyle(el).left);
+    const top = parseFloat(getComputedStyle(el).top);
+    ambientStates.push({ el, x0: left, y0: top, x: left, y: top });
+  });
+
+  visual.addEventListener('mouseenter', () => {
+    pointer.active = true;
+    visual.classList.add('is-active');
+  });
+
+  visual.addEventListener('mousemove', e => {
+    const p = mapPoint(e.clientX, e.clientY);
+    const rect = visual.getBoundingClientRect();
+    pointer.x = p.x;
+    pointer.y = p.y;
+    clientPoint = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  });
+
+  visual.addEventListener('mouseleave', () => {
+    pointer.active = false;
+    clientPoint = null;
+    visual.classList.remove('is-active');
+  });
+
+  const animate = () => {
+    circleStates.forEach(s => {
+      const inf = influence(s.cx0, s.cy0, s.strength);
+      const tx = s.cx0 + inf.dx;
+      const ty = s.cy0 + inf.dy;
+      const tr = s.r0 * (1 + inf.force * (s.strength > 1 ? 0.48 : 0.18));
+      s.cx = lerp(s.cx, tx, 0.16);
+      s.cy = lerp(s.cy, ty, 0.16);
+      s.r = lerp(s.r, tr, 0.14);
+      s.el.setAttribute('cx', s.cx.toFixed(2));
+      s.el.setAttribute('cy', s.cy.toFixed(2));
+      s.el.setAttribute('r', s.r.toFixed(2));
+      if (s.strength > 1.2) s.el.style.opacity = String(0.10 + inf.force * 0.30 + (s.el.classList.contains('brain-center') ? 0.75 : 0.08));
+    });
+
+    lineStates.forEach(s => {
+      const a = influence(s.x10, s.y10, s.strength);
+      const b = influence(s.x20, s.y20, s.strength);
+      s.x1 = lerp(s.x1, s.x10 + a.dx, 0.16);
+      s.y1 = lerp(s.y1, s.y10 + a.dy, 0.16);
+      s.x2 = lerp(s.x2, s.x20 + b.dx, 0.16);
+      s.y2 = lerp(s.y2, s.y20 + b.dy, 0.16);
+      s.el.setAttribute('x1', s.x1.toFixed(2));
+      s.el.setAttribute('y1', s.y1.toFixed(2));
+      s.el.setAttribute('x2', s.x2.toFixed(2));
+      s.el.setAttribute('y2', s.y2.toFixed(2));
+      const f = Math.max(a.force, b.force);
+      s.el.style.opacity = String((s.el.classList.contains('brain-burst') ? 0.18 : 0.10) + f * 0.35);
+    });
+
+    ambientStates.forEach(s => {
+      const inf = influencePixels(s.x0, s.y0, clientPoint, 1.15);
+      s.x = lerp(s.x, s.x0 + inf.dx, 0.18);
+      s.y = lerp(s.y, s.y0 + inf.dy, 0.18);
+      s.el.style.transform = `translate(${(s.x - s.x0).toFixed(2)}px, ${(s.y - s.y0).toFixed(2)}px) scale(${(1 + inf.force * .45).toFixed(2)})`;
+      s.el.style.opacity = String(.45 + inf.force * .55);
+    });
+
+    requestAnimationFrame(animate);
+  };
+  animate();
+})();
+
 </script>
 </body>
 </html>
