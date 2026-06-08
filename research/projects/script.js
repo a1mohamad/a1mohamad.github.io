@@ -1,5 +1,34 @@
 const projects = [
   {
+    "title": "Digit Recognizer",
+    "category": "Computer Vision",
+    "meta": [
+      "2024",
+      "Classification",
+      "Deep Learning",
+      "Computer Vision",
+      "Kaggle Competition"
+    ],
+    "desc": "Handwritten digit classification using a Convolutional Neural Network (CNN) with 10‑fold cross‑validation on the MNIST dataset.",
+    "tools": [
+      "Python",
+      "TensorFlow/Keras",
+      "Scikit-Learn",
+      "Pandas",
+      "Matplotlib",
+      "NumPy"
+    ],
+    "tags": [
+      "Neural Networks",
+      "CNN",
+      "EDA",
+      "Data Preprocessing",
+      "K-Fold"
+    ],
+    "href": "https://a1mohamad.github.io/research/digit-recognizer/index.html",
+    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/digit-recognizer.ppg)"
+  },
+  {
     "title": "Titanic Survival Prediction Engine",
     "category": "Transportation",
     "meta": [
