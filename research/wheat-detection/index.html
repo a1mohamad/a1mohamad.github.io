@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Wheat Detection | YOLOv8 Object Detection</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+<div class="hero-accent-blur"></div>
+<div class="hero-meta">Object Detection · YOLOv8 · KerasCV · Dense Agriculture</div>
+<h1>Global Wheat Detection: YOLOv8 Dense Field Localization</h1>
+<div class="hero-subtitle">A two-notebook Kaggle workflow for detecting wheat heads in high-resolution field imagery: staged YOLOv8-M fine-tuning, strong augmentation, COCO-style validation, and a clean TTA + Weighted Boxes Fusion submission pipeline that reached a 0.6055 Kaggle score.</div>
+<div class="btn-group">
+<a class="btn-modern-primary" href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Global%20Wheat%20Detection" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
+<a class="btn-modern-secondary" href="https://www.kaggle.com/models/amirmohamadaskari/wheat-detection" target="_blank"><i class="fa-brands fa-kaggle"></i> <span>Kaggle Model</span></a>
+<a class="btn-modern-secondary" href="https://www.kaggle.com/competitions/global-wheat-detection" target="_blank"><i class="fa-solid fa-trophy"></i> <span>Kaggle Competition</span></a>
+</div>
+</div>
+<div class="main-layout">
+<div class="metrics-strip wheat-metrics wheat-metrics-six">
+<div class="metric-block" data-metric-target="3422" data-metric-type="integer"><div class="metric-label">Training Images</div><div class="metric-value champion-color">0</div></div>
+<div class="metric-block" data-metric-target="147793" data-metric-type="integer"><div class="metric-label">Bounding Boxes</div><div class="metric-value compact-k">0</div></div>
+<div class="metric-block" data-metric-target="43.82" data-metric-type="float2"><div class="metric-label">Avg. Boxes per Image</div><div class="metric-value">0</div></div>
+<div class="metric-block" data-metric-target="0.5127" data-metric-type="float4"><div class="metric-label">Best Validation mAP</div><div class="metric-value champion-color">0</div></div>
+<div class="metric-block" data-metric-target="0.8704" data-metric-type="float4"><div class="metric-label">Best mAP @ IoU 50</div><div class="metric-value">0</div></div>
+<div class="metric-block" data-metric-target="0.6055" data-metric-type="float4"><div class="metric-label">Kaggle Score</div><div class="metric-value champion-color">0</div></div>
+</div>
+<div class="notebook-switcher">
+<button class="notebook-tab active" data-target="training-panel"><i class="fa-solid fa-microchip"></i>Training Notebook</button>
+<button class="notebook-tab" data-target="inference-panel"><i class="fa-solid fa-wand-magic-sparkles"></i>Inference + TTA Notebook</button>
+</div>
+<div class="notebook-panel active" id="training-panel">
+<section class="section section-collapsible expanded">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Training Blueprint</span><h2>Project Overview</h2><p class="panel-desc">The training notebook turns raw Kaggle annotations into a full KerasCV YOLOv8-M detector for dense wheat-head localization.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="overview-text stagger-child">
+<p>This project is a dense object-detection case study. Unlike simple classification, the model must find many small wheat heads inside each 1024×1024 image, often under background clutter, occlusion, different lighting, and field-source variation. The workflow uses <strong>YOLOv8-M with COCO pretraining</strong>, full-resolution image processing, ragged bounding-box tensors, KerasCV augmentation layers, a custom COCO metrics callback, and a three-stage optimization strategy.</p>
+<div class="note-grid">
+<div class="note-card"><strong>Problem type</strong><span>Single-class object detection: every object is a wheat head, but the detector must predict many coordinates and confidence scores per image.</span></div>
+<div class="note-card"><strong>Dense scene challenge</strong><span>The average annotated image contains 43.82 boxes, and the maximum reaches 116 boxes, creating heavy overlap and small-object pressure.</span></div>
+<div class="note-card"><strong>Two-notebook design</strong><span>Training is isolated from inference. The best <code>.keras</code> artifact is uploaded to Kaggle Models, then reused by the submission notebook.</span></div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Data Intelligence</span><h2>Dataset Structure &amp; Detection Difficulty</h2><p class="panel-desc">EDA revealed dense boxes, rare empty images, and small target objects in full-resolution field photographs.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="kpi-grid stagger-child">
+<div class="kpi-card"><span class="kpi-label">Train / Test Images</span><span class="kpi-value good">3422 / 10</span></div>
+<div class="kpi-card"><span class="kpi-label">Annotated Images</span><span class="kpi-value">3373</span></div>
+<div class="kpi-card"><span class="kpi-label">Empty Images</span><span class="kpi-value">49</span></div>
+<div class="kpi-card"><span class="kpi-label">Empty Fraction</span><span class="kpi-value">1.43%</span></div>
+</div>
+<div class="matrix-table-container stagger-child">
+<table class="pipeline-table">
+<thead><tr><th>EDA Component</th><th>Measured Value</th><th>Design Impact</th></tr></thead>
+<tbody>
+<tr><td><code>image_shape</code></td><td>1024×1024×3</td><td>High resolution is preserved because wheat heads are small and spatial details matter.</td></tr>
+<tr><td><code>bbox_count</code></td><td>147,793 annotations</td><td>The detector sees many positive boxes and needs efficient dense prediction.</td></tr>
+<tr><td><code>boxes_per_image</code></td><td>mean 43.82 · std 20.37 · max 116</td><td>WBF/TTA is useful because crowded scenes produce duplicate and overlapping predictions.</td></tr>
+<tr><td><code>bbox_width</code></td><td>mean 84.44 · median 78 px</td><td>Small-object sensitivity is essential; FPN-style multi-scale features help.</td></tr>
+<tr><td><code>bbox_height</code></td><td>mean 76.93 · median 71 px</td><td>Boxes are compact relative to the full image, so aggressive downscaling would lose signal.</td></tr>
+<tr><td><code>negative_samples</code></td><td>49 images without annotations</td><td>Empty images are added only to training to teach background rejection.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="wheat-viz-grid" style="margin-top: 28px;">
+<div class="viz-wrapper-card wheat-viz-card stagger-child"><img alt="Bounding boxes per image distribution" src="bounding_box_per_image.png"/><div class="viz-meta-text">Bounding box density distribution — many images contain 30–60 objects, with a long dense tail</div></div>
+<div class="viz-wrapper-card wheat-viz-card stagger-child"><img alt="Example image with no bounding boxes" src="no_bounding_box.png"/><div class="viz-meta-text">Negative sample — no visible wheat head annotation</div></div>
+<div class="viz-wrapper-card wheat-viz-card wheat-viz-wide stagger-child"><img alt="Training samples with bounding boxes" src="images_sample_with_bounding_boxes.png"/><div class="viz-meta-text">Training samples with ground-truth boxes — confirms annotation conversion and box alignment</div></div>
+</div>
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Model Mechanics</span><h2>YOLOv8-M Architecture, Losses &amp; Detection Logic</h2><p class="panel-desc">A COCO-pretrained one-stage detector is adapted to the single wheat-head class using KerasCV.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="theory-split">
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">One-Stage YOLO Detection</div><span class="theory-badge">YOLOv8</span></div><div class="theory-explanation">YOLO predicts object coordinates and confidence in one forward pass, making it suitable for dense scenes where many boxes must be produced quickly. In this notebook, the KerasCV detector uses <code>YOLOV8Backbone.from_preset('yolo_v8_m_backbone_coco')</code> and a <code>YOLOV8Detector</code> head.</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Feature Pyramid Depth</div><span class="theory-badge">FPN 3</span></div><div class="theory-explanation">The detector uses <code>fpn_depth=3</code>, allowing high-level semantics and lower-level spatial detail to interact. This matters because wheat heads can be small, partially hidden, and densely packed.</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Focal Loss</div><span class="theory-badge">Classification</span></div><div class="theory-math-container">$$FL(p_t)=-\alpha_t(1-p_t)^\gamma\log(p_t)$$</div><div class="theory-explanation">Focal loss reduces the dominance of easy background predictions and gives more weight to hard wheat-head examples in cluttered scenes.</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">CIoU Box Loss</div><span class="theory-badge champion-badge">Localization</span></div><div class="theory-math-container">$$\mathcal{L}_{CIoU}=1-IoU+\frac{\rho^2(b,b^{gt})}{c^2}+\alpha v$$</div><div class="theory-explanation">Complete IoU considers overlap, center distance, and aspect-ratio consistency, helping the model learn tighter bounding boxes.</div></div>
+</div>
+<div class="tech-grid" style="margin-top:24px;">
+<div class="tech-card stagger-child"><span class="tech-badge"><i class="fa-solid fa-sliders"></i> Model Configuration</span><h3>Core model parameters</h3><ul><li>Input size: <code>1024×1024</code></li><li>Classes: <code>1</code> wheat-head class</li><li>Bounding box format: <code>xyxy</code></li><li>Backbone: <code>yolo_v8_m_backbone_coco</code></li><li>Visible backbone parameter count in summary: <code>11,872,464</code></li></ul></div>
+<div class="tech-card stagger-child"><span class="tech-badge"><i class="fa-solid fa-gauge-high"></i> Training Stability</span><h3>Optimization controls</h3><ul><li>Optimizer: <code>AdamW</code></li><li>Weight decay: <code>1e-3</code></li><li>Gradient clipping: <code>global_clipnorm=10.0</code></li><li>BatchNorm layers frozen to avoid unstable running statistics with small batches</li></ul></div>
+</div>
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Input Pipeline</span><h2>Ragged Tensors, Splits &amp; Augmentation Strategy</h2><p class="panel-desc">The notebook prepares variable-length boxes with tf.data and uses phase-specific augmentation strength.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="timeline-flow">
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Parse raw annotations</strong><span>Kaggle boxes are converted from <code>[x, y, w, h]</code> to <code>[x_min, y_min, x_max, y_max]</code>.</span></div></div></div>
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Group boxes by image</strong><span>Each image becomes one dictionary with an image path and a variable number of boxes.</span></div></div></div>
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Train/validation split</strong><span>Positive samples are split 80/20 with seed 28; empty images are inserted into the training set only.</span></div></div></div>
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Ragged batching</strong><span>Boxes and classes are stored as ragged tensors because every image has a different number of objects.</span></div></div></div>
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Prefetch pipeline</strong><span><code>tf.data.AUTOTUNE</code> and prefetching overlap CPU loading/augmentation with GPU training.</span></div></div></div>
+</div>
+<div class="tech-grid" style="margin-top:24px;">
+<div class="tech-card stagger-child"><span class="tech-badge">Strong Augmentation</span><h3>Warmup / early robustness</h3><p>Uses <code>JitteredResize(0.9–1.1)</code>, <code>Mosaic</code>, horizontal flip, strong color jitter, and color degeneration. Mosaic is especially useful because it exposes the model to more object arrangements and denser context per batch.</p></div>
+<div class="tech-card stagger-child"><span class="tech-badge">Light Augmentation</span><h3>Mid/Fine-tune stability</h3><p>Uses reduced scale jitter <code>0.95–1.05</code>, horizontal flip, milder color jitter, and lower color degeneration. This keeps the training distribution closer to validation while still preventing overfitting.</p></div>
+</div>
+
+<div class="implementation-grid stagger-child" style="margin-top:24px;">
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">strong_augmentation.py</div><div></div></div><div class="terminal-body compact-code"><pre><span class="code-comment"># Warmup / early training: maximize variation</span>
+augmenter_strong = tf.keras.Sequential([
+    keras_cv.layers.JitteredResize(
+        target_size=IMG_SIZE,
+        scale_factor=(0.9, 1.1),
+        bounding_box_format="xyxy"
+    ),
+    keras_cv.layers.Mosaic(
+        bounding_box_format="xyxy", name="mosaic"
+    ),
+    keras_cv.layers.RandomFlip(
+        mode="horizontal", bounding_box_format="xyxy"
+    ),
+    keras_cv.layers.RandomColorJitter(
+        value_range=(0, 255),
+        brightness_factor=0.2,
+        contrast_factor=0.2,
+        saturation_factor=0.2,
+        hue_factor=0.1,
+    ),
+    keras_cv.layers.RandomColorDegeneration(
+        factor=(0.2, 0.7), seed=SEED
+    ),
+])</pre></div></div>
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">dataset_factory.py</div><div></div></div><div class="terminal-body compact-code"><pre><span class="code-comment"># KerasCV needs ragged boxes: each image has a different object count</span>
+def create_strong_dataset(records, batch_size=BATCH_SIZE):
+    paths, classes, boxes = prepare_inputs(records)
+    ds = tf.data.Dataset.from_tensor_slices((paths, classes, boxes))
+    ds = ds.shuffle(BUFFER_SHUFFLE_SIZE)
+    ds = ds.map(load_dataset, num_parallel_calls=AUTO)
+    ds = ds.ragged_batch(batch_size, drop_remainder=True)
+    ds = ds.map(augmenter_strong, num_parallel_calls=AUTO)
+    ds = ds.map(dict_to_tuple, num_parallel_calls=AUTO)
+    return ds.prefetch(AUTO)
+
+<span class="code-comment"># Mid/fine-tune swaps to lighter augmentation</span>
+def create_light_dataset(records, is_training=False):
+    augmenter = augmenter_light if is_training else augmenter_val
+    # same load → ragged_batch → augment → tuple → prefetch path
+    return build_dataset(records, augmenter, is_training)</pre></div></div>
+</div>
+
+<div class="viz-display-grid two" style="margin-top:24px;">
+<div class="viz-wrapper-card big-viz stagger-child"><img alt="Mosaic augmentation example" src="moasic_example.png"/><div class="viz-meta-text">Mosaic augmentation output — multiple scenes merged with transformed wheat-head boxes</div></div>
+<div class="viz-wrapper-card big-viz stagger-child"><img alt="Training samples with bounding boxes" src="images_sample_with_bounding_boxes.png"/><div class="viz-meta-text">Ground-truth box samples — confirms ragged tensors and box transforms stay aligned</div></div>
+</div>
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Optimization Strategy</span><h2>Three-Phase Training Diagnostics</h2><p class="panel-desc">Warmup stabilizes the head, mid-tune specializes deeper features, and fine-tune reaches the final mAP ceiling.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="phase-stack stagger-child">
+<div class="phase-row"><div class="phase-index">Phase 1</div><div class="phase-main"><strong>Warmup Head Training</strong><span>Epochs 1–10. Backbone frozen, BatchNorm frozen, warmup LR <code>1e-3</code>. The head learns wheat localization without disturbing pretrained COCO features.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">mAP Start</span><span class="phase-metric-value">0.2530</span></div><div><span class="phase-metric-label">Best mAP</span><span class="phase-metric-value good">0.4617</span></div><div><span class="phase-metric-label">Box Loss Δ</span><span class="phase-metric-value">-0.7475</span></div></div></div>
+<div class="phase-row"><div class="phase-index">Phase 2</div><div class="phase-main"><strong>Mid-Tune Partial Specialization</strong><span>Epochs 11–30. Deeper tuning with cosine decay improves stricter localization and pushes validation mAP above 0.50.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Start mAP</span><span class="phase-metric-value">0.4816</span></div><div><span class="phase-metric-label">Peak mAP</span><span class="phase-metric-value good">0.5063</span></div><div><span class="phase-metric-label">mAP@75</span><span class="phase-metric-value">0.5262</span></div></div></div>
+<div class="phase-row rank-leader"><div class="phase-index">Phase 3</div><div class="phase-main"><strong>Full Fine-Tune Refinement</strong><span>Epochs 31–51 logged. Full backbone refinement with low LR <code>1e-5</code> gives smaller but valuable improvements, especially for tiny/distant wheat heads.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Best Epoch</span><span class="phase-metric-value good">43</span></div><div><span class="phase-metric-label">Best mAP</span><span class="phase-metric-value good">0.5127</span></div><div><span class="phase-metric-label">Best mAP@50</span><span class="phase-metric-value good">0.8704</span></div></div></div>
+</div>
+<div class="matrix-table-container stagger-child">
+<table><thead><tr><th>Metric</th><th>Warmup Best</th><th>Mid-Tune Peak</th><th>Fine-Tune Peak</th><th>Meaning</th></tr></thead><tbody><tr><td><code>Validation mAP</code></td><td>0.4617</td><td>0.5063</td><td><span class="taxonomy-tag target-style">0.5127</span></td><td>Main COCO-style detection quality metric.</td></tr><tr><td><code>mAP@50</code></td><td>0.8272</td><td>—</td><td>0.8704</td><td>Loose IoU localization; strong indication the detector finds wheat heads.</td></tr><tr><td><code>mAP@75</code></td><td>—</td><td>0.5262</td><td>0.5331</td><td>Stricter localization; improved during deeper tuning.</td></tr><tr><td><code>Training box loss</code></td><td>1.2328</td><td>1.0480</td><td>0.9734</td><td>Regression loss continued declining through fine-tuning.</td></tr></tbody></table>
+</div>
+<div class="executive-summary-box stagger-child" style="margin-top:24px;"><p><strong>Diagnostic Breakdown:</strong> The biggest improvement happened during warmup (+0.2087 mAP), confirming the pretrained detector adapted quickly. Mid-tune crossed the 0.50 mAP threshold and improved stricter box alignment. Fine-tune added a smaller but important final gain to 0.5127, which is expected for a dense small-object competition where overlap and occlusion create a practical ceiling.</p></div>
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Configuration Layer</span><h2>Model Parameters &amp; Training Controls</h2><p class="panel-desc">The notebook keeps the detector close to the competition setup: full 1024×1024 images, one wheat-head class, AdamW regularization, and staged learning rates.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="matrix-table-container stagger-child">
+<table class="pipeline-table compact-param-table">
+<thead><tr><th>Parameter Group</th><th>Notebook Value</th><th>Implementation Role</th></tr></thead>
+<tbody>
+<tr><td><code>IMG_SIZE</code></td><td><code>(1024, 1024)</code></td><td>Full-resolution training keeps wheat heads large enough for reliable box regression.</td></tr>
+<tr><td><code>NUM_CLASSES</code></td><td><code>1</code></td><td>Single detector class: wheat head. The challenge is localization density, not class variety.</td></tr>
+<tr><td><code>bounding_box_format</code></td><td><code>xyxy</code></td><td>All training, augmentation, metrics, TTA reversal, and WBF logic use xmin/ymin/xmax/ymax.</td></tr>
+<tr><td><code>backbone preset</code></td><td><code>yolo_v8_m_backbone_coco</code></td><td>COCO-pretrained YOLOv8-M backbone provides general object features before agricultural fine-tuning.</td></tr>
+<tr><td><code>backbone params</code></td><td><code>11,872,464</code></td><td>The visible backbone summary confirms the medium preset size used for this portfolio detector.</td></tr>
+<tr><td><code>fpn_depth</code></td><td><code>3</code></td><td>Feature Pyramid depth controls multi-scale detection refinement for small, medium, and larger wheat heads.</td></tr>
+<tr><td><code>BATCH_SIZE_PER_REPLICA</code></td><td><code>4</code></td><td>Chosen because 1024×1024 object-detection tensors are memory heavy.</td></tr>
+<tr><td><code>BUFFER_SHUFFLE_SIZE</code></td><td><code>512</code></td><td>Randomizes training order without huge memory overhead.</td></tr>
+<tr><td><code>GLOBAL_CLIPNORM</code></td><td><code>10.0</code></td><td>Clips gradient norm to reduce exploding updates during dense box optimization.</td></tr>
+<tr><td><code>optimizer</code></td><td><code>AdamW</code></td><td>Combines Adam-style adaptive learning with decoupled weight decay for regularized fine-tuning.</td></tr>
+<tr><td><code>classification_loss</code></td><td><code>FocalLoss()</code></td><td>Down-weights easy background/low-value examples and emphasizes hard wheat-head detections.</td></tr>
+<tr><td><code>box_loss</code></td><td><code>ciou</code></td><td>Optimizes overlap, center distance, and aspect-ratio consistency for tighter boxes.</td></tr>
+<tr><td><code>steps_per_execution</code></td><td><code>32 on TPU else 1</code></td><td>Improves TPU execution efficiency while keeping GPU/CPU behavior simple.</td></tr>
+<tr><td><code>WARMUP_LR</code></td><td><code>1e-3</code></td><td>Fast detector-head adaptation while the backbone is frozen.</td></tr>
+<tr><td><code>FINE_TUNE_BB_LR</code></td><td><code>1e-4</code></td><td>Partial backbone tuning from <code>stack4_downsample_conv</code> with cosine decay.</td></tr>
+<tr><td><code>FINE_TUNE_MODEL_LR</code></td><td><code>1e-5</code></td><td>Full fine-tuning with tiny updates for final localization refinement.</td></tr>
+<tr><td><code>epochs</code></td><td><code>10 → 30 → 80</code></td><td>Warmup, mid-tune, and fine-tune use increasing patience and decreasing update size.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="tech-grid" style="margin-top:24px;">
+<div class="tech-card stagger-child"><span class="tech-badge">Detector Setup</span><h3>YOLOv8-M in KerasCV</h3><p>The implementation builds a <code>YOLOV8Detector</code> around a COCO-pretrained medium backbone, sets <code>num_classes=1</code>, keeps the box format consistent as <code>xyxy</code>, and uses <code>fpn_depth=3</code> for multi-scale feature aggregation.</p></div>
+<div class="tech-card stagger-child"><span class="tech-badge">Training Control</span><h3>Why staged learning rates?</h3><p>The notebook does not unfreeze everything at once. It first trains the detector head, then unfreezes deeper backbone layers, then performs full low-LR refinement while keeping BatchNorm frozen for stability.</p></div>
+</div>
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Implementation</span><h2>Core Training Code</h2><p class="panel-desc">A compact view of the central setup: YOLOv8-M, COCO weights, AdamW, focal classification loss, CIoU box loss, and staged optimization.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="implementation-grid stagger-child">
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">01_build_detector.py</div><div></div></div><div class="terminal-body compact-code"><pre><span class="code-comment"># COCO-pretrained YOLOv8-M detector for one wheat-head class</span>
+def create_detector():
+    backbone = keras_cv.models.YOLOV8Backbone.from_preset(
+        "yolo_v8_m_backbone_coco"
+    )
+    return keras_cv.models.YOLOV8Detector(
+        backbone=backbone,
+        num_classes=1,
+        bounding_box_format="xyxy",
+        fpn_depth=3,
+    )
+
+with strategy.scope():
+    model = create_detector()
+    model.backbone.trainable = False
+
+    <span class="code-comment"># Keep BatchNorm stable with small high-res batches</span>
+    for layer in model.backbone.layers:
+        if isinstance(layer, tf.keras.layers.BatchNormalization):
+            layer.trainable = False</pre></div></div>
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">02_compile_warmup.py</div><div></div></div><div class="terminal-body compact-code"><pre><span class="code-comment"># Phase 1: train detection head/neck while backbone is frozen</span>
+optimizer = tf.keras.optimizers.AdamW(
+    learning_rate=WARMUP_LR,     # 1e-3
+    weight_decay=1e-3,
+    beta_1=0.9,
+    beta_2=0.999,
+    global_clipnorm=GLOBAL_CLIPNORM,
+)
+
+model.compile(
+    optimizer=optimizer,
+    classification_loss=keras_cv.losses.FocalLoss(),
+    box_loss="ciou",
+    steps_per_execution=32 if is_tpu else 1,
+)
+
+history = model.fit(
+    train_strong_dataset.repeat(),
+    validation_data=val_dataset.repeat(),
+    epochs=WARMUP_EPOCH,
+    callbacks=[coco_cb, early_stopping_cb, reduce_lr_cb],
+    steps_per_epoch=steps_per_epoch,
+    validation_steps=validation_steps,
+)</pre></div></div>
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">03_partial_unfreeze.py</div><div></div></div><div class="terminal-body compact-code"><pre><span class="code-comment"># Phase 2: reload warmup checkpoint and unfreeze only deep backbone layers</span>
+START_UNFREEZE_LAYER_NAME = "stack4_downsample_conv"
+model = tf.keras.models.load_model(
+    "/kaggle/input/wheat-detection/keras/warmup/1/warmup_best_model.keras",
+    custom_objects={
+        "YOLOV8Detector": keras_cv.models.YOLOV8Detector,
+        "YOLOV8Backbone": keras_cv.models.YOLOV8Backbone,
+    },
+)
+
+model.backbone.trainable = True
+unfreeze = False
+for layer in model.backbone.layers:
+    if layer.name == START_UNFREEZE_LAYER_NAME:
+        unfreeze = True
+    layer.trainable = unfreeze
+    if isinstance(layer, tf.keras.layers.BatchNormalization):
+        layer.trainable = False
+
+lr = tf.keras.optimizers.schedules.CosineDecay(
+    initial_learning_rate=FINE_TUNE_BB_LR,  # 1e-4
+    decay_steps=steps_per_epoch * (INTERMEDIATE_EPOCH - WARMUP_EPOCH),
+    alpha=0.1,
+)</pre></div></div>
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">04_full_finetune_phase3.py</div><div></div></div><div class="terminal-body compact-code"><pre><span class="code-comment"># Phase 3: full unfreezing + very low LR refinement</span>
+model = tf.keras.models.load_model(
+    "/kaggle/input/wheat-detection/keras/warmup/2/midtune_best_model.keras",
+    custom_objects={
+        "YOLOV8Detector": keras_cv.models.YOLOV8Detector,
+        "YOLOV8Backbone": keras_cv.models.YOLOV8Backbone,
+    },
+)
+
+model.backbone.trainable = True
+for layer in model.backbone.layers:
+    layer.trainable = True
+    if isinstance(layer, tf.keras.layers.BatchNormalization):
+        layer.trainable = False
+
+for layer in model.layers:
+    if isinstance(layer, tf.keras.layers.BatchNormalization):
+        layer.trainable = False
+
+lr = tf.keras.optimizers.schedules.CosineDecay(
+    initial_learning_rate=FINE_TUNE_MODEL_LR,  # 1e-5
+    decay_steps=steps_per_epoch * (FINAL_EPOCH - INTERMEDIATE_EPOCH),
+    alpha=0.1,
+)
+
+model.compile(
+    optimizer=tf.keras.optimizers.AdamW(
+        learning_rate=lr, weight_decay=1e-4,
+        beta_1=0.9, beta_2=0.999,
+        global_clipnorm=GLOBAL_CLIPNORM,
+    ),
+    classification_loss=keras_cv.losses.FocalLoss(),
+    box_loss="ciou",
+    steps_per_execution=32 if is_tpu else 1,
+)</pre></div></div>
+</div>
+<div class="executive-summary-box stagger-child" style="margin-top:24px;">
+<p><strong>Implementation takeaway:</strong> the notebook treats training as a controlled optimization path, not one giant <code>fit()</code> call. Phase 1 protects COCO features, Phase 2 adapts high-level backbone layers, and Phase 3 fully unfreezes the detector with tiny cosine-decayed updates while BatchNorm remains frozen.</p>
+</div>
+</div></div>
+</section>
+</div>
+<div class="notebook-panel" id="inference-panel">
+<section class="section section-collapsible expanded">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Inference Blueprint</span><h2>Saved Model Loading &amp; Submission Pipeline</h2><p class="panel-desc">The inference notebook stays separate from training: it loads the Kaggle Model artifact, verifies predictions, applies TTA, fuses boxes with WBF, and writes the competition submission.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="overview-text stagger-child">
+<p>The final detector is loaded from <code>/kaggle/input/wheat-detection/keras/warmup/3/finetune_best_model.keras</code> using KerasCV custom objects. The notebook uses <strong>1024×1024</strong> inference resolution, <strong>CONF_THRESHOLD = 0.40</strong>, <strong>IOU_THRESHOLD = 0.50</strong>, and Test-Time Augmentation before Weighted Boxes Fusion. The resulting <code>submission.csv</code> follows the Kaggle format: <code>confidence xmin ymin width height</code>.</p>
+<div class="note-grid">
+<div class="note-card"><strong>Model source</strong><span>Kaggle Model artifact loaded without retraining, keeping inference lightweight and reproducible.</span></div>
+<div class="note-card"><strong>TTA views</strong><span>Identity, horizontal flip, vertical flip, and multiple photometric jitter variants are combined.</span></div>
+<div class="note-card"><strong>Final score</strong><span>The submission workflow reached a Kaggle score of <strong>0.6055</strong>.</span></div>
+</div>
+</div>
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Baseline Prediction</span><h2>Initial Inference &amp; Confidence Filtering</h2><p class="panel-desc">Before TTA/WBF, the notebook validates model loading and raw prediction behavior on test images.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner"><div class="tech-grid"><div class="tech-card stagger-child"><span class="tech-badge">Prediction Utility</span><h3>Single-image detection</h3><p>The helper function expands a single image to batch shape, calls <code>model.predict()</code>, and keeps only detections above the confidence threshold. The output remains in KerasCV dictionary format with <code>boxes</code>, <code>classes</code>, and <code>confidence</code>.</p></div><div class="tech-card stagger-child"><span class="tech-badge">Visual Check</span><h3>Why this step matters</h3><p>Initial prediction visualization confirms that the saved model artifact loads correctly, bounding boxes are in the expected <code>xyxy</code> coordinate space, and the threshold is reasonable before adding TTA complexity.</p></div></div><div class="viz-display-grid single-centered" style="margin-top:24px;"><div class="viz-wrapper-card big-viz stagger-child"><img alt="Initial inference example" src="initial_inference_example.png"/><div class="viz-meta-text">Initial inference example — raw YOLOv8 detections before final TTA/WBF fusion</div></div></div></div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Robust Prediction</span><h2>Test-Time Augmentation Strategy</h2><p class="panel-desc">TTA increases viewpoint and lighting coverage while preserving final coordinates through reversal functions.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="theory-split">
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Horizontal Flip Reversal</div><span class="theory-badge">Geometry</span></div><div class="theory-math-container">$$x_{min}^\prime = W-x_{max},\quad x_{max}^\prime = W-x_{min}$$</div><div class="theory-explanation">Horizontal-flip predictions are mapped back by reversing x-coordinates around the image width. Y-coordinates remain unchanged.</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Vertical Flip Reversal</div><span class="theory-badge">Geometry</span></div><div class="theory-math-container">$$y_{min}^\prime = H-y_{max},\quad y_{max}^\prime = H-y_{min}$$</div><div class="theory-explanation">Vertical-flip predictions are restored by reversing y-coordinates around the image height. X-coordinates remain unchanged.</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Photometric Variants</div><span class="theory-badge">Lighting</span></div><div class="theory-explanation">Four random color-jitter views adjust hue, contrast, saturation, and brightness. Because these are non-geometric transforms, boxes do not need coordinate reversal.</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Aggregation Before Fusion</div><span class="theory-badge champion-badge">TTA</span></div><div class="theory-explanation">The notebook logs every TTA sequence and concatenates all boxes, scores, and classes. One debug image produced 295 candidate boxes before WBF, demonstrating why fusion is required.</div></div>
+</div>
+
+<div class="implementation-grid stagger-child" style="margin-top:24px;">
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">tta_sequences.py</div><div></div></div><div class="terminal-body compact-code"><pre><span class="code-comment"># 7 executed views: identity, flips, and color perturbations</span>
+TTA_SEQUENCES = [
+    (lambda img: img, lambda boxes: boxes),
+    (tf.image.flip_left_right, reverse_h_flip),
+    (tf.image.flip_up_down, reverse_v_flip),
+    (lambda img: random_color_jitter(img), lambda boxes: boxes),
+    (lambda img: random_color_jitter(img), lambda boxes: boxes),
+    (lambda img: random_color_jitter(img), lambda boxes: boxes),
+    (lambda img: random_color_jitter(img), lambda boxes: boxes),
+]
+
+<span class="code-comment"># Geometric TTA must reverse coordinates back to original space</span>
+def reverse_h_flip(boxes, image_width=IMG_SIZE[1]):
+    xmin, ymin, xmax, ymax = tf.split(boxes, 4, axis=-1)
+    return tf.concat([image_width - xmax, ymin, image_width - xmin, ymax], axis=-1)</pre></div></div>
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">tta_aggregation.py</div><div></div></div><div class="terminal-body compact-code"><pre>def run_tta(model, image_tensor, conf_threshold=0.40):
+    collected = []
+    for augment_fn, reverse_fn in TTA_SEQUENCES:
+        aug_img = augment_fn(image_tensor)
+        pred = model.predict(tf.expand_dims(aug_img, 0), verbose=0)
+        keep = pred["confidence"] &gt; conf_threshold
+
+        boxes = tf.ragged.boolean_mask(pred["boxes"], keep)[0]
+        scores = tf.ragged.boolean_mask(pred["confidence"], keep)[0]
+        classes = tf.ragged.boolean_mask(pred["classes"], keep)[0]
+
+        if tf.shape(boxes)[0] &gt; 0:
+            boxes = reverse_fn(boxes)
+            collected.append((boxes.numpy(), scores.numpy(), classes.numpy()))
+
+    return concatenate_tta_predictions(collected)</pre></div></div>
+</div>
+
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Post-Processing</span><h2>Weighted Boxes Fusion &amp; Submission Formatting</h2><p class="panel-desc">WBF merges duplicate TTA predictions instead of simply discarding them like standard NMS.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner">
+<div class="theory-split">
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Weighted Box Coordinates</div><span class="theory-badge">WBF</span></div><div class="theory-math-container">$$x_{fused}=\frac{\sum_i s_i x_i}{\sum_i s_i}$$</div><div class="theory-explanation">WBF uses prediction confidence as weights, so repeated detections from multiple TTA views pull the final coordinate toward the strongest consensus.</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Why WBF Over NMS?</div><span class="theory-badge champion-badge">Dense Scenes</span></div><div class="theory-explanation">NMS removes boxes. WBF combines them. In wheat images, several TTA views may detect the same head with slightly shifted boxes, so fusion can produce cleaner localization.</div></div>
+</div>
+<div class="matrix-table-container stagger-child" style="margin-top:24px;"><table><thead><tr><th>Image</th><th>TTA Candidate Boxes</th><th>After WBF</th><th>After Final Filter</th></tr></thead><tbody><tr><td><code>debug_image</code></td><td>295</td><td>32</td><td>32</td></tr><tr><td><code>796707dd7</code></td><td>229</td><td>31</td><td>31</td></tr><tr><td><code>2fd875eaa</code></td><td>335</td><td>32</td><td>32</td></tr><tr><td><code>cc3532ff6</code></td><td>255</td><td>30</td><td>30</td></tr><tr><td><code>53f253011</code></td><td>297</td><td>32</td><td>32</td></tr><tr><td><code>51f1be19e</code></td><td>466</td><td>51</td><td>51</td></tr></tbody></table></div>
+
+<div class="implementation-grid stagger-child" style="margin-top:24px;">
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">weighted_boxes_fusion.py</div><div></div></div><div class="terminal-body compact-code"><pre>def fuse_boxes(boxes, scores, classes, img_size=IMG_SIZE):
+    <span class="code-comment"># WBF expects normalized coordinates in [0, 1]</span>
+    boxes_norm = boxes / img_size[0]
+    fused_boxes, fused_scores, fused_labels = weighted_boxes_fusion(
+        [boxes_norm.tolist()],
+        [scores.tolist()],
+        [classes.astype(float).tolist()],
+        weights=None,
+        iou_thr=0.50,
+        conf_type="max",
+        skip_box_thr=0.0001,
+    )
+    return np.array(fused_boxes) * img_size[0], np.array(fused_scores)</pre></div></div>
+<div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">submission_string.py</div><div></div></div><div class="terminal-body compact-code"><pre>def to_kaggle_prediction_string(fused_boxes, fused_scores):
+    keep = fused_scores &gt;= 0.40
+    parts = []
+    for box, score in zip(fused_boxes[keep], fused_scores[keep]):
+        xmin, ymin, xmax, ymax = box
+        width = xmax - xmin
+        height = ymax - ymin
+        parts.extend([
+            f"{score:.4f}",
+            str(int(xmin)), str(int(ymin)),
+            str(int(width)), str(int(height)),
+        ])
+    return " ".join(parts)</pre></div></div>
+</div>
+
+</div></div>
+</section>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Inference Visuals</span><h2>Final TTA + WBF Output Examples</h2><p class="panel-desc">Final predictions are cleaner after coordinate reversal, confidence filtering, and box fusion.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner"><div class="viz-display-grid two two-card-row"><div class="viz-wrapper-card big-viz stagger-child"><img alt="Final TTA WBF example 1" src="final_TTA_WBF_example1.png"/><div class="viz-meta-text">Final TTA + WBF example 1 — fused wheat-head predictions</div></div><div class="viz-wrapper-card big-viz stagger-child"><img alt="Final TTA WBF example 2" src="final_TTA_WBF_example2.png"/><div class="viz-meta-text">Final TTA + WBF example 2 — dense field localization after fusion</div></div></div></div></div>
+</section>
+</div>
+<section class="section section-collapsible">
+<div class="section-header"><div class="panel-header-content"><span class="panel-tag">Conclusion</span><h2>Project Synthesis &amp; Roadmap</h2><p class="panel-desc">The final workflow separates heavy training from robust inference and is ready for future detector experiments.</p></div><div class="chevron"></div></div>
+<div class="section-body"><div class="section-body-inner"><div class="synthesis-gradient-box stagger-child"><p><strong>Training result:</strong> The staged YOLOv8-M workflow achieved a best recorded validation mAP of <strong>0.5127</strong> at epoch 43, with <strong>0.8704 mAP@50</strong>. The strongest gains came from warmup and mid-tune; fine-tuning gave smaller but meaningful small-object improvements.</p><p><strong>Inference result:</strong> The final notebook applies seven executed TTA views per test image, reverses geometric transforms, uses WBF with IoU threshold 0.50, and exports a Kaggle-ready <code>submission.csv</code>, with the final Kaggle score recorded as <strong>0.6055</strong>.</p><p><strong>Future directions:</strong></p><ul><li>Try larger YOLO presets or ensemble multiple checkpoints.</li><li>Experiment with CutMix, MixUp, Random Erasing, and tuned Mosaic probability.</li><li>Run threshold sweeps for confidence and WBF IoU to optimize public/private leaderboard behavior.</li><li>Compare WBF with Soft-NMS and class-aware NMS for dense wheat clusters.</li></ul></div></div></div>
+</section>
+<footer class="portfolio-footer-gate"><div class="contact-icons"><a class="icon-link" href="mailto:a1mohamad.askari@gmail.com" title="Gmail"><i class="fa-brands fa-google"></i></a><a class="icon-link" href="mailto:amirmohmdaskari@icloud.com" title="iCloud"><i class="fa-brands fa-apple"></i></a><a class="icon-link" href="tel:+989012223122" title="Phone"><i class="fas fa-phone"></i></a><a class="icon-link" href="https://github.com/a1mohamad" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a><a class="icon-link" href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a><a class="icon-link" href="https://www.kaggle.com/amirmohamadaskari" target="_blank" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a></div></footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari · Object Detection Lab · 2026</div>
+<div class="lightbox-overlay" id="lightboxOverlay"><div class="lightbox-wrapper"><span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span><img alt="Expanded View" id="lightboxImage" src=""/></div></div>
+<script src="script.js"></script>
+</body>
+</html>
