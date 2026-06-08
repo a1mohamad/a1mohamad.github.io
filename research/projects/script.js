@@ -315,7 +315,7 @@ const projects = [
       "Confusion Matrix"
     ],
     "href": "https://a1mohamad.github.io/research/loan-approval/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.24), rgba(5,5,8,.82)), url(assets/projects/loan-approval.jpg)"
+    "image": "linear-gradient(135deg, rgba(99,102,241,.24), rgba(5,5,8,.82)), url(assets/projects/loan-approval.png)"
   }
 ];
 
