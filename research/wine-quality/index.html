@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wine Quality Classification Analysis | Amir Mohamad Askari</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="styles.css">
-    
     <script>
         window.MathJax = {
             tex: {
@@ -31,16 +28,15 @@
     <div class="hero-meta">Supervised Learning Blueprint</div>
     <h1>Wine Quality Prediction & Chemical Diagnostics</h1>
     <div class="hero-subtitle">Comparative architectural analysis and non-linear boundary estimation mapped over structural viniculture configurations.</div>
-    <div class="btn-github-container">
+    <div class="btn-group">
         <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Wine%20Quality" target="_blank" class="btn-modern-primary">
-            <i class="fab fa-github"></i>
-            <span>Access Source Repository</span>
+            <i class="fab fa-github"></i> <span>Access Source Repository</span>
         </a>
     </div>
 </div>
 
 <div class="main-layout">
-
+    <!-- Metric strip -->
     <div class="metrics-strip">
         <div class="metric-block" data-metric-type="percentage" data-metric-target="78.33">
             <div class="metric-label">XGBoost ROC-AUC</div>
@@ -60,7 +56,7 @@
         </div>
     </div>
 
-    <!-- PROJECT OVERVIEW (expanded by default) -->
+    <!-- Project Overview (expanded) -->
     <section class="section section-collapsible expanded">
         <div class="section-header">
             <div class="panel-header-content">
@@ -68,7 +64,7 @@
                 <h2>Project Overview</h2>
                 <p class="panel-desc">A machine learning study that classifies wine quality based on its chemical properties.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -79,7 +75,7 @@
         </div>
     </section>
 
-    <!-- DEPENDENCIES (collapsed) -->
+    <!-- Dependencies -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -87,33 +83,21 @@
                 <h2>Core Pipeline Dependencies</h2>
                 <p class="panel-desc">Underlying math engines, vector layout arrays, and algorithmic frameworks.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="dependency-list">
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-layer-group dep-icon"></i>
-                        <div><strong>Pandas</strong><span>Handles core data matrix alignment, feature parsing, and operational structural ingestion configurations.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-wave-square dep-icon"></i>
-                        <div><strong>NumPy</strong><span>Powers vector tensor logic, algebraic matrix processes, and underlying chemical arrays computing operations.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-diagram-project dep-icon"></i>
-                        <div><strong>Scikit-Learn</strong><span>Supplies robust scalar processors, baseline estimators, and structural cross-validation parameters.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-bolt-lightning dep-icon"></i>
-                        <div><strong>XGBoost</strong><span>Deploys extreme sequential ensemble tree structures to optimize targeted categorical boundaries.</span></div>
-                    </div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-layer-group dep-icon"></i><div><strong>Pandas</strong><span>Handles core data matrix alignment, feature parsing, and operational structural ingestion configurations.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-wave-square dep-icon"></i><div><strong>NumPy</strong><span>Powers vector tensor logic, algebraic matrix processes, and underlying chemical arrays computing operations.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-diagram-project dep-icon"></i><div><strong>Scikit-Learn</strong><span>Supplies robust scalar processors, baseline estimators, and structural cross-validation parameters.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-bolt-lightning dep-icon"></i><div><strong>XGBoost</strong><span>Deploys extreme sequential ensemble tree structures to optimize targeted categorical boundaries.</span></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PIPELINE (collapsed) -->
+    <!-- System Architecture -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -121,38 +105,20 @@
                 <h2>System Architecture Overview</h2>
                 <p class="panel-desc">A conceptual blueprint mapping raw viniculture telemetry inputs through analysis, feature engineering, and model evaluation.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="timeline-flow">
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">01</span>
-                            <div><strong>EDA and Feature Engineering</strong><span>Handle missing values, drop irrelevant columns, and encode categorical variables.</span></div>
-                        </div>
-                    </div>
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">02</span>
-                            <div><strong>Global Scaling Engine</strong><span>MinMax vector unification mapping variables between 0 and 1.</span></div>
-                        </div>
-                    </div>
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">03</span>
-                            <div><strong>Compare Different Models</strong><span>Evaluate Logistic Regression, SVC, and XGBoost on the test set.</span></div>
-                        </div>
-                    </div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>EDA and Feature Engineering</strong><span>Handle missing values, drop irrelevant columns, and encode categorical variables.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Global Scaling Engine</strong><span>MinMax vector unification mapping variables between 0 and 1.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Compare Different Models</strong><span>Evaluate Logistic Regression, SVC, and XGBoost on the test set.</span></div></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- MATHEMATICS (collapsed) -->
+    <!-- Mathematical Mechanics -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -160,24 +126,18 @@
                 <h2>Algorithmic Formulations</h2>
                 <p class="panel-desc">Rigorous conceptual analysis of the loss minimization frameworks and mapping configurations utilized in the models.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="theory-split">
                     <div class="theory-block stagger-child">
-                        <div class="theory-card-header">
-                            <div class="theory-title">Support Vector Classifier</div>
-                            <div class="theory-badge">RBF Kernel</div>
-                        </div>
+                        <div class="theory-card-header"><div class="theory-title">Support Vector Classifier</div><div class="theory-badge">RBF Kernel</div></div>
                         <div class="theory-math-container">$$K(x, x') = \exp(-\gamma \|x - x'\|^2)$$</div>
                         <p class="theory-explanation">Projects parameters into higher-dimensional Hilbert spaces to isolate complex non-linear structures, constructing hyperplanes that maximize decision safety margins.</p>
                     </div>
                     <div class="theory-block stagger-child">
-                        <div class="theory-card-header">
-                            <div class="theory-title">Extreme Gradient Boosting</div>
-                            <div class="theory-badge">Objective Function</div>
-                        </div>
+                        <div class="theory-card-header"><div class="theory-title">Extreme Gradient Boosting</div><div class="theory-badge">Objective Function</div></div>
                         <div class="theory-math-container">$$\mathcal{L}^{(t)} \approx \sum_{i=1}^{n} \left[ g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i) \right] + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^{T} w_j^2$$</div>
                         <p class="theory-explanation">Optimizes structural performance metrics via a second-order Taylor expansion while introducing leaf-weight penalties ($\lambda$) and complexity constraints ($\gamma$) to curb validation variance.</p>
                     </div>
@@ -186,7 +146,7 @@
         </div>
     </section>
 
-    <!-- FEATURE TABLE (collapsed) -->
+    <!-- Feature Table -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -194,19 +154,13 @@
                 <h2>Feature Vector Taxonomy</h2>
                 <p class="panel-desc">Internal vector array mapping structural dimensions extracted across physical and compound attributes.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="matrix-table-container stagger-child">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Feature Identifier</th>
-                                <th>Taxonomy Group</th>
-                                <th>Dimensional Core Function</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Feature Identifier</th><th>Taxonomy Group</th><th>Dimensional Core Function</th></tr></thead>
                         <tbody>
                             <tr><td><code>fixed acidity</code></td><td><span class="taxonomy-tag">Chemical Base</span></td><td>Tracks non-volatile acid structures across volume constraints.</td></tr>
                             <tr><td><code>volatile acidity</code></td><td><span class="taxonomy-tag">Chemical Base</span></td><td>Measures acetic acid tracking bounds affecting sensory outputs.</td></tr>
@@ -227,7 +181,7 @@
         </div>
     </section>
 
-    <!-- CODE (collapsed) -->
+    <!-- Code Terminal -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -235,18 +189,13 @@
                 <h2>Model Optimization Sandbox</h2>
                 <p class="panel-desc">Complete automated python compilation engine managing training steps, matrix scaling, and validation loops.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="terminal-panel stagger-child">
-                    <div class="terminal-header">
-                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                        <div class="terminal-title">wine_classification_pipeline.py</div>
-                        <div></div>
-                    </div>
-                    <div class="terminal-body">
-<pre>
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">wine_classification_pipeline.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
 <span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
 <span class="code-selection">from</span> sklearn.model_selection <span class="code-keyword">import</span> train_test_split
 <span class="code-keyword">from</span> sklearn.preprocessing <span class="code-keyword">import</span> MinMaxScaler
@@ -295,40 +244,39 @@
         print(<span class="code-keyword">f</span><span class="code-str">"Validation AUC: {auc_score:.4f}"</span>)
         print(<span class="code-keyword">f</span><span class="code-str">"Validation Accuracy: {accuracy:.4f}"</span>)
         print(<span class="code-str">"-"</span> * <span class="code-num">30</span>)
-</pre>
-                    </div>
+</pre></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- VISUAL DIAGNOSTICS (collapsed) – placeholder for images -->
+    <!-- Visual Diagnostics – two rows of 2 images each (4 total) -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
                 <span class="panel-tag">Visualization</span>
                 <h2>Visual Diagnostics</h2>
-                <p class="panel-desc">Exploratory charts, confusion matrices, and feature distribution plots illustrating model behavior.</p>
+                <p class="panel-desc">Exploratory charts, confusion matrix, and feature distribution plots illustrating model behavior. Click any image to enlarge.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
-                <div class="viz-placeholder stagger-child">
-                    <i class="fas fa-chart-bar viz-placeholder-icon"></i>
-                    <p>Visual analytics will be embedded here once images are uploaded to the repository.</p>
+                <!-- First row: 2 images -->
+                <div class="viz-display-grid stagger-child">
+                    <div class="viz-wrapper-card"><img src="images/features_histogram.png" alt="Feature Histograms"><div class="viz-meta-text">Distribution of Chemical Features</div></div>
+                    <div class="viz-wrapper-card"><img src="images/heatmap.png" alt="Correlation Heatmap"><div class="viz-meta-text">Feature Correlation Heatmap</div></div>
                 </div>
-                <!-- When images are ready, replace the placeholder above with img tags, e.g.:
-                <div class="viz-grid">
-                    <img src="assets/confusion_matrix.png" alt="Confusion Matrix">
-                    <img src="assets/feature_importance.png" alt="Feature Importance">
+                <!-- Second row: 2 images -->
+                <div class="viz-display-grid stagger-child" style="margin-top: 24px;">
+                    <div class="viz-wrapper-card"><img src="images/quality_barplot.png" alt="Quality vs Alcohol"><div class="viz-meta-text">Quality vs. Alcohol Content</div></div>
+                    <div class="viz-wrapper-card"><img src="images/xg_cm.png" alt="XGBoost Confusion Matrix"><div class="viz-meta-text">XGBoost Confusion Matrix</div></div>
                 </div>
-                -->
             </div>
         </div>
     </section>
 
-    <!-- PERFORMANCE (collapsed) -->
+    <!-- Performance Diagnostics -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -336,41 +284,30 @@
                 <h2>Performance Diagnostics & Engine Insights</h2>
                 <p class="panel-desc">Calculated tracking parameters and discriminatory capability records observed across predictive estimators.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="engine-insights-stack">
                     <div class="insight-row rank-leader stagger-child">
-                        <div class="insight-left-meta">
-                            <div class="insight-rank-index">01</div>
-                            <div class="insight-model-identity"><strong>Extreme Gradient Boosting (XGBoost)</strong><span>Sequential Non-Linear Gradient Descent Optimization Strategy</span></div>
-                        </div>
+                        <div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>Extreme Gradient Boosting (XGBoost)</strong><span>Sequential Non-Linear Gradient Descent Optimization Strategy</span></div></div>
                         <div class="insight-score-metrics"><span class="insight-score-value">0.7833</span><span class="insight-score-label">ROC-AUC Target</span></div>
                     </div>
                     <div class="insight-row stagger-child">
-                        <div class="insight-left-meta">
-                            <div class="insight-rank-index">02</div>
-                            <div class="insight-model-identity"><strong>Logistic Regression</strong><span>Linear Parameter Reference Architecture Configuration</span></div>
-                        </div>
+                        <div class="insight-left-meta"><div class="insight-rank-index">02</div><div class="insight-model-identity"><strong>Logistic Regression</strong><span>Linear Parameter Reference Architecture Configuration</span></div></div>
                         <div class="insight-score-metrics"><span class="insight-score-value">0.6946</span><span class="insight-score-label">ROC-AUC Target</span></div>
                     </div>
                     <div class="insight-row stagger-child">
-                        <div class="insight-left-meta">
-                            <div class="insight-rank-index">03</div>
-                            <div class="insight-model-identity"><strong>Support Vector Classifier (RBF Kernel)</strong><span>High-Dimensional Non-Linear Hyperplane Boundaries</span></div>
-                        </div>
+                        <div class="insight-left-meta"><div class="insight-rank-index">03</div><div class="insight-model-identity"><strong>Support Vector Classifier (RBF Kernel)</strong><span>High-Dimensional Non-Linear Hyperplane Boundaries</span></div></div>
                         <div class="insight-score-metrics"><span class="insight-score-value">0.6794</span><span class="insight-score-label">ROC-AUC Target</span></div>
                     </div>
                 </div>
-                <div class="executive-summary-box stagger-child">
-                    <p><strong>Diagnostic Breakdown:</strong> Evaluating output arrays establishes that the <strong>XGBoost Classifier</strong> outperforms baseline reference boundaries, reaching a leading classification score of <strong>0.7833 ROC-AUC</strong>. Sequential multi-tree generation isolates target properties with sharper discriminatory clarity than linear planes or basic kernel mappings.</p>
-                </div>
+                <div class="executive-summary-box stagger-child"><p><strong>Diagnostic Breakdown:</strong> Evaluating output arrays establishes that the <strong>XGBoost Classifier</strong> outperforms baseline reference boundaries, reaching a leading classification score of <strong>0.7833 ROC-AUC</strong>. Sequential multi-tree generation isolates target properties with sharper discriminatory clarity than linear planes or basic kernel mappings.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- CONCLUSIONS (collapsed) -->
+    <!-- Conclusions -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -378,7 +315,7 @@
                 <h2>Project Synthesis</h2>
                 <p class="panel-desc">Performance deductions and forward-looking research strategies for the next version.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -401,11 +338,15 @@
             <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
         </div>
     </footer>
-
 </div>
+<div class="editorial-credits">Amir Mohamad Askari &bull; 2026 Analytical Document</div>
 
-<div class="editorial-credits">
-    Amir Mohamad Askari &bull; 2026 Analytical Document
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
 </div>
 
 <script src="script.js"></script>
