@@ -70,6 +70,25 @@
         <section class="section section-collapsible">
             <div class="section-header">
                 <div class="panel-header-content">
+                    <span class="panel-tag">Notebook Environment</span>
+                    <h2>Modeling Libraries &amp; Dependencies</h2>
+                    <p class="panel-desc">Core tools used for notebook EDA, feature engineering, ensemble training, and artifact export.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas, NumPy &amp; JSON parsing</strong><span>Load TMDB CSVs, normalize JSON-like cast/crew/category fields, repair missing values, and build the expanded ultimate train/test tables.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib &amp; Seaborn</strong><span>Inspect skewed revenue, zero budgets, budget/revenue relationships, popularity trends, release-year signals, and feature distributions.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-tree dep-icon"></i><div><strong>XGBoost, LightGBM &amp; CatBoost</strong><span>Train the three tree boosters that form the final weighted log-revenue ensemble.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-box-archive dep-icon"></i><div><strong>joblib, pickle &amp; saved dictionaries</strong><span>Serialize final boosters, blend weights, feature order, frequent category dictionaries, and global statistics for deterministic production inference.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
                     <span class="panel-tag">Data Intelligence</span>
                     <h2>Dataset Structure &amp; EDA Signals</h2>
                     <p class="panel-desc">EDA shows missing metadata, skewed revenue, many zero budgets, and strong budget/popularity relationships.</p>
@@ -241,9 +260,28 @@ df_sub.to_csv('./data/test_result.csv', index=False)</pre></div></div>
                     <p>The production path is built around serialized artifacts in <code>models/</code>: <code>final_xgb.pkl</code>, <code>final_lgb.pkl</code>, <code>final_cat.pkl</code>, <code>features.pkl</code>, <code>train_dict.pkl</code>, <code>global_stats.pkl</code>, and <code>blend_config.pkl</code>. This keeps inference deterministic even when an incoming request is a single JSON movie instead of a full batch dataset.</p>
                     <div class="note-grid">
                         <div class="note-card"><strong>Feature parity</strong><span><code>prepare_single</code> uses saved global statistics and feature order so one movie receives the same 200-column schema as training data.</span></div>
-                        <div class="note-card"><strong>Cache path</strong><span>Redis is optional. When reachable, request hashes are cached for 36,000 seconds; otherwise inference continues normally.</span></div>
+                        <div class="note-card"><strong>Artifact path</strong><span>Runtime inference depends on the saved model files, feature schema, category dictionary, global statistics, and blend weights.</span></div>
                         <div class="note-card"><strong>Output scale</strong><span>Model outputs are blended in log space, then converted with <code>np.expm1</code> before returning revenue.</span></div>
                     </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Inference Environment</span>
+                    <h2>API Libraries &amp; Prediction Dependencies</h2>
+                    <p class="panel-desc">Runtime libraries that load artifacts, validate requests, rebuild features, and return stable API responses.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-server dep-icon"></i><div><strong>FastAPI, Uvicorn &amp; Pydantic</strong><span>Define batch/single prediction routes, request schemas, response models, Swagger docs, and local ASGI serving.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-gears dep-icon"></i><div><strong>Production feature pipeline</strong><span><code>prepare</code>, <code>prepare_single</code>, and <code>safe_prepare</code> reconstruct the same 200-column schema used by notebook training.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-layer-group dep-icon"></i><div><strong>joblib / pickle model assets</strong><span>Load <code>final_xgb.pkl</code>, <code>final_lgb.pkl</code>, <code>final_cat.pkl</code>, <code>blend_config.pkl</code>, <code>features.pkl</code>, <code>train_dict.pkl</code>, and <code>global_stats.pkl</code>.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-database dep-icon"></i><div><strong>Pandas, NumPy &amp; XGBoost runtime</strong><span>Convert incoming movie payloads to DataFrames, align model features, call tree boosters, blend log predictions, and convert with <code>np.expm1</code>.</span></div></div>
                 </div>
             </div></div>
         </section>
@@ -441,6 +479,81 @@ df = df.reindex(columns=features, fill_value=0)</pre></div></div>
                     <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Pipeline prepares features</strong><span>Production feature engineering mirrors the notebook and reindexes requests to the saved feature list.</span></div></div></div>
                     <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Ensemble predicts</strong><span>XGB, LGB, and Cat models load once at module import and produce a weighted blended revenue forecast.</span></div></div></div>
                     <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Prediction is logged</strong><span>Input data, endpoint, IMDb ID, status, and prediction are written back through SQLAlchemy logging utilities.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Runtime Dependencies</span>
+                    <h2>Deployment Libraries &amp; Services</h2>
+                    <p class="panel-desc">The service layer separates API serving, persistent PostgreSQL storage, optional caching, and container startup.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-docker dep-icon"></i><div><strong>Docker + Compose</strong><span>Build the Python API image, launch PostgreSQL 16, expose ports 8000 and 5432, and preserve database files with the <code>pgdata</code> volume.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-database dep-icon"></i><div><strong>PostgreSQL + SQLAlchemy</strong><span>Store imported TMDB training tables, database-backed prediction inputs, IMDb lookup workflows, and prediction audit rows.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-memory dep-icon"></i><div><strong>Redis 6.2 client</strong><span>Provides best-effort inference caching in application code. It is optional: when no Redis server answers on <code>localhost:6379</code>, predictions continue normally.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Python 3.11 slim runtime</strong><span>Installs pinned ML/API dependencies from <code>requirements.txt</code> and starts Uvicorn with <code>app.main:app</code>.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Optional Cache Layer</span>
+                    <h2>How Redis Interacts With Inference</h2>
+                    <p class="panel-desc">Redis is not the source of truth and not the prediction log database. It is a best-effort cache used by <code>app/inference.py</code> to skip repeated ensemble work when the same input appears again.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Cache Key Construction</div><span class="theory-badge">MD5</span></div>
+                        <div class="theory-math-container"><code>predict_movie:{md5(df.to_json())}</code></div>
+                        <p class="theory-explanation">For batch prediction, the input DataFrame is serialized to JSON and hashed. For single-movie prediction, the movie dictionary is JSON-dumped with sorted keys and hashed. These hashes become deterministic Redis keys.</p>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Best-Effort TTL Cache</div><span class="theory-badge champion-badge">10 hours</span></div>
+                        <div class="theory-math-container"><code>redis_client.setex(cache_key, 36000, prediction)</code></div>
+                        <p class="theory-explanation">If a cached prediction exists, the function returns it before feature engineering and ensemble prediction. If Redis is missing or disconnects, the app ignores the cache error and computes the prediction normally.</p>
+                    </div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">app/inference.py redis setup</div><div></div></div><div class="terminal-body compact-code"><pre>try:
+    redis_client = redis.Redis(host='localhost', port=6379, db=0)
+    redis_client.ping()
+    redis_available = True
+except redis.ConnectionError:
+    redis_client = None
+    redis_available = False</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">cache read/write flow</div><div></div></div><div class="terminal-body compact-code"><pre>cached_pred = redis_client.get(cache_key)
+if cached_pred:
+    return np.array(json.loads(cached_pred))
+
+result = np.expm1(final_pred)
+redis_client.setex(
+    cache_key,
+    cache_expire_seconds,
+    json.dumps(result.tolist())
+)</pre></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Redis Detail</th><th>Current Project Behavior</th><th>Why It Matters</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>redis==6.2.0</code></td><td>Installed as a Python dependency.</td><td>Allows the inference module to talk to a Redis server when one is available.</td></tr>
+                            <tr><td><code>localhost:6379</code></td><td>The current code probes a local Redis server at import time.</td><td>Redis is optional in this repo; the Compose file starts PostgreSQL and the app, but not a Redis container.</td></tr>
+                            <tr><td><code>get(cache_key)</code></td><td>Runs before feature preparation and model prediction.</td><td>A cache hit skips expensive pipeline and ensemble computation.</td></tr>
+                            <tr><td><code>setex(..., 36000, ...)</code></td><td>Stores predictions with a 36,000-second TTL.</td><td>Repeated identical requests stay fast without becoming permanent storage.</td></tr>
+                            <tr><td>Fallback behavior</td><td>Connection errors are caught and ignored.</td><td>Prediction service remains usable even when Redis is not installed or not running.</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div></div>
         </section>
