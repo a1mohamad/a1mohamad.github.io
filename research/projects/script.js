@@ -1,5 +1,42 @@
 const projects = [
   {
+    "title": "Cassava Leaf Diseases",
+    "category": "Agriculture",
+    "meta": [
+      "2025",
+      "Classification",
+      "Deep Learning",
+      "Computer Vision",
+      "Kaggle Competition"
+    ],
+    "desc": "Cassava leaf disease classification using EfficientNet, transfer learning, fine-tuning, and test-time augmentation.",
+    "tools": [
+      "Python",
+      "TensorFlow/Keras",
+      "Scikit-Learn",
+      "OpenCV",
+      "Matplotlib",
+      "Seaborn",
+      "NumPy",
+      "Matplotlib",
+      "JSON",
+      "Pandas",
+    ],
+    "tags": [
+    "Neural Networks",
+    "CNN",
+    "EDA",
+    "Data Augmentation",
+    "Image Classification",
+    "EfficientNet",
+    "Transfer Learning",
+    "Fine-Tuning",
+    "TTA"
+  ],
+    "href": "https://a1mohamad.github.io/research/cassava-leaf/index.html",
+    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/cassava.png)"
+  },
+  {
     "title": "TMDB Box Office Revenue",
     "category": "Entertainment",
     "meta": [
@@ -25,7 +62,7 @@ const projects = [
       "FastAPI",
       "Uvicorn",
       "Redis",
-      "Docker
+      "Docker"
     ],
     "tags": [
     "Revenue Prediction",
@@ -35,9 +72,8 @@ const projects = [
     "Catboost",
     "LightGBM",
     "Feature Engineering",
-    "Ensemble Learning",
-    "TMDB",
-    "FastAPI",
+    "Ensemble Models",
+    "API deployment",
     "PostgreSQL",
     "Redis Cache",
     "Docker Deployment"
@@ -79,7 +115,7 @@ const projects = [
   },
   {
     "title": "Digit Recognizer",
-    "category": "Computer Vision",
+    "category": "OCR",
     "meta": [
       "2024",
       "Classification",
@@ -226,7 +262,7 @@ const projects = [
       "GaussianNB",
       "EDA",
       "Confusion Matrix",
-      "Ensemble",
+      "Ensemble Models",
       "Majority Voting"
     ],
     "href": "https://a1mohamad.github.io/research/multi-diseases/index.html",
