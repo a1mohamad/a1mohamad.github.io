@@ -66,6 +66,37 @@
         <section class="section section-collapsible">
             <div class="section-header">
                 <div class="panel-header-content">
+                    <span class="panel-tag">Libraries &amp; Dependencies</span>
+                    <h2>Scraping Stack and Data Dependencies</h2>
+                    <p class="panel-desc">The scraper side depends on page collection, HTML parsing, regex cleanup, and MongoDB persistence.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div><div><strong>Requests + cached HTML files</strong><span><code>requests</code> downloads the HousingAnywhere Berlin result pages once, then the project works from local <code>web1.html</code> through <code>web41.html</code> files so parsing experiments are repeatable.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-code"></i></div><div><strong>BeautifulSoup with html.parser</strong><span><code>bs4</code> reads each saved page and searches for listing information and price blocks through the original page attributes such as <code>data-test-locator</code>.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><div><strong>Regex normalization</strong><span><code>re.findall</code> extracts numeric size, bedroom, and price values from messy listing text before the records are inserted into the database.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-database"></i></div><div><strong>PyMongo + local MongoDB</strong><span><code>pymongo.MongoClient('localhost', 27017)</code> connects to MongoDB and stores cleaned listing records in database <code>houses</code>, collection <code>berlin</code>.</span></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Scraped Field</th><th>Extraction Source</th><th>Pipeline Role</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>size</code></td><td>Property info text after splitting listing metadata</td><td>Main numerical feature for regression.</td></tr>
+                            <tr><td><code>number of bedrooms</code></td><td>Bedroom token from the listing metadata line</td><td>Second numerical feature for the multivariate model.</td></tr>
+                            <tr><td><code>price</code></td><td>Listing price block; numeric values extracted with regex</td><td>Regression target and comparison value for the decision bot.</td></tr>
+                            <tr><td><code>date</code></td><td>Availability text in the property info block</td><td>Context field stored for inspection, not used by the model.</td></tr>
+                            <tr><td><code>type of home</code></td><td>Home type text from listing metadata</td><td>Stored descriptive field; a future version could encode it as a feature.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
                     <span class="panel-tag">Page Collection</span>
                     <h2>Saving Rental Pages for Offline Scraping</h2>
                     <p class="panel-desc">The first notebook downloads search-result pages, then keeps the raw HTML files as the project data layer.</p>
@@ -197,6 +228,30 @@ def insert_in_mongodb(final_houses, collection):
         <section class="section section-collapsible">
             <div class="section-header">
                 <div class="panel-header-content">
+                    <span class="panel-tag">Libraries &amp; Model Dependencies</span>
+                    <h2>Regression Stack and Model Inventory</h2>
+                    <p class="panel-desc">The modeling notebooks use a small scikit-learn stack, with MongoDB acting as the training-data source.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-database"></i></div><div><strong>MongoDB reader helpers</strong><span>The regression notebooks call helper functions that read the scraped records from <code>houses.berlin</code>, so the model is trained from the same persisted data created by the scraping section.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-table-cells"></i></div><div><strong>NumPy arrays</strong><span>MongoDB documents are converted into <code>X</code> and <code>y</code> arrays: <code>X = [size, bedrooms]</code> and <code>y = price</code>.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div><div><strong>scikit-learn LinearRegression</strong><span><code>sklearn.linear_model.LinearRegression</code> provides both the size-only baseline and the multivariate model used by the notebook bots.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-chart-simple"></i></div><div><strong>Matplotlib diagnostics</strong><span><code>matplotlib.pyplot</code> creates the target-vs-prediction visuals that compare scraped prices with model predictions.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-scale-balanced"></i></div><div><strong>StandardScaler import</strong><span><code>StandardScaler</code> appears in the training helper, but the saved code does not apply the scaled values before fitting; that is an honest legacy detail from the 2023 notebook.</span></div></div>
+                </div>
+                <div class="theory-split" style="margin-top:24px;">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Model Inventory</div><span class="theory-badge">notebooks</span></div><div class="theory-explanation"><strong>Univariate baseline:</strong> predicts price from size only, useful for a first visual sanity check.</div><div class="theory-explanation"><strong>Multivariate model:</strong> predicts price from size and bedroom count, then feeds the price guessing bot.</div><div class="theory-explanation"><strong>Decision classifier:</strong> converts regression residuals into a simple expensive/not-expensive label for the prototype bot.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Model Artifact Behavior</div><span class="theory-badge champion-badge">2023 limit</span></div><div class="theory-explanation">The project does not save a trained model artifact. Each notebook rebuilds the model from MongoDB records at runtime, which was acceptable for a learning prototype but would be replaced today with a persisted model file and reproducible training script.</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
                     <span class="panel-tag">Visual Diagnostics</span>
                     <h2>Target vs. Prediction Plots</h2>
                     <p class="panel-desc">The notebooks include basic visual checks for univariate and multivariate regression behavior.</p>
@@ -256,6 +311,35 @@ def insert_in_mongodb(final_houses, collection):
                         <div class="note-card"><strong>Decision helper</strong><span>A second notebook asks for size and price, then classifies whether the house looks expensive relative to the scraped-data model.</span></div>
                         <div class="note-card"><strong>Honest limitation</strong><span>The README calls the project unprocessed and educational, which makes it a useful snapshot of early ML learning rather than a production benchmark.</span></div>
                     </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Runtime Dependencies</span>
+                    <h2>Prototype Libraries and Interaction Model</h2>
+                    <p class="panel-desc">The first deployment-like layer is notebook-based, so its dependencies are the prompt interface, helper functions, MongoDB data, and fitted sklearn models.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-keyboard"></i></div><div><strong>Jupyter input prompts</strong><span>The user-facing part uses notebook <code>input()</code> prompts for size, bedrooms, and price. This is why the project is described as a first deployment-like attempt rather than a web deployment.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div><div><strong><code>linear_tools.py</code> helpers</strong><span>Shared helper functions connect to MongoDB, load training arrays, train Linear Regression, and call model prediction from the interactive notebooks.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-brain"></i></div><div><strong>scikit-learn runtime models</strong><span>The price bot uses a fitted <code>LinearRegression</code> object; the decision bot adds <code>LogisticRegression</code> on top of regression-derived labels.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-plug-circle-check"></i></div><div><strong>MongoDB availability</strong><span>The bots depend on the scraped collection being present locally. If MongoDB is empty or unavailable, the notebooks cannot rebuild the training arrays.</span></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Prototype Piece</th><th>Model Input</th><th>User Output</th><th>Legacy Limitation</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>Price guessing bot</code></td><td>House size and bedroom count</td><td>Estimated rental price from the multivariate regression model</td><td>Model is fitted inside the notebook run and has no saved artifact.</td></tr>
+                            <tr><td><code>Expensive detector</code></td><td>House size and offered price</td><td>Simple expensive/not-expensive message</td><td>The residual threshold is hand-made and not validated as a production classifier.</td></tr>
+                            <tr><td><code>Notebook flow</code></td><td>Local MongoDB records plus prompt inputs</td><td>Console-style interaction for a user</td><td>No API, frontend, Docker image, tests, or dependency lock file yet.</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div></div>
         </section>
