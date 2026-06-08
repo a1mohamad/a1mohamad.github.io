@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Spam Classification | Amir Mohamad Askari</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\(', '\)']], displayMath: [['$$', '$$'], ['\[', '\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Natural Language Processing · SMS Spam Detection</div>
+    <h1>SMS Spam Classification: EDA + Bidirectional LSTM Pipeline</h1>
+    <div class="hero-subtitle">A two-notebook project built on the UCI/Kaggle SMS Spam Collection Dataset: one notebook focuses on exploratory analysis and text diagnostics, while the second constructs a TensorFlow <strong>Bidirectional LSTM</strong> classifier with <strong>Optuna-based hyperparameter tuning</strong>, class balancing, and a production-style <code>tf.data</code> pipeline.</div>
+    <div class="btn-group">
+        <a class="btn-modern-primary" href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/SMS%20Spam" target="_blank"><i class="fa-brands fa-github"></i><span>Research Lab</span></a>
+        <a class="btn-modern-secondary" href="https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset" target="_blank"><i class="fa-brands fa-kaggle"></i><span>Kaggle Dataset</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip sms-metrics-six">
+        <div class="metric-block" data-metric-type="integer" data-metric-target="5572"><div class="metric-label">Total SMS Messages</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="86.59"><div class="metric-label">Ham Share</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="13.41"><div class="metric-label">Spam Share</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="98.87"><div class="metric-label">Best Validation Accuracy</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="float4" data-metric-target="0.0564"><div class="metric-label">Best Validation Loss</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="integer" data-metric-target="8439"><div class="metric-label">Learned Vocabulary Size</div><div class="metric-value">0</div></div>
+    </div>
+
+    <div class="notebook-switcher">
+        <button class="notebook-tab active" data-target="eda-panel"><i class="fa-solid fa-chart-pie"></i>EDA Notebook</button>
+        <button class="notebook-tab" data-target="model-panel"><i class="fa-solid fa-brain"></i>Model Notebook</button>
+    </div>
+
+    <div class="notebook-panel active" id="eda-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Exploration Blueprint</span>
+                    <h2>Project Overview</h2>
+                    <p class="panel-desc">The EDA notebook profiles the SMS corpus, measures structural text properties, and surfaces the lexical patterns that separate legitimate messages from spam.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This exploratory notebook starts from the raw <code>label</code> and <code>text</code> columns, then builds a richer analytical layer around them. The analysis quantifies class imbalance, compares message lengths, studies token frequency, inspects n-grams, detects URLs / emails / phone numbers, and ranks the strongest TF-IDF signals for both classes. The result is a clear behavioral profile: <strong>ham messages are shorter, conversational, and dominated by everyday language</strong>, while <strong>spam messages are longer, more promotional, more numeric, and far more likely to contain marketing cues like free, claim, mobile, and prize</strong>.</p>
+                </div>
+                <div class="note-grid">
+                    <div class="note-card stagger-child"><strong>Dataset scale</strong><span>The notebook works on <code>5,572</code> labeled SMS messages: <code>4,825 ham</code> and <code>747 spam</code>.</span></div>
+                    <div class="note-card stagger-child"><strong>Key numerical signal</strong><span>Average spam length reaches <code>138.87</code> characters versus only <code>71.02</code> for ham.</span></div>
+                    <div class="note-card stagger-child"><strong>Operational purpose</strong><span>The EDA findings directly justify later modeling choices such as <code>class_weight</code>, sequence truncation, and vocabulary-based text vectorization.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Dataset Anatomy</span>
+                    <h2>Raw Fields & Engineered EDA Features</h2>
+                    <p class="panel-desc">The notebook extends the original SMS dataset with interpretable text statistics and pattern flags.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Field / Feature</th><th>Type</th><th>Role in the EDA Notebook</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>label</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Binary class indicating whether a message is <strong>ham</strong> or <strong>spam</strong>.</td></tr>
+                            <tr><td><code>text</code></td><td><span class="taxonomy-tag">Raw text</span></td><td>The SMS body used for lexical analysis, word clouds, TF-IDF, n-grams, and downstream sequence modeling.</td></tr>
+                            <tr><td><code>text_length</code>, <code>char_count</code>, <code>word_count</code></td><td><span class="taxonomy-tag">Numeric</span></td><td>Length descriptors showing that spam messages are typically longer and denser than ham messages.</td></tr>
+                            <tr><td><code>punct_count</code>, <code>num_count</code>, <code>upper_count</code>, <code>emoji_count</code>, <code>num_numbers</code></td><td><span class="taxonomy-tag">Numeric</span></td><td>Surface-level text features that highlight promotional formatting, numerical codes, and punctuation-heavy spam behavior.</td></tr>
+                            <tr><td><code>has_url</code>, <code>has_phone</code>, <code>has_email</code></td><td><span class="taxonomy-tag">Boolean</span></td><td>Regex-based detection signals for external contact / redirection patterns common in unsolicited messages.</td></tr>
+                            <tr><td><code>duplicate_texts</code> and spam-specific vocabulary</td><td><span class="taxonomy-tag">Analytical</span></td><td>Used to reveal repeated campaigns, shared templates, and uniquely spam-oriented vocabulary.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Exploratory Workflow</span>
+                    <h2>EDA Pipeline From Raw Messages to Text Signals</h2>
+                    <p class="panel-desc">The notebook moves from descriptive statistics to semantic and pattern-based analysis.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Dataset ingestion</strong><span>Load the Kaggle/UCI SMS dataset, retain <code>v1</code> and <code>v2</code>, and rename them to <code>label</code> and <code>text</code>.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Class balance & length inspection</strong><span>Measure label counts, build the spam-vs-ham pie chart, and compare message lengths with histograms.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Text statistics</strong><span>Engineer <code>char_count</code> and <code>word_count</code>, then compute overall and per-class descriptive summaries.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Lexical analysis</strong><span>Use stopword filtering, common-word ranking, word clouds, bigrams, and trigrams to identify conversational vs promotional language.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Regex feature mining</strong><span>Detect URLs, emails, phone numbers, numeric digits, HTML tags, and duplicated messages to expose spam templates.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">06</span><div><strong>TF-IDF feature ranking</strong><span>Compute class-wise average TF-IDF weights to surface the most discriminative words for ham and spam.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Diagnostic Signals</span>
+                    <h2>What the Numbers Say About Spam vs Ham</h2>
+                    <p class="panel-desc">The strongest quantitative contrasts appear in message length, numeric content, and redirection patterns.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid">
+                    <div class="tech-card stagger-child"><span class="tech-badge">Length profile</span><h3>Spam is much longer</h3><p>The notebook reports <strong>71.02</strong> average characters and <strong>14.20</strong> average words for ham, versus <strong>138.87</strong> characters and <strong>23.85</strong> words for spam. That means spam messages are almost twice as long on average and carry more packed information per message.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Pattern mining</span><h3>Spam contains far more machine-like artifacts</h3><p>Regex-based checks show <strong>104 spam URLs</strong> against only <strong>2 ham URLs</strong>, <strong>18 spam emails</strong> against <strong>2 ham emails</strong>, and an average of <strong>15.76 digits</strong> per spam message versus only <strong>0.30</strong> for ham.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Campaign repetition</span><h3>Duplicate message behavior is visible</h3><p>The notebook finds <strong>684 duplicated texts</strong>, which is consistent with mass-sent campaigns and template-driven promotional spam. This is a useful operational clue because spam often scales by repeating a few message forms.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Lexical contrast</span><h3>Everyday speech vs incentive language</h3><p>Common ham tokens include <code>u</code>, <code>go</code>, <code>come</code>, <code>know</code>, and <code>good</code>. In contrast, spam heavily features <code>call</code>, <code>free</code>, <code>txt</code>, <code>mobile</code>, <code>claim</code>, and <code>reply</code>.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Visualization Gallery</span>
+                    <h2>EDA Visual Evidence</h2>
+                    <p class="panel-desc">The notebook’s plots show class imbalance, structural differences, and the token-level contrast between spam and ham.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-section-stack">
+                    <div class="stagger-child">
+                        <div class="subsection-label">Class balance & structural length</div>
+                        <p class="subsection-caption">These figures show the dataset skew toward ham and demonstrate how message length and digit density shift for spam.</p>
+                        <div class="viz-display-grid three">
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="label_distribution_pie.png" alt="Pie chart of ham vs spam distribution"><div class="viz-meta-text">Spam vs. Ham Distribution</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="message_length_distribution.png" alt="Message length distribution for spam and ham"><div class="viz-meta-text">Message Length Distribution</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="boxplot_digits.png" alt="Boxplot of number of digits in ham vs spam"><div class="viz-meta-text">Digit Count Contrast</div></div>
+                        </div>
+                    </div>
+                    <div class="stagger-child">
+                        <div class="subsection-label">Semantic word clouds</div>
+                        <p class="subsection-caption">The clouds reveal the underlying language style of the two classes: casual personal texting for ham, incentive and redirection language for spam.</p>
+                        <div class="viz-display-grid two-card-row">
+                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="ham_wordcloud.png" alt="Ham messages word cloud"><div class="viz-meta-text">Ham Word Cloud</div></div>
+                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="spam_wordcloud.png" alt="Spam messages word cloud"><div class="viz-meta-text">Spam Word Cloud</div></div>
+                        </div>
+                    </div>
+                    <div class="stagger-child">
+                        <div class="subsection-label">TF-IDF ranking</div>
+                        <p class="subsection-caption">These bar charts summarize the most discriminative TF-IDF features in each class, making the lexical split more explicit.</p>
+                        <div class="viz-display-grid two-card-row">
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="top_ham_tfidf.png" alt="Top ham TF-IDF features"><div class="viz-meta-text">Top Ham TF-IDF Features</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="top_spam_tfidf.png" alt="Top spam TF-IDF features"><div class="viz-meta-text">Top Spam TF-IDF Features</div></div>
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Text Feature Insights</span>
+                    <h2>TF-IDF & N-gram Takeaways</h2>
+                    <p class="panel-desc">The notebook captures both broad vocabulary differences and high-value spam phrases.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="mini-insight-grid">
+                    <div class="mini-insight-card stagger-child">
+                        <h3>Top ham indicators</h3>
+                        <p>Ham TF-IDF is dominated by conversational tokens such as <code>ok</code>, <code>ll</code>, <code>come</code>, <code>just</code>, <code>good</code>, <code>know</code>, <code>home</code>, and <code>later</code>. These words reflect everyday coordination, social interaction, and informal speech.</p>
+                        <ul>
+                            <li>Common bigrams: <code>ll later</code>, <code>let know</code>, <code>good morning</code></li>
+                            <li>Common trigrams: <code>sorry ll later</code>, <code>happy new year</code></li>
+                        </ul>
+                    </div>
+                    <div class="mini-insight-card stagger-child">
+                        <h3>Top spam indicators</h3>
+                        <p>Spam TF-IDF is strongly anchored by <code>free</code>, <code>txt</code>, <code>mobile</code>, <code>claim</code>, <code>prize</code>, <code>reply</code>, <code>won</code>, <code>cash</code>, and <code>urgent</code>. These are classic conversion-oriented spam terms.</p>
+                        <ul>
+                            <li>Common bigrams: <code>po box</code>, <code>1000 cash</code>, <code>prize guaranteed</code></li>
+                            <li>Common trigrams: <code>draw shows won</code>, <code>private 2003 account</code>, <code>urgent trying contact</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">EDA Implementation</span>
+                    <h2>Representative Feature Engineering Code</h2>
+                    <p class="panel-desc">A compact excerpt showing how the notebook engineers structural features and TF-IDF summaries.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">sms_spam_eda_features.py</div><div></div></div>
+                    <div class="terminal-body"><pre><span class="code-comment"># structural text features</span>
+df[<span class="code-str">'char_count'</span>] = df[<span class="code-str">'text'</span>].astype(str).apply(len)
+df[<span class="code-str">'word_count'</span>] = df[<span class="code-str">'text'</span>].astype(str).apply(<span class="code-keyword">lambda</span> x: <span class="code-fn">len</span>(x.split()))
+df[<span class="code-str">'num_numbers'</span>] = df[<span class="code-str">'text'</span>].str.count(<span class="code-str">r'\d'</span>)
+df[<span class="code-str">'has_url'</span>] = df[<span class="code-str">'text'</span>].str.contains(<span class="code-str">r'https?://\S+|www\.\S+'</span>, regex=<span class="code-keyword">True</span>)
+df[<span class="code-str">'has_email'</span>] = df[<span class="code-str">'text'</span>].str.contains(<span class="code-str">r'\S+@\S+'</span>, regex=<span class="code-keyword">True</span>)
+
+<span class="code-comment"># class-wise TF-IDF diagnostics</span>
+tfidf = TfidfVectorizer(stop_words=<span class="code-str">'english'</span>, max_features=<span class="code-num">5000</span>)
+tfidf_matrix = tfidf.fit_transform(df[<span class="code-str">'text'</span>])
+features = tfidf.get_feature_names_out()
+
+spam_tfidf_mean = tfidf_matrix[(df[<span class="code-str">'label'</span>] == <span class="code-str">'spam'</span>).values].mean(axis=<span class="code-num">0</span>).A1
+ham_tfidf_mean  = tfidf_matrix[(df[<span class="code-str">'label'</span>] == <span class="code-str">'ham'</span>).values].mean(axis=<span class="code-num">0</span>).A1
+
+<span class="code-keyword">def</span> <span class="code-fn">top_terms</span>(scores, features, k=<span class="code-num">20</span>):
+    idx = np.argsort(scores)[-k:][::-1]
+    <span class="code-keyword">return</span> [(features[i], scores[i]) <span class="code-keyword">for</span> i <span class="code-keyword">in</span> idx]
+</pre></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">EDA Synthesis</span>
+                    <h2>Exploration Conclusions</h2>
+                    <p class="panel-desc">The EDA notebook establishes why spam detection is both a lexical and structural classification problem.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>Class imbalance is real:</strong> spam represents only about <strong>13.41%</strong> of the corpus, which makes imbalance-aware modeling essential.</p>
+                    <p><strong>Spam looks different at multiple levels:</strong> it is longer, more numeric, more repetitive, and more likely to contain URLs, marketing phrases, and urgency-driven wording.</p>
+                    <p><strong>EDA directly informs modeling:</strong> the later notebook’s use of <code>class_weight</code>, controlled sequence length, and learned vocabulary is strongly supported by the exploratory evidence gathered here.</p>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="model-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Blueprint</span>
+                    <h2>Project Overview</h2>
+                    <p class="panel-desc">The modeling notebook transforms raw SMS strings into padded token sequences and trains a tuned Bidirectional LSTM classifier for binary spam detection.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The second notebook upgrades the problem from descriptive analysis to a deployable text classification pipeline. It uses <code>TextVectorization</code> for vocabulary learning, <code>StringLookup</code> for label encoding, <code>tf.data</code> for efficient batching and prefetching, and <strong>balanced class weights</strong> to compensate for the heavy ham majority. The core architecture is a <strong>Bidirectional LSTM</strong> backed by an embedding layer and a tuned dense head. Instead of manual trial-and-error, the notebook runs an <strong>Optuna study over 30 trials</strong> to identify the most effective hyperparameter configuration before launching the final training stage.</p>
+                </div>
+                <div class="kpi-grid">
+                    <div class="kpi-card stagger-child"><div class="kpi-label">Best Optuna Trial Accuracy</div><div class="kpi-value good">98.87%</div></div>
+                    <div class="kpi-card stagger-child"><div class="kpi-label">Final Best Validation Loss</div><div class="kpi-value">0.0564</div></div>
+                    <div class="kpi-card stagger-child"><div class="kpi-label">Trainable Parameters</div><div class="kpi-value">143,601</div></div>
+                    <div class="kpi-card stagger-child"><div class="kpi-label">Training Strategy</div><div class="kpi-value">Bi‑LSTM</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">System Workflow</span>
+                    <h2>From Raw Strings to Binary Predictions</h2>
+                    <p class="panel-desc">The modeling notebook organizes preprocessing, tuning, and final training as a staged NLP pipeline.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Environment setup</strong><span>Initialize TensorFlow 2.20, detect the execution strategy, and establish deterministic seeds for reproducibility.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Dataset splitting</strong><span>Split the corpus with <code>train_test_split</code> using <code>TEST_SPLIT_RATIO = 0.2</code> and stratification to preserve class balance.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Text & label transformation</strong><span>Learn a vocabulary with <code>TextVectorization</code>, encode targets with <code>StringLookup</code>, and build optimized <code>tf.data</code> pipelines.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Imbalance correction</strong><span>Compute balanced class weights: <code>{0: 0.5774, 1: 3.7296}</code>, giving more importance to spam examples during training.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Optuna search</strong><span>Explore embedding size, LSTM units, dropout, dense-layer depth, learning rate, and weight decay across <strong>30 trials</strong>.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">06</span><div><strong>Final convergence</strong><span>Retrain the champion configuration with callbacks such as <code>EarlyStopping</code>, <code>ReduceLROnPlateau</code>, and <code>ModelCheckpoint</code>.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Sequence Mechanics</span>
+                    <h2>Core Modeling Theory</h2>
+                    <p class="panel-desc">The notebook combines neural sequence modeling with binary decision theory and Bayesian search.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Embedding Projection</div><span class="theory-badge">Representation</span></div><div class="theory-math-container">$$x_t 
+ightarrow e_t \in \mathbb{R}^{d}$$</div><div class="theory-explanation">Each token index produced by <code>TextVectorization</code> is mapped into a dense semantic vector. In the best run, the learned embedding dimension is <strong>16</strong>.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Bidirectional LSTM</div><span class="theory-badge champion-badge">Context Modeling</span></div><div class="theory-math-container">$$h_t = [\overrightarrow{h_t}; \overleftarrow{h_t}]$$</div><div class="theory-explanation">The Bi-LSTM reads the message from both left-to-right and right-to-left, allowing the classifier to capture context from both preceding and following words.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Binary Cross-Entropy</div><span class="theory-badge">Optimization</span></div><div class="theory-math-container">$$\mathcal{L} = -ig(y\log(\hat{y}) + (1-y)\log(1-\hat{y})ig)$$</div><div class="theory-explanation">Because the task is binary, the final dense layer uses a sigmoid output and trains against binary cross-entropy, while precision, recall, AUC, and accuracy are all monitored.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Optuna Search Logic</div><span class="theory-badge">Bayesian Tuning</span></div><div class="theory-math-container">$$	heta^* =  rg\max_{	heta \in \Theta} \; 	ext{ValAccuracy}(	heta)$$</div><div class="theory-explanation">Optuna’s TPE sampler searches the hyperparameter space efficiently, replacing manual tuning with a data-driven search over architecture and optimizer controls.</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Architecture Visual</span>
+                    <h2>LSTM Cell Intuition</h2>
+                    <p class="panel-desc">The provided diagram highlights the gating structure that lets LSTMs manage long-range sequence memory.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid single-centered">
+                    <div class="viz-wrapper-card big-viz stagger-child"><img class="arch-shot" src="lstm_architecture.png" alt="LSTM architecture diagram"><div class="viz-meta-text">LSTM Architecture Reference</div></div>
+                </div>
+                <div class="executive-summary-box stagger-child"><strong>Interpretation:</strong> the forget, input, candidate-memory, and output gates make the LSTM especially suitable for text classification because they help preserve or discard information across the message sequence instead of treating words as isolated tokens.</div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Configuration Layer</span>
+                    <h2>Model Parameters & Training Controls</h2>
+                    <p class="panel-desc">The notebook keeps the configuration explicit and reproducible across preprocessing, search, and final training.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child compact-param-table">
+                    <table>
+                        <thead><tr><th>Component</th><th>Chosen Value</th><th>Why It Matters</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>MAX_LENGTH</code></td><td>100</td><td>Every SMS is padded or truncated to a fixed sequence length, making batching consistent.</td></tr>
+                            <tr><td><code>VOCAB_SIZE</code></td><td>10000 (actual learned size: 8439)</td><td>Caps vocabulary growth while still preserving most useful tokens in the corpus.</td></tr>
+                            <tr><td><code>BATCH_SIZE</code></td><td>128</td><td>Used in the optimized <code>tf.data</code> pipeline for throughput and stable updates.</td></tr>
+                            <tr><td><code>Train / Validation Split</code></td><td>80% / 20%</td><td>Provides a held-out set for tuning and callback-driven training decisions.</td></tr>
+                            <tr><td><code>Best Embedding Dim</code></td><td>16</td><td>Compact semantic representation learned jointly with the classifier.</td></tr>
+                            <tr><td><code>Best LSTM Units</code></td><td>16</td><td>Controls sequence modeling capacity in the Bi-LSTM encoder.</td></tr>
+                            <tr><td><code>Best Dense Head</code></td><td>1 dense layer with 128 units</td><td>Acts as the final nonlinear decision layer before binary prediction.</td></tr>
+                            <tr><td><code>Best Dropout Rate</code></td><td>0.4442</td><td>Regularizes the post-LSTM representation and reduces overfitting.</td></tr>
+                            <tr><td><code>Best Learning Rate</code></td><td>0.0003231</td><td>Tuned to balance convergence speed and stability.</td></tr>
+                            <tr><td><code>Best Weight Decay</code></td><td>0.0006193</td><td>Supports generalization by softly penalizing overly large weights.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Optimization Review</span>
+                    <h2>Hyperparameter Search & Final Performance</h2>
+                    <p class="panel-desc">Optuna identifies the champion model, then the final training stage sharpens its validation performance.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">Best Trial</div>
+                            <div class="insight-model-identity"><strong>Optuna Champion Configuration</strong><span>embedding_dim=16, lstm_units=16, dropout=0.4442, dense_layers=1, dense_0=128</span></div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <div class="insight-score-item"><div class="insight-score-label">Validation Accuracy</div><div class="insight-score-value accuracy-highlight">0.9887</div></div>
+                            <div class="insight-score-item"><div class="insight-score-label">Learning Rate</div><div class="insight-score-value">3.23e-4</div></div>
+                        </div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">Final Fit</div>
+                            <div class="insight-model-identity"><strong>Best validation checkpoint</strong><span>During the final training run, the model reaches its lowest validation loss at approximately epoch 11 and stores the best checkpoint automatically.</span></div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <div class="insight-score-item"><div class="insight-score-label">Val Loss</div><div class="insight-score-value loss-highlight">0.0564</div></div>
+                            <div class="insight-score-item"><div class="insight-score-label">Val Accuracy</div><div class="insight-score-value">0.9878</div></div>
+                        </div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta">
+                            <div class="insight-rank-index">Best Epoch</div>
+                            <div class="insight-model-identity"><strong>Minority-class quality remains high</strong><span>At the strongest checkpoint the model preserves not only accuracy but also precision and recall, which is critical for the rare spam class.</span></div>
+                        </div>
+                        <div class="insight-score-metrics">
+                            <div class="insight-score-item"><div class="insight-score-label">Val Precision</div><div class="insight-score-value">0.9732</div></div>
+                            <div class="insight-score-item"><div class="insight-score-label">Val Recall</div><div class="insight-score-value">0.9355</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="executive-summary-box stagger-child"><strong>Important context:</strong> the notebook also monitors <code>AUC</code>, with best validation AUC values around <strong>0.99</strong>. Combined with class weighting, this shows the model is not simply learning the majority class but genuinely separating spam from ham.</div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Implementation Core</span>
+                    <h2>Key Modeling Code Snippets</h2>
+                    <p class="panel-desc">Two excerpts capture the pipeline’s transformation logic and the final neural architecture.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid">
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">preprocessing_pipeline.py</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-comment"># learn the vocabulary from raw training text</span>
+<span class="code-keyword">def</span> <span class="code-fn">text_vectorize</span>(train_dataset):
+    vectorizer = tf.keras.layers.TextVectorization(
+        max_tokens=<span class="code-num">10000</span>,
+        output_sequence_length=<span class="code-num">100</span>,
+        standardize=<span class="code-str">'lower_and_strip_punctuation'</span>
+    )
+    text_only_dataset = train_dataset.map(<span class="code-keyword">lambda</span> text, label: text).batch(<span class="code-num">64</span>)
+    vectorizer.adapt(text_only_dataset)
+    <span class="code-keyword">return</span> vectorizer
+
+<span class="code-comment"># encode text + labels and optimize the tf.data pipeline</span>
+<span class="code-keyword">def</span> <span class="code-fn">preprocessing</span>(dataset, text_vectorizer, label_encoder):
+    dataset = (dataset
+        .map(<span class="code-keyword">lambda</span> text, label: (text_vectorizer(text), label_encoder(label)))
+        .filter(<span class="code-keyword">lambda</span> x, y: tf.shape(x)[<span class="code-num">0</span>] == <span class="code-num">100</span>)
+        .shuffle(<span class="code-num">1024</span>)
+        .batch(<span class="code-num">128</span>, drop_remainder=<span class="code-keyword">True</span>)
+        .prefetch(tf.data.AUTOTUNE)
+    )
+    <span class="code-keyword">return</span> dataset</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">bidirectional_lstm_model.py</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">def</span> <span class="code-fn">create_final_model</span>(hparams):
+    inputs = tf.keras.Input(shape=(<span class="code-num">100</span>,))
+    x = tf.keras.layers.Embedding(<span class="code-num">10000</span>, hparams[<span class="code-str">'embedding_dim'</span>])(inputs)
+    x = tf.keras.layers.Bidirectional(
+        tf.keras.layers.LSTM(hparams[<span class="code-str">'lstm_units'</span>])
+    )(x)
+    x = tf.keras.layers.Dropout(hparams[<span class="code-str">'dropout_rate'</span>])(x)
+
+    <span class="code-keyword">for</span> i <span class="code-keyword">in</span> range(hparams[<span class="code-str">'num_dense_layers'</span>]):
+        units = hparams[<span class="code-str">f'dense_layers_{i}'</span>]
+        x = tf.keras.layers.Dense(units, activation=<span class="code-str">'relu'</span>)(x)
+
+    outputs = tf.keras.layers.Dense(<span class="code-num">1</span>, activation=<span class="code-str">'sigmoid'</span>)(x)
+    <span class="code-keyword">return</span> tf.keras.Model(inputs, outputs)
+
+optimizer = tf.keras.optimizers.AdamW(
+    learning_rate=<span class="code-num">3.230576384522256e-4</span>,
+    weight_decay=<span class="code-num">6.193087602825927e-4</span>
+)</pre></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Training Strategy</span>
+                    <h2>Callback Design & Robust Optimization</h2>
+                    <p class="panel-desc">The notebook protects the final model with early stopping, checkpointing, learning-rate decay, and TensorBoard logging.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid">
+                    <div class="tech-card stagger-child"><span class="tech-badge">Overfitting control</span><h3>EarlyStopping</h3><p>The notebook monitors <code>val_loss</code> with <code>patience=10</code> and restores the best weights, preventing the network from drifting after its strongest validation phase.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Best-model retention</span><h3>ModelCheckpoint</h3><p>The best-performing checkpoint is saved to <code>SMS_Spam_best_model.keras</code>, ensuring that the lowest-validation-loss model survives regardless of how later epochs behave.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Learning dynamics</span><h3>ReduceLROnPlateau</h3><p>Whenever validation loss stalls, the learning rate is multiplied by <code>0.3</code>, which helps the model settle into a better local optimum rather than oscillating.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Observability</span><h3>TensorBoard logging</h3><p>Training histories are exported to TensorBoard logs so the run can be inspected, compared, and audited beyond just the final metric snapshot.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Synthesis</span>
+                    <h2>Final Conclusion & Performance Summary</h2>
+                    <p class="panel-desc">The modeling notebook turns the EDA findings into a strong, well-regularized sequence classifier.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>End-to-end result:</strong> the project advances from raw SMS strings to a tuned Bidirectional LSTM with <strong>98.87% best validation accuracy</strong> and a best recorded validation loss of <strong>0.0564</strong>.</p>
+                    <p><strong>Why it works:</strong> the model design aligns closely with the EDA findings — it respects class imbalance, leverages tokenized sequential context, and optimizes for minority-class sensitivity with precision / recall monitoring.</p>
+                    <p><strong>Engineering takeaway:</strong> this notebook is more than a simple baseline. It demonstrates a clean NLP workflow with dataset splitting, vocabulary learning, label encoding, TensorFlow data pipelines, Optuna tuning, callback-driven convergence, and saved checkpoint artifacts.</p>
+                    <p><strong>Possible next steps:</strong></p>
+                    <ul>
+                        <li>Compare the Bi-LSTM against GRU, CNN-text, or Transformer baselines.</li>
+                        <li>Evaluate threshold tuning for spam recall vs false positives.</li>
+                        <li>Export the saved model and preprocessing artifacts for a lightweight inference API.</li>
+                        <li>Test character-level or subword tokenization for noisy SMS variants.</li>
+                    </ul>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a class="icon-link" href="mailto:a1mohamad.askari@gmail.com" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a class="icon-link" href="mailto:amirmohmdaskari@icloud.com" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a class="icon-link" href="tel:+989012223122" title="Phone"><i class="fas fa-phone"></i></a>
+            <a class="icon-link" href="https://github.com/a1mohamad" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a class="icon-link" href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a class="icon-link" href="https://www.kaggle.com/amirmohamadaskari" target="_blank" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari · NLP Classification Lab · 2026</div>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fa-solid fa-xmark"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded visualization">
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
