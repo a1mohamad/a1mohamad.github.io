@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berlin House Price Scraper | 2023 First Deployment Attempt</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Web Scraping &middot; MongoDB &middot; Linear Regression &middot; 2023 Prototype</div>
+    <h1>Berlin House Price Scraper: First Deployment-Like ML Attempt</h1>
+    <div class="hero-subtitle">A legacy course-final project and early deployment attempt from 2023: cached HousingAnywhere pages for Berlin rentals, BeautifulSoup parsing, MongoDB insertion, simple Linear Regression notebooks, plotting diagnostics, and console-style prediction bots for price estimation and expensive-house detection.</div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip wheat-metrics wheat-metrics-six legacy-metrics">
+        <div class="metric-block" data-metric-target="2023" data-metric-type="integer"><div class="metric-label">Prototype Origin</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="41" data-metric-type="integer"><div class="metric-label">Cached HTML Pages</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="328" data-metric-type="integer"><div class="metric-label">Listing Tag Pairs</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="6" data-metric-type="integer"><div class="metric-label">Notebooks</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="21.47" data-metric-type="float2"><div class="metric-label">Size Coefficient</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="183.58" data-metric-type="float2"><div class="metric-label">Bedroom Coefficient</div><div class="metric-value">0</div></div>
+    </div>
+
+    <div class="notebook-switcher legacy-switcher">
+        <button class="notebook-tab active" data-target="scraping-panel"><i class="fa-solid fa-spider"></i>Scraping + MongoDB</button>
+        <button class="notebook-tab" data-target="regression-panel"><i class="fa-solid fa-chart-simple"></i>Regression Notebooks</button>
+        <button class="notebook-tab" data-target="prototype-panel"><i class="fa-solid fa-terminal"></i>2023 Prototype Bots</button>
+    </div>
+
+    <div class="notebook-panel active" id="scraping-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Legacy Project Context</span>
+                    <h2>Project Overview</h2>
+                    <p class="panel-desc">A first scraping-to-database-to-model project built while learning Python, MongoDB, and basic machine learning.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This project predicts Berlin rental prices from scraped housing listings. It is intentionally presented as a <strong>legacy learning artifact</strong>: an early 2023 deployment-like attempt where the data was scraped from web pages, stored in MongoDB, loaded into notebooks, and used to train simple regression models. The implementation is rough, but valuable because it shows the full beginner path from raw web pages to a usable console prediction flow.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Learning target</strong><span>Practice scraping, parsing, MongoDB insertion, NumPy arrays, scikit-learn regression, plotting, and notebook-based experimentation.</span></div>
+                        <div class="note-card"><strong>Data source</strong><span>HousingAnywhere Berlin rental listing pages were cached locally as <code>web1.html</code> through <code>web41.html</code>.</span></div>
+                        <div class="note-card"><strong>Deployment meaning</strong><span>The 2023 attempt was not a web API. It was the first deployment-like step: persist data, train a model, and expose predictions through interactive notebook prompts.</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Page Collection</span>
+                    <h2>Saving Rental Pages for Offline Scraping</h2>
+                    <p class="panel-desc">The first notebook downloads search-result pages, then keeps the raw HTML files as the project data layer.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><span class="kpi-label">HTML Files</span><span class="kpi-value good">41</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Raw Page Size</span><span class="kpi-value">21.5 MB</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Info Tags</span><span class="kpi-value good">328</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Price Tags</span><span class="kpi-value">328</span></div>
+                </div>
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">pages.ipynb</div><div></div></div><div class="terminal-body compact-code"><pre>import requests
+
+def saving_pages():
+    for i in range(1, 42):
+        r = requests.get(
+            'https://housinganywhere.com/s/Berlin--Germany/'
+            'apartment-for-rent?page=%i' % (i)
+        )
+        with open('web%i.html' % i, 'wb+') as f:
+            f.write(r.content)
+    return
+
+saving_pages()</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">data/readme.txt</div><div></div></div><div class="terminal-body compact-code"><pre>This is our data that are web pages which are scraped for storing
+our data.
+All datas are saved it as html to show you how scraped this in script.</pre></div></div>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Design choice:</strong> saving HTML before parsing made the scraping experiment repeatable without re-hitting the website every time. For a beginner project, this was a useful first step toward a real data pipeline.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Parser + Database</span>
+                    <h2>BeautifulSoup Extraction and MongoDB Insert</h2>
+                    <p class="panel-desc">The scraping notebook extracts size, bedroom count, price, date, and home type, then inserts each listing into MongoDB.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Open cached pages</strong><span>The notebook loops through <code>web1.html</code> to <code>web41.html</code> and parses each file with BeautifulSoup.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Find listing blocks</strong><span>Property info and price elements are found through <code>data-test-locator</code> attributes.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Normalize raw strings</strong><span>Regex extracts numbers from size and price text; range prices are averaged into one numeric target.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Insert records</strong><span>Each listing is stored in MongoDB under database <code>houses</code>, collection <code>berlin</code>.</span></div></div></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">scrape_listing_cards.py</div><div></div></div><div class="terminal-body compact-code"><pre>houses_info_tag = soup.find_all(
+    'div',
+    attrs={'data-test-locator': 'ListingCardPropertyInfo'}
+)
+
+houses_price_tag = soup.find_all(
+    'div',
+    attrs={'data-test-locator': 'ListingCardInfoPrice'}
+)
+
+house_info_up = house_info.split('•')
+size = (re.findall(r'\d+', house_info_up[1]))[0]
+bedrooms = house_info_up[2][0]
+date = house_info_up[3][5:]
+price = re.findall(r'\d+', house_price)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">insert_in_mongodb.py</div><div></div></div><div class="terminal-body compact-code"><pre>def connect_database():
+    conn = pymongo.MongoClient('localhost', 27017)
+    db = conn['houses']
+    collection = db['berlin']
+    return collection
+
+def insert_in_mongodb(final_houses, collection):
+    for every in final_houses:
+        data = {}
+        data['size'] = every[0]
+        data['number of bedrooms'] = every[1]
+        data['price'] = every[2]
+        data['date'] = every[3]
+        data['type of home'] = every[4]
+        collection.insert_one(data)</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="regression-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Modeling Notebook</span>
+                    <h2>Linear Regression Price Model</h2>
+                    <p class="panel-desc">The core model predicts rental price from size and number of bedrooms using scikit-learn LinearRegression.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Multivariate Model</div><span class="theory-badge champion-badge">2 features</span></div><div class="theory-math-container">$$price = 21.47 \cdot size + 183.58 \cdot bedrooms + 669.80$$</div><div class="theory-explanation">The saved output shows the learned coefficients: size contributes about 21.47 price units per square meter, while each bedroom contributes about 183.58 units in this small scraped dataset.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Training Data Loader</div><span class="theory-badge">MongoDB</span></div><div class="theory-explanation">All regression notebooks share the same pattern: connect to MongoDB, read documents from <code>houses.berlin</code>, convert size and bedroom fields into NumPy arrays, then fit a scikit-learn model.</div></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">linear_tools.py</div><div></div></div><div class="terminal-body compact-code"><pre>def giving_training_datas(collection):
+    elements = collection.find()
+    x_train, y_train = [], []
+    for element in elements:
+        x_tmp = [0, 0]
+        x_tmp[0] = element['size']
+        x_tmp[1] = element['number of bedrooms']
+        x_train.append(x_tmp)
+        y_train.append(int(element['price']))
+    return x_train, y_train</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">train_regression.py</div><div></div></div><div class="terminal-body compact-code"><pre>def linear_regression(X, y):
+    scaler = StandardScaler()
+    LR = LinearRegression()
+    LR.fit(X, y)
+    b = LR.intercept_
+    w = LR.coef_
+    print(f"model parameters: w: {w}, b:{b}")
+    y_pred_lr = LR.predict(X)
+    return LR, y_pred_lr</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Visual Diagnostics</span>
+                    <h2>Target vs. Prediction Plots</h2>
+                    <p class="panel-desc">The notebooks include basic visual checks for univariate and multivariate regression behavior.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid two-card-row">
+                    <div class="viz-wrapper-card big-viz stagger-child"><img src="assets/data_vs_prediction.png" alt="Target versus prediction by size and bedrooms"><div class="viz-meta-text">Multivariate diagnostic - target and prediction plotted against size and bedroom count</div></div>
+                    <div class="viz-wrapper-card big-viz stagger-child"><img src="assets/univariate_regression_line.png" alt="Univariate regression line"><div class="viz-meta-text">Univariate baseline - size-only regression line over scraped MongoDB training data</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Notebook Map</span>
+                    <h2>What Each Notebook Contributes</h2>
+                    <p class="panel-desc">The project is split into small notebooks, each acting like a primitive pipeline step or experiment.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Notebook</th><th>Role</th><th>Key Output</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>pages.ipynb</code></td><td>Downloads Berlin rental listing pages</td><td>41 cached HTML pages</td></tr>
+                            <tr><td><code>insert_and_scraping.ipynb</code></td><td>Parses HTML and inserts records into MongoDB</td><td>Structured listings in <code>houses.berlin</code></td></tr>
+                            <tr><td><code>univariate_regression.ipynb</code></td><td>Tests a size-only Linear Regression baseline</td><td>Example prediction: size 56 gives price 2117</td></tr>
+                            <tr><td><code>plotting_data_vs_predict.ipynb</code></td><td>Plots target vs. prediction for both features</td><td>Two-panel diagnostic figure</td></tr>
+                            <tr><td><code>guessing_price_bot.ipynb</code></td><td>Interactive user-facing price estimate</td><td>Example: size 100, bedrooms 2 gives price 3183</td></tr>
+                            <tr><td><code>expensive_detector.ipynb</code></td><td>Simple Logistic Regression classifier on prediction residuals</td><td>Flags whether a listing looks expensive by the scraped-data rule</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="prototype-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">First Deployment Attempt</span>
+                    <h2>2023 Notebook-to-User Prototype</h2>
+                    <p class="panel-desc">This project is best read as the first attempt to move from code experiments toward something a user could interact with.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The deployment idea was modest but important: scraped housing data is persisted in MongoDB, helper functions load the data, the model trains from the database, and notebooks expose simple prompts for user input. In 2023 terms, this was the first deployment-like attempt: not a Flask/FastAPI app, not containerized, but a local end-to-end pipeline that behaves like a tiny interactive product.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>User input</strong><span>Notebook prompts ask for house size and bedroom count, then print a predicted rental price.</span></div>
+                        <div class="note-card"><strong>Decision helper</strong><span>A second notebook asks for size and price, then classifies whether the house looks expensive relative to the scraped-data model.</span></div>
+                        <div class="note-card"><strong>Honest limitation</strong><span>The README calls the project unprocessed and educational, which makes it a useful snapshot of early ML learning rather than a production benchmark.</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Interactive Bot</span>
+                    <h2>Price Guessing Bot</h2>
+                    <p class="panel-desc">The prediction notebook wraps the trained Linear Regression model with a small prompt-based interface.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">guessing_price_bot.ipynb</div><div></div></div><div class="terminal-body compact-code"><pre>input_size = input(
+    'What is your size of house that you want to know the price ?'
+)
+input_bedrooms = input(
+    'What is number of bedrooms that your building want to have ?'
+)
+
+predict_price(input_size, input_bedrooms, linear_model)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">notebook_output.txt</div><div></div></div><div class="terminal-body compact-code"><pre>What is your size of house that you want to know the price ?
+100
+What is number of bedrooms that your building want to have ?
+2
+Your predicted price is : 3183</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Decision Layer</span>
+                    <h2>Expensive House Detector</h2>
+                    <p class="panel-desc">A simple Logistic Regression classifier labels listings based on how far actual price is from the linear prediction.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">expensive_detector.py</div><div></div></div><div class="terminal-body compact-code"><pre>linear_model, y_pred_linear = linear_regression(X, y)
+y_clsf = np.zeros_like(y)
+
+for i in range(len(y_pred_linear)):
+    if y_linear[i] - y_pred_linear[i] < 800:
+        y_clsf[i] = 1
+    else:
+        y_clsf[i] = 0
+
+log_reg = LogisticRegression()
+log_reg.fit(X, y_clsf)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">decision_output.txt</div><div></div></div><div class="terminal-body compact-code"><pre>Please insert size of the house you may consider:
+100
+Please insert price of it:
+9000
+oh by my data,I think its expencive!!!</pre></div></div>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Prototype takeaway:</strong> the classifier is simple and misspelled labels remain from the original notebook, but it shows the first attempt to turn regression output into a user-facing decision rule.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Retrospective</span>
+                    <h2>What This 2023 Attempt Teaches</h2>
+                    <p class="panel-desc">The value of the project is its full beginner pipeline, not production polish.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Aspect</th><th>What Worked</th><th>What Would Be Improved Today</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>Scraping</code></td><td>Cached pages made parsing repeatable</td><td>Add robots/TOS review, request throttling, schema validation, and robust selectors.</td></tr>
+                            <tr><td><code>Database</code></td><td>MongoDB was used as the first persistent storage layer</td><td>Add unique keys, duplicate prevention, typed fields, and exportable datasets.</td></tr>
+                            <tr><td><code>Modeling</code></td><td>Linear Regression made the relationship interpretable</td><td>Add train/test split, error metrics, outlier handling, and stronger features.</td></tr>
+                            <tr><td><code>Deployment</code></td><td>Notebook prompts created a usable local prediction flow</td><td>Move to FastAPI or Streamlit, persist models, add tests, and package dependencies.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusion</span>
+                <h2>Project Synthesis &amp; Roadmap</h2>
+                <p class="panel-desc">A small but complete beginner system: scrape, store, train, visualize, and interact.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="synthesis-gradient-box stagger-child">
+                <p><strong>Project result:</strong> 41 Berlin rental pages were cached, parsed into 328 listing/price tag pairs, stored in MongoDB, and used for simple house-price regression notebooks.</p>
+                <p><strong>2023 deployment result:</strong> the first deployment-like attempt was a notebook-driven local product: a price guessing bot and expensive-house detector that let a user enter listing details and receive a model response.</p>
+                <p><strong>Future directions:</strong></p>
+                <ul>
+                    <li>Rebuild the scraper with validation, deduplication, and cleaner storage.</li>
+                    <li>Add proper metrics such as MAE, RMSE, train/test split, and residual plots.</li>
+                    <li>Expose the model through FastAPI or Streamlit instead of notebook prompts.</li>
+                    <li>Package MongoDB, scraper, and model service with Docker Compose.</li>
+                </ul>
+            </div>
+        </div></div>
+    </section>
+
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+
+<div class="editorial-credits">Amir Mohamad Askari &middot; Legacy Scraping Lab &middot; 2023</div>
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
