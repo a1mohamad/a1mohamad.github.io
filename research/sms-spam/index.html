@@ -66,6 +66,26 @@
             </div></div>
         </section>
 
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>EDA Libraries & Dependencies</h2>
+                    <p class="panel-desc">Core tools used for text inspection, statistical summaries, and visualization.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas & NumPy</strong><span>Dataset loading, label counts, text-length statistics, feature aggregation, and class-wise summaries.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-magnifying-glass-chart dep-icon"></i><div><strong>Regex, Counter & N-grams</strong><span>URL, email, phone, duplicate-pattern detection, common-word extraction, bigrams, and trigrams.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-language dep-icon"></i><div><strong>Scikit-Learn TF-IDF</strong><span><code>TfidfVectorizer</code> converts raw SMS text into weighted lexical features and ranks spam/ham-specific terms.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib, Seaborn & WordCloud</strong><span>Pie charts, histograms, boxplots, TF-IDF bar charts, and word-cloud visualizations.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
         <section class="section section-collapsible">
             <div class="section-header">
                 <div class="panel-header-content">
@@ -147,25 +167,25 @@
                         <div class="subsection-label">Class balance & structural length</div>
                         <p class="subsection-caption">These figures show the dataset skew toward ham and demonstrate how message length and digit density shift for spam.</p>
                         <div class="viz-display-grid three">
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/label_distribution_pie.png" alt="Pie chart of ham vs spam distribution"><div class="viz-meta-text">Spam vs. Ham Distribution</div></div>
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/message_length_distribution.png" alt="Message length distribution for spam and ham"><div class="viz-meta-text">Message Length Distribution</div></div>
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/boxplot_digits.png" alt="Boxplot of number of digits in ham vs spam"><div class="viz-meta-text">Digit Count Contrast</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="label_distribution_pie.png" alt="Pie chart of ham vs spam distribution"><div class="viz-meta-text">Spam vs. Ham Distribution</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="message_length_distribution.png" alt="Message length distribution for spam and ham"><div class="viz-meta-text">Message Length Distribution</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="boxplot_digits.png" alt="Boxplot of number of digits in ham vs spam"><div class="viz-meta-text">Digit Count Contrast</div></div>
                         </div>
                     </div>
                     <div class="stagger-child">
                         <div class="subsection-label">Semantic word clouds</div>
                         <p class="subsection-caption">The clouds reveal the underlying language style of the two classes: casual personal texting for ham, incentive and redirection language for spam.</p>
                         <div class="viz-display-grid two-card-row">
-                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="images/ham_wordcloud.png" alt="Ham messages word cloud"><div class="viz-meta-text">Ham Word Cloud</div></div>
-                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="images/spam_wordcloud.png" alt="Spam messages word cloud"><div class="viz-meta-text">Spam Word Cloud</div></div>
+                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="ham_wordcloud.png" alt="Ham messages word cloud"><div class="viz-meta-text">Ham Word Cloud</div></div>
+                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="spam_wordcloud.png" alt="Spam messages word cloud"><div class="viz-meta-text">Spam Word Cloud</div></div>
                         </div>
                     </div>
                     <div class="stagger-child">
                         <div class="subsection-label">TF-IDF ranking</div>
                         <p class="subsection-caption">These bar charts summarize the most discriminative TF-IDF features in each class, making the lexical split more explicit.</p>
                         <div class="viz-display-grid two-card-row">
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/top_ham_tfidf.png" alt="Top ham TF-IDF features"><div class="viz-meta-text">Top Ham TF-IDF Features</div></div>
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/top_spam_tfidf.png" alt="Top spam TF-IDF features"><div class="viz-meta-text">Top Spam TF-IDF Features</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="top_ham_tfidf.png" alt="Top ham TF-IDF features"><div class="viz-meta-text">Top Ham TF-IDF Features</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="top_spam_tfidf.png" alt="Top spam TF-IDF features"><div class="viz-meta-text">Top Spam TF-IDF Features</div></div>
                         </div>
                     </div>
                 </div>
@@ -280,6 +300,26 @@ ham_tfidf_mean  = tfidf_matrix[(df[<span class="code-str">'label'</span>] == <sp
             </div></div>
         </section>
 
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>Modeling Libraries & Dependencies</h2>
+                    <p class="panel-desc">Main libraries behind tokenization, sequence modeling, hyperparameter search, and training diagnostics.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>TensorFlow / Keras</strong><span><code>TextVectorization</code>, <code>StringLookup</code>, Embedding, Bidirectional LSTM, callbacks, metrics, and <code>tf.data</code> pipelines.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-brain dep-icon"></i><div><strong>Optuna</strong><span>Runs the hyperparameter study over embedding size, LSTM units, dropout, dense layers, learning rate, and weight decay.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-scale-balanced dep-icon"></i><div><strong>Scikit-Learn</strong><span>Stratified train/validation split and balanced class-weight computation for the rare spam class.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-simple dep-icon"></i><div><strong>TensorBoard & Keras Callbacks</strong><span>Training logs, early stopping, checkpoint saving, and dynamic learning-rate reduction.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
         <section class="section section-collapsible">
             <div class="section-header">
                 <div class="panel-header-content">
@@ -312,11 +352,10 @@ ham_tfidf_mean  = tfidf_matrix[(df[<span class="code-str">'label'</span>] == <sp
             </div>
             <div class="section-body"><div class="section-body-inner">
                 <div class="theory-split">
-                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Embedding Projection</div><span class="theory-badge">Representation</span></div><div class="theory-math-container">$$x_t 
-ightarrow e_t \in \mathbb{R}^{d}$$</div><div class="theory-explanation">Each token index produced by <code>TextVectorization</code> is mapped into a dense semantic vector. In the best run, the learned embedding dimension is <strong>16</strong>.</div></div>
-                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Bidirectional LSTM</div><span class="theory-badge champion-badge">Context Modeling</span></div><div class="theory-math-container">$$h_t = [\overrightarrow{h_t}; \overleftarrow{h_t}]$$</div><div class="theory-explanation">The Bi-LSTM reads the message from both left-to-right and right-to-left, allowing the classifier to capture context from both preceding and following words.</div></div>
-                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Binary Cross-Entropy</div><span class="theory-badge">Optimization</span></div><div class="theory-math-container">$$\mathcal{L} = -ig(y\log(\hat{y}) + (1-y)\log(1-\hat{y})ig)$$</div><div class="theory-explanation">Because the task is binary, the final dense layer uses a sigmoid output and trains against binary cross-entropy, while precision, recall, AUC, and accuracy are all monitored.</div></div>
-                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Optuna Search Logic</div><span class="theory-badge">Bayesian Tuning</span></div><div class="theory-math-container">$$	heta^* =  rg\max_{	heta \in \Theta} \; 	ext{ValAccuracy}(	heta)$$</div><div class="theory-explanation">Optuna’s TPE sampler searches the hyperparameter space efficiently, replacing manual tuning with a data-driven search over architecture and optimizer controls.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Embedding Projection</div><span class="theory-badge">Representation</span></div><div class="theory-math-container">$$x_t \rightarrow e_t \in \mathbb{R}^{d}$$</div><div class="theory-explanation">Each token index produced by <code>TextVectorization</code> is mapped into a dense semantic vector. In the best run, the learned embedding dimension is <strong>16</strong>.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Bidirectional LSTM</div><span class="theory-badge champion-badge">Context Modeling</span></div><div class="theory-math-container">$$h_t = [\overrightarrow{h_t};\ \overleftarrow{h_t}]$$</div><div class="theory-explanation">The Bi-LSTM reads the message from both left-to-right and right-to-left, allowing the classifier to capture context from both preceding and following words.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Binary Cross-Entropy</div><span class="theory-badge">Optimization</span></div><div class="theory-math-container">$$\mathcal{L} = -\left[y\log(\hat{y}) + (1-y)\log(1-\hat{y})\right]$$</div><div class="theory-explanation">Because the task is binary, the final dense layer uses a sigmoid output and trains against binary cross-entropy, while precision, recall, AUC, and accuracy are all monitored.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Optuna Search Logic</div><span class="theory-badge">Bayesian Tuning</span></div><div class="theory-math-container">$$\theta^* = \arg\max_{\theta \in \Theta}\ \mathrm{ValAccuracy}(\theta)$$</div><div class="theory-explanation">Optuna’s TPE sampler searches the hyperparameter space efficiently, replacing manual tuning with a data-driven search over architecture and optimizer controls.</div></div>
                 </div>
             </div></div>
         </section>
@@ -332,7 +371,7 @@ ightarrow e_t \in \mathbb{R}^{d}$$</div><div class="theory-explanation">Each tok
             </div>
             <div class="section-body"><div class="section-body-inner">
                 <div class="viz-display-grid single-centered">
-                    <div class="viz-wrapper-card big-viz stagger-child"><img class="arch-shot" src="images/lstm_architecture.png" alt="LSTM architecture diagram"><div class="viz-meta-text">LSTM Architecture Reference</div></div>
+                    <div class="viz-wrapper-card big-viz stagger-child"><img class="arch-shot" src="lstm_architecture.png" alt="LSTM architecture diagram"><div class="viz-meta-text">LSTM Architecture Reference</div></div>
                 </div>
                 <div class="executive-summary-box stagger-child"><strong>Interpretation:</strong> the forget, input, candidate-memory, and output gates make the LSTM especially suitable for text classification because they help preserve or discard information across the message sequence instead of treating words as isolated tokens.</div>
             </div></div>
