@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMDB Box Office Revenue | Ensemble Regression API</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Regression &middot; Feature Engineering &middot; FastAPI Deployment</div>
+    <h1>TMDB Box Office Revenue: Ensemble Forecasting to Production API</h1>
+    <div class="hero-subtitle">An end-to-end movie revenue prediction project built from TMDB metadata: notebook EDA, rich feature engineering, XGBoost + LightGBM + CatBoost blending, saved model artifacts, PostgreSQL-backed data workflows, Redis-aware inference, and a Dockerized FastAPI service.</div>
+    <div class="btn-group">
+        <a class="btn-modern-primary" href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Box%20Office%20Revenue" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
+        <a class="btn-modern-secondary" href="https://www.kaggle.com/datasets/amirmohamadaskari/tmdb-datasets" target="_blank"><i class="fa-brands fa-kaggle"></i> <span>Kaggle Dataset</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip wheat-metrics wheat-metrics-six box-office-metrics">
+        <div class="metric-block" data-metric-target="5001" data-metric-type="integer"><div class="metric-label">Ultimate Train Rows</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="4398" data-metric-type="integer"><div class="metric-label">Test Predictions</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="200" data-metric-type="integer"><div class="metric-label">Production Features</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="10" data-metric-type="integer"><div class="metric-label">CV Folds</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="3" data-metric-type="integer"><div class="metric-label">Blended Models</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="1.52" data-metric-type="float2"><div class="metric-label">Max Revenue $B</div><div class="metric-value">0</div></div>
+    </div>
+
+    <div class="notebook-switcher box-office-switcher">
+        <button class="notebook-tab active" data-target="modeling-panel"><i class="fa-solid fa-chart-line"></i>Modeling Notebook</button>
+        <button class="notebook-tab" data-target="inference-panel"><i class="fa-solid fa-server"></i>Inference API</button>
+        <button class="notebook-tab" data-target="deployment-panel"><i class="fa-brands fa-docker"></i>Deployment + Data Ops</button>
+    </div>
+
+    <div class="notebook-panel active" id="modeling-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Notebook Blueprint</span>
+                    <h2>Project Overview</h2>
+                    <p class="panel-desc">The notebook transforms raw movie metadata into a log-revenue regression system for worldwide box office forecasting.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The core notebook, <code>box_office_revenue.ipynb</code>, studies the TMDB box office prediction problem from exploratory analysis through final submission generation. The target is heavily skewed, so revenue is modeled with <code>log1p(revenue)</code>, evaluated with RMSE, and converted back to the original dollar scale with <code>expm1</code> for the final <code>test_result.csv</code>.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Problem type</strong><span>Supervised regression on movie metadata, JSON-style cast/crew fields, release timing, budget, popularity, ratings, and engineered ratios.</span></div>
+                        <div class="note-card"><strong>Data expansion</strong><span>The 3,000-row competition train file is merged with 2,001 additional training rows and rating/vote features.</span></div>
+                        <div class="note-card"><strong>Production goal</strong><span>The notebook is not only exploratory: its feature logic is mirrored in app code and serialized into model artifacts.</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Data Intelligence</span>
+                    <h2>Dataset Structure &amp; EDA Signals</h2>
+                    <p class="panel-desc">EDA shows missing metadata, skewed revenue, many zero budgets, and strong budget/popularity relationships.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><span class="kpi-label">Raw Train Rows</span><span class="kpi-value">3,000</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Sample Submission Rows</span><span class="kpi-value">4,398</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Zero Budget Rows</span><span class="kpi-value good">796</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Collection Movies</span><span class="kpi-value">604</span></div>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table class="pipeline-table">
+                        <thead><tr><th>Notebook Observation</th><th>Measured Value</th><th>Modeling Impact</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>revenue</code></td><td>mean $66.68M, median $16.81M, max $1.52B</td><td>Strong skew motivates the <code>log1p</code> target transform before regression.</td></tr>
+                            <tr><td><code>budget</code></td><td>796 zero-budget records</td><td>Manual corrections and budget ratios are needed because zeros usually mean unknown, not true zero spend.</td></tr>
+                            <tr><td><code>runtime</code></td><td>mean 107.86 minutes</td><td>Runtime is used directly and as ratio features against budget and rating.</td></tr>
+                            <tr><td><code>release_date</code></td><td>1921 to 2017 after year correction</td><td>Release month, day, year, weekday, and quarter capture seasonality and era effects.</td></tr>
+                            <tr><td><code>original_language</code></td><td>English 2,575 of 3,000 rows</td><td>An English-language flag and grouped imputation help stabilize sparse language/year combinations.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="viz-display-grid three box-office-viz-grid" style="margin-top:24px;">
+                    <div class="viz-wrapper-card stagger-child"><img src="assets/budget_vs_revenue.png" alt="Budget versus revenue joint plot"><div class="viz-meta-text">Budget vs. revenue - the notebook's first high-signal relationship check</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="assets/popularity_vs_revenue.png" alt="Popularity versus revenue joint plot"><div class="viz-meta-text">Popularity vs. revenue - noisy but useful market attention signal</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="assets/mean_revenue_by_year.png" alt="Mean revenue by release year"><div class="viz-meta-text">Mean revenue by release year - era effects support date-derived features</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Feature Engineering</span>
+                    <h2>From Raw Movie Metadata to 200 Features</h2>
+                    <p class="panel-desc">The pipeline combines manual corrections, JSON parsing, group statistics, one-hot fields, text counts, and ratio features.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Correct known outliers</strong><span>Specific movie IDs receive manual budget or revenue fixes before the model sees the target.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Merge external feature files</strong><span>IMDb-linked rating and total vote columns are merged into train and test data.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Parse JSON columns</strong><span><code>genres</code>, companies, countries, languages, keywords, cast, crew, and collections are converted into structured lists.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Create numerical signals</strong><span>Weighted ratings, inflation budget, crew gender counts, text lengths, cast counts, and year/group means are computed.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>One-hot frequent categories</strong><span>Rare values are collapsed into <code>_etc</code> buckets, producing a stable 200-feature production vector.</span></div></div></div>
+                </div>
+
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">prepare_core.py</div><div></div></div><div class="terminal-body compact-code"><pre>df[['release_month', 'release_day', 'release_year']] = (
+    df['release_date'].str.split('/', expand=True)
+      .replace(np.nan, 0).astype(int)
+)
+df.loc[(df['release_year'] <= 19) & (df['release_year'] < 100), 'release_year'] += 2000
+df.loc[(df['release_year'] > 19) & (df['release_year'] < 100), 'release_year'] += 1000
+
+df['weightedRating'] = (
+    df['rating'] * df['totalVotes'] + 6.367 * 1000
+) / (df['totalVotes'] + 1000)
+df['inflationBudget'] = df['budget'] + df['budget'] * 1.8 / 100 * (2018 - df['release_year'])
+df['budget'] = np.log1p(df['budget'])</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">json_one_hot.py</div><div></div></div><div class="terminal-body compact-code"><pre>for col in ['production_companies', 'production_countries',
+            'spoken_languages', 'genres']:
+    df[col] = df[col].map(
+        lambda x: sorted(list(set([
+            n if n in train_dict[col] else col + '_etc'
+            for n in [d['name'] for d in x if isinstance(d, dict)]
+        ]))) if isinstance(x, list) else ''
+    ).map(lambda x: ','.join(map(str, x)))
+
+    temp = df[col].str.get_dummies(sep=',')
+    df = pd.concat([df, temp], axis=1, sort=False)</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Modeling Strategy</span>
+                    <h2>XGBoost, LightGBM, CatBoost Weighted Blend</h2>
+                    <p class="panel-desc">Three gradient boosting engines are trained across 10 folds and blended with fixed weights.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">RMSE Objective</div><span class="theory-badge">Metric</span></div><div class="theory-math-container">$$RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y_i})^2}$$</div><div class="theory-explanation">The notebook evaluates errors in log-revenue space, which makes huge blockbusters and small releases more comparable during optimization.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Weighted Ensemble</div><span class="theory-badge champion-badge">Blend</span></div><div class="theory-math-container">$$\hat{y}=0.2\hat{y}_{xgb}+0.4\hat{y}_{lgb}+0.4\hat{y}_{cat}$$</div><div class="theory-explanation">LightGBM and CatBoost receive higher weight while XGBoost contributes additional tree diversity.</div></div>
+                </div>
+                <div class="phase-stack stagger-child" style="margin-top:24px;">
+                    <div class="phase-row"><div class="phase-index">XGBoost</div><div class="phase-main"><strong>Core booster diversity</strong><span><code>reg:squarederror</code>, learning rate 0.1, max depth 6, subsample 0.6, column sample 0.7, histogram tree method in production training.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Weight</span><span class="phase-metric-value">0.20</span></div><div><span class="phase-metric-label">Rounds</span><span class="phase-metric-value">100k</span></div><div><span class="phase-metric-label">Early Stop</span><span class="phase-metric-value">2500</span></div></div></div>
+                    <div class="phase-row rank-leader"><div class="phase-index">LightGBM</div><div class="phase-main"><strong>Fast leaf-wise learner</strong><span><code>num_leaves=30</code>, max depth 9, low learning rate 0.005, feature and bagging fractions at 0.9, L1 regularization 0.2.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Weight</span><span class="phase-metric-value good">0.40</span></div><div><span class="phase-metric-label">Rounds</span><span class="phase-metric-value">10k</span></div><div><span class="phase-metric-label">Early Stop</span><span class="phase-metric-value">500</span></div></div></div>
+                    <div class="phase-row rank-leader"><div class="phase-index">CatBoost</div><div class="phase-main"><strong>Robust boosting companion</strong><span>100k iterations, learning rate 0.005, depth 5, column sampling by level 0.8, RMSE evaluation, and Bayesian bagging temperature 0.2.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Weight</span><span class="phase-metric-value good">0.40</span></div><div><span class="phase-metric-label">Depth</span><span class="phase-metric-value">5</span></div><div><span class="phase-metric-label">Early Stop</span><span class="phase-metric-value">500</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Notebook Execution</span>
+                    <h2>Training Loop, Out-of-Fold Predictions &amp; Submission</h2>
+                    <p class="panel-desc">The notebook keeps validation predictions, test predictions, fold errors, and final CSV generation in one reproducible modeling path.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid">
+                    <div class="tech-card stagger-child"><span class="tech-badge"><i class="fa-solid fa-layer-group"></i> Fold orchestration</span><h3>Out-of-fold validation</h3><p>The notebook builds a <code>KFold(n_splits=10, shuffle=True, random_state=2025)</code> split, then fills <code>val_pred</code> only at each fold's validation indices. This makes the blended validation estimate honest because each row is predicted by models that did not train on that row.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge"><i class="fa-solid fa-file-csv"></i> Submission path</span><h3>Back to revenue scale</h3><p>Since the target is trained as <code>log1p(revenue)</code>, the final test prediction is converted with <code>np.expm1(test_pred)</code> before writing <code>data/test_result.csv</code> with the Kaggle submission columns.</p></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">cross_validation_blend.py</div><div></div></div><div class="terminal-body compact-code"><pre>val_pred = np.zeros(train.shape[0])
+test_pred = np.zeros(test.shape[0])
+weights = {'xgb': 0.2, 'lgb': 0.4, 'cat': 0.4}
+
+for i, (trn, val) in enumerate(fold):
+    train_x = train.loc[trn, :]
+    train_y = y[trn]
+    val_x = train.loc[val, :]
+    val_y = y[val]
+
+    result_xgb = xgb_model(train_x, train_y, val_x, val_y, test, verbose)
+    result_lgb = lgb_model(train_x, train_y, val_x, val_y, test, verbose)
+    result_cat = catboost_model(train_x, train_y, val_x, val_y, test, verbose)
+
+    blended_val_pred = (
+        result_xgb['val'] * weights['xgb'] +
+        result_lgb['val'] * weights['lgb'] +
+        result_cat['val'] * weights['cat']
+    )</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">submission_export.py</div><div></div></div><div class="terminal-body compact-code"><pre>sub = pd.read_csv('./data/sample_submission.csv')
+df_sub = pd.DataFrame()
+df_sub['id'] = sub['id']
+df_sub['revenue'] = np.expm1(test_pred)
+df_sub.to_csv('./data/test_result.csv', index=False)</pre></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Notebook Asset</th><th>Role</th><th>Important Detail</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>train_dict</code></td><td>Frequent JSON category vocabulary</td><td>Keeps genres, companies, countries, languages, and keywords stable across train/test.</td></tr>
+                            <tr><td><code>safe_prepare</code></td><td>Numeric cleanup before boosting</td><td>Replaces infinite values, fills missing values with column means, and casts to <code>float32</code>.</td></tr>
+                            <tr><td><code>result_dict</code></td><td>Fold-level diagnostics</td><td>Stores validation predictions, test predictions, and errors so blend quality can be inspected.</td></tr>
+                            <tr><td><code>test_result.csv</code></td><td>Final deliverable</td><td>Contains 4,398 rows with predicted revenue on the original dollar scale.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="inference-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Inference Blueprint</span>
+                    <h2>Saved Artifacts and Prediction Flow</h2>
+                    <p class="panel-desc">The app loads trained boosters once, aligns every request to the saved feature order, blends log predictions, and returns dollar revenue.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The production path is built around serialized artifacts in <code>models/</code>: <code>final_xgb.pkl</code>, <code>final_lgb.pkl</code>, <code>final_cat.pkl</code>, <code>features.pkl</code>, <code>train_dict.pkl</code>, <code>global_stats.pkl</code>, and <code>blend_config.pkl</code>. This keeps inference deterministic even when an incoming request is a single JSON movie instead of a full batch dataset.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Feature parity</strong><span><code>prepare_single</code> uses saved global statistics and feature order so one movie receives the same 200-column schema as training data.</span></div>
+                        <div class="note-card"><strong>Cache path</strong><span>Redis is optional. When reachable, request hashes are cached for 36,000 seconds; otherwise inference continues normally.</span></div>
+                        <div class="note-card"><strong>Output scale</strong><span>Model outputs are blended in log space, then converted with <code>np.expm1</code> before returning revenue.</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Prediction Engine</span>
+                    <h2>Batch and Single-Movie Inference</h2>
+                    <p class="panel-desc">The same ensemble supports uploaded CSVs, database tables, direct JSON payloads, and IMDb ID lookup.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">predict_movie.py</div><div></div></div><div class="terminal-body compact-code"><pre>df_prep = prepare(df, train_dict)
+df_prep = safe_prepare(df_prep)
+df_prep = df_prep.reindex(columns=features, fill_value=0)
+
+pred_xgb = xgb_model.predict(df_prep)
+pred_lgb = lgb.predict(df_prep)
+pred_cat = cat.predict(df_prep)
+
+final_pred = (
+    pred_xgb * weights['xgb'] +
+    pred_lgb * weights['lgb'] +
+    pred_cat * weights['cat']
+)
+result = np.expm1(final_pred)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">single_movie_pred.py</div><div></div></div><div class="terminal-body compact-code"><pre>movie_json = json.dumps(movie_dict, sort_keys=True)
+input_hash = hashlib.md5(movie_json.encode()).hexdigest()
+cache_key = f"single_movie_pred:{input_hash}"
+
+df = pd.DataFrame([movie_dict])
+df_prep = prepare_single(df, train_dict, global_stats, features)
+df_prep = safe_prepare(df_prep)
+df_prep = df_prep.reindex(columns=features, fill_value=0)
+
+return float(np.expm1(final_pred)[0])</pre></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Endpoint</th><th>Input Mode</th><th>Response</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>POST /predict/movies_file</code></td><td>CSV upload or database table form field</td><td><code>{"revenue_predictions": [...]}</code></td></tr>
+                            <tr><td><code>GET /predict/movies_file</code></td><td>CSV path or database table query parameter</td><td>Batch predictions rounded to two decimals</td></tr>
+                            <tr><td><code>POST /predict/single_movie</code></td><td>Pydantic movie metadata JSON</td><td><code>{"revenue_prediction": value}</code></td></tr>
+                            <tr><td><code>GET /predict/movie_from_db_by_imdbID</code></td><td>IMDb ID lookup across compatible DB tables</td><td>Single prediction with DB logging</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Request Contract</span>
+                    <h2>Single Movie Payload Schema</h2>
+                    <p class="panel-desc">The API accepts TMDB-style movie fields plus rating and vote features from the additional dataset.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid">
+                    <div class="tech-card stagger-child"><span class="tech-badge"><i class="fa-solid fa-clapperboard"></i> Core metadata</span><h3>Movie identity and release context</h3><ul><li><code>title</code>, <code>imdb_id</code>, original title, language, overview, status, tagline</li><li><code>release_date</code>, runtime, popularity, budget, homepage, poster path</li><li>Stringified JSON fields for collection, genres, companies, countries, languages, keywords, cast, and crew</li></ul></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge"><i class="fa-solid fa-star"></i> External signals</span><h3>Rating-enhanced prediction</h3><ul><li><code>rating</code> and <code>totalVotes</code> are merged from additional feature files or supplied directly in JSON.</li><li><code>popularity2</code> is accepted as an extra popularity feature.</li><li>Missing values are handled with saved global and grouped statistics.</li></ul></div>
+                </div>
+                <div class="terminal-panel implementation-code stagger-child" style="margin-top:24px;"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">single_movie_payload.json</div><div></div></div><div class="terminal-body compact-code"><pre>{
+  "title": "Hot Tub Time Machine 2",
+  "budget": 14000000,
+  "genres": "[{'id': 35, 'name': 'Comedy'}]",
+  "release_date": "2/20/15",
+  "runtime": 93.0,
+  "popularity": 6.575393,
+  "rating": 5.0,
+  "totalVotes": 482.0,
+  "imdb_id": "tt2637294"
+}</pre></div></div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">FastAPI Mechanics</span>
+                    <h2>Route Validation, Error Handling &amp; Logging</h2>
+                    <p class="panel-desc">The API layer does more than call a model: it validates input mode, normalizes blanks, catches data-loading failures, and records every prediction attempt.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid">
+                    <div class="tech-card stagger-child"><span class="tech-badge"><i class="fa-solid fa-route"></i> Batch routes</span><h3>CSV upload or database table</h3><p><code>POST /predict/movies_file</code> accepts exactly one source: a multipart CSV file or a form field naming a PostgreSQL table. The GET version mirrors that behavior with query parameters, allowing file-path or table-based prediction from the same service.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge"><i class="fa-solid fa-shield-halved"></i> Defensive API behavior</span><h3>Clear failure modes</h3><p>If both inputs are supplied, or neither is supplied, the route returns a <code>400</code>. CSV parsing errors and SQL table-read errors are wrapped as API exceptions instead of leaking raw stack traces to the client.</p></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">main.py input_gate.py</div><div></div></div><div class="terminal-body compact-code"><pre>if csv_file is not None and table is not None:
+    raise HTTPException(
+        status_code=400,
+        detail="Provide only one of: csv_file or table."
+    )
+
+if csv_file is None and table is None:
+    raise HTTPException(
+        status_code=400,
+        detail="You must provide either 'csv_file' or 'table'!"
+    )
+
+if csv_file:
+    df = pd.read_csv(csv_file.file)
+elif table:
+    df = pd.read_sql_table(table, engine)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">prediction_logging.py</div><div></div></div><div class="terminal-body compact-code"><pre>for i, row in df.iterrows():
+    row_dict = replace_nan_with_none(row.to_dict())
+    log_prediction(
+        engine=engine,
+        endpoint="/predict/movies_file",
+        input_data=row_dict,
+        prediction=preds[i],
+        imdb_id=row.get("imdb_id"),
+        status="success"
+    )</pre></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>FastAPI Layer</th><th>Implementation Detail</th><th>Why It Matters</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>response_model</code></td><td><code>BatchPredictionResponse</code> and <code>SinglePredictionResponse</code></td><td>Guarantees predictable JSON response shape for clients and Swagger UI.</td></tr>
+                            <tr><td><code>UploadFile</code></td><td>Reads uploaded CSV from <code>csv_file.file</code></td><td>Supports realistic batch prediction without requiring a local file path on the server.</td></tr>
+                            <tr><td><code>Query</code></td><td>Uses query parameters for CSV path, table name, and IMDb ID</td><td>Allows browser-testable GET routes and database lookup workflows.</td></tr>
+                            <tr><td><code>HTTPException</code></td><td>Raises 400, 404, or 422-style errors depending on the failure</td><td>Turns pipeline failures into understandable API responses.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Pipeline Parity</span>
+                    <h2>Batch Pipeline vs. Single-Row Pipeline</h2>
+                    <p class="panel-desc">Batch inference can compute statistics from a DataFrame, but single-movie inference must use saved global statistics to avoid schema drift.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Parse date fields</strong><span>Both paths split <code>release_date</code> into month, day, year, day-of-week, and quarter, then repair two-digit years.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Recover missing rating signals</strong><span>Batch mode can use group means from the request DataFrame; single mode reads <code>global_stats.pkl</code> for year/language fallback values.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Rebuild engineered ratios</strong><span>Budget/runtime, budget/popularity, rating/popularity, totalVotes/year, and other ratios are rebuilt before model inference.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Align sparse one-hot columns</strong><span>Production requests are reindexed against <code>features.pkl</code>, adding absent one-hot columns as zero.</span></div></div></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">prepare_single_fallbacks.py</div><div></div></div><div class="terminal-body compact-code"><pre>df['rating'] = df.apply(
+    lambda row: row['rating'] if pd.notnull(row['rating'])
+    else get_group_stat(
+        global_stats['rating_mean_by_year_lang'],
+        row['release_year'],
+        row['original_language'],
+        global_stats['rating_mean']
+    ),
+    axis=1
+)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">feature_order_guard.py</div><div></div></div><div class="terminal-body compact-code"><pre>for col in features:
+    if col not in df.columns:
+        df[col] = 0.0
+
+df = df[features]
+df = safe_prepare(df)
+df = df.reindex(columns=features, fill_value=0)</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="deployment-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Service Architecture</span>
+                    <h2>FastAPI, PostgreSQL, Redis, Docker</h2>
+                    <p class="panel-desc">The repository turns the notebook model into a service with persistent data access and prediction logging.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid single-centered" style="margin-bottom:24px;">
+                    <div class="viz-wrapper-card big-viz stagger-child"><img src="assets/header.png" alt="Cinema seats header image"><div class="viz-meta-text">Project visual anchor - cinema revenue forecasting as a production service</div></div>
+                </div>
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Client submits data</strong><span>Requests arrive as a CSV upload, table name, JSON movie payload, or IMDb ID.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>FastAPI validates input</strong><span>Pydantic schemas define batch and single prediction responses, while endpoint logic enforces one input mode at a time.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Pipeline prepares features</strong><span>Production feature engineering mirrors the notebook and reindexes requests to the saved feature list.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Ensemble predicts</strong><span>XGB, LGB, and Cat models load once at module import and produce a weighted blended revenue forecast.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Prediction is logged</strong><span>Input data, endpoint, IMDb ID, status, and prediction are written back through SQLAlchemy logging utilities.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Containerization</span>
+                    <h2>Docker Compose Runtime</h2>
+                    <p class="panel-desc">The project includes a slim Python API image and a PostgreSQL 16 service with a persistent volume.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Dockerfile</div><div></div></div><div class="terminal-body compact-code"><pre>FROM python:3.11-slim
+WORKDIR /movie_app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+EXPOSE 8000
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">docker-compose.yml</div><div></div></div><div class="terminal-body compact-code"><pre>services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: tmdb
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"</pre></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Runtime Component</th><th>Role</th><th>Repository Evidence</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>FastAPI</code></td><td>Serves prediction endpoints and Swagger docs at port 8000</td><td><code>app/main.py</code>, <code>Dockerfile</code></td></tr>
+                            <tr><td><code>PostgreSQL</code></td><td>Stores movie tables and prediction logs</td><td><code>docker-compose.yml</code>, SQLAlchemy engine</td></tr>
+                            <tr><td><code>Redis</code></td><td>Optional inference cache for repeated batch/single requests</td><td><code>app/inference.py</code></td></tr>
+                            <tr><td><code>joblib/pickle</code></td><td>Loads boosters, blend weights, feature list, dictionaries, and global stats</td><td><code>models/</code> artifacts</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Data Operations</span>
+                    <h2>Database Training and Submission Artifacts</h2>
+                    <p class="panel-desc">Scripts connect raw CSV work, PostgreSQL tables, retraining, and final Kaggle-style output files.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><span class="kpi-label">Ultimate Train</span><span class="kpi-value good">5,001 x 26</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Ultimate Test</span><span class="kpi-value">4,398 x 25</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Additional Train</span><span class="kpi-value">2,001</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Model Artifacts</span><span class="kpi-value good">7</span></div>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Script / Artifact</th><th>Purpose</th><th>Output</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>scripts/create_ultimate_data.py</code></td><td>Builds combined train/test CSVs from base and additional feature sources</td><td><code>ultimate_train.csv</code>, <code>ultimate_test.csv</code></td></tr>
+                            <tr><td><code>scripts/import_train_to_db.py</code></td><td>Moves prepared training tables into PostgreSQL</td><td>Database-backed training source</td></tr>
+                            <tr><td><code>scripts/train_from_db.py</code></td><td>Retrains the same 10-fold blended ensemble from DB tables</td><td>Final XGB, LGB, Cat, features, and blend config</td></tr>
+                            <tr><td><code>scripts/test_client_single_movie.py</code></td><td>Sends a representative single movie payload to the API</td><td>Status code and JSON prediction response</td></tr>
+                            <tr><td><code>data/test_result.csv</code></td><td>Notebook-created final output in submission shape</td><td>4,398 revenue predictions</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">PostgreSQL Layer</span>
+                    <h2>Tables, Imports &amp; Prediction Audit Trail</h2>
+                    <p class="panel-desc">The database layer supports training data import, table-based prediction, IMDb lookup, and persistent logging of prediction attempts.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">import_train_to_db.py</div><div></div></div><div class="terminal-body compact-code"><pre>engine = create_engine(
+    f'postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}'
+    f'@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+)
+
+train = pd.read_csv('data/train.csv')
+add_train = pd.read_csv('data/AdditionalTrainData.csv')
+add_feat = pd.read_csv('data/TrainAdditionalFeatures.csv')
+
+train.to_sql('train_data', engine, if_exists='replace', index=False)
+add_train.to_sql('additional_train_data', engine, if_exists='replace', index=False)
+add_feat.to_sql('train_additional_features', engine, if_exists='replace', index=False)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">log_prediction.sql</div><div></div></div><div class="terminal-body compact-code"><pre>INSERT INTO predictions (
+    timestamp,
+    endpoint,
+    imdb_id,
+    input_data,
+    prediction,
+    status,
+    error_message
+)
+VALUES (
+    :timestamp,
+    :endpoint,
+    :imdb_id,
+    :input_data,
+    :prediction,
+    :status,
+    :error_message
+)</pre></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Database Table / Flow</th><th>Created By</th><th>Used For</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>train_data</code></td><td><code>import_train_to_db.py</code></td><td>Base 3,000-row TMDB training table for DB-backed retraining.</td></tr>
+                            <tr><td><code>additional_train_data</code></td><td><code>import_train_to_db.py</code></td><td>Extra rows merged into training to strengthen the regression signal.</td></tr>
+                            <tr><td><code>train_additional_features</code></td><td><code>import_train_to_db.py</code></td><td>IMDb-linked rating and vote features joined by <code>imdb_id</code>.</td></tr>
+                            <tr><td><code>ultimate_train</code> / <code>ultimate_test</code></td><td><code>create_ultimate_data.py</code></td><td>Pre-merged CSVs also pushed into PostgreSQL for service workflows.</td></tr>
+                            <tr><td><code>predictions</code></td><td><code>log_prediction()</code></td><td>Audit trail for endpoint, input JSON, prediction value, status, and error message.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Database takeaway:</strong> PostgreSQL is not only storage. It becomes a second operating mode for the model: train from database tables, predict from a table name, look up a movie by IMDb ID, and preserve a prediction history for debugging and monitoring.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Docker Runtime</span>
+                    <h2>Container Startup, Ports &amp; Service Boundaries</h2>
+                    <p class="panel-desc">Docker Compose separates the API and database while exposing the same local ports used by development scripts.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Build the API image</strong><span>The Dockerfile starts from <code>python:3.11-slim</code>, installs <code>requirements.txt</code>, copies the project, and starts Uvicorn.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Start PostgreSQL</strong><span>Compose launches <code>postgres:16</code> with the <code>tmdb</code> database and a persistent <code>pgdata</code> volume.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Expose service ports</strong><span>The API is published on <code>8000:8000</code>; PostgreSQL is published on <code>5432:5432</code> for scripts and inspection.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Use Swagger UI</strong><span>After startup, interactive API docs are available at <code>http://localhost:8000/docs</code>.</span></div></div></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">run_service.sh</div><div></div></div><div class="terminal-body compact-code"><pre>docker compose up --build
+
+# API
+http://localhost:8000
+
+# Swagger UI
+http://localhost:8000/docs
+
+# Stop containers
+docker compose down</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">requirements_runtime.txt</div><div></div></div><div class="terminal-body compact-code"><pre>fastapi==0.115.12
+uvicorn==0.34.3
+pydantic==2.11.5
+pandas==2.2.3
+numpy==2.2.6
+scikit-learn==1.6.1
+xgboost==3.0.2
+lightgbm==4.6.0
+catboost==1.2.8
+redis==6.2.0
+sqlalchemy==2.0.41</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusion</span>
+                <h2>Project Synthesis &amp; Roadmap</h2>
+                <p class="panel-desc">The project moves from notebook experimentation to a reusable prediction service without losing feature-engineering parity.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="synthesis-gradient-box stagger-child">
+                <p><strong>Modeling result:</strong> the notebook builds a high-feature regression workflow around log-transformed revenue, manual anomaly correction, external ratings/votes, JSON category processing, and a 10-fold blend of XGBoost, LightGBM, and CatBoost.</p>
+                <p><strong>Production result:</strong> the app packages the model as a FastAPI service with batch, single-movie, and IMDb lookup prediction paths, saved feature schemas, optional Redis caching, PostgreSQL prediction logging, and Docker Compose deployment.</p>
+                <p><strong>Future directions:</strong></p>
+                <ul>
+                    <li>Add recorded CV and leaderboard metrics into the saved blend config for stronger model governance.</li>
+                    <li>Move database credentials into environment variables for safer deployment.</li>
+                    <li>Add automated tests for <code>prepare_single</code> parity against notebook feature output.</li>
+                    <li>Track feature importance summaries for XGB, LGB, and CatBoost in the project page and API docs.</li>
+                </ul>
+            </div>
+        </div></div>
+    </section>
+
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+
+<div class="editorial-credits">Amir Mohamad Askari &middot; Revenue Forecasting Lab &middot; 2026</div>
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
