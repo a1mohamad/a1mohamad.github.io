@@ -798,3 +798,26 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
     justify-content:flex-start !important;
   }
 }
+
+
+
+/* V13: clean bright project images - gradients removed from image paths */
+.featured-card::before {
+  filter: saturate(1.08) brightness(1.04) contrast(1.02) !important;
+}
+
+.featured-card::after {
+  background: linear-gradient(180deg, rgba(5,5,8,0), rgba(5,5,8,.38)) !important;
+}
+
+.project-card .thumb {
+  filter: none !important;
+}
+
+.project-card .thumb::after {
+  background: linear-gradient(180deg, rgba(5,5,8,0), rgba(5,5,8,.04)) !important;
+}
+
+.project-card:hover .thumb::after {
+  background: linear-gradient(180deg, rgba(5,5,8,0), rgba(5,5,8,.12)) !important;
+}
