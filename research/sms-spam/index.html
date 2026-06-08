@@ -167,25 +167,25 @@
                         <div class="subsection-label">Class balance & structural length</div>
                         <p class="subsection-caption">These figures show the dataset skew toward ham and demonstrate how message length and digit density shift for spam.</p>
                         <div class="viz-display-grid three">
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="label_distribution_pie.png" alt="Pie chart of ham vs spam distribution"><div class="viz-meta-text">Spam vs. Ham Distribution</div></div>
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="message_length_distribution.png" alt="Message length distribution for spam and ham"><div class="viz-meta-text">Message Length Distribution</div></div>
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="boxplot_digits.png" alt="Boxplot of number of digits in ham vs spam"><div class="viz-meta-text">Digit Count Contrast</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/label_distribution_pie.png" alt="Pie chart of ham vs spam distribution"><div class="viz-meta-text">Spam vs. Ham Distribution</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/message_length_distribution.png" alt="Message length distribution for spam and ham"><div class="viz-meta-text">Message Length Distribution</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/boxplot_digits.png" alt="Boxplot of number of digits in ham vs spam"><div class="viz-meta-text">Digit Count Contrast</div></div>
                         </div>
                     </div>
                     <div class="stagger-child">
                         <div class="subsection-label">Semantic word clouds</div>
                         <p class="subsection-caption">The clouds reveal the underlying language style of the two classes: casual personal texting for ham, incentive and redirection language for spam.</p>
                         <div class="viz-display-grid two-card-row">
-                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="ham_wordcloud.png" alt="Ham messages word cloud"><div class="viz-meta-text">Ham Word Cloud</div></div>
-                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="spam_wordcloud.png" alt="Spam messages word cloud"><div class="viz-meta-text">Spam Word Cloud</div></div>
+                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="images/ham_wordcloud.png" alt="Ham messages word cloud"><div class="viz-meta-text">Ham Word Cloud</div></div>
+                            <div class="viz-wrapper-card big-viz"><img class="wordcloud-shot" src="images/spam_wordcloud.png" alt="Spam messages word cloud"><div class="viz-meta-text">Spam Word Cloud</div></div>
                         </div>
                     </div>
                     <div class="stagger-child">
                         <div class="subsection-label">TF-IDF ranking</div>
                         <p class="subsection-caption">These bar charts summarize the most discriminative TF-IDF features in each class, making the lexical split more explicit.</p>
                         <div class="viz-display-grid two-card-row">
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="top_ham_tfidf.png" alt="Top ham TF-IDF features"><div class="viz-meta-text">Top Ham TF-IDF Features</div></div>
-                            <div class="viz-wrapper-card"><img class="chart-shot" src="top_spam_tfidf.png" alt="Top spam TF-IDF features"><div class="viz-meta-text">Top Spam TF-IDF Features</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/top_ham_tfidf.png" alt="Top ham TF-IDF features"><div class="viz-meta-text">Top Ham TF-IDF Features</div></div>
+                            <div class="viz-wrapper-card"><img class="chart-shot" src="images/top_spam_tfidf.png" alt="Top spam TF-IDF features"><div class="viz-meta-text">Top Spam TF-IDF Features</div></div>
                         </div>
                     </div>
                 </div>
@@ -371,7 +371,7 @@ ham_tfidf_mean  = tfidf_matrix[(df[<span class="code-str">'label'</span>] == <sp
             </div>
             <div class="section-body"><div class="section-body-inner">
                 <div class="viz-display-grid single-centered">
-                    <div class="viz-wrapper-card big-viz stagger-child"><img class="arch-shot" src="lstm_architecture.png" alt="LSTM architecture diagram"><div class="viz-meta-text">LSTM Architecture Reference</div></div>
+                    <div class="viz-wrapper-card big-viz stagger-child"><img class="arch-shot" src="images/lstm_architecture.png" alt="LSTM architecture diagram"><div class="viz-meta-text">LSTM Architecture Reference</div></div>
                 </div>
                 <div class="executive-summary-box stagger-child"><strong>Interpretation:</strong> the forget, input, candidate-memory, and output gates make the LSTM especially suitable for text classification because they help preserve or discard information across the message sequence instead of treating words as isolated tokens.</div>
             </div></div>
