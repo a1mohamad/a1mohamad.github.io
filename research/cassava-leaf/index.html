@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cassava Leaf Disease Classification | EfficientNetB3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Computer Vision · Plant Disease Classification</div>
+    <h1>Cassava Leaf Disease Classification with EfficientNetB3</h1>
+    <div class="hero-subtitle">A two-notebook Kaggle workflow: TPU-based EfficientNetB3 fine-tuning for cassava disease recognition, followed by GPU inference with Test-Time Augmentation and model verification.</div>
+    <div class="btn-group">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Cassava%20Leaf%20Disease" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
+        <a href="https://www.kaggle.com/models/amirmohamadaskari/cassava-leaf-model" class="btn-modern-secondary" target="_blank"><i class="fa-brands fa-kaggle"></i> <span>Kaggle Model</span></a>
+        <a href="https://www.kaggle.com/c/cassava-leaf-disease-classification" class="btn-modern-secondary" target="_blank"><i class="fa-solid fa-trophy"></i> <span>Kaggle Competition</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip">
+        <div class="metric-block" data-metric-type="integer" data-metric-target="21397"><div class="metric-label">Training Images</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="integer" data-metric-target="5"><div class="metric-label">Target Classes</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="87.18"><div class="metric-label">Best Validation Accuracy</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="89"><div class="metric-label">Kaggle Public Score</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.4703"><div class="metric-label">Best Validation Loss</div><div class="metric-value">0</div></div>
+    </div>
+
+    <div class="notebook-switcher" aria-label="Notebook sections">
+        <button class="notebook-tab active" data-target="train-panel"><i class="fa-solid fa-microchip"></i> Training Notebook</button>
+        <button class="notebook-tab" data-target="inference-panel"><i class="fa-solid fa-wand-magic-sparkles"></i> Inference + TTA Notebook</button>
+    </div>
+
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Project Blueprint</span>
+                <h2>Two-Notebook Strategy</h2>
+                <p class="panel-desc">The page keeps both notebooks in one project case study while preserving the separation between heavy training and lightweight inference.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Notebook 01 · Model Training</div><span class="theory-badge">TPU</span></div>
+                        <p class="theory-explanation">Builds the EfficientNetB3 transfer-learning model, prepares TFRecord input pipelines, trains the classifier head, then fine-tunes the backbone with a low learning rate.</p>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Notebook 02 · Inference + Submission</div><span class="theory-badge champion-badge">GPU + TTA</span></div>
+                        <p class="theory-explanation">Loads the saved Kaggle model, applies Test-Time Augmentation, verifies predictions on training images, and creates the final <code>submission.csv</code>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="notebook-panel active" id="train-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Notebook 01 · Training</span>
+                    <h2>Training Overview</h2>
+                    <p class="panel-desc">EfficientNetB3 transfer learning on 512×512 cassava leaf images using a distributed TPU strategy.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="overview-text stagger-child">
+                        <p>Cassava is a critical food crop, but leaf diseases can reduce yield and threaten food security. The training notebook builds a multiclass image classifier for five cassava categories: Cassava Bacterial Blight, Cassava Brown Streak Disease, Cassava Green Mottle, Cassava Mosaic Disease, and Healthy. The notebook uses transfer learning with EfficientNetB3, high-resolution 512×512 images, TFRecord input pipelines, augmentation, checkpointing, early stopping, and fine-tuning.</p>
+                        <p style="margin-top:16px;">The training pipeline also uses augmentation as a regularization layer: each image can be slightly rotated, shifted, zoomed, or flipped so the model learns disease patterns instead of memorizing one exact camera angle or leaf position. After training and inference optimization, the model reached an <strong>89% Kaggle public score</strong>, close to the <strong>90% benchmark reported for the Google team model</strong> on the same test setting.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>Training Environment & Dependencies</h2>
+                    <p class="panel-desc">Main libraries, accelerator setup, and reproducibility controls.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="dependency-list">
+                        <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>TensorFlow / Keras</strong><span>EfficientNetB3 model construction, callbacks, distributed training, TFRecord pipelines, and image preprocessing.</span></div></div>
+                        <div class="dependency-row stagger-child"><i class="fa-solid fa-microchip dep-icon"></i><div><strong>TPUStrategy</strong><span>Detected 8 TPU cores and used a global batch size of 64 for high-throughput training.</span></div></div>
+                        <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas, NumPy & JSON</strong><span>Training CSV loading, label mapping, class distribution analysis, and metadata handling.</span></div></div>
+                        <div class="dependency-row stagger-child"><i class="fa-solid fa-image dep-icon"></i><div><strong>OpenCV, Matplotlib & Seaborn</strong><span>Image inspection, disease examples, class distribution visualization, and training diagnostics.</span></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Data Taxonomy</span>
+                    <h2>Dataset & Label Space</h2>
+                    <p class="panel-desc">The notebook reads the official Kaggle Cassava Leaf Disease Classification dataset and maps 5 numeric labels to disease names.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="matrix-table-container stagger-child">
+                        <table>
+                            <thead><tr><th>Label</th><th>Class Name</th><th>Image Count</th><th>Role</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>0</code></td><td>Cassava Bacterial Blight (CBB)</td><td>1,087</td><td><span class="taxonomy-tag">Disease</span></td></tr>
+                                <tr><td><code>1</code></td><td>Cassava Brown Streak Disease (CBSD)</td><td>2,189</td><td><span class="taxonomy-tag">Disease</span></td></tr>
+                                <tr><td><code>2</code></td><td>Cassava Green Mottle (CGM)</td><td>2,386</td><td><span class="taxonomy-tag">Disease</span></td></tr>
+                                <tr class="target-row-highlight"><td><code>3</code></td><td>Cassava Mosaic Disease (CMD)</td><td>13,158</td><td><span class="taxonomy-tag target-style">Majority Class</span></td></tr>
+                                <tr><td><code>4</code></td><td>Healthy</td><td>2,577</td><td><span class="taxonomy-tag">Healthy Control</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="executive-summary-box stagger-child" style="margin-top: 24px;">
+                        <p><strong>Dataset note:</strong> The label distribution is highly imbalanced, with CMD dominating the training set. This makes validation tracking, augmentation, and careful fine-tuning especially important.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Workflow Blueprint</span>
+                    <h2>Training System Architecture</h2>
+                    <p class="panel-desc">From Kaggle TFRecords to a saved EfficientNetB3 model artifact.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="timeline-flow">
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Reproducible Setup</strong><span>Set a global seed, import TensorFlow/Keras, NumPy, Pandas, OpenCV, Matplotlib, Seaborn, and configure the accelerator strategy.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Data Exploration</strong><span>Load <code>train.csv</code>, inspect image dimensions, read the label mapping JSON, and visualize class distribution and one image per class.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>TFRecord Pipeline</strong><span>Decode JPEGs, resize images to 512×512, one-hot encode labels, apply EfficientNet preprocessing, batch, prefetch, and use non-deterministic order for speed.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Training Augmentation</strong><span>Apply random rotation, translation, zoom, horizontal flip, and vertical flip. This creates realistic alternate leaf views and helps the classifier become less sensitive to framing, scale, and field-capture noise.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Head Training</strong><span>Freeze EfficientNetB3, train the custom classifier head using Adam, categorical cross-entropy with label smoothing, checkpointing, early stopping, and ReduceLROnPlateau.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">06</span><div><strong>Fine-Tuning</strong><span>Unfreeze the EfficientNetB3 backbone and continue training with a much smaller learning rate to adapt ImageNet features to cassava leaf patterns.</span></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Architecture</span>
+                    <h2>EfficientNetB3 Transfer-Learning Stack</h2>
+                    <p class="panel-desc">A frozen ImageNet backbone first, then full-model fine-tuning.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="theory-split">
+                        <div class="theory-block stagger-child">
+                            <div class="theory-card-header"><div class="theory-title">EfficientNet Intuition</div><span class="theory-badge">Compound Scaling</span></div>
+                            <div class="theory-math-container"><code>d = α^φ, w = β^φ, r = γ^φ</code></div>
+                            <p class="theory-explanation">EfficientNet scales depth, width, and input resolution together instead of making only one dimension larger. This gives EfficientNetB3 a strong accuracy-to-compute balance for high-resolution plant disease images.</p>
+                        </div>
+                        <div class="theory-block stagger-child">
+                            <div class="theory-card-header"><div class="theory-title">Backbone</div><span class="theory-badge">Feature Extractor</span></div>
+                            <div class="theory-math-container"><code>EfficientNetB3(include_top=False, input_shape=(512,512,3))</code></div>
+                            <p class="theory-explanation">The base model outputs a 16×16×1536 representation, reusing ImageNet visual features such as edges, textures, veins, lesions, and high-level leaf shapes.</p>
+                        </div>
+                        <div class="theory-block stagger-child">
+                            <div class="theory-card-header"><div class="theory-title">Stage 1 · Frozen Transfer Learning</div><span class="theory-badge">Freeze</span></div>
+                            <p class="theory-explanation">The ImageNet backbone is frozen first, so only the custom classifier head learns. This protects the pretrained visual features while the new 5-class cassava head stabilizes.</p>
+                        </div>
+                        <div class="theory-block stagger-child">
+                            <div class="theory-card-header"><div class="theory-title">Stage 2 · Low-LR Fine-Tuning</div><span class="theory-badge champion-badge">Unfreeze</span></div>
+                            <p class="theory-explanation">After the head learns the task, the backbone is unfrozen and trained with a much smaller learning rate. This gently adapts general ImageNet features to cassava-specific disease textures.</p>
+                        </div>
+                        <div class="theory-block stagger-child">
+                            <div class="theory-card-header"><div class="theory-title">Classifier Head</div><span class="theory-badge champion-badge">5-Class Output</span></div>
+                            <div class="theory-math-container"><code>GAP → Dense(256, ReLU, L2) → Dropout(0.3) → Dense(5, Softmax)</code></div>
+                            <p class="theory-explanation">The custom head converts EfficientNet feature maps into disease probabilities and uses dropout plus L2 regularization to reduce overfitting.</p>
+                        </div>
+                    </div>
+                    <div class="matrix-table-container stagger-child" style="margin-top: 24px;">
+                        <table>
+                            <thead><tr><th>Component</th><th>Output Shape</th><th>Parameters</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>InputLayer</code></td><td>(None, 512, 512, 3)</td><td>0</td></tr>
+                                <tr><td><code>EfficientNetB3</code></td><td>(None, 16, 16, 1536)</td><td>10,783,535</td></tr>
+                                <tr><td><code>GlobalAveragePooling2D</code></td><td>(None, 1536)</td><td>0</td></tr>
+                                <tr><td><code>Dense + Dropout</code></td><td>(None, 256)</td><td>393,472</td></tr>
+                                <tr class="target-row-highlight"><td><code>Dense Softmax</code></td><td>(None, 5)</td><td>1,285</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Implementation</span>
+                    <h2>Core Training Code</h2>
+                    <p class="panel-desc">Condensed version of the model-building and training logic from the notebook.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="terminal-panel stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">cassava_train_efficientnetb3.py</div><div></div></div>
+                        <div class="terminal-body"><pre><span class="code-comment"># Build a transfer-learning model: EfficientNetB3 backbone + custom cassava head</span>
+<span class="code-keyword">def</span> <span class="code-fn">cassava_model</span>(IMAGE_SIZE):
+    base_model = tf.keras.applications.EfficientNetB3(
+        weights=<span class="code-str">'imagenet'</span>,
+        include_top=<span class="code-keyword">False</span>,
+        input_shape=IMAGE_SIZE + (<span class="code-num">3</span>,)
+    )
+
+    <span class="code-comment"># Stage 1: freeze pretrained filters and train only the new classifier head</span>
+    base_model.trainable = <span class="code-keyword">False</span>
+
+    inputs = tf.keras.layers.Input(shape=IMAGE_SIZE + (<span class="code-num">3</span>,))
+    x = base_model(inputs, training=<span class="code-keyword">False</span>)
+    x = tf.keras.layers.GlobalAveragePooling2D()(x)
+    x = tf.keras.layers.Dense(<span class="code-num">256</span>, activation=<span class="code-str">'relu'</span>, kernel_regularizer=l2(<span class="code-num">0.001</span>))(x)
+    x = tf.keras.layers.Dropout(<span class="code-num">0.3</span>)(x)
+    outputs = tf.keras.layers.Dense(<span class="code-num">5</span>, activation=<span class="code-str">'softmax'</span>)(x)
+    <span class="code-keyword">return</span> tf.keras.Model(inputs, outputs)
+
+<span class="code-keyword">with</span> strategy.scope():
+    model = cassava_model((<span class="code-num">512</span>, <span class="code-num">512</span>))
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(<span class="code-num">3e-4</span>),
+        loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=<span class="code-num">0.01</span>),
+        metrics=[<span class="code-str">'accuracy'</span>],
+        steps_per_execution=<span class="code-num">32</span>
+    )
+
+<span class="code-comment"># Train the head with callbacks: checkpoint, early stopping, and LR reduction</span>
+history_head = model.fit(
+    train_dataset.repeat(),
+    validation_data=val_dataset.repeat(),
+    epochs=<span class="code-num">15</span>,
+    steps_per_epoch=<span class="code-num">271</span>,
+    validation_steps=<span class="code-num">62</span>,
+    callbacks=callbacks
+)
+
+<span class="code-comment"># Stage 2: unfreeze EfficientNetB3 and fine-tune with a safer low learning rate</span>
+model.get_layer(<span class="code-str">'efficientnetb3'</span>).trainable = <span class="code-keyword">True</span>
+model.compile(
+    optimizer=tf.keras.optimizers.Adam(<span class="code-num">3e-5</span>),
+    loss=tf.keras.losses.CategoricalCrossentropy(label_smoothing=<span class="code-num">0.01</span>),
+    metrics=[<span class="code-str">'accuracy'</span>]
+)
+
+history_finetune = model.fit(
+    train_dataset.repeat(),
+    validation_data=val_dataset.repeat(),
+    epochs=<span class="code-num">10</span>,
+    steps_per_epoch=<span class="code-num">271</span>,
+    validation_steps=<span class="code-num">62</span>,
+    callbacks=callbacks
+)</pre></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Analytics Layer</span>
+                    <h2>Training Visual Diagnostics</h2>
+                    <p class="panel-desc">Class imbalance and visual examples from the five cassava categories. Click any image to enlarge.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="viz-display-grid stagger-child">
+                        <div class="viz-wrapper-card">
+                            <img src="images_distribution.png" alt="Cassava label distribution plot">
+                            <div class="viz-meta-text">images_distribution.png · label distribution across 21,397 training images</div>
+                        </div>
+                        <div class="viz-wrapper-card">
+                            <img src="images_examples.png" alt="Cassava examples by disease class">
+                            <div class="viz-meta-text">images_examples.png · one sample image from each cassava class</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Evaluation Matrix</span>
+                    <h2>Training Performance Diagnostics</h2>
+                    <p class="panel-desc">Summary of the two-stage training trajectory.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="engine-insights-stack">
+                        <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Phase 1</div><div class="insight-model-identity"><strong>Frozen EfficientNetB3 Head Training</strong><span>Classifier head trained for 15 epochs</span></div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Best Val Loss</span><span class="insight-score-value">0.6660</span></div><div class="insight-score-item"><span class="insight-score-label">Best Epoch</span><span class="insight-score-value">12</span></div></div></div>
+                        <div class="insight-row rank-leader stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Phase 2</div><div class="insight-model-identity"><strong>Full EfficientNetB3 Fine-Tuning</strong><span>Backbone unfrozen, low learning rate adaptation</span></div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Best Val Accuracy</span><span class="insight-score-value accuracy-highlight">0.8718</span></div><div class="insight-score-item"><span class="insight-score-label">Best Val Loss</span><span class="insight-score-value loss-highlight">0.4703</span></div></div></div>
+                        <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">Artifact</div><div class="insight-model-identity"><strong>final_model_cassava.keras</strong><span>Saved with ModelCheckpoint for downstream inference</span></div></div><div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Format</span><span class="insight-score-value">.keras</span></div><div class="insight-score-item"><span class="insight-score-label">Classes</span><span class="insight-score-value">5</span></div></div></div>
+                    </div>
+                    <div class="executive-summary-box stagger-child">
+                        <p><strong>Diagnostic Breakdown:</strong> Head training stabilized the custom classification layer, while fine-tuning substantially improved validation loss from 0.6660 to 0.4703 and lifted validation accuracy to 87.18%. On Kaggle, the final workflow reached an 89% public score, close to the 90% accuracy reference from the Google team model.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="inference-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Notebook 02 · Inference</span>
+                    <h2>Inference Overview</h2>
+                    <p class="panel-desc">Loads the saved Kaggle model, runs batch TTA, checks predictions on known training samples, and writes submission.csv.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="overview-text stagger-child">
+                        <p>The inference notebook keeps the Kaggle submission path lightweight. Instead of retraining, it loads the previously saved EfficientNetB3 model from Kaggle Models, prepares test images at the same 512×512 resolution, applies the same EfficientNet preprocessing, averages predictions across augmented views, and exports the final labels to a competition-ready CSV file.</p>
+                        <p style="margin-top:16px;">This design makes the test notebook fast and repeatable: the trained model becomes a stable artifact, while TTA acts like a small inference-time ensemble without training extra models.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Deployment Pattern</span>
+                    <h2>Saved Model Loading Strategy</h2>
+                    <p class="panel-desc">The trained model is treated as a reusable Kaggle asset.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="terminal-panel stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">cassava_inference_tta.py</div><div></div></div>
+                        <div class="terminal-body"><pre>DATA_DIR = <span class="code-str">'/kaggle/input/cassava-leaf-disease-classification'</span>
+MODEL_DIR = <span class="code-str">'/kaggle/input/cassava-leaf-model/tensorflow2/default/1/final_model_cassava.keras'</span>
+
+model = load_model(MODEL_DIR)
+
+AUTO = tf.data.AUTOTUNE
+IMAGE_SIZE = (<span class="code-num">512</span>, <span class="code-num">512</span>)
+BATCH_SIZE = <span class="code-num">8</span>
+NUM_CLASSES = <span class="code-num">5</span></pre></div>
+                    </div>
+                    <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                        <p><strong>Reasoning:</strong> Separating training and inference avoids expensive retraining during submission runs and allows the model artifact to be reused cleanly across notebooks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Workflow Blueprint</span>
+                    <h2>Inference & Submission Architecture</h2>
+                    <p class="panel-desc">From saved model to final Kaggle submission file.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="timeline-flow">
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Load Pretrained Model</strong><span>Read <code>final_model_cassava.keras</code> from the Kaggle model input path.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Build Test Dataset</strong><span>Decode test JPEGs, resize to 512×512, apply EfficientNet preprocessing, batch, and prefetch.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Run TTA Predictions</strong><span>Apply multiple random augmentations per image and average model predictions over the generated views.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Verify on Training Samples</strong><span>Randomly sample labeled train images, run the same TTA function, and compare predicted class with ground truth.</span></div></div></div>
+                        <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Create Submission</strong><span>Use <code>argmax</code> over averaged probabilities and save <code>image_id,label</code> rows to <code>submission.csv</code>.</span></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Robustness Layer</span>
+                    <h2>Test-Time Augmentation Strategy</h2>
+                    <p class="panel-desc">Inference uses multiple augmented views to reduce sensitivity to image position, scale, and orientation.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="theory-split">
+                        <div class="theory-block stagger-child">
+                            <div class="theory-card-header"><div class="theory-title">Augmentation Family</div><span class="theory-badge">TTA</span></div>
+                            <p class="theory-explanation">The inference pipeline reuses random rotation, translation, zoom, horizontal flip, and vertical flip to generate alternate views of the same image. This is especially useful for field photos where leaf orientation, camera distance, shadows, and crop position vary strongly.</p>
+                        </div>
+                        <div class="theory-block stagger-child">
+                            <div class="theory-card-header"><div class="theory-title">Prediction Aggregation</div><span class="theory-badge champion-badge">Mean Ensemble</span></div>
+                            <div class="theory-math-container"><code>mean_preds = np.mean(all_preds, axis=0)</code></div>
+                            <p class="theory-explanation">The final prediction is the average probability vector across TTA rounds. This works like soft-voting: confident and consistent classes remain strong, while unstable predictions are smoothed before taking the final argmax label.</p>
+                        </div>
+                    </div>
+                    <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                        <p><strong>TTA intuition:</strong> one image is passed through the model several times after small realistic transformations. The model then averages the class probabilities, which reduces the chance that one unlucky crop, rotation, or zoom controls the final submission label.</p>
+                    </div>
+                    <div class="terminal-panel stagger-child" style="margin-top: 24px;">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">tta_predict_batch</div><div></div></div>
+                        <div class="terminal-body"><pre><span class="code-keyword">def</span> <span class="code-fn">tta_predict_batch</span>(model, images, ids, num_tta):
+    all_preds = []
+    <span class="code-keyword">for</span> _ <span class="code-keyword">in</span> range(num_tta):
+        augmented = data_augmentation(images, training=<span class="code-keyword">True</span>)
+        preprocessed = preprocess_input(augmented)
+        preds = model.predict(preprocessed, verbose=<span class="code-num">1</span>)
+        all_preds.append(preds)
+
+    mean_preds = np.mean(all_preds, axis=<span class="code-num">0</span>)
+    names = [img_id.numpy().decode(<span class="code-str">'utf-8'</span>) <span class="code-keyword">for</span> img_id <span class="code-keyword">in</span> ids]
+    <span class="code-keyword">return</span> mean_preds, names</pre></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Verification Layer</span>
+                    <h2>Inference Visual Checks</h2>
+                    <p class="panel-desc">Five uploaded verification images from the inference notebook. First row has 3 cards; second row has 2 centered cards.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="inference-grid stagger-child">
+                        <div class="viz-wrapper-card inference-card"><img src="inference_1.png" alt="Cassava inference check 1"><div class="viz-meta-text">inference_1.png · CMD prediction check</div></div>
+                        <div class="viz-wrapper-card inference-card"><img src="inference_2.png" alt="Cassava inference check 2"><div class="viz-meta-text">inference_2.png · CMD prediction check</div></div>
+                        <div class="viz-wrapper-card inference-card"><img src="inference_3.png" alt="Cassava inference check 3"><div class="viz-meta-text">inference_3.png · CMD prediction check</div></div>
+                        <div class="viz-wrapper-card inference-card"><img src="inference_4.png" alt="Cassava inference check 4"><div class="viz-meta-text">inference_4.png · CBSD prediction check</div></div>
+                        <div class="viz-wrapper-card inference-card"><img src="inference_5.png" alt="Cassava inference check 5"><div class="viz-meta-text">inference_5.png · CBSD prediction check</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Output Contract</span>
+                    <h2>Submission File Generation</h2>
+                    <p class="panel-desc">The inference notebook formats averaged TTA predictions into Kaggle’s required CSV schema.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body">
+                <div class="section-body-inner">
+                    <div class="matrix-table-container stagger-child">
+                        <table>
+                            <thead><tr><th>Column</th><th>Source</th><th>Description</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>image_id</code></td><td>Decoded test file path</td><td>Filename for each competition test image.</td></tr>
+                                <tr class="target-row-highlight"><td><code>label</code></td><td><code>argmax(mean TTA predictions)</code></td><td>Final predicted class ID from 0 to 4.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="terminal-panel stagger-child" style="margin-top: 24px;">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">submission.csv</div><div></div></div>
+                        <div class="terminal-body"><pre>submission_df = pd.DataFrame({
+    <span class="code-str">'image_id'</span>: tta_image_names,
+    <span class="code-str">'label'</span>: pred_labels
+})
+
+submission_df.to_csv(<span class="code-str">'submission.csv'</span>, index=<span class="code-keyword">False</span>)
+<span class="code-fn">print</span>(<span class="code-str">'Submission file created successfully!'</span>)</pre></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis & Roadmap</h2>
+                <p class="panel-desc">Key takeaways from the full training-to-inference pipeline.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Breakdown:</strong> The project uses an efficient separation of concerns: TPU training for the expensive model-building phase and GPU inference for fast, repeatable submission generation. Fine-tuning improved the model to a best validation accuracy of 87.18%, best validation loss of 0.4703, and an 89% Kaggle public score, close to the 90% Google team model reference.</p>
+                    <p class="stagger-child"><strong>Engineering Value:</strong> Saving the trained model as a Kaggle model artifact makes the workflow more production-like because inference can load a frozen artifact instead of depending on a long training run.</p>
+                    <p class="stagger-child"><strong>Future Directions:</strong> Add class-weighting or balanced sampling for the CMD-heavy label distribution, compare EfficientNetB4/B5 or ConvNeXt backbones, ensemble multiple folds, and add Grad-CAM explanations for disease-region interpretability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari · Computer Vision Lab · 2026</div>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
