@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zomato Restaurant Data Analysis | Amir Mohamad Askari</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="styles.css">
-    
     <script>
         window.MathJax = {
             tex: {
@@ -31,8 +28,7 @@
     <div class="hero-meta">Exploratory Data Analysis</div>
     <h1>Zomato Consumer Demographics & Market Analysis</h1>
     <div class="hero-subtitle">Exploratory Data Analysis and Behavioral Segmentation on Metropolitan Restaurant Ecosystems</div>
-    
-    <div class="btn-github-container">
+    <div class="btn-group">
         <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Zomato%20Restaurant" class="btn-modern-primary" target="_blank">
             <i class="fa-brands fa-github"></i> <span>Research Lab</span>
         </a>
@@ -56,7 +52,7 @@
         </div>
     </div>
 
-    <!-- Project Overview (expanded by default) -->
+    <!-- Project Overview (expanded) -->
     <section class="section section-collapsible expanded">
         <div class="section-header">
             <div class="panel-header-content">
@@ -64,7 +60,7 @@
                 <h2>Project Overview</h2>
                 <p class="panel-desc">An empirical data exploration case study inspecting consumer trends and pricing indices within restaurant ecosystems.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -75,7 +71,7 @@
         </div>
     </section>
 
-    <!-- Dependencies (collapsed) -->
+    <!-- Dependencies -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -83,33 +79,21 @@
                 <h2>Core Pipeline Dependencies</h2>
                 <p class="panel-desc">The computational environment is anchored by four key data science modules for data handling, analysis, and visualization.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="dependency-list">
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-table dep-icon"></i>
-                        <div><strong>Pandas</strong><span>Provides DataFrames for data ingestion, cleaning, and aggregation operations.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-calculator dep-icon"></i>
-                        <div><strong>NumPy</strong><span>Supports numerical computations and array manipulations during data transformation.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-chart-line dep-icon"></i>
-                        <div><strong>Matplotlib</strong><span>Creates foundational plots such as line charts and count distributions.</span></div>
-                    </div>
-                    <div class="dependency-row stagger-child">
-                        <i class="fa-solid fa-chart-pie dep-icon"></i>
-                        <div><strong>Seaborn</strong><span>Generates statistical graphics like heatmaps, boxplots, and countplots.</span></div>
-                    </div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas</strong><span>Provides DataFrames for data ingestion, cleaning, and aggregation operations.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-calculator dep-icon"></i><div><strong>NumPy</strong><span>Supports numerical computations and array manipulations during data transformation.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib</strong><span>Creates foundational plots such as line charts and count distributions.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-pie dep-icon"></i><div><strong>Seaborn</strong><span>Generates statistical graphics like heatmaps, boxplots, and countplots.</span></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- System Architecture (collapsed) – vertical timeline only -->
+    <!-- System Architecture -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -117,47 +101,20 @@
                 <h2>System Architecture Overview</h2>
                 <p class="panel-desc">A conceptual pipeline for the EDA workflow, from raw data to visual insights.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="timeline-flow">
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">01</span>
-                            <div>
-                                <strong>Load & Profile Data</strong>
-                                <span>Read CSV, display head(), info(), check for nulls.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">02</span>
-                            <div>
-                                <strong>Clean & Parse Features</strong>
-                                <span>Convert 'rate' to float, rename columns for consistency.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flow-node stagger-child">
-                        <div class="flow-dot"></div>
-                        <div class="flow-content">
-                            <span class="flow-step">03</span>
-                            <div>
-                                <strong>Analyze & Visualize</strong>
-                                <span>Generate countplots, boxplots, pivot tables, and heatmaps.</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Load & Profile Data</strong><span>Read CSV, display head(), info(), check for nulls.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Clean & Parse Features</strong><span>Convert 'rate' to float, rename columns for consistency.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Analyze & Visualize</strong><span>Generate countplots, boxplots, pivot tables, and heatmaps.</span></div></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Feature Table (collapsed) -->
+    <!-- Feature Table -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -165,27 +122,23 @@
                 <h2>Processed Data Schema</h2>
                 <p class="panel-desc">Structural description of the engineered metrics vector tracking restaurant profiles.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="matrix-table-container stagger-child">
                     <table>
                         <thead>
-                            <tr>
-                                <th>Feature</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                            </tr>
+                            <tr><th>Feature</th><th>Category</th><th>Description</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td><code>name</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Unique Business Entity Identifier</td></tr>
-                            <tr><td><code>online_order</code></td><td><span class="taxonomy-tag">Binary Categorical</span></td><td>Evaluates digital consumer access alternatives (Yes/No)</td></tr>
-                            <tr><td><code>book_table</code></td><td><span class="taxonomy-tag">Binary Categorical</span></td><td>Tracks physical table reservation infrastructure (Yes/No)</td></tr>
-                            <tr><td><code>rate</code></td><td><span class="taxonomy-tag">Continuous</span></td><td>Normalized user satisfaction score (extracted from fraction string)</td></tr>
-                            <tr><td><code>votes</code></td><td><span class="taxonomy-tag">Quantitative</span></td><td>Accumulated quantitative feedback density</td></tr>
-                            <tr><td><code>approx_cost(for two people)</code></td><td><span class="taxonomy-tag">Quantitative</span></td><td>Economic benchmark pricing variable for consumer profile clustering</td></tr>
-                            <tr><td><code>listed_in(type)</code></td><td><span class="taxonomy-tag">Categorical</span></td><td>Structural classification of the establishment's business model</td></tr>
+                            <tr><td><code>name</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Unique Business Entity Identifier</div></div>
+                            <tr><td><code>online_order</code></td><td><span class="taxonomy-tag">Binary Categorical</span></td><td>Evaluates digital consumer access alternatives (Yes/No)</div></div>
+                            <tr><td><code>book_table</code></td><td><span class="taxonomy-tag">Binary Categorical</span></td><td>Tracks physical table reservation infrastructure (Yes/No)</div></div>
+                            <tr><td><code>rate</code></td><td><span class="taxonomy-tag">Continuous</span></td><td>Normalized user satisfaction score (extracted from fraction string)</div></div>
+                            <tr><td><code>votes</code></td><td><span class="taxonomy-tag">Quantitative</span></td><td>Accumulated quantitative feedback density</div></div>
+                            <tr><td><code>approx_cost(for two people)</code></td><td><span class="taxonomy-tag">Quantitative</span></td><td>Economic benchmark pricing variable for consumer profile clustering</div></div>
+                            <tr><td><code>listed_in(type)</code></td><td><span class="taxonomy-tag">Categorical</span></td><td>Structural classification of the establishment's business model</div></div>
                         </tbody>
                     </table>
                 </div>
@@ -193,7 +146,7 @@
         </div>
     </section>
 
-    <!-- Code Terminal (collapsed) -->
+    <!-- Code Terminal -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -201,18 +154,13 @@
                 <h2>Exploratory Data Analysis Sandbox</h2>
                 <p class="panel-desc">The algorithmic data cleaning, aggregation, and macro-profiling logic utilized during the EDA pipeline phase.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="terminal-panel stagger-child">
-                    <div class="terminal-header">
-                        <div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div>
-                        <div class="terminal-title">zomato_eda_pipeline.py</div>
-                        <div></div>
-                    </div>
-                    <div class="terminal-body">
-<pre>
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">zomato_eda_pipeline.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
 <span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
 <span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
 <span class="code-keyword">import</span> matplotlib.pyplot <span class="code-keyword">as</span> plt
@@ -264,14 +212,13 @@ pivot_table = dataframe.pivot_table(index=<span class="code-str">'listed_in(type
                                    fill_value=0)
 sns.heatmap(pivot_table, annot=<span class="code-keyword">True</span>, cmap=<span class="code-str">'YlGnBu'</span>, fmt=<span class="code-str">'d'</span>)
 plt.show()
-</pre>
-                    </div>
+</pre></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Visual Diagnostics (collapsed) – images with lightbox -->
+    <!-- Visual Diagnostics – 6 images, 2 rows of 3 -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -279,25 +226,27 @@ plt.show()
                 <h2>Distribution & Matrix Heatmaps</h2>
                 <p class="panel-desc">Exploratory graphics tracking consumer engagement across distinct dining channels. Click any image to enlarge.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
-                <div class="viz-display-grid">
-                    <div class="viz-wrapper-card stagger-child">
-                        <img src="rating_distribution.png" alt="Zomato Rating Distribution Histogram">
-                        <div class="viz-meta-text">Histogram Analysis: Checking Overall User Rating Distribution Spreads</div>
-                    </div>
-                    <div class="viz-wrapper-card stagger-child">
-                        <img src="online_vs_offline_heatmap.png" alt="Zomato Online Order Heatmap Matrix">
-                        <div class="viz-meta-text">Heatmap Analysis: Pivot Cross-Tabulation Mapping Restaurant Category vs. Online Order Frequency</div>
-                    </div>
+                <!-- First row: 3 images -->
+                <div class="viz-display-grid stagger-child">
+                    <div class="viz-wrapper-card"><img src="images/approx_count.png" alt="Approximate Cost Distribution"><div class="viz-meta-text">Approx. Cost for Two People (Countplot)</div></div>
+                    <div class="viz-wrapper-card"><img src="images/confution_matrix.png" alt="Confusion Matrix Heatmap"><div class="viz-meta-text">Online Order vs. Restaurant Type (Heatmap)</div></div>
+                    <div class="viz-wrapper-card"><img src="images/count_per_restaurant.png" alt="Restaurant Type Count"><div class="viz-meta-text">Restaurant Type Distribution (Countplot)</div></div>
+                </div>
+                <!-- Second row: 3 images -->
+                <div class="viz-display-grid stagger-child" style="margin-top: 24px;">
+                    <div class="viz-wrapper-card"><img src="images/online_order_count.png" alt="Online Order Count"><div class="viz-meta-text">Online Order Preference (Countplot)</div></div>
+                    <div class="viz-wrapper-card"><img src="images/rating_distribution.png" alt="Rating Distribution"><div class="viz-meta-text">Rating Distribution Histogram</div></div>
+                    <div class="viz-wrapper-card"><img src="images/votes_per_restaurant.png" alt="Votes per Restaurant Type"><div class="viz-meta-text">Total Votes by Restaurant Type</div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Key Analytical Findings (collapsed) – using performance style -->
+    <!-- Key Analytical Findings -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -305,33 +254,22 @@ plt.show()
                 <h2>Key Analytical Findings</h2>
                 <p class="panel-desc">Primary insights extracted from the exploratory data analysis.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
                 <div class="engine-insights-stack">
                     <div class="insight-row rank-leader stagger-child">
-                        <div class="insight-left-meta">
-                            <div class="insight-rank-index">★</div>
-                            <div class="insight-model-identity">
-                                <strong>Empire Restaurant</strong>
-                                <span>Highest user interaction footprint</span>
-                            </div>
-                        </div>
-                        <div class="insight-score-metrics">
-                            <span class="insight-score-value">4,884</span>
-                            <span class="insight-score-label">Total Votes</span>
-                        </div>
+                        <div class="insight-left-meta"><div class="insight-rank-index">★</div><div class="insight-model-identity"><strong>Empire Restaurant</strong><span>Highest user interaction footprint</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">4,884</span><span class="insight-score-label">Total Votes</span></div>
                     </div>
                 </div>
-                <div class="executive-summary-box stagger-child">
-                    <p><strong>Diagnostic Breakdown:</strong> Traditional dine‑in restaurants rely heavily on offline orders, while modern cafes drive traffic through online order channels. The pivot heatmap clearly illustrates this behavioral split between restaurant type and ordering preference.</p>
-                </div>
+                <div class="executive-summary-box stagger-child"><p><strong>Diagnostic Breakdown:</strong> Traditional dine‑in restaurants rely heavily on offline orders, while modern cafes drive traffic through online order channels. The pivot heatmap clearly illustrates this behavioral split between restaurant type and ordering preference.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Synthesis (collapsed) -->
+    <!-- Synthesis -->
     <section class="section section-collapsible">
         <div class="section-header">
             <div class="panel-header-content">
@@ -339,7 +277,7 @@ plt.show()
                 <h2>Analytical Synthesis</h2>
                 <p class="panel-desc">Key market discoveries pulled from the completed Exploratory Data Analysis workflow.</p>
             </div>
-            <div class="chevron"><i class="fas fa-chevron-down"></i></div>
+            <div class="chevron"></div>
         </div>
         <div class="section-body">
             <div class="section-body-inner">
@@ -351,7 +289,7 @@ plt.show()
         </div>
     </section>
 
-    <!-- Footer – icon‑only -->
+    <!-- Footer -->
     <footer class="portfolio-footer-gate">
         <div class="contact-icons">
             <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
@@ -362,14 +300,10 @@ plt.show()
             <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
         </div>
     </footer>
-
 </div>
+<div class="editorial-credits">Amir Mohamad Askari &bull; 2026 Analytical Document</div>
 
-<div class="editorial-credits">
-    Amir Mohamad Askari &bull; 2026 Analytical Document
-</div>
-
-<!-- Lightbox overlay -->
+<!-- Lightbox Overlay -->
 <div class="lightbox-overlay" id="lightboxOverlay">
     <div class="lightbox-wrapper">
         <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
