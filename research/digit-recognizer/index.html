@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digit Recognizer | CNN on MNIST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Computer Vision · MNIST Classification</div>
+    <h1>Digit Recognizer: A Comprehensive Walkthrough</h1>
+    <div class="hero-subtitle">Handwritten digit classification using a Convolutional Neural Network (CNN) with 10‑fold cross‑validation on the MNIST dataset.</div>
+    <div class="btn-group">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/Digit%20Recognizer" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <!-- Metric strip -->
+    <div class="metrics-strip">
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="98.59"><div class="metric-label">Avg. Validation Accuracy</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.0548"><div class="metric-label">Avg. Validation Loss</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="integer" data-metric-target="42000"><div class="metric-label">Training Samples</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="integer" data-metric-target="28000"><div class="metric-label">Test Samples</div><div class="metric-value">0</div></div>
+    </div>
+
+    <!-- Project Overview (expanded) -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Computer Vision Blueprint</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">End‑to‑end pipeline to recognise handwritten digits (0‑9) from 28×28 grayscale images using a CNN and cross‑validation.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This project implements a robust convolutional neural network (CNN) for the classic MNIST digit recognition task. The workflow includes data exploration, visualisation of sample images, preprocessing (reshaping flat 784‑pixel vectors into 28×28×1 images, normalising pixel values), and a stratified 10‑fold cross‑validation training strategy. The model architecture comprises a Conv2D layer (32 filters, 3×3, ReLU), MaxPooling2D, Flatten, and two Dense layers (128 neurons, output 10 with linear activation). Using early stopping and learning rate reduction, the model achieves an average validation accuracy of 98.59% across folds. Final predictions are exported to a Kaggle‑ready submission file.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dependencies -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">Libraries for data handling, deep learning, and visualisation.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas & NumPy</strong><span>Loading CSV data, array manipulations, and preprocessing.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>TensorFlow / Keras</strong><span>Building and training the CNN model, data pipelines with tf.data.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-diagram-project dep-icon"></i><div><strong>Scikit‑Learn</strong><span>StratifiedKFold for balanced cross‑validation, metric evaluation.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib & Seaborn</strong><span>Visualising training history (accuracy/loss curves), sample images.</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Architecture -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Workflow Blueprint</span>
+                <h2>System Architecture Overview</h2>
+                <p class="panel-desc">From raw pixel data to final submission — six‑stage pipeline.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Data Loading & EDA</strong><span>Load train/test CSV, inspect class distribution, check missing values, visualise sample digits.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Preprocessing Pipeline</strong><span>Reshape vectors to 28×28×1, rescale pixel values from [0,255] to [0,1] using Rescaling layer.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Stratified K‑Fold Split</strong><span>10 folds preserving class distribution, creating tf.data.Dataset pipelines with shuffling, batching, prefetching.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>CNN Model Building</strong><span>Conv2D → MaxPooling2D → Flatten → Dense(128) → Dense(10, linear). Compile with Adam, SparseCategoricalCrossentropy.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Cross‑Validation Training</strong><span>Train each fold with EarlyStopping (patience=5) and ReduceLROnPlateau (factor=0.2). Track validation accuracy/loss.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">06</span><div><strong>Inference & Submission</strong><span>Predict on test set, generate CSV with ImageId and Label, ready for Kaggle.</span></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mathematical Mechanics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Mathematical Mechanics</span>
+                <h2>Core CNN Formulation</h2>
+                <p class="panel-desc">Key mathematical components of the convolutional neural network.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Convolution Operation</div><span class="theory-badge">Feature Extraction</span></div>
+                        <div class="theory-math-container">$$(I * K)(i,j) = \sum_{m}\sum_{n} I(i+m, j+n) \cdot K(m,n)$$</div>
+                        <div class="theory-explanation">Applies learnable filters (kernels) to input images to detect edges, textures, and patterns. Our model uses 32 filters of size 3×3 with ReLU activation.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Max Pooling</div><span class="theory-badge">Downsampling</span></div>
+                        <div class="theory-math-container">$$y_{i,j} = \max_{(p,q) \in \text{window}} x_{i+p, j+q}$$</div>
+                        <div class="theory-explanation">Reduces spatial dimensions (2×2 window, stride 2), making the model robust to small translations and reducing computational load.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Dense Layers & Softmax</div><span class="theory-badge champion-badge">Classification Head</span></div>
+                        <div class="theory-math-container">$$\text{Logits} = W \cdot \text{Flatten}(x) + b,\quad \hat{y} = \text{softmax}(\text{logits})$$</div>
+                        <div class="theory-explanation">Fully connected layers combine features; output layer uses linear activation with `SparseCategoricalCrossentropy(from_logits=True)` for numerical stability.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Loss Function</div><span class="theory-badge">Optimisation</span></div>
+                        <div class="theory-math-container">$$\mathcal{L} = -\sum_{i=1}^{N} \log\left(\frac{e^{z_{y_i}}}{\sum_{j=0}^{9} e^{z_j}}\right)$$</div>
+                        <div class="theory-explanation">Sparse categorical cross‑entropy, optimised with Adam (lr=1e-3) and ReduceLROnPlateau callback.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Space -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Data Taxonomy</span>
+                <h2>Input Feature Space</h2>
+                <p class="panel-desc">784 pixel values (28×28) + target label.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Feature</th><th>Type</th><th>Description</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>pixel0 … pixel783</code></td><td><span class="taxonomy-tag">Numerical</span></td><td>Grayscale intensity (0–255) for each of 784 pixels; reshaped to 28×28×1.</td></tr>
+                            <tr class="target-row-highlight"><td><code>label</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Digit 0–9 (multiclass).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Terminal -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Neural Network Training Pipeline</h2>
+                <p class="panel-desc">Core training loop with 10‑fold stratified cross‑validation and tf.data optimisation.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">digit_recognizer_cnn.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
+<span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span> tf
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> StratifiedKFold
+
+<span class="code-comment"># Preprocessing pipeline: reshape + rescale</span>
+preprocessing = tf.keras.Sequential([
+    tf.keras.Input(shape=(784,)),
+    tf.keras.layers.Reshape((28,28,1)),
+    tf.keras.layers.Rescaling(1./255)
+])
+
+<span class="code-keyword">def</span> <span class="code-fn">build_model</span>():
+    inputs = tf.keras.Input(shape=(28,28,1))
+    x = tf.keras.layers.Conv2D(32, (3,3), activation=<span class="code-str">'relu'</span>)(inputs)
+    x = tf.keras.layers.MaxPooling2D((2,2))(x)
+    x = tf.keras.layers.Flatten()(x)
+    x = tf.keras.layers.Dense(128, activation=<span class="code-str">'relu'</span>)(x)
+    outputs = tf.keras.layers.Dense(10, activation=<span class="code-str">'linear'</span>)(x)
+    <span class="code-keyword">return</span> tf.keras.Model(inputs, outputs)
+
+kf = StratifiedKFold(10, shuffle=True, random_state=28)
+fold_accuracies = []
+
+<span class="code-keyword">for</span> train_idx, val_idx <span class="code-keyword">in</span> kf.split(X_train, y_train):
+    X_tr, X_val = X_train[train_idx], X_train[val_idx]
+    y_tr, y_val = y_train[train_idx], y_train[val_idx]
+    
+    train_ds = tf.data.Dataset.from_tensor_slices((X_tr, y_tr)).shuffle(1000).batch(32).prefetch(tf.data.AUTOTUNE)
+    val_ds = tf.data.Dataset.from_tensor_slices((X_val, y_val)).batch(32).prefetch(tf.data.AUTOTUNE)
+    
+    processed_train = train_ds.map(<span class="code-keyword">lambda</span> x,y: (preprocessing(x), y))
+    processed_val = val_ds.map(<span class="code-keyword">lambda</span> x,y: (preprocessing(x), y))
+    
+    model = build_model()
+    model.compile(optimizer=tf.keras.optimizers.Adam(1e-3),
+                  loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=<span class="code-keyword">True</span>),
+                  metrics=[<span class="code-str">'accuracy'</span>])
+    early_stop = tf.keras.callbacks.EarlyStopping(patience=5, restore_best_weights=<span class="code-keyword">True</span>)
+    reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(patience=3, factor=0.2, min_lr=1e-5)
+    
+    history = model.fit(processed_train, epochs=50, validation_data=processed_val,
+                        callbacks=[early_stop, reduce_lr], verbose=0)
+    val_loss, val_acc = model.evaluate(processed_val, verbose=0)
+    fold_accuracies.append(val_acc)
+
+<span class="code-fn">print</span>(<span class="code-keyword">f</span><span class="code-str">"Average Validation Accuracy: {np.mean(fold_accuracies):.4f}"</span>)
+</pre></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Diagnostics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Analytics Layer</span>
+                <h2>Exploratory Visual Diagnostics</h2>
+                <p class="panel-desc">Sample digit images, training history plots. Click any image to enlarge.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="viz-display-grid stagger-child">
+                    <div class="viz-wrapper-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23121420'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='14' font-family='monospace'%3ESample digit%3C/text%3E%3C/svg%3E" alt="Sample MNIST Digit">
+                        <div class="viz-meta-text">Sample training image (label 8) — 28×28 grayscale</div>
+                    </div>
+                    <div class="viz-wrapper-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23121420'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='14' font-family='monospace'%3ETraining history%3C/text%3E%3C/svg%3E" alt="Training History">
+                        <div class="viz-meta-text">Model Accuracy & Loss over epochs (last fold)</div>
+                    </div>
+                    <div class="viz-wrapper-card">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23121420'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='14' font-family='monospace'%3EClass distribution%3C/text%3E%3C/svg%3E" alt="Class Distribution">
+                        <div class="viz-meta-text">Balanced digit distribution in training set</div>
+                    </div>
+                </div>
+                <p class="stagger-child" style="margin-top: 20px; color: var(--text-secondary); font-size: 0.9rem;">Note: Actual plots from the notebook include digit visualisations and training/validation accuracy/loss curves. Place the corresponding image files in an <code>images/</code> folder to replace these placeholders.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Diagnostics (all 10 folds) -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Performance Diagnostics & Engine Insights</h2>
+                <p class="panel-desc">10‑fold cross‑validation results (accuracy & loss). Highest accuracy and lowest loss are highlighted.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <!-- Fold 1 -->
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 1</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9862</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0597</span></div></div>
+                    </div>
+                    <!-- Fold 2 -->
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 2</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9867</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0536</span></div></div>
+                    </div>
+                    <!-- Fold 3 -->
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 3</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9886</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0552</span></div></div>
+                    </div>
+                    <!-- Fold 4 (lowest loss) -->
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 4</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9864</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value loss-highlight">0.0451</span></div></div>
+                    </div>
+                    <!-- Fold 5 -->
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 5</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9836</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0631</span></div></div>
+                    </div>
+                    <!-- Fold 6 -->
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 6</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9867</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0629</span></div></div>
+                    </div>
+                    <!-- Fold 7 -->
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 7</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9838</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0530</span></div></div>
+                    </div>
+                    <!-- Fold 8 (highest accuracy) -->
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 8</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value accuracy-highlight">0.9883</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0473</span></div></div>
+                    </div>
+                    <!-- Fold 9 -->
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 9</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9888</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0442</span></div></div>
+                    </div>
+                    <!-- Fold 10 -->
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">Fold 10</div><div class="insight-model-identity"><strong>Sparse categorical cross-entropy</strong><span>validation fold</span></div></div>
+                        <div class="insight-score-metrics"><div class="insight-score-item"><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.9798</span></div><div class="insight-score-item"><span class="insight-score-label">Loss</span><span class="insight-score-value">0.0634</span></div></div>
+                    </div>
+                </div>
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Diagnostic Breakdown:</strong> The model achieves high and stable validation accuracy across all 10 folds, ranging from 97.98% to 98.88%. The lowest loss (0.0451) is achieved in Fold 4, and the highest accuracy (0.9888) in Fold 9 (highlighted in green). Early stopping and learning rate reduction prevent overfitting, and the stratified folds ensure each digit class is proportionally represented.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conclusions -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis & Roadmap</h2>
+                <p class="panel-desc">Key takeaways and future improvements.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Breakdown:</strong> The CNN architecture achieves excellent performance on MNIST, with average validation accuracy of 98.59%. The preprocessing pipeline (reshape + rescaling) and stratified K‑fold cross‑validation contribute to robust evaluation. The model generalises well to the test set, producing high‑quality Kaggle submissions.</p>
+                    <p class="stagger-child"><strong>Future Directions:</strong> Apply data augmentation (random rotations, shifts) to improve robustness; experiment with deeper architectures (additional Conv2D layers, batch normalisation); perform hyperparameter tuning via Keras Tuner; explore ensemble methods (averaging predictions from multiple folds).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari · Computer Vision Lab · 2026</div>
+
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
