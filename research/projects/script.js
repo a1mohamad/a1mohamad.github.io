@@ -1,5 +1,51 @@
 const projects = [
   {
+    "title": "TMDB Box Office Revenue",
+    "category": "Entertainment",
+    "meta": [
+      "2024",
+      "Regression",
+      "Deployment",
+      "Machine Learning",
+      "PostgresSQL",
+    ],
+    "desc": "A movie revenue prediction project using TMDB metadata, ensemble regression models, FastAPI deployment, PostgreSQL storage, and Redis caching.",
+    "tools": [
+      "Python",
+      "XGBoost",
+      "Scikit-Learn",
+      "LightGBM",
+      "Catboost",
+      "SQLalchemy",
+      "NumPy",
+      "Matplotlib","
+      "JSON",
+      "joblib",
+      "pickle",
+      "FastAPI",
+      "Uvicorn",
+      "Redis",
+      "Docker
+    ],
+    "tags": [
+    "Revenue Prediction",
+    "Gradient Boosting",
+    "Linear Regression",
+    "XGBoost",
+    "Catboost",
+    "LightGBM",
+    "Feature Engineering",
+    "Ensemble Learning",
+    "TMDB",
+    "FastAPI",
+    "PostgreSQL",
+    "Redis Cache",
+    "Docker Deployment"
+  ],
+    "href": "https://a1mohamad.github.io/research/box-office-revenue/index.html",
+    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/revenue.png)"
+  },
+  {
     "title": "Berlin House Price Prediction",
     "category": "Real Estate",
     "meta": [
@@ -9,7 +55,7 @@ const projects = [
       "Machine Learning",
       "MongoDB",
     ],
-    "desc": "A 2023 real estate ML prototype that scraped Berlin rental listings, stored them in MongoDB, and predicted prices with regression notebooks."
+    "desc": "A 2023 real estate ML prototype that scraped Berlin rental listings, stored them in MongoDB, and predicted prices with regression notebooks.",
     "tools": [
       "Python",
       "BeautifulSoup",
@@ -18,7 +64,7 @@ const projects = [
       "Regex",
       "PyMongo",
       "NumPy",
-      "Matplotlib
+      "Matplotlib"
     ],
     "tags": [
       "Linear Regression",
@@ -96,10 +142,10 @@ const projects = [
   },
   {
     "title": "Tesla Stock Direction Forecasting",
-    "category": "Financial",
+    "category": "Finance",
     "meta": [
       "2024",
-      "Financial",
+      "Finance",
       "Classification",
       "Machine Learning"
     ],
@@ -350,10 +396,10 @@ const projects = [
   },
   {
     "title": "Loan Approval Predictive System",
-    "category": "Financial",
+    "category": "Finance",
     "meta": [
       "2023",
-      "Financial",
+      "Finance",
       "Classification",
       "Machine Learning"
     ],
