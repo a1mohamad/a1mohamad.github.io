@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Twitts | PyTorch NLP to FastAPI Deployment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">NLP &middot; EDA &middot; PyTorch BiLSTM &middot; FastAPI &middot; Jinja &middot; SQLite &middot; Docker</div>
+    <h1>Disaster Twitts: From Kaggle Notebook to First Professional ML Deployment</h1>
+    <div class="hero-subtitle">A complete disaster tweet classification project: broad notebook EDA, text signal analysis, GloVe-backed PyTorch sequence modeling, threshold tuning, artifact export, FastAPI JSON serving, Jinja frontend, SQLite prediction logging, and Docker Compose deployment.</div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip wheat-metrics wheat-metrics-six disaster-metrics">
+        <div class="metric-block" data-metric-target="7613" data-metric-type="integer"><div class="metric-label">Labeled Tweets</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="42.97" data-metric-type="percentage"><div class="metric-label">Disaster Class Share</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="3263" data-metric-type="integer"><div class="metric-label">Test Tweets</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="10000" data-metric-type="integer"><div class="metric-label">Token Vocabulary</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="0.7609" data-metric-type="float4"><div class="metric-label">Tuned Validation F1</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="0.52" data-metric-type="float2"><div class="metric-label">Decision Threshold</div><div class="metric-value">0</div></div>
+    </div>
+
+    <div class="notebook-switcher disaster-switcher">
+        <button class="notebook-tab active" data-target="eda-panel"><i class="fa-solid fa-magnifying-glass-chart"></i>EDA Notebook</button>
+        <button class="notebook-tab" data-target="training-panel"><i class="fa-solid fa-brain"></i>PyTorch Training</button>
+        <button class="notebook-tab" data-target="api-panel"><i class="fa-solid fa-server"></i>FastAPI + Jinja</button>
+        <button class="notebook-tab" data-target="ops-panel"><i class="fa-brands fa-docker"></i>SQLite + Docker</button>
+    </div>
+
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Four-Part Project Strategy</span>
+                <h2>Research to Deployment Map</h2>
+                <p class="panel-desc">The single page is organized around the real lifecycle of the project: understand text, train the model, serve predictions, and package the app.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="theory-split">
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Notebook 01 · EDA</div><span class="theory-badge">Text Signals</span></div>
+                    <p class="theory-explanation">Reads the Kaggle data and studies class balance, missingness, keywords, tweet length, words, n-grams, hashtags, sentiment, danger lexicons, and POS ratios.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Notebook 02 · PyTorch Model</div><span class="theory-badge champion-badge">BiLSTM</span></div>
+                    <p class="theory-explanation">Builds a reusable text pipeline, trains a GloVe-backed BiLSTM classifier, tracks validation metrics, tunes the threshold, and exports artifacts.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Application Layer</div><span class="theory-badge">FastAPI + Jinja</span></div>
+                    <p class="theory-explanation">Loads artifacts during app startup and exposes the same prediction function through JSON API and browser form workflows.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Runtime Layer</div><span class="theory-badge champion-badge">SQLite + Docker</span></div>
+                    <p class="theory-explanation">Persists prediction context in SQLite and packages the app with pinned dependencies, healthcheck, environment settings, and a Compose volume.</p>
+                </div>
+            </div>
+        </div></div>
+    </section>
+
+    <div class="notebook-panel active" id="eda-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Notebook 01 &middot; Exploratory Analysis</span>
+                    <h2>EDA Scope</h2>
+                    <p class="panel-desc">The EDA notebook is a full language-and-metadata investigation, not a quick class-count check.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The notebook reads the Kaggle disaster tweet training data and studies the dataset from several angles: target balance, missing metadata, keyword reliability, text length, common words, wordclouds, bigrams/trigrams, class-specific n-grams, structural tweet features, hashtags, raw unique tokens, VADER sentiment, danger lexicons, and part-of-speech ratios. The purpose is to understand what the model should preserve, normalize, or ignore before training.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Dataset fields</strong><span><code>id</code>, <code>keyword</code>, <code>location</code>, <code>text</code>, and binary <code>target</code>.</span></div>
+                        <div class="note-card"><strong>EDA conclusion</strong><span><code>keyword</code> is useful, <code>location</code> is too sparse/noisy, and raw Twitter artifacts need careful normalization.</span></div>
+                        <div class="note-card"><strong>Model handoff</strong><span>The final model keeps word order and context while using EDA findings to define cleaning, keyword merging, validation, and serving warnings.</span></div>
+                    </div>
+                </div>
+                <div class="dependency-list stagger-child" style="margin-top:24px;">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-table"></i></div><div><strong>Pandas + NumPy</strong><span>Load train/test CSVs, compute missingness, class counts, text statistics, grouped summaries, and notebook tables.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-chart-column"></i></div><div><strong>Matplotlib + Seaborn</strong><span>Render target distribution, keyword probability, length distributions, structural feature means, sentiment, lexicon, and POS plots.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-language"></i></div><div><strong>NLTK + VADER</strong><span>Provide stopwords, tokenization/POS tagging, and sentiment scores for checking whether emotional tone separates disaster from normal tweets.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-cloud"></i></div><div><strong>WordCloud + CountVectorizer</strong><span>Create qualitative wordclouds and quantitative bigram/trigram/class-specific n-gram signals.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">EDA Reasoning</span>
+                    <h2>Text Signal Theory</h2>
+                    <p class="panel-desc">The EDA notebook treats text as overlapping signals: topic, structure, sentiment, and ambiguity.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Class-Conditional Keyword Signal</div><span class="theory-badge">EDA</span></div>
+                        <div class="theory-math-container">$$P(y=1\mid keyword)=\frac{\sum_i \mathbb{1}[keyword_i=k]y_i}{\sum_i \mathbb{1}[keyword_i=k]}$$</div>
+                        <div class="theory-explanation">The keyword field is not merely metadata. For terms such as derailment, debris, wreckage, outbreak, typhoon, and oil spill, the class-conditional disaster probability is high enough to justify merging keyword into the final model text.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Log-Ratio N-Grams</div><span class="theory-badge champion-badge">Phrase signal</span></div>
+                        <div class="theory-math-container">$$score(g)=\log\frac{count(g,y=1)+1}{count(g,y=0)+1}$$</div>
+                        <div class="theory-explanation">The notebook compares phrases by class instead of only counting popular terms. This separates true disaster phrases such as suicide bomber and california wildfire from misleading social phrases such as body bag or cross body.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Structural Tweet Features</div><span class="theory-badge">Metadata</span></div>
+                        <div class="theory-math-container"><code>has_url, has_hashtag, has_mention, upper_ratio, punct_ratio</code></div>
+                        <div class="theory-explanation">The EDA measures how tweets are written, not only what they say. Disaster tweets contain URLs more often, while normal tweets contain more mentions and questions. These checks explain why URL, mention, punctuation, and number normalization matter before modeling.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">VADER Sentiment Probe</div><span class="theory-badge">Sentiment</span></div>
+                        <div class="theory-math-container"><code>neg, neu, pos, compound = sia.polarity_scores(text)</code></div>
+                        <div class="theory-explanation">VADER is used as an interpretable sentiment probe. Disaster tweets are more negative on average, but the overlap is large, so sentiment is treated as insight about the dataset rather than a standalone classifier.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Danger Lexicon Check</div><span class="theory-badge champion-badge">Semantic cues</span></div>
+                        <div class="theory-math-container"><code>death, injury, emergency, violence, natural_disaster</code></div>
+                        <div class="theory-explanation">Hand-built lexicon groups test whether explicit emergency vocabulary separates the classes. It works strongly for natural disaster and violence terms, but also exposes false positives where dramatic language is not a real disaster report.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">POS Ratio Analysis</div><span class="theory-badge">Syntax</span></div>
+                        <div class="theory-math-container">$$noun\_ratio=\frac{\#NN}{\#tokens},\qquad verb\_ratio=\frac{\#VB}{\#tokens}$$</div>
+                        <div class="theory-explanation">Part-of-speech ratios help describe reporting style. Disaster tweets show a higher noun ratio, which matches event reports that name locations, incidents, objects, and organizations.</div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Dataset Diagnostics</span>
+                    <h2>Target, Missingness &amp; Metadata Quality</h2>
+                    <p class="panel-desc">Class balance is acceptable, but metadata quality is uneven: keyword is mostly present, location is not.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><div class="kpi-value">4,342</div><div class="kpi-label">Normal Tweets</div></div>
+                    <div class="kpi-card"><div class="kpi-value">3,271</div><div class="kpi-label">Disaster Tweets</div></div>
+                    <div class="kpi-card"><div class="kpi-value">221</div><div class="kpi-label">Unique Keywords</div></div>
+                    <div class="kpi-card"><div class="kpi-value">3,341</div><div class="kpi-label">Unique Locations</div></div>
+                </div>
+                <div class="implementation-grid stagger-child">
+                    <div class="viz-wrapper-card big-viz">
+                        <div class="viz-title">Target Distribution</div>
+                        <img src="assets/eda/06_target_distribution.png" alt="Target distribution pie chart">
+                    </div>
+                    <div class="matrix-table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Check</th><th>Notebook Output</th><th>Decision</th></tr></thead>
+                            <tbody>
+                                <tr><td>Missing text</td><td>0 missing values.</td><td>Text is the stable primary input.</td></tr>
+                                <tr><td>Missing keyword</td><td>61 rows, about 0.80%.</td><td>Keep keyword when present and merge with text.</td></tr>
+                                <tr><td>Missing location</td><td>2,533 rows, about 33.27%.</td><td>Drop location for the deployed model.</td></tr>
+                                <tr><td>Class split</td><td>57.03% normal, 42.97% disaster.</td><td>Track precision, recall, and F1, not accuracy alone.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Keyword Intelligence</span>
+                    <h2>Keyword Risk Signal</h2>
+                    <p class="panel-desc">The keyword field is sparse only in a tiny fraction of rows and often has strong target meaning.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="viz-wrapper-card big-viz">
+                        <div class="viz-title">Top Keywords by Disaster Probability</div>
+                        <img src="assets/eda/10_top_keywords_disaster_probability.png" alt="Top keywords by disaster probability">
+                    </div>
+                    <div class="matrix-table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Keyword</th><th>Count</th><th>Disaster Ratio</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>derailment</code></td><td>39</td><td>1.000</td></tr>
+                                <tr><td><code>debris</code></td><td>37</td><td>1.000</td></tr>
+                                <tr><td><code>wreckage</code></td><td>39</td><td>1.000</td></tr>
+                                <tr><td><code>outbreak</code></td><td>40</td><td>0.975</td></tr>
+                                <tr><td><code>typhoon</code>, <code>oil spill</code></td><td>38</td><td>0.974</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-python">keyword_stats = (
+    df.dropna(subset=["keyword"])
+      .groupby("keyword")["target"]
+      .agg(["count", "mean"])
+      .sort_values("mean", ascending=False)
+)
+
+top_keywords = keyword_stats.head(10)</code></pre></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Text Geometry</span>
+                    <h2>Length, Edge Cases &amp; Structural Shape</h2>
+                    <p class="panel-desc">Tweet length and structure are useful diagnostics, but the model still needs contextual sequence learning.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><div class="kpi-value">101.0</div><div class="kpi-label">Mean Characters</div></div>
+                    <div class="kpi-card"><div class="kpi-value">15</div><div class="kpi-label">Median Words</div></div>
+                    <div class="kpi-card"><div class="kpi-value">108.1</div><div class="kpi-label">Disaster Mean Chars</div></div>
+                    <div class="kpi-card"><div class="kpi-value">95.7</div><div class="kpi-label">Normal Mean Chars</div></div>
+                </div>
+                <div class="viz-display-grid three eda-compact-grid stagger-child">
+                    <div class="viz-wrapper-card"><div class="viz-title">Message Length</div><img src="assets/eda/11_message_length_histogram.png" alt="Message length histogram"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Length by Label</div><img src="assets/eda/12_message_length_by_label.png" alt="Message length by label"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Char and Word Counts</div><img src="assets/eda/17_char_word_count_by_label.png" alt="Character and word count histograms by label"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Char vs Word Scatter</div><img src="assets/eda/18_char_vs_word_scatter.png" alt="Character versus word count scatter"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Linguistic Feature Means</div><img src="assets/eda/48_linguistic_feature_means.png" alt="Linguistic feature means by target"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Hashtag Count Boxplot</div><img src="assets/eda/51_hashtag_count_boxplot.png" alt="Hashtag count boxplot"></div>
+                </div>
+                <div class="note-grid stagger-child">
+                    <div class="note-card"><strong>URLs</strong><span>Disaster tweets contain URLs more often: 0.664 vs 0.414.</span></div>
+                    <div class="note-card"><strong>Mentions</strong><span>Normal tweets contain mentions more often: 0.309 vs 0.204.</span></div>
+                    <div class="note-card"><strong>Questions/exclamations</strong><span>Normal tweets ask more questions and use more exclamation marks; disaster text is often more report-like.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Vocabulary Analysis</span>
+                    <h2>Words, WordClouds &amp; N-Grams</h2>
+                    <p class="panel-desc">The notebook checks both raw frequency and class-specific phrases to separate real disaster language from noisy social language.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="matrix-table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Disaster Common Words</th><th>Count</th><th>Normal Common Words</th><th>Count</th></tr></thead>
+                            <tbody>
+                                <tr><td>fire</td><td>151</td><td>like</td><td>250</td></tr>
+                                <tr><td>suicide</td><td>103</td><td>new</td><td>163</td></tr>
+                                <tr><td>disaster</td><td>97</td><td>get</td><td>161</td></tr>
+                                <tr><td>police</td><td>94</td><td>body</td><td>106</td></tr>
+                                <tr><td>killed</td><td>92</td><td>love</td><td>85</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="matrix-table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Class-Specific N-Gram</th><th>Signal</th><th>Interpretation</th></tr></thead>
+                            <tbody>
+                                <tr><td>suicide bomber</td><td>+4.09</td><td>Strong disaster phrase.</td></tr>
+                                <tr><td>northern california</td><td>+3.74</td><td>Wildfire/reporting context.</td></tr>
+                                <tr><td>california wildfire</td><td>+3.56</td><td>Event-specific phrase.</td></tr>
+                                <tr><td>cross body</td><td>-3.00</td><td>Fashion/product false alarm.</td></tr>
+                                <tr><td>body bag</td><td>-2.64</td><td>Ambiguous phrase, often non-disaster.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="viz-display-grid three eda-compact-grid stagger-child">
+                    <div class="viz-wrapper-card"><div class="viz-title">Top Disaster Words</div><img src="assets/eda/24_top_disaster_words.png" alt="Top disaster words"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Top Normal Words</div><img src="assets/eda/25_top_normal_words.png" alt="Top normal words"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Disaster WordCloud</div><img src="assets/eda/31_disaster_wordcloud.png" alt="Disaster wordcloud"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Normal WordCloud</div><img src="assets/eda/32_normal_wordcloud.png" alt="Normal wordcloud"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Top Disaster N-Grams</div><img src="assets/eda/39_class_specific_ngrams_1.png" alt="Top disaster ngrams"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Top Non-Disaster N-Grams</div><img src="assets/eda/39_class_specific_ngrams_2.png" alt="Top non-disaster ngrams"></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Semantics Beyond Counts</span>
+                    <h2>Hashtags, Sentiment, Danger Lexicons &amp; POS</h2>
+                    <p class="panel-desc">The notebook tests whether semantic cues are clean enough to trust, then identifies where they overlap.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid three eda-compact-grid stagger-child">
+                    <div class="viz-wrapper-card"><div class="viz-title">VADER Sentiment</div><img src="assets/eda/56_vader_sentiment_distribution.png" alt="VADER sentiment distribution"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Danger Keyword Presence</div><img src="assets/eda/64_danger_keyword_presence.png" alt="Danger keyword presence by label"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">POS Ratios</div><img src="assets/eda/72_pos_ratio_by_target.png" alt="POS ratios by target"></div>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table class="data-table">
+                        <thead><tr><th>Analysis</th><th>Notebook Result</th><th>Interpretation</th></tr></thead>
+                        <tbody>
+                            <tr><td>Sentiment</td><td>Disaster compound mean -0.265 vs normal -0.061.</td><td>Disaster text is more negative on average, but overlap is too large for sentiment alone.</td></tr>
+                            <tr><td>Danger lexicons</td><td>Natural-disaster terms appear in 23.8% of disaster tweets vs 7.8% of normal tweets.</td><td>Explicit danger words are useful but not complete; some real disasters lack them.</td></tr>
+                            <tr><td>POS ratios</td><td>Disaster tweets have higher noun ratio, 0.449 vs 0.384, and lower verb ratio.</td><td>Real reports often name places, objects, events, and entities.</td></tr>
+                            <tr><td>Hashtags</td><td>Disaster hashtags include <code>news</code>, <code>hiroshima</code>, <code>earthquake</code>, <code>breaking</code>.</td><td>Hashtags can carry topic signal but also marketing/noise.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">All Notebook Visuals</span>
+                    <h2>Complete EDA Figure Gallery</h2>
+                    <p class="panel-desc">All exported EDA plots are included here so the page reflects the real notebook work.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid three eda-gallery stagger-child">
+                    <div class="viz-wrapper-card"><div class="viz-title">Target Distribution</div><img src="assets/eda/06_target_distribution.png" alt="Target distribution"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Keyword Probability</div><img src="assets/eda/10_top_keywords_disaster_probability.png" alt="Keyword probability"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Message Length</div><img src="assets/eda/11_message_length_histogram.png" alt="Message length"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Length by Label</div><img src="assets/eda/12_message_length_by_label.png" alt="Length by label"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Char/Word Counts</div><img src="assets/eda/17_char_word_count_by_label.png" alt="Char and word counts"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Char vs Word</div><img src="assets/eda/18_char_vs_word_scatter.png" alt="Char versus word scatter"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Disaster Words</div><img src="assets/eda/24_top_disaster_words.png" alt="Disaster words"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Normal Words</div><img src="assets/eda/25_top_normal_words.png" alt="Normal words"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Disaster WordCloud</div><img src="assets/eda/31_disaster_wordcloud.png" alt="Disaster wordcloud"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Normal WordCloud</div><img src="assets/eda/32_normal_wordcloud.png" alt="Normal wordcloud"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Disaster N-Grams</div><img src="assets/eda/39_class_specific_ngrams_1.png" alt="Disaster ngrams"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Non-Disaster N-Grams</div><img src="assets/eda/39_class_specific_ngrams_2.png" alt="Non-disaster ngrams"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Linguistic Means</div><img src="assets/eda/48_linguistic_feature_means.png" alt="Linguistic means"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Hashtag Boxplot</div><img src="assets/eda/51_hashtag_count_boxplot.png" alt="Hashtag boxplot"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Sentiment</div><img src="assets/eda/56_vader_sentiment_distribution.png" alt="Sentiment"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">Danger Lexicons</div><img src="assets/eda/64_danger_keyword_presence.png" alt="Danger lexicons"></div>
+                    <div class="viz-wrapper-card"><div class="viz-title">POS Ratios</div><img src="assets/eda/72_pos_ratio_by_target.png" alt="POS ratios"></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="training-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Notebook 02 &middot; PyTorch Modeling</span>
+                    <h2>Training Pipeline</h2>
+                    <p class="panel-desc">The training notebook moves from cleaned text to deployable BiLSTM artifacts.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The modeling notebook is not just a single model call. It defines configuration, seed control, preprocessing, keyword fusion, vocabulary creation, JSON artifact export, dataset encoding, DataLoader batching, GloVe embedding loading, BiLSTM construction, weighted BCE loss, torchmetrics metrics, early stopping, freeze/unfreeze experiments, training history plots, threshold tuning, and final config export.</p>
+                </div>
+                <div class="architecture-flow stagger-child">
+                    <div class="flow-step"><span>01</span><strong>Config + seed</strong><p>Seed 28, CUDA when available, reproducible paths, model constants, and training flags.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>02</span><strong>Text pipeline</strong><p>Clean tweet and keyword, drop location, build <code>final_text</code>.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>03</span><strong>Sequence data</strong><p>Vocabulary, pad/unknown tokens, max length 200, DataLoader batches.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>04</span><strong>Artifacts</strong><p>Model checkpoint, threshold, vocab JSON, label mapping, history, config.</p></div>
+                </div>
+                <div class="dependency-list stagger-child" style="margin-top:24px;">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-fire"></i></div><div><strong>PyTorch</strong><span>Defines the dataset, embedding layer, BiLSTM classifier, weighted BCE loss, optimizer, checkpointing, and inference-compatible tensors.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-gauge-high"></i></div><div><strong>torchmetrics</strong><span>Tracks train accuracy plus validation accuracy, precision, recall, and F1 during each epoch.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-shuffle"></i></div><div><strong>scikit-learn</strong><span>Creates the train/validation split and supports post-training threshold selection on validation probabilities.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-box-archive"></i></div><div><strong>GloVe + JSON/YAML artifacts</strong><span>Loads pretrained 100d word vectors and exports vocabulary, label mapping, threshold, training history, and runtime config.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Text to Tensor</span>
+                    <h2>Cleaning, Vocabulary &amp; Dataset Encoding</h2>
+                    <p class="panel-desc">The model receives fixed-length integer sequences produced from the same cleaning assumptions later used by the API.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><span></span><span></span><span></span></div>
+                        <div class="terminal-body compact-code"><pre><code class="language-python">def clean_text(text, config):
+    if config.LOWERCASE:
+        text = text.lower()
+    text = re.sub(r"https?://\S+|www\.\S+", " &lt;URL&gt; ", text)
+    text = re.sub(r"&amp;", " and ", text)
+    text = re.sub(r"@\w+", " &lt;USER&gt; ", text)
+    text = re.sub(r"%20", " ", text)
+    text = re.sub(r"[^\x00-\x7F]+", " ", text)
+    text = re.sub(r"!{2,}", " !! ", text)
+    text = re.sub(r"\?{2,}", " ?? ", text)
+    text = re.sub(r"\b\d+\b", " &lt;NUM&gt; ", text)
+    return re.sub(r"\s+", " ", text).strip()</code></pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><span></span><span></span><span></span></div>
+                        <div class="terminal-body compact-code"><pre><code class="language-python">def final_text_with_keyword(row, config):
+    keyword = clean_text(row["keyword"], config) if pd.notna(row["keyword"]) else ""
+    cleaned_text = clean_text(row["text"], config)
+
+    if config.USE_KEYWORD and keyword:
+        return f"{keyword} : {cleaned_text}"
+    return cleaned_text
+
+df = preprocess_df(df, cfg)
+df_train, df_val = train_test_split(df, train_size=0.8, random_state=28)</code></pre></div>
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table class="data-table">
+                        <thead><tr><th>Component</th><th>Value</th><th>Role</th></tr></thead>
+                        <tbody>
+                            <tr><td>Vocabulary</td><td>10,000 tokens</td><td>Built from training text and exported as <code>vocabs.json</code>.</td></tr>
+                            <tr><td>Special tokens</td><td><code>&lt;PAD&gt;=0</code>, <code>&lt;UNK&gt;=1</code></td><td>Stable padding and fallback handling for unseen words.</td></tr>
+                            <tr><td>Max length</td><td>200 tokens</td><td>Fixed tensor shape for DataLoader and deployment.</td></tr>
+                            <tr><td>Batch shape</td><td><code>[128, 200]</code></td><td>Notebook verified batched input IDs and label shape.</td></tr>
+                            <tr><td>Unknown ratio</td><td>0.0057</td><td>Vocabulary covers the training corpus well.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Architecture</span>
+                    <h2>Frozen GloVe BiLSTM</h2>
+                    <p class="panel-desc">The architecture balances contextual sequence modeling with a deployment-friendly parameter footprint.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><span></span><span></span><span></span></div>
+                        <div class="terminal-body compact-code"><pre><code class="language-python">DisasterTwittsClassifier(
+  (embedding): Embedding(10000, 100)
+  (lstm): LSTM(
+      input_size=100,
+      hidden_size=64,
+      num_layers=2,
+      batch_first=True,
+      dropout=0.28,
+      bidirectional=True
+  )
+  (dropout): Dropout(p=0.28)
+  (fc): Linear(in_features=128, out_features=1)
+)</code></pre></div>
+                    </div>
+                    <div class="matrix-table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Design Choice</th><th>Notebook Setting</th><th>Purpose</th></tr></thead>
+                            <tbody>
+                                <tr><td>Embedding source</td><td>GloVe 6B, 100d</td><td>Pretrained word semantics for short text.</td></tr>
+                                <tr><td>Embedding mode</td><td>Frozen first experiment</td><td>Stable baseline and lower overfitting risk.</td></tr>
+                                <tr><td>Unfreeze test</td><td>Embedding unfrozen after epoch 5</td><td>Second experiment to test fine-tuning embeddings.</td></tr>
+                                <tr><td>Classifier head</td><td>128 to 1 linear layer</td><td>Concatenates forward/backward hidden states.</td></tr>
+                                <tr><td>Loss</td><td>Weighted BCEWithLogitsLoss</td><td>Accounts for class imbalance during optimization.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="theory-split" style="margin-top:24px;">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Binary Logit Objective</div><span class="theory-badge">BCE</span></div>
+                        <div class="theory-math-container">$$\mathcal{L}=-w_y\left[y\log(\sigma(z))+(1-y)\log(1-\sigma(z))\right]$$</div>
+                        <div class="theory-explanation">The classifier produces one logit for each tweet. Weighted BCEWithLogitsLoss lets the notebook compensate for the normal/disaster class imbalance while keeping the numerically stable logit formulation.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Tuned Decision Rule</div><span class="theory-badge champion-badge">F1</span></div>
+                        <div class="theory-math-container">$$p=\sigma(f_\theta(x)), \qquad \hat{y}=\mathbb{1}[p \geq 0.52]$$</div>
+                        <div class="theory-explanation">After training, the notebook sweeps thresholds on validation predictions. The saved threshold near 0.52 improves F1 compared with blindly using the default 0.50 cutoff.</div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Training Loop</span>
+                    <h2>Metrics, Early Stopping &amp; Results</h2>
+                    <p class="panel-desc">The notebook monitors loss, accuracy, precision, recall, and F1, then tunes the classification threshold after training.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid single-centered stagger-child">
+                    <div class="viz-wrapper-card big-viz">
+                        <div class="viz-title">Training Dynamics</div>
+                        <img src="assets/training_dynamics.png" alt="Training dynamics chart">
+                    </div>
+                </div>
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><div class="kpi-value">0.5490</div><div class="kpi-label">Best Val Loss</div></div>
+                    <div class="kpi-card"><div class="kpi-value">0.7971</div><div class="kpi-label">Best Val Accuracy</div></div>
+                    <div class="kpi-card"><div class="kpi-value">0.7588</div><div class="kpi-label">Best Epoch F1</div></div>
+                    <div class="kpi-card"><div class="kpi-value">0.7609</div><div class="kpi-label">Best Threshold F1</div></div>
+                </div>
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-python">train_metrics = {"accuracy": BinaryAccuracy(threshold=0.5)}
+val_metrics = {
+    "accuracy": BinaryAccuracy(threshold=0.5),
+    "precision": BinaryPrecision(threshold=0.5),
+    "recall": BinaryRecall(threshold=0.5),
+    "f1": BinaryF1Score(threshold=0.5),
+}
+
+criterion = nn.BCEWithLogitsLoss(pos_weight=pos_class_weight)
+optimizer = optim.Adam(model.parameters(), lr=3e-4)
+
+best_f1, best_t = find_best_threshold(model, val_dl)
+torch.save(best_t, "best_threshold.pt")</code></pre></div>
+                </div>
+                <div class="note-grid stagger-child">
+                    <div class="note-card"><strong>Best checkpoint logic</strong><span>The notebook saves best checkpoints during training and exports history for later review.</span></div>
+                    <div class="note-card"><strong>Threshold tuning</strong><span>The best validation F1 is reached near threshold 0.52, so deployment uses the tuned boundary instead of blindly using 0.50.</span></div>
+                    <div class="note-card"><strong>Portable outputs</strong><span>The handoff includes <code>best_model.pt</code>, <code>best_threshold.pt</code>, <code>vocabs.json</code>, <code>label_mapping.json</code>, <code>training_history.json</code>, and <code>config.yaml</code>.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Scripted Research</span>
+                    <h2>Notebook Logic Formalized as Modules</h2>
+                    <p class="panel-desc">The project also has a script/module layout, which makes the training work reusable outside notebook cells.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-python">def main():
+    CFG = TrainConfig()
+    seed_everything(CFG.SEED)
+
+    df = pd.read_csv(CFG.TRAIN_CSV)
+    df = preprocess_df(df, CFG)
+
+    train_df, val_df = train_test_split(
+        df,
+        train_size=CFG.TRAIN_TEST_SPLIT,
+        stratify=df["target"],
+        random_state=CFG.SEED,
+        shuffle=True,
+    )
+
+    vocab = build_vocab(train_df["final_text"], CFG)
+    save_vocabs(vocab, CFG.VOCAB_PATH)
+
+    train_loader = DataLoader(DisasterDataset(train_df, vocab, CFG), batch_size=128, shuffle=True)
+    val_loader = DataLoader(DisasterDataset(val_df, vocab, CFG), batch_size=128, shuffle=False)
+
+    embedding_matrix = load_embedding(CFG.GLOVE_PATH, vocab, CFG.EMB_DIM)
+    model = DisasterTwittsClassifier(..., embedding=embedding_matrix).to(CFG.DEVICE)</code></pre></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="api-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Deployment 01 &middot; Application Serving</span>
+                    <h2>FastAPI Runtime</h2>
+                    <p class="panel-desc">The deployment is a real app layer: lifecycle loading, prediction API, Jinja UI, validation, model inference, and error handling.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The FastAPI app loads artifacts once during lifespan startup, stores model/predictor/vocabulary/database objects in <code>app.state</code>, then serves both machine-readable and human-facing prediction flows. The same <code>run_prediction</code> function powers the JSON API and the Jinja form, so UI and API behavior do not drift apart.</p>
+                </div>
+                <div class="dependency-list stagger-child" style="margin-top:24px;">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-server"></i></div><div><strong>FastAPI + Uvicorn</strong><span>Serve the JSON prediction endpoint, health route, logs route, Swagger docs, and browser form route at port 8000.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-shield-halved"></i></div><div><strong>Pydantic + custom AppError classes</strong><span>Define request/response contracts and return structured validation, artifact, model, and inference errors.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-window-restore"></i></div><div><strong>Jinja2 + python-multipart + StaticFiles</strong><span>Render the form UI, process browser form posts, and serve the deployment app CSS.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-language"></i></div><div><strong>PyTorch CPU + langdetect</strong><span>Run the exported BiLSTM checkpoint in production mode and warn or reject inputs whose language does not match the English training data.</span></div></div>
+                </div>
+                <div class="architecture-flow stagger-child">
+                    <div class="flow-step"><span>01</span><strong>Lifespan</strong><p>Validate artifacts, load vocab/model/threshold, initialize database.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>02</span><strong>Validate</strong><p>Clean input, check empty text, short text, long text, language issues.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>03</span><strong>Infer</strong><p>Tokenize, pad, run BiLSTM with lengths, apply sigmoid and threshold.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>04</span><strong>Respond</strong><p>Return JSON or render Jinja, then log request and result.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Routes</span>
+                    <h2>API and UI Contract</h2>
+                    <p class="panel-desc">Five routes cover health, UI rendering, JSON inference, form inference, and prediction history.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table class="data-table">
+                        <thead><tr><th>Route</th><th>Interface</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>GET /</code></td><td>Jinja page</td><td>Render tweet form, result area, warnings, and error display.</td></tr>
+                            <tr><td><code>GET /health</code></td><td>JSON</td><td>Simple service readiness check.</td></tr>
+                            <tr><td><code>POST /predict</code></td><td>JSON API</td><td>Accept <code>tweet</code> and optional <code>keyword</code>; return prediction payload.</td></tr>
+                            <tr><td><code>POST /predict-ui</code></td><td>HTML form</td><td>Run prediction from browser UI and re-render the result.</td></tr>
+                            <tr><td><code>GET /logs</code></td><td>JSON list</td><td>Read recent SQLite prediction history with a bounded limit.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><span></span><span></span><span></span></div>
+                        <div class="terminal-body compact-code"><pre><code class="language-python">class PredictRequest(BaseModel):
+    tweet: str = Field(..., min_length=1)
+    keyword: str | None = None
+
+class PredictResponse(BaseModel):
+    probability: float
+    label: int
+    label_name: str
+    threshold: float
+    warnings: list[dict]</code></pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><span></span><span></span><span></span></div>
+                        <div class="terminal-body compact-code"><pre><code class="language-python">@app.post("/predict", response_model=PredictResponse)
+def predict(req: PredictRequest):
+    return run_prediction(tweet=req.tweet, keyword=req.keyword)
+
+@app.post("/predict-ui", response_class=HTMLResponse)
+def predict_ui(request: Request, tweet: str = Form(...), keyword: str = Form(default="")):
+    result = run_prediction(tweet=tweet, keyword=keyword.strip() or None)
+    return templates.TemplateResponse("index.html", {...})</code></pre></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Lifespan &amp; Artifacts</span>
+                    <h2>Startup Loads the Model Once</h2>
+                    <p class="panel-desc">The app checks critical files, builds runtime state, and keeps request-time inference lightweight.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-python">@asynccontextmanager
+async def lifespan(app: FastAPI):
+    config = AppConfig()
+    seed_everything(config.SEED)
+
+    if not config.VOCAB_PATH.exists():
+        raise ArtifactError("VOCAB_NOT_FOUND", "Vocabulary file not found", {"path": str(config.VOCAB_PATH)})
+    if not config.MODEL_PATH.exists():
+        raise ArtifactError("MODEL_NOT_FOUND", "Model file not found", {"path": str(config.MODEL_PATH)})
+
+    word2idx, idx2word, vocab_size = load_vocabs(config.VOCAB_PATH)
+    predictor = DisasterTwittsPredictor.from_config(config, vocab_size)
+    predictor.load_label_mapping(config.LABEL_MAPPING_PATH)
+    db_conn = connect_db(config.DB_PATH)
+    init_db(db_conn)
+
+    app.state.config = config
+    app.state.word2idx = word2idx
+    app.state.predictor = predictor
+    app.state.db = db_conn
+    yield
+    db_conn.close()</code></pre></div>
+                </div>
+                <div class="note-grid stagger-child">
+                    <div class="note-card"><strong>Artifact safety</strong><span>Missing model/vocab files become structured app errors instead of silent failure.</span></div>
+                    <div class="note-card"><strong>Runtime config</strong><span><code>AppConfig</code> mirrors training dimensions: embedding 100, hidden 64, two layers, dropout 0.28, max length 200.</span></div>
+                    <div class="note-card"><strong>Request speed</strong><span>Model, vocabulary, threshold, label mapping, and database connection are prepared before requests arrive.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Prediction Core</span>
+                    <h2>Validation, Tokenization &amp; Inference</h2>
+                    <p class="panel-desc">The API does the production work around the model: safe validation, consistent preprocessing, tensor conversion, prediction, and warnings.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><span></span><span></span><span></span></div>
+                        <div class="terminal-body compact-code"><pre><code class="language-python">def validate(self, tweet, keyword=None):
+    warnings = []
+    final_text = build_final_text(tweet, keyword=keyword, config=self.config)
+
+    if is_empty_text(final_text):
+        raise InputError("EMPTY_TWEET", "Tweet became empty after cleaning.")
+
+    tokens = final_text.split()
+    if len(tokens) &lt; 3:
+        warnings.append(self._warning("SHORT_INPUT", "Input is very short."))
+    if len(tokens) &gt; self.config.MAX_LENGTH:
+        warnings.append(self._warning("TRIMMED_LENGTH", "Input was trimmed."))
+
+    return final_text, warnings</code></pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><span></span><span></span><span></span></div>
+                        <div class="terminal-body compact-code"><pre><code class="language-python">@torch.no_grad()
+def predict(self, input_ids, input_length, return_label_name=True):
+    logits = self.model(input_ids, lengths=input_length)
+    prob = torch.sigmoid(logits).item()
+    label = 1 if prob &gt;= self.threshold else 0
+    label_name = self.label_mapping.get(label, str(label))
+    return prob, label, label_name</code></pre></div>
+                    </div>
+                </div>
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-python">def run_prediction(tweet: str, keyword: str | None = None) -&gt; PredictResponse:
+    final_text, warnings = validator.validate(tweet, keyword=keyword)
+    input_ids, input_length = tokenize_and_pad(final_text, word2idx, config)
+    prob, label, label_name = predictor.predict(input_ids, input_length, return_label_name=True)
+
+    response = PredictResponse(
+        probability=prob,
+        label=label,
+        label_name=label_name,
+        threshold=predictor.threshold,
+        warnings=list(warnings),
+    )
+    log_prediction(db_conn, tweet=tweet, keyword=keyword, final_text=final_text, ...)
+    return response</code></pre></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Jinja Frontend</span>
+                    <h2>Browser UI for the Model</h2>
+                    <p class="panel-desc">The Jinja page provides a real user-facing path with form state, prediction bars, result modes, warnings, and error panels.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="note-grid stagger-child">
+                    <div class="note-card"><strong>Form state</strong><span>Tweet and optional keyword remain filled after prediction, so the UI feels usable during testing.</span></div>
+                    <div class="note-card"><strong>Result modes</strong><span>The template switches between disaster and normal visual states based on <code>result.label</code>.</span></div>
+                    <div class="note-card"><strong>Warnings</strong><span>Short input, trimmed length, uncertain language, and validation errors are surfaced to the user.</span></div>
+                </div>
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-html">{% set has_result = (result is not none) %}
+{% set is_disaster = has_result and (result.label == 1) %}
+{% set disaster_prob = ((result.probability * 100)|round(1)) if has_result else 0 %}
+
+&lt;form method="post" action="/predict-ui" class="card"&gt;
+  &lt;textarea id="tweet" name="tweet" rows="6" required&gt;{{ form_data.tweet }}&lt;/textarea&gt;
+  &lt;input id="keyword" name="keyword" type="text" value="{{ form_data.keyword }}" /&gt;
+  &lt;button type="submit"&gt;Predict&lt;/button&gt;
+&lt;/form&gt;
+
+{% if result.warnings %}
+  &lt;ul&gt;{% for item in result.warnings %}&lt;li&gt;{{ item.warning_code }}: {{ item.message }}&lt;/li&gt;{% endfor %}&lt;/ul&gt;
+{% endif %}</code></pre></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="ops-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Deployment 02 &middot; Persistence and Containerization</span>
+                    <h2>SQLite, Docker Compose &amp; Reproducible Runtime</h2>
+                    <p class="panel-desc">This is where the project becomes a professional first deployment attempt: serving, persistence, environment configuration, and container orchestration work together.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The deployment folder contains the pieces expected in a small real service: a FastAPI app, Jinja frontend, static assets, Pydantic schemas, model loader, preprocessing module, input validator, SQLite storage, Dockerfile, Compose file, devcontainer, environment files, and dependency pinning. This is not just "run notebook model"; it is a deployable application layout.</p>
+                </div>
+                <div class="dependency-list stagger-child" style="margin-top:24px;">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-database"></i></div><div><strong>SQLite3</strong><span>Persist raw tweet, keyword, cleaned final text, probability, label, threshold, and warnings for each inference call.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-docker"></i></div><div><strong>Docker + Docker Compose</strong><span>Package the FastAPI app, model artifacts, data directory, pinned dependencies, port mapping, volume, healthcheck, and restart policy.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-python"></i></div><div><strong>Python 3.11 slim + CPU wheels</strong><span>Keep the deployment image focused and compatible with CPU inference through the PyTorch CPU index.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-code-branch"></i></div><div><strong>Devcontainer + Dependabot</strong><span>Document a reproducible container development environment and dependency update workflow.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Database Layer</span>
+                    <h2>Prediction Logging Schema</h2>
+                    <p class="panel-desc">SQLite stores the request, cleaned model text, decision, threshold, and validation warnings for later inspection.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><span></span><span></span><span></span></div>
+                        <div class="terminal-body compact-code"><pre><code class="language-sql">CREATE TABLE IF NOT EXISTS prediction_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    created_at TEXT NOT NULL,
+    tweet TEXT NOT NULL,
+    keyword TEXT,
+    final_text TEXT NOT NULL,
+    probability REAL NOT NULL,
+    label INTEGER NOT NULL,
+    label_name TEXT NOT NULL,
+    threshold REAL NOT NULL,
+    warnings_json TEXT
+);</code></pre></div>
+                    </div>
+                    <div class="matrix-table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Stored Field</th><th>Why It Exists</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>tweet</code> and <code>keyword</code></td><td>Preserve raw user/API input.</td></tr>
+                                <tr><td><code>final_text</code></td><td>Debug the exact text sent to the model.</td></tr>
+                                <tr><td><code>probability</code> and <code>label_name</code></td><td>Make predictions auditable and readable.</td></tr>
+                                <tr><td><code>threshold</code></td><td>Record the decision boundary used for that prediction.</td></tr>
+                                <tr><td><code>warnings_json</code></td><td>Keep validation context such as short input or language suspicion.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-python">def log_prediction(conn, *, tweet, keyword, final_text, probability, label, label_name, threshold, warnings):
+    warnings_json = json.dumps(warnings or [], ensure_ascii=True)
+    created_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    conn.execute(
+        "INSERT INTO prediction_logs (...) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        (created_at, tweet, keyword, final_text, probability, label, label_name, threshold, warnings_json),
+    )
+    conn.commit()</code></pre></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Container Build</span>
+                    <h2>Dockerfile: Minimal Runtime With Non-Root User</h2>
+                    <p class="panel-desc">The Dockerfile packages dependencies, application code, artifacts, and data into a Uvicorn service.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-dockerfile">FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+RUN addgroup --system appgroup \
+    &amp;&amp; adduser --system --ingroup appgroup appuser
+
+COPY requirements.txt .
+RUN python -m pip install --no-cache-dir --retries 5 --timeout 120 -r requirements.txt
+
+COPY app ./app
+COPY artifacts ./artifacts
+COPY data ./data
+RUN mkdir -p /app/data &amp;&amp; chown -R appuser:appgroup /app
+
+USER appuser
+EXPOSE 8000
+CMD ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre></div>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table class="data-table">
+                        <thead><tr><th>Dependency</th><th>Pinned Version</th><th>Role</th></tr></thead>
+                        <tbody>
+                            <tr><td>FastAPI</td><td>0.115.0</td><td>Web framework and route layer.</td></tr>
+                            <tr><td>Uvicorn</td><td>0.30.6</td><td>ASGI runtime server.</td></tr>
+                            <tr><td>Pydantic</td><td>2.9.2</td><td>Request/response validation.</td></tr>
+                            <tr><td>PyTorch CPU</td><td>2.4.1</td><td>Model inference inside container.</td></tr>
+                            <tr><td>Jinja2 + python-multipart</td><td>3.1.4 / 0.0.12</td><td>HTML templates and form posts.</td></tr>
+                            <tr><td>langdetect</td><td>1.0.9</td><td>Input language warning/rejection logic.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Compose Runtime</span>
+                    <h2>Service Configuration, Volume &amp; Healthcheck</h2>
+                    <p class="panel-desc">Docker Compose gives the deployment a repeatable command, configurable port, persistent database volume, and restart policy.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-yaml">services:
+  app:
+    build: .
+    image: disaster_tweets:latest
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    environment:
+      APP_ENV: ${APP_ENV:-production}
+      DB_PATH: ${DB_PATH:-/app/data/predictions.db}
+    volumes:
+      - disaster_data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/docs', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  disaster_data:</code></pre></div>
+                </div>
+                <div class="note-grid stagger-child">
+                    <div class="note-card"><strong>Configurable port</strong><span><code>APP_PORT</code> lets the service bind to another host port without editing Compose.</span></div>
+                    <div class="note-card"><strong>Persistent database</strong><span><code>disaster_data</code> keeps SQLite state separate from disposable containers.</span></div>
+                    <div class="note-card"><strong>Healthcheck</strong><span>Compose checks the FastAPI docs endpoint and restarts the service unless stopped.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Professional Deployment Readout</span>
+                    <h2>Why This Project Matters</h2>
+                    <p class="panel-desc">The strength of the project is the full bridge from exploratory research to a working ML application.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="synthesis-gradient-box stagger-child">
+                    <p>This project is important because it shows the first professional deployment pattern: notebooks explain the data, PyTorch training produces reproducible artifacts, FastAPI exposes the model as both JSON and UI, Jinja makes the prediction flow testable in a browser, SQLite records inference context, and Docker Compose gives the app a portable runtime. The final shape is not just a classifier; it is a compact ML product skeleton.</p>
+                </div>
+            </div></div>
+        </section>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
