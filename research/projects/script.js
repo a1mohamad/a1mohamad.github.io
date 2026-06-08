@@ -7,25 +7,29 @@ const projects = [
       "Regression",
       "Web Scraping",
       "Machine Learning",
+      "MongoDB",
     ],
-    "desc": "Handwritten digit classification using a Convolutional Neural Network (CNN) with 10‑fold cross‑validation on the MNIST dataset.",
+    "desc": "A 2023 real estate ML prototype that scraped Berlin rental listings, stored them in MongoDB, and predicted prices with regression notebooks."
     "tools": [
       "Python",
-      "TensorFlow/Keras",
+      "BeautifulSoup",
       "Scikit-Learn",
-      "Pandas",
-      "Matplotlib",
-      "NumPy"
+      "Requests",
+      "Regex",
+      "PyMongo",
+      "NumPy",
+      "Matplotlib
     ],
     "tags": [
-      "Neural Networks",
-      "CNN",
-      "EDA",
+      "Linear Regression",
+      "MongoDB",
       "Data Preprocessing",
-      "K-Fold"
+      "Web Scraping",
+      "HTML Requests",
+      "Bot Creation"
     ],
-    "href": "https://a1mohamad.github.io/research/digit-recognizer/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/digit-recognizer.png)"
+    "href": "https://a1mohamad.github.io/research/berlin-house-price-scraper/index.html",
+    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/berlin.png)"
   },
   {
     "title": "Digit Recognizer",
