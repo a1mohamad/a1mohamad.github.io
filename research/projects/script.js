@@ -1,5 +1,45 @@
 const projects = [
   {
+  "title": "Global Wheat Detection",
+  "category": "Agriculture",
+  "meta": [
+    "2025",
+    "Object Detection",
+    "Deep Learning",
+    "Computer Vision",
+    "Kaggle Competition"
+  ],
+  "desc": "Wheat head localization using YOLOv8, transfer learning, data augmentation, multi-stage fine-tuning, test-time augmentation, and Weighted Boxes Fusion.",
+  "tools": [
+    "Python",
+    "TensorFlow/Keras",
+    "KerasCV",
+    "ensemble-boxes",
+    "OpenCV",
+    "NumPy",
+    "Pandas",
+    "Matplotlib",
+    "Scikit-Learn",
+    "JSON"
+  ],
+  "tags": [
+    "Neural Networks",
+    "Computer Vision",
+    "CNN",
+    "YOLOv8",
+    "Object Detection",
+    "Bounding Boxes",
+    "COCO mAP",
+    "EDA",
+    "Transfer Learning",
+    "Data Augmentation",
+    "Moasic Augmentation",
+    "Fine-Tuning",
+    "TTA",
+    "Weighted Boxes Fusion",
+  ]
+},
+  {
     "title": "Cassava Leaf Diseases",
     "category": "Agriculture",
     "meta": [
@@ -24,6 +64,7 @@ const projects = [
     ],
     "tags": [
     "Neural Networks",
+    "Computer Vision",
     "CNN",
     "EDA",
     "Data Augmentation",
@@ -134,6 +175,8 @@ const projects = [
     ],
     "tags": [
       "Neural Networks",
+      "Computer Vision",
+      "Image Classification",
       "CNN",
       "EDA",
       "Data Preprocessing",
