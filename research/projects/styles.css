@@ -850,3 +850,30 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
 .project-card:hover .thumb {
   filter: brightness(1.08) saturate(1.06) contrast(1.03) !important;
 }
+/* ULTRA BRIGHT PROJECT IMAGES - 2x stronger */
+.featured-card::before {
+  filter: brightness(1.32) saturate(1.18) contrast(1.06) !important;
+  opacity: 1 !important;
+}
+
+.featured-card::after {
+  background: linear-gradient(
+    180deg,
+    rgba(5,5,8,0.00) 0%,
+    rgba(5,5,8,0.03) 38%,
+    rgba(5,5,8,0.24) 100%
+  ) !important;
+}
+
+.project-card .thumb {
+  filter: brightness(1.42) saturate(1.20) contrast(1.07) !important;
+  opacity: 1 !important;
+}
+
+.project-card .thumb::after {
+  background: rgba(5,5,8,0.00) !important;
+}
+
+.project-card:hover .thumb {
+  filter: brightness(1.48) saturate(1.22) contrast(1.08) !important;
+}
