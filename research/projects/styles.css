@@ -821,3 +821,32 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
 .project-card:hover .thumb::after {
   background: linear-gradient(180deg, rgba(5,5,8,0), rgba(5,5,8,.12)) !important;
 }
+
+/* FINAL IMAGE CLARITY BOOST - stronger and cleaner */
+.featured-card::before {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.featured-card::after {
+  background: linear-gradient(
+    180deg,
+    rgba(5,5,8,0.00) 0%,
+    rgba(5,5,8,0.08) 45%,
+    rgba(5,5,8,0.42) 100%
+  ) !important;
+}
+
+.project-card .thumb {
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+.project-card .thumb::after {
+  background: rgba(5,5,8,0.00) !important;
+}
+
+/* Optional: make images slightly pop without darkening */
+.project-card:hover .thumb {
+  filter: brightness(1.08) saturate(1.06) contrast(1.03) !important;
+}
