@@ -80,9 +80,9 @@
 </table>
 </div>
 <div class="wheat-viz-grid" style="margin-top: 28px;">
-<div class="viz-wrapper-card wheat-viz-card stagger-child"><img alt="Bounding boxes per image distribution" src="bounding_box_per_image.png"/><div class="viz-meta-text">Bounding box density distribution — many images contain 30–60 objects, with a long dense tail</div></div>
-<div class="viz-wrapper-card wheat-viz-card stagger-child"><img alt="Example image with no bounding boxes" src="no_bounding_box.png"/><div class="viz-meta-text">Negative sample — no visible wheat head annotation</div></div>
-<div class="viz-wrapper-card wheat-viz-card wheat-viz-wide stagger-child"><img alt="Training samples with bounding boxes" src="images_sample_with_bounding_boxes.png"/><div class="viz-meta-text">Training samples with ground-truth boxes — confirms annotation conversion and box alignment</div></div>
+<div class="viz-wrapper-card wheat-viz-card stagger-child"><img alt="Bounding boxes per image distribution" src="images/bounding_box_per_image.png"/><div class="viz-meta-text">Bounding box density distribution — many images contain 30–60 objects, with a long dense tail</div></div>
+<div class="viz-wrapper-card wheat-viz-card stagger-child"><img alt="Example image with no bounding boxes" src="images/no_bounding_box.png"/><div class="viz-meta-text">Negative sample — no visible wheat head annotation</div></div>
+<div class="viz-wrapper-card wheat-viz-card wheat-viz-wide stagger-child"><img alt="Training samples with bounding boxes" src="images/images_sample_with_bounding_boxes.png"/><div class="viz-meta-text">Training samples with ground-truth boxes — confirms annotation conversion and box alignment</div></div>
 </div>
 </div></div>
 </section>
@@ -160,8 +160,8 @@ def create_light_dataset(records, is_training=False):
 </div>
 
 <div class="viz-display-grid two" style="margin-top:24px;">
-<div class="viz-wrapper-card big-viz stagger-child"><img alt="Mosaic augmentation example" src="moasic_example.png"/><div class="viz-meta-text">Mosaic augmentation output — multiple scenes merged with transformed wheat-head boxes</div></div>
-<div class="viz-wrapper-card big-viz stagger-child"><img alt="Training samples with bounding boxes" src="images_sample_with_bounding_boxes.png"/><div class="viz-meta-text">Ground-truth box samples — confirms ragged tensors and box transforms stay aligned</div></div>
+<div class="viz-wrapper-card big-viz stagger-child"><img alt="Mosaic augmentation example" src="images/moasic_example.png"/><div class="viz-meta-text">Mosaic augmentation output — multiple scenes merged with transformed wheat-head boxes</div></div>
+<div class="viz-wrapper-card big-viz stagger-child"><img alt="Training samples with bounding boxes" src="images/images_sample_with_bounding_boxes.png"/><div class="viz-meta-text">Ground-truth box samples — confirms ragged tensors and box transforms stay aligned</div></div>
 </div>
 </div></div>
 </section>
@@ -342,7 +342,7 @@ model.compile(
 </section>
 <section class="section section-collapsible">
 <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Baseline Prediction</span><h2>Initial Inference &amp; Confidence Filtering</h2><p class="panel-desc">Before TTA/WBF, the notebook validates model loading and raw prediction behavior on test images.</p></div><div class="chevron"></div></div>
-<div class="section-body"><div class="section-body-inner"><div class="tech-grid"><div class="tech-card stagger-child"><span class="tech-badge">Prediction Utility</span><h3>Single-image detection</h3><p>The helper function expands a single image to batch shape, calls <code>model.predict()</code>, and keeps only detections above the confidence threshold. The output remains in KerasCV dictionary format with <code>boxes</code>, <code>classes</code>, and <code>confidence</code>.</p></div><div class="tech-card stagger-child"><span class="tech-badge">Visual Check</span><h3>Why this step matters</h3><p>Initial prediction visualization confirms that the saved model artifact loads correctly, bounding boxes are in the expected <code>xyxy</code> coordinate space, and the threshold is reasonable before adding TTA complexity.</p></div></div><div class="viz-display-grid single-centered" style="margin-top:24px;"><div class="viz-wrapper-card big-viz stagger-child"><img alt="Initial inference example" src="initial_inference_example.png"/><div class="viz-meta-text">Initial inference example — raw YOLOv8 detections before final TTA/WBF fusion</div></div></div></div></div>
+<div class="section-body"><div class="section-body-inner"><div class="tech-grid"><div class="tech-card stagger-child"><span class="tech-badge">Prediction Utility</span><h3>Single-image detection</h3><p>The helper function expands a single image to batch shape, calls <code>model.predict()</code>, and keeps only detections above the confidence threshold. The output remains in KerasCV dictionary format with <code>boxes</code>, <code>classes</code>, and <code>confidence</code>.</p></div><div class="tech-card stagger-child"><span class="tech-badge">Visual Check</span><h3>Why this step matters</h3><p>Initial prediction visualization confirms that the saved model artifact loads correctly, bounding boxes are in the expected <code>xyxy</code> coordinate space, and the threshold is reasonable before adding TTA complexity.</p></div></div><div class="viz-display-grid single-centered" style="margin-top:24px;"><div class="viz-wrapper-card big-viz stagger-child"><img alt="Initial inference example" src="images/initial_inference_example.png"/><div class="viz-meta-text">Initial inference example — raw YOLOv8 detections before final TTA/WBF fusion</div></div></div></div></div>
 </section>
 <section class="section section-collapsible">
 <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Robust Prediction</span><h2>Test-Time Augmentation Strategy</h2><p class="panel-desc">TTA increases viewpoint and lighting coverage while preserving final coordinates through reversal functions.</p></div><div class="chevron"></div></div>
@@ -432,7 +432,7 @@ def reverse_h_flip(boxes, image_width=IMG_SIZE[1]):
 </section>
 <section class="section section-collapsible">
 <div class="section-header"><div class="panel-header-content"><span class="panel-tag">Inference Visuals</span><h2>Final TTA + WBF Output Examples</h2><p class="panel-desc">Final predictions are cleaner after coordinate reversal, confidence filtering, and box fusion.</p></div><div class="chevron"></div></div>
-<div class="section-body"><div class="section-body-inner"><div class="viz-display-grid two two-card-row"><div class="viz-wrapper-card big-viz stagger-child"><img alt="Final TTA WBF example 1" src="final_TTA_WBF_example1.png"/><div class="viz-meta-text">Final TTA + WBF example 1 — fused wheat-head predictions</div></div><div class="viz-wrapper-card big-viz stagger-child"><img alt="Final TTA WBF example 2" src="final_TTA_WBF_example2.png"/><div class="viz-meta-text">Final TTA + WBF example 2 — dense field localization after fusion</div></div></div></div></div>
+<div class="section-body"><div class="section-body-inner"><div class="viz-display-grid two two-card-row"><div class="viz-wrapper-card big-viz stagger-child"><img alt="images/Final TTA WBF example 1" src="images/final_TTA_WBF_example1.png"/><div class="viz-meta-text">Final TTA + WBF example 1 — fused wheat-head predictions</div></div><div class="viz-wrapper-card big-viz stagger-child"><img alt="images/Final TTA WBF example 2" src="images/final_TTA_WBF_example2.png"/><div class="viz-meta-text">Final TTA + WBF example 2 — dense field localization after fusion</div></div></div></div></div>
 </section>
 </div>
 <section class="section section-collapsible">
