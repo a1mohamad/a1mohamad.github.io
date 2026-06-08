@@ -1,35 +1,80 @@
 const projects = [
   {
     "title": "Titanic Survival Prediction Engine",
-    "category": "Deep Learning",
-    "status": "Featured",
-    "year": "2026",
-    "importance": "Core",
-    "desc": "Feature-rich survival modeling with LightGBM + Random Forest age imputation, engineered social/family/cabin signals, and a 9-fold TensorFlow/Keras neural network.",
+    "category": "Transportation",
+    "meta": [
+      "2024",
+      "Transportation",
+      "Deep Learning",
+      "Classification",
+      "Kaggle"
+    ],
+    "desc": "Titanic survival modeling with EDA, data cleaning, engineered social/family/cabin signals, age imputation, K-fold validation, and a TensorFlow/Keras neural network.",
     "tools": [
       "Python",
       "Pandas",
-      "TensorFlow",
-      "Keras",
+      "TensorFlow/Keras",
       "LightGBM",
-      "Scikit-Learn"
+      "Scikit-Learn",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn",
+      "Regex"
     ],
     "tags": [
-      "Classification",
+      "Neural Networks",
+      "EDA",
       "Feature Engineering",
-      "K-Fold CV",
-      "Kaggle"
+      "Data Cleaning",
+      "Data Imputation",
+      "K-Fold",
+      "Confusion Matrix"
     ],
     "href": "https://a1mohamad.github.io/research/titanic/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.35), rgba(5,5,8,.8)), url(assets/projects/titanic.jpg)"
+    "image": "linear-gradient(135deg, rgba(99,102,241,.35), rgba(5,5,8,.8)), url(assets/images/titanic.png)"
   },
   {
     "title": "Tesla Stock Direction Forecasting",
-    "category": "Financial ML",
-    "status": "Featured",
-    "year": "2026",
-    "importance": "High",
-    "desc": "Next-day Tesla market direction modeling from OHLC signals, engineered trading features, and classifier comparison including XGBoost and Logistic Regression.",
+    "category": "Financial",
+    "meta": [
+      "2024",
+      "Financial",
+      "Classification",
+      "Machine Learning"
+    ],
+    "desc": "Next-day Tesla direction prediction from OHLC market signals using EDA, feature engineering, and benchmarking across tree-based and linear classifiers.",
+    "tools": [
+      "Python",
+      "Pandas",
+      "XGBoost",
+      "Scikit-Learn",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn"
+    ],
+    "tags": [
+      "XGBoost",
+      "XGBRF",
+      "Decision Tree",
+      "Random Forest",
+      "SVC",
+      "Logistic Regression",
+      "EDA",
+      "Feature Engineering"
+    ],
+    "href": "https://a1mohamad.github.io/research/tesla-stock/index.html",
+    "image": "linear-gradient(135deg, rgba(16,185,129,.28), rgba(5,5,8,.82)), url(assets/images/tesla-stock.png)"
+  },
+  {
+    "title": "Breast Cancer Diagnostic Classifier",
+    "category": "Medical",
+    "meta": [
+      "2023",
+      "Medical",
+      "Classification",
+      "Machine Learning"
+    ],
+    "desc": "Breast cancer diagnostic classification with EDA, classical ML benchmarking, confusion-matrix evaluation, and XGBoost/Scikit-Learn model comparison.",
     "tools": [
       "Python",
       "Pandas",
@@ -39,92 +84,86 @@ const projects = [
       "Seaborn"
     ],
     "tags": [
-      "Finance",
-      "OHLC",
-      "Classification",
-      "ROC-AUC"
-    ],
-    "href": "https://a1mohamad.github.io/research/tesla-stock/index.html",
-    "image": "linear-gradient(135deg, rgba(16,185,129,.28), rgba(5,5,8,.82)), url(assets/projects/tesla-stock.jpg)"
-  },
-  {
-    "title": "Breast Cancer Diagnostic Classifier",
-    "category": "Medical AI",
-    "status": "Featured",
-    "year": "2026",
-    "importance": "High",
-    "desc": "Wisconsin Breast Cancer diagnosis pipeline using ADASYN augmentation, seven model families, XGBoost benchmarking, and majority-vote ensemble analysis.",
-    "tools": [
-      "Python",
-      "Scikit-Learn",
-      "XGBoost",
-      "Imbalanced-Learn",
-      "Pandas",
-      "Seaborn"
-    ],
-    "tags": [
-      "Healthcare",
-      "ADASYN",
-      "Ensemble",
-      "Diagnostics"
+      "Random Forest",
+      "GaussianNB",
+      "Decision Tree",
+      "SVC",
+      "Confusion Matrix",
+      "EDA"
     ],
     "href": "https://a1mohamad.github.io/research/breast-cancer/index.html",
-    "image": "linear-gradient(135deg, rgba(236,72,153,.30), rgba(5,5,8,.82)), url(assets/projects/breast-cancer.jpg)"
+    "image": "linear-gradient(135deg, rgba(236,72,153,.30), rgba(5,5,8,.82)), url(assets/images/breast-cancer.png)"
   },
   {
     "title": "Multi-Disease Identification",
-    "category": "Medical AI",
-    "status": "Research",
-    "year": "2026",
-    "importance": "High",
-    "desc": "Deep-learning-oriented diagnostic system for identifying disease categories through structured validation and medical prediction workflow design.",
-    "tools": [
-      "Python",
-      "TensorFlow",
-      "Keras",
-      "CNN",
-      "NumPy",
-      "Pandas"
+    "category": "Medical",
+    "meta": [
+      "2024",
+      "Medical",
+      "Classification",
+      "Machine Learning"
     ],
-    "tags": [
-      "Medical AI",
-      "CNN",
-      "Deep Learning",
-      "Classification"
-    ],
-    "href": "https://a1mohamad.github.io/research/multi-diseases/index.html",
-    "image": "linear-gradient(135deg, rgba(14,165,233,.28), rgba(5,5,8,.82)), url(assets/projects/multi-disease.jpg)"
-  },
-  {
-    "title": "Wine Quality Chemical Classifier",
-    "category": "Machine Learning",
-    "status": "Complete",
-    "year": "2026",
-    "importance": "Medium",
-    "desc": "Chemical quality prediction using physicochemical wine attributes, MinMax scaling, and model comparison across Logistic Regression, SVC, and XGBoost.",
+    "desc": "Classical ML diagnostic workflow for multi-disease identification using structured medical data, EDA, confusion matrices, and majority-voting ensemble logic.",
     "tools": [
       "Python",
       "Pandas",
-      "NumPy",
       "Scikit-Learn",
-      "XGBoost"
+      "NumPy",
+      "Seaborn",
+      "Matplotlib",
+      "SciPy"
     ],
     "tags": [
-      "Classification",
-      "ROC-AUC",
+      "Random Forest",
       "SVC",
-      "XGBoost"
+      "GaussianNB",
+      "EDA",
+      "Confusion Matrix",
+      "Ensemble",
+      "Majority Voting"
+    ],
+    "href": "https://a1mohamad.github.io/research/multi-diseases/index.html",
+    "image": "linear-gradient(135deg, rgba(14,165,233,.28), rgba(5,5,8,.82)), url(assets/images/multi-diseases.png)"
+  },
+  {
+    "title": "Wine Quality Chemical Classifier",
+    "category": "Food & Beverage",
+    "meta": [
+      "2023",
+      "Food & Beverage",
+      "Classification",
+      "Machine Learning"
+    ],
+    "desc": "Wine quality classification from physicochemical features using EDA, data imputation, Scikit-Learn preprocessing, and XGBoost/SVC/Logistic Regression.",
+    "tools": [
+      "Python",
+      "Pandas",
+      "XGBoost",
+      "Scikit-Learn",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn"
+    ],
+    "tags": [
+      "XGBoost",
+      "SVC",
+      "Logistic Regression",
+      "EDA",
+      "Data Imputation"
     ],
     "href": "https://a1mohamad.github.io/research/wine-quality/index.html",
-    "image": "linear-gradient(135deg, rgba(168,85,247,.30), rgba(5,5,8,.82)), url(assets/projects/wine-quality.jpg)"
+    "image": "linear-gradient(135deg, rgba(168,85,247,.30), rgba(5,5,8,.82)), url(assets/images/wine-quality.jpeg)"
   },
   {
     "title": "Cardiovascular Risk Diagnostics",
-    "category": "Medical AI",
-    "status": "Complete",
-    "year": "2026",
-    "importance": "Medium",
-    "desc": "10-year coronary heart disease risk prediction from clinical records using mean imputation, Logistic Regression, and LogisticRegressionCV.",
+    "category": "Medical",
+    "meta": [
+      "2023",
+      "Medical",
+      "Classification",
+      "Machine Learning"
+    ],
+    "desc": "Heart disease risk classification from clinical records with EDA, cleaning, augmentation/imputation steps, Logistic Regression, and confusion-matrix evaluation.",
     "tools": [
       "Python",
       "Pandas",
@@ -133,126 +172,147 @@ const projects = [
       "Matplotlib"
     ],
     "tags": [
-      "Clinical ML",
-      "Risk Prediction",
-      "Logistic Regression"
+      "Logistic Regression",
+      "Logistic Regression CV",
+      "Confusion Matrix",
+      "EDA",
+      "Data Cleaning",
+      "Data Augmentation"
     ],
     "href": "https://a1mohamad.github.io/research/heart-disease/index.html",
-    "image": "linear-gradient(135deg, rgba(248,113,113,.30), rgba(5,5,8,.82)), url(assets/projects/heart-disease.jpg)"
+    "image": "linear-gradient(135deg, rgba(248,113,113,.30), rgba(5,5,8,.82)), url(assets/images/heart-disease.png)"
   },
   {
     "title": "House Price Prediction Engine",
-    "category": "Regression",
-    "status": "Complete",
-    "year": "2026",
-    "importance": "Medium",
-    "desc": "Residential price regression suite comparing SVR, Random Forest, Linear Regression, and optional CatBoost after cleaning and one-hot encoding.",
+    "category": "Real Estate",
+    "meta": [
+      "2023",
+      "Real Estate",
+      "Regression",
+      "Machine Learning"
+    ],
+    "desc": "Real-estate price regression using EDA, preprocessing, categorical handling, and model comparison across SVR, Random Forest, Logistic Regression, and CatBoost.",
     "tools": [
       "Python",
       "Pandas",
       "Scikit-Learn",
       "CatBoost",
-      "Matplotlib",
-      "Seaborn"
+      "Seaborn",
+      "Matplotlib"
     ],
     "tags": [
-      "Regression",
       "SVR",
       "Random Forest",
-      "CatBoost"
+      "Logistic Regression",
+      "CatBoost",
+      "EDA",
+      "Data Preprocessing"
     ],
     "href": "https://a1mohamad.github.io/research/house-price/index.html",
-    "image": "linear-gradient(135deg, rgba(245,158,11,.30), rgba(5,5,8,.82)), url(assets/projects/house-price.jpg)"
+    "image": "linear-gradient(135deg, rgba(245,158,11,.30), rgba(5,5,8,.82)), url(assets/images/house-price.jpg)"
   },
   {
     "title": "California Housing Regression",
-    "category": "Regression",
-    "status": "Complete",
-    "year": "2026",
-    "importance": "Medium",
-    "desc": "Median California house value prediction from census block statistics using Linear Regression and standard regression diagnostics including MSE and MAE.",
+    "category": "Real Estate",
+    "meta": [
+      "2022",
+      "Real Estate",
+      "Regression",
+      "Machine Learning"
+    ],
+    "desc": "California housing value regression from census-style tabular features using EDA, Linear Regression, and standard diagnostics including MSE and MAE.",
     "tools": [
       "Python",
       "Pandas",
-      "NumPy",
       "Scikit-Learn",
+      "NumPy",
       "Matplotlib",
       "Seaborn"
     ],
     "tags": [
-      "Regression",
       "Linear Regression",
       "MSE",
-      "MAE"
+      "MAE",
+      "EDA"
     ],
     "href": "https://a1mohamad.github.io/research/california-housing/index.html",
-    "image": "linear-gradient(135deg, rgba(20,184,166,.28), rgba(5,5,8,.82)), url(assets/projects/california-housing.jpg)"
+    "image": "linear-gradient(135deg, rgba(20,184,166,.28), rgba(5,5,8,.82)), url(assets/images/california-housing.jpg)"
   },
   {
     "title": "Zomato Restaurant Market Analysis",
-    "category": "Data Analysis",
-    "status": "Complete",
-    "year": "2026",
-    "importance": "Medium",
-    "desc": "Restaurant ecosystem analysis covering online orders, table booking, ratings, votes, approximate costs, and consumer behavior through EDA.",
+    "category": "Food & Beverage",
+    "meta": [
+      "2022",
+      "Food & Beverage",
+      "Data Analysis",
+      "Visualization"
+    ],
+    "desc": "Restaurant market EDA covering customer behavior, ratings, votes, online orders, table booking, pricing patterns, and visual storytelling.",
     "tools": [
       "Python",
       "Pandas",
-      "NumPy",
       "Matplotlib",
+      "NumPy",
       "Seaborn"
     ],
     "tags": [
       "EDA",
-      "Market Analysis",
       "Visualization",
-      "Consumer Behavior"
+      "Confusion Matrix"
     ],
     "href": "https://a1mohamad.github.io/research/zomato-analysis/index.html",
-    "image": "linear-gradient(135deg, rgba(249,115,22,.30), rgba(5,5,8,.82)), url(assets/projects/zomato-analysis.jpg)"
+    "image": "linear-gradient(135deg, rgba(249,115,22,.30), rgba(5,5,8,.82)), url(assets/images/zomato.jpg)"
   },
   {
     "title": "New York Times Scraping Engine",
-    "category": "Data Engineering",
-    "status": "Complete",
-    "year": "2026",
-    "importance": "Medium",
-    "desc": "Automated news extraction pipeline combining RSS/XML feeds, DOM parsing, text-density extraction, newspaper3k, BeautifulSoup, and lxml.",
+    "category": "News",
+    "meta": [
+      "2022",
+      "News",
+      "Web Scraping",
+      "Data Engineering"
+    ],
+    "desc": "News data-engineering pipeline for collecting New York Times content through RSS/XML feeds, DOM parsing, newspaper3k article extraction, and lxml.",
     "tools": [
       "Python",
       "feedparser",
       "newspaper3k",
-      "BeautifulSoup",
       "lxml"
     ],
     "tags": [
       "Web Scraping",
       "RSS",
-      "DOM Parsing",
-      "Automation"
+      "DOM Parsing"
     ],
     "href": "https://a1mohamad.github.io/research/NewYorkTimes-scraping/index.html",
-    "image": "linear-gradient(135deg, rgba(148,163,184,.28), rgba(5,5,8,.82)), url(assets/projects/nytimes-scraping.jpg)"
+    "image": "linear-gradient(135deg, rgba(148,163,184,.28), rgba(5,5,8,.82)), url(assets/images/NYT.png)"
   },
   {
     "title": "Loan Approval Predictive System",
-    "category": "Machine Learning",
-    "status": "Complete",
-    "year": "2026",
-    "importance": "Medium",
-    "desc": "Retail loan approval classification using data cleaning, categorical encoding, and comparison of Logistic Regression, SVC, KNN, and Random Forest.",
+    "category": "Financial",
+    "meta": [
+      "2023",
+      "Financial",
+      "Classification",
+      "Machine Learning"
+    ],
+    "desc": "Loan approval classification using EDA, preprocessing, categorical cleaning, confusion matrices, and KNN/Random Forest/Logistic Regression/SVC comparison.",
     "tools": [
       "Python",
       "Pandas",
-      "NumPy",
       "Scikit-Learn",
-      "Seaborn"
+      "Matplotlib",
+      "Seaborn",
+      "NumPy"
     ],
     "tags": [
-      "Classification",
-      "Credit Risk",
       "KNN",
-      "Random Forest"
+      "Random Forest",
+      "Logistic Regression",
+      "SVC",
+      "EDA",
+      "Data Preprocessing",
+      "Confusion Matrix"
     ],
     "href": "https://a1mohamad.github.io/research/loan-approval/index.html",
     "image": "linear-gradient(135deg, rgba(99,102,241,.24), rgba(5,5,8,.82)), url(assets/projects/loan-approval.jpg)"
@@ -263,6 +323,11 @@ const state = {
   q: "",
   category: "All",
   tool: "All",
+  algorithm: "All",
+  categoryQuery: "",
+  toolQuery: "",
+  algorithmQuery: "",
+  sort: "upload",
   page: 1,
   perPage: 10
 };
@@ -274,10 +339,27 @@ const search = document.getElementById("project-search");
 const clearBtn = document.getElementById("clear-search");
 const catWrap = document.getElementById("category-filters");
 const toolWrap = document.getElementById("tool-filters");
+const algorithmWrap = document.getElementById("algorithm-filters");
+const categoryFilterSearch = document.getElementById("category-filter-search");
+const toolFilterSearch = document.getElementById("tool-filter-search");
+const algorithmFilterSearch = document.getElementById("algorithm-filter-search");
+const filterBlocks = document.querySelectorAll("[data-filter-block]");
+const filterMoreButtons = document.querySelectorAll("[data-filter-more]");
 const pagination = document.getElementById("pagination");
+const sortWrap = document.getElementById("sort-wrap");
+const sortToggle = document.getElementById("project-sort-toggle");
+const sortMenu = document.getElementById("project-sort-menu");
+const sortLabel = document.getElementById("project-sort-label");
 
 const categories = ["All", ...new Set(projects.map(p => p.category))];
-const tools = ["All", "Python", "Pandas", "Scikit-Learn", "TensorFlow", "Keras", "XGBoost", "LightGBM", "CatBoost", "Seaborn"];
+const tools = ["All", ...new Set(projects.flatMap(p => p.tools))];
+const algorithms = ["All", ...new Set(projects.flatMap(p => p.tags))];
+const sortLabels = {
+  upload: "Upload order",
+  alphabet: "Alphabet A-Z",
+  "year-desc": "Newest year",
+  "year-asc": "Oldest year"
+};
 
 function makeChip(value, type) {
   const btn = document.createElement("button");
@@ -292,40 +374,92 @@ function makeChip(value, type) {
   return btn;
 }
 
+function updateFilterControls() {
+  const configs = [
+    {name:"category", list:catWrap, total:document.getElementById("category-total"), values:categories},
+    {name:"tool", list:toolWrap, total:document.getElementById("tool-total"), values:tools},
+    {name:"algorithm", list:algorithmWrap, total:document.getElementById("algorithm-total"), values:algorithms}
+  ];
+
+  requestAnimationFrame(() => {
+    configs.forEach(({name, list, total, values}) => {
+      const block = document.querySelector(`[data-filter-block="${name}"]`);
+      const button = document.querySelector(`[data-filter-more="${name}"]`);
+      if (!block || !button) return;
+      total.textContent = `${Math.max(values.length - 1, 0)} items`;
+      const hasMore = list.scrollHeight > list.clientHeight + 4;
+      block.classList.toggle("has-more", hasMore);
+      if (!hasMore) block.classList.remove("expanded");
+      button.firstChild.nodeValue = block.classList.contains("expanded") ? "Show less " : "Show more ";
+    });
+  });
+}
+
+function filterValues(values, query) {
+  const q = query.toLowerCase().trim();
+  if (!q) return values;
+  return values.filter(value => value === "All" || value.toLowerCase().includes(q));
+}
+
+function renderFilterGroup(wrap, values, type, query) {
+  const visibleValues = filterValues(values, query);
+  wrap.innerHTML = "";
+  if (visibleValues.length === 1 && query.trim()) {
+    wrap.appendChild(makeChip("All", type));
+    const empty = document.createElement("span");
+    empty.className = "filter-empty-mini";
+    empty.textContent = "No match";
+    wrap.appendChild(empty);
+    return;
+  }
+  visibleValues.forEach(value => wrap.appendChild(makeChip(value, type)));
+}
+
 function renderChips() {
-  catWrap.innerHTML = "";
-  toolWrap.innerHTML = "";
-  categories.forEach(c => catWrap.appendChild(makeChip(c, "category")));
-  tools.forEach(t => toolWrap.appendChild(makeChip(t, "tool")));
+  renderFilterGroup(catWrap, categories, "category", state.categoryQuery);
+  renderFilterGroup(toolWrap, tools, "tool", state.toolQuery);
+  renderFilterGroup(algorithmWrap, algorithms, "algorithm", state.algorithmQuery);
+  updateFilterControls();
 }
 
 function matches(p) {
   const q = state.q.toLowerCase().trim();
   const haystack = [
-    p.title, p.category, p.status, p.year, p.importance, p.desc,
-    ...p.tools, ...p.tags
+    p.title, p.category, p.desc,
+    ...p.meta, ...p.tools, ...p.tags
   ].join(" ").toLowerCase();
 
   return (!q || haystack.includes(q)) &&
          (state.category === "All" || p.category === state.category) &&
-         (state.tool === "All" || p.tools.includes(state.tool));
+         (state.tool === "All" || p.tools.includes(state.tool)) &&
+         (state.algorithm === "All" || p.tags.includes(state.algorithm));
 }
 
 function card(p) {
   return `<a class="project-card" href="${p.href}" target="_blank" rel="noopener">
     <div class="thumb" style="--image:${p.image}"></div>
     <div>
-      <div class="tool-row"><span class="status">${p.status}</span><span class="status">${p.category}</span><span class="status">${p.year}</span></div>
+      <div class="tool-row">${p.meta.map(t => `<span class="status">${t}</span>`).join("")}</div>
       <h3 class="project-title">${p.title}</h3>
       <p class="project-desc">${p.desc}</p>
-      <div class="tool-row">${p.tools.slice(0, 6).map(t => `<span class="tool">${t}</span>`).join("")}</div>
+      <div class="tool-row">${p.tools.map(t => `<span class="tool">${t}</span>`).join("")}</div>
       <div class="tag-row" style="margin-top:8px">${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
     </div>
   </a>`;
 }
 
 function filteredProjects() {
-  return projects.filter(matches);
+  const list = projects.filter(matches).map((project, index) => ({ project, index }));
+
+  if (state.sort === "alphabet") {
+    list.sort((a, b) => a.project.title.localeCompare(b.project.title));
+  } else if (state.sort === "year-desc") {
+    list.sort((a, b) => Number(b.project.meta[0]) - Number(a.project.meta[0]) || a.index - b.index);
+  } else if (state.sort === "year-asc") {
+    list.sort((a, b) => Number(a.project.meta[0]) - Number(b.project.meta[0]) || a.index - b.index);
+  }
+
+  return list.map(item => item.project);
 }
 
 function renderPagination(totalPages) {
@@ -387,6 +521,9 @@ function render() {
 
   document.querySelectorAll("#category-filters .filter-chip").forEach(b => b.classList.toggle("active", b.dataset.value === state.category));
   document.querySelectorAll("#tool-filters .filter-chip").forEach(b => b.classList.toggle("active", b.dataset.value === state.tool));
+  document.querySelectorAll("#algorithm-filters .filter-chip").forEach(b => b.classList.toggle("active", b.dataset.value === state.algorithm));
+  document.querySelectorAll(".sort-option").forEach(b => b.classList.toggle("active", b.dataset.sort === state.sort));
+  sortLabel.textContent = sortLabels[state.sort];
 
   renderPagination(totalPages);
 }
@@ -397,12 +534,76 @@ search.addEventListener("input", e => {
   render();
 });
 
+categoryFilterSearch.addEventListener("input", e => {
+  state.categoryQuery = e.target.value;
+  renderChips();
+  render();
+});
+
+toolFilterSearch.addEventListener("input", e => {
+  state.toolQuery = e.target.value;
+  renderChips();
+  render();
+});
+
+algorithmFilterSearch.addEventListener("input", e => {
+  state.algorithmQuery = e.target.value;
+  renderChips();
+  render();
+});
+
+sortToggle.addEventListener("click", () => {
+  const isOpen = sortMenu.classList.toggle("open");
+  sortToggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+document.querySelectorAll(".sort-option").forEach(btn => {
+  btn.addEventListener("click", () => {
+    state.sort = btn.dataset.sort;
+    state.page = 1;
+    sortMenu.classList.remove("open");
+    sortToggle.setAttribute("aria-expanded", "false");
+    render();
+  });
+});
+
+document.addEventListener("click", e => {
+  if (!sortWrap.contains(e.target)) {
+    sortMenu.classList.remove("open");
+    sortToggle.setAttribute("aria-expanded", "false");
+  }
+});
+
+
+filterMoreButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const name = button.dataset.filterMore;
+    const block = document.querySelector(`[data-filter-block="${name}"]`);
+    if (!block) return;
+    block.classList.toggle("expanded");
+    button.firstChild.nodeValue = block.classList.contains("expanded") ? "Show less " : "Show more ";
+  });
+});
+
+window.addEventListener("resize", updateFilterControls);
+
 clearBtn.addEventListener("click", () => {
   state.q = "";
   state.category = "All";
   state.tool = "All";
+  state.algorithm = "All";
+  state.categoryQuery = "";
+  state.toolQuery = "";
+  state.algorithmQuery = "";
+  state.sort = "upload";
   state.page = 1;
   search.value = "";
+  categoryFilterSearch.value = "";
+  toolFilterSearch.value = "";
+  algorithmFilterSearch.value = "";
+  renderChips();
+  sortMenu.classList.remove("open");
+  sortToggle.setAttribute("aria-expanded", "false");
   render();
 });
 
