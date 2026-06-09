@@ -1,5 +1,99 @@
 const projects = [
   {
+  "title": "Disaster Tweet Classification App",
+  "category": "Communication",
+  "meta": [
+    "2026",
+    "Classification",
+    "NLP",
+    "Deep Learning",
+    "Deployment",
+    "SQLite3"
+  ],
+  "desc": "Disaster tweet classifier with EDA, GloVe-backed PyTorch BiLSTM training, FastAPI/Jinja serving, SQLite logs, and Docker deployment.",
+  "tools": [
+    "Python",
+    "PyTorch",
+    "Scikit-Learn",
+    "Pandas",
+    "NumPy",
+    "Matplotlib",
+    "Seaborn",
+    "NLTK",
+    "VADER",
+    "WordCloud",
+    "FastAPI",
+    "Uvicorn",
+    "Jinja2",
+    "Pydantic",
+    "SQLite",
+    "Docker",
+    "Docker Compose"
+  ],
+  "tags": [
+    "NLP",
+    "Text Classification",
+    "EDA",
+    "PyTorch",
+    "BiLSTM",
+    "Word Embedding"
+    "GloVe Embeddings",
+    "Threshold Tuning",
+    "FastAPI",
+    "Jinja Frontend",
+    "SQLite Logging",
+    "Docker Deployment",
+    "Model Deployment"
+  ],
+    "href": "https://a1mohamad.github.io/research/disaster-tweets/index.html",
+    "image": "linear-gradient(135deg, rgba(239,68,68,.30), rgba(5,5,8,.82)), url(assets/images/tweets.png)"
+  },
+  {
+  "title": "SMS Spam Classification",
+  "category": "Communication",
+  "meta": [
+    "2025",
+    "Classification",
+    "Deep Learning",
+    "NLP",
+    "Kaggle Dataset",
+  ],
+  "desc": "SMS spam detection using exploratory text analysis, TF-IDF diagnostics, Bidirectional LSTM networks, class balancing, and Optuna hyperparameter optimization.",
+  "tools": [
+    "Python",
+    "TensorFlow/Keras",
+    "Optuna",
+    "Scikit-Learn",
+    "Pandas",
+    "NumPy",
+    "Matplotlib",
+    "Seaborn",
+    "NLTK",
+    "Regex",
+    "Emoji",
+    "WordCloud"
+  ],
+  "tags": [
+    "NLP",
+    "EDA",
+    "BiLSTM",
+    "Text Preprocessing",
+    "Text Classification",
+    "TF-IDF",
+    "N-grams",
+    "Tokenization",
+    "Text Vectorization",
+    "Word Embeddings",
+    "Optuna",
+    "Hyperparameter Tuning",
+    "Class Imbalance",
+    "WordCloud",
+    "Anamoly Detection"
+  ],
+    "href": "https://a1mohamad.github.io/research/wheat-detection/index.html",
+    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/wheat.png)"
+  },
+  {
   "title": "Global Wheat Detection",
   "category": "Agriculture",
   "meta": [
@@ -40,7 +134,7 @@ const projects = [
   ],
     "href": "https://a1mohamad.github.io/research/wheat-detection/index.html",
     "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/wheat.png)"
-},
+  },
   {
     "title": "Cassava Leaf Diseases",
     "category": "Agriculture",
@@ -96,9 +190,10 @@ const projects = [
       "Scikit-Learn",
       "LightGBM",
       "Catboost",
+      "Pydantic",
       "SQLalchemy",
       "NumPy",
-      "Matplotlib","
+      "Matplotlib",
       "JSON",
       "joblib",
       "pickle",
@@ -153,8 +248,8 @@ const projects = [
       "HTML Requests",
       "Bot Creation"
     ],
-    "href": "https://a1mohamad.github.io/research/berlin-house-price-scraper/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/berlin.png)"
+     "href": "https://a1mohamad.github.io/research/berlin-house-price-scraper/index.html",
+     "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/berlin.png)"
   },
   {
     "title": "Digit Recognizer",
