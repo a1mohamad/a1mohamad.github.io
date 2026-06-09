@@ -453,10 +453,10 @@ const projects = [
   },
   {
     "title": "New York Times Scraping Engine",
-    "category": "News",
+    "category": "Communication",
     "meta": [
       "2022",
-      "News",
+      "Communication",
       "Web Scraping",
       "Data Engineering"
     ],
