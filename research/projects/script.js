@@ -36,7 +36,7 @@ const projects = [
     "EDA",
     "PyTorch",
     "BiLSTM",
-    "Word Embedding"
+    "Word Embedding",
     "GloVe Embeddings",
     "Threshold Tuning",
     "FastAPI",
