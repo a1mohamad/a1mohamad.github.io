@@ -217,7 +217,7 @@ const projects = [
     "Docker Deployment"
   ],
     "href": "https://a1mohamad.github.io/research/box-office-revenue/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/revenue.png)"
+    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/box-office.png)"
   },
   {
     "title": "Berlin House Price Prediction",
