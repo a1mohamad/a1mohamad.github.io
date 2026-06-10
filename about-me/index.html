@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -30,10 +31,10 @@
   <main>
     <section class="hero reveal">
       <div class="hero-left">
-        <div class="overline"><span></span> Applied AI Engineer in progress</div>
-        <h1>Designing the bridge between learning, research, and deployable intelligence.</h1>
+        <div class="overline"><span></span> AI systems builder in progress</div>
+        <h1>Building disciplined AI systems from first principles to deployment.</h1>
         <p class="hero-text">
-          I build machine learning and deep learning projects as complete systems: data exploration, feature engineering, model training, evaluation, deployment, and polished portfolio storytelling. My long-term direction is advanced AI engineering with a serious focus on computer vision, NLP, MLOps, and the foundations needed for AGI-oriented work.
+          I am an AI and software engineering student focused on machine learning, deep learning, computer vision, NLP, MLOps, and deployable AI applications. My path started with strong technical foundations, moved through world-class ML/DL courses and books, and now centers on building complete intelligent systems: data, models, APIs, databases, Docker, automation, and real portfolio-grade interfaces.
         </p>
         <div class="hero-actions">
           <a class="primary-action" href="https://github.com/a1mohamad" target="_blank" rel="noopener"><i class="fab fa-github"></i> Research Lab</a>
@@ -44,20 +45,31 @@
       <aside class="hero-instrument" aria-label="Profile instrument panel">
         <div class="instrument-top">
           <span>PROFILE VECTOR</span>
-          <b>LIVE</b>
+          <b>ACTIVE</b>
         </div>
-        <div class="radar-shell">
+        <div class="portrait-slot" aria-label="Profile image placeholder">
+          <div class="portrait-frame">
+            <div class="portrait-image" role="img" aria-label="Add profile image at assets/profile.jpg">
+              <span>AM</span>
+            </div>
+          </div>
+          <div class="portrait-caption">
+            <span>PORTRAIT NODE</span>
+            <strong>Place image at <code>assets/profile.jpg</code></strong>
+          </div>
+        </div>
+        <div class="radar-shell compact-radar">
           <div class="radar-grid"></div>
           <div class="radar-core">AI</div>
-          <span class="orbit orbit-a">TensorFlow</span>
+          <span class="orbit orbit-a">Computer Vision</span>
           <span class="orbit orbit-b">PyTorch</span>
           <span class="orbit orbit-c">FastAPI</span>
-          <span class="orbit orbit-d">YOLO</span>
-          <span class="orbit orbit-e">NLP</span>
+          <span class="orbit orbit-d">Docker</span>
+          <span class="orbit orbit-e">Deployment</span>
         </div>
         <div class="instrument-readout">
           <div><span>Mode</span><strong>Research → Product</strong></div>
-          <div><span>Stack</span><strong>Python · DL · APIs</strong></div>
+          <div><span>Core</span><strong>ML · DL · MLOps</strong></div>
           <div><span>Target</span><strong>Advanced AI Systems</strong></div>
         </div>
       </aside>
@@ -70,65 +82,103 @@
         <h2>Not just notebooks. Not just UI. Complete intelligent workflows.</h2>
       </div>
       <p>
-        My portfolio is organized around a simple idea: every project should demonstrate technical depth and also be understandable as a real product artifact. I care about the invisible parts — preprocessing, validation, training strategy, inference logic, deployment, and documentation — because those are what turn experiments into engineering.
+        I organize my work around one principle: a project should prove both technical depth and engineering maturity. That means clean data work, strong validation, model reasoning, deployment logic, MLOps habits, documentation, and a visual presentation that makes the system understandable.
       </p>
     </section>
 
     <section class="vault reveal" id="work-map">
       <div class="section-head">
-        <span class="section-kicker">Work categories</span>
-        <h2>My work is grouped by how it contributes to AI systems.</h2>
-        <p>Instead of a basic skill list, this page treats your work like a research vault: each category has its own role, stack, and project evidence.</p>
+        <span class="section-kicker">Personal archive</span>
+        <h2>The path behind the portfolio.</h2>
+        <p>This section groups my education, courses, books, research work, deployment experience, MLOps work, programming background, current stage, and future direction.</p>
       </div>
 
-      <div class="vault-layout">
-        <div class="vault-tabs" role="tablist" aria-label="Work categories">
-          <button class="vault-tab active" data-vault="vision"><span>01</span>Computer Vision</button>
-          <button class="vault-tab" data-vault="nlp"><span>02</span>NLP & Text Systems</button>
-          <button class="vault-tab" data-vault="ml"><span>03</span>Classical ML</button>
-          <button class="vault-tab" data-vault="deployment"><span>04</span>Deployment Layer</button>
-          <button class="vault-tab" data-vault="data"><span>05</span>Data Engineering</button>
+      <div class="vault-layout wide-tabs">
+        <div class="vault-tabs" role="tablist" aria-label="Profile categories">
+          <button class="vault-tab active" data-vault="education"><span>01</span>Education</button>
+          <button class="vault-tab" data-vault="courses"><span>02</span>Courses & Books</button>
+          <button class="vault-tab" data-vault="research"><span>03</span>Research Work</button>
+          <button class="vault-tab" data-vault="deployment"><span>04</span>Deployment</button>
+          <button class="vault-tab" data-vault="mlops"><span>05</span>MLOps</button>
+          <button class="vault-tab" data-vault="languages"><span>06</span>Languages & Web</button>
+          <button class="vault-tab" data-vault="current"><span>07</span>Current Stage</button>
+          <button class="vault-tab" data-vault="future"><span>08</span>Future Work</button>
         </div>
 
-        <div class="vault-panels">
-          <article class="vault-panel active" id="vision">
-            <div class="panel-meta">Computer Vision · Deep Learning · Kaggle</div>
-            <h3>Seeing, localizing, and classifying visual patterns.</h3>
-            <p>Image classification and object detection work using CNNs, EfficientNet, YOLOv8, transfer learning, fine-tuning, test-time augmentation, and bounding-box evaluation.</p>
-            <div class="evidence-grid">
-              <span>Cassava Leaf Disease</span><span>Global Wheat Detection</span><span>Digit Recognizer</span><span>YOLO · WBF · TTA</span>
+        <div class="vault-panels profile-panels">
+          <article class="vault-panel active" id="education">
+            <div class="panel-meta">Education · Technical redirection · Software engineering</div>
+            <h3>From elite engineering foundations to AI-focused software systems.</h3>
+            <p>I ranked 367 in Konkur, studied Aerospace Engineering at Sharif University of Technology, and later left that direction because I did not want my engineering path to be connected to missile or weapon-system work. I redirected my education toward AI and software, and I am now studying Software Engineering at Azad University with a 19.10 GPA.</p>
+            <div class="evidence-grid profile-grid">
+              <span>Konkur rank: 367</span><span>Sharif University of Technology · Aerospace background</span><span>Software Engineering · Azad University</span><span>GPA: 19.10</span>
             </div>
           </article>
-          <article class="vault-panel" id="nlp">
-            <div class="panel-meta">NLP · Sequence Models · Deployment</div>
-            <h3>Building text classifiers that move from analysis to app logic.</h3>
-            <p>Text preprocessing, TF-IDF diagnostics, tokenization, word embeddings, BiLSTM networks, threshold tuning, and deployed prediction workflows.</p>
-            <div class="evidence-grid">
-              <span>Disaster Tweets</span><span>SMS Spam Classification</span><span>GloVe Embeddings</span><span>FastAPI Text App</span>
+
+          <article class="vault-panel" id="courses">
+            <div class="panel-meta">World-class curriculum · Books · Self-study</div>
+            <h3>Learning AI through serious courses and foundational books.</h3>
+            <p>My learning path is built around strong global resources: Machine Learning Specialization and Deep Learning Specialization by Andrew Ng, the DeepLearning.AI TensorFlow Developer Professional Certificate by Laurence Moroney, Harvard CS50x Introduction to Computer Science, and MIT 6.S191 Introduction to Deep Learning.</p>
+            <div class="book-strip">
+              <span>Machine Learning with PyTorch and Scikit-Learn · Sebastian Raschka</span>
+              <span>Deep Learning with PyTorch · Eli Stevens, Luca Antiga, Thomas Viehmann</span>
+              <span>Introducing MLOps · Mark Treveil and contributors</span>
+              <span>Build a Large Language Model (From Scratch) · Sebastian Raschka</span>
+              <span>Natural Language Processing with Transformers · Lewis Tunstall, Leandro von Werra, Thomas Wolf</span>
             </div>
           </article>
-          <article class="vault-panel" id="ml">
-            <div class="panel-meta">Structured Data · Regression · Classification</div>
-            <h3>Feature engineering and model comparison for tabular problems.</h3>
-            <p>Classical machine learning projects with Scikit-Learn, XGBoost, LightGBM, CatBoost, cross-validation, imputation, ensemble thinking, and metrics-driven evaluation.</p>
-            <div class="evidence-grid">
-              <span>Titanic Survival</span><span>TMDB Revenue</span><span>Tesla Direction</span><span>Medical Diagnostics</span>
+
+          <article class="vault-panel" id="research">
+            <div class="panel-meta">Regression · Boosting · CV · NLP · Transformers</div>
+            <h3>A research path from tabular models to transformer systems.</h3>
+            <p>My project work started with simple regression and classical ML, then moved into gradient boosting models, medical diagnostics, feature engineering, and computer vision. I have worked with fine-tuning and transfer learning using models such as YOLOv8, EfficientNet, and Inception-style networks. In NLP, I moved from Disaster Tweets and SMS classification into Quora Question Pairs, LSTM with attention, self-built cross-attention, transformer encoder design, BERT fine-tuning, XLM-style multilingual work, GPT-2 experiments, and the broader Hugging Face transformers ecosystem.</p>
+            <div class="evidence-grid profile-grid">
+              <span>Regression & boosting</span><span>YOLOv8 · EfficientNet · Inception</span><span>Quora Question Pairs · attention</span><span>BERT · XLM · GPT-2</span>
             </div>
           </article>
+
           <article class="vault-panel" id="deployment">
-            <div class="panel-meta">API · Docker · Databases · Portfolio Systems</div>
-            <h3>Turning models into inspectable systems.</h3>
-            <p>FastAPI services, Dockerized apps, SQLite/PostgreSQL logging, Redis caching, clean web pages, GitHub Pages publishing, and deployment-style project packaging.</p>
-            <div class="evidence-grid">
-              <span>FastAPI</span><span>Docker Compose</span><span>SQLite Logs</span><span>GitHub Pages</span>
+            <div class="panel-meta">APIs · Databases · Docker · Cloud hosting</div>
+            <h3>Turning ML models into real applications.</h3>
+            <p>I have experience moving from notebooks into working systems: web scraping, database-backed apps, FastAPI services, Uvicorn serving, Docker images, Docker-based workflows, and cloud hosting experiments with platforms such as Render, Railway, Hugging Face Spaces, and GitHub Pages for polished frontends.</p>
+            <div class="evidence-grid profile-grid">
+              <span>PostgreSQL · MySQL · Microsoft SQL Server</span><span>MongoDB · PyMongo · SQLite3</span><span>FastAPI · Uvicorn · Docker</span><span>Render · Railway · Hugging Face Spaces</span>
             </div>
           </article>
-          <article class="vault-panel" id="data">
-            <div class="panel-meta">EDA · Scraping · Pipelines · Visualization</div>
-            <h3>Making raw data useful before the model ever starts.</h3>
-            <p>Data cleaning, visual diagnostics, feature extraction, scraping workflows, MongoDB insertion, RSS/XML parsing, and presentation-ready analysis.</p>
-            <div class="evidence-grid">
-              <span>Berlin Scraper</span><span>NYT Scraping</span><span>Zomato Analysis</span><span>EDA Systems</span>
+
+          <article class="vault-panel" id="mlops">
+            <div class="panel-meta">Automation · Experiment tracking · Event-driven thinking</div>
+            <h3>Adding engineering discipline around the model lifecycle.</h3>
+            <p>I have used MLflow for experiment tracking in projects, Airflow for automation, and Kafka in the lung disease detection app to simulate local event-driven tasks. My MLOps direction is focused on reproducible training, reliable inference, automated workflows, model logging, and production-style system thinking.</p>
+            <div class="evidence-grid profile-grid">
+              <span>MLflow tracking</span><span>Airflow automation</span><span>Kafka simulation</span><span>Reproducible ML workflows</span>
+            </div>
+          </article>
+
+          <article class="vault-panel" id="languages">
+            <div class="panel-meta">Programming · Frontend · Systems basics</div>
+            <h3>Beyond Python: lower-level logic and web interfaces.</h3>
+            <p>Python is my main AI language, but I also have experience with C, C++, HTML, CSS, and JavaScript. I designed a local database-like application in C++, and I use frontend technologies to build portfolio pages, project interfaces, dashboards, and polished static web experiences.</p>
+            <div class="evidence-grid profile-grid">
+              <span>C programming</span><span>C++ local database-style app</span><span>HTML · CSS · JavaScript</span><span>Frontend portfolio systems</span>
+            </div>
+          </article>
+
+          <article class="vault-panel" id="current">
+            <div class="panel-meta">Current stage · Lung disease app · Transformers ecosystem</div>
+            <h3>End-to-end medical AI, then deeper transformer foundations.</h3>
+            <p>My previous end-to-end pipeline was a lung disease detection app: training from scratch to web deployment, fine-tuning four classification models including EfficientNet, MobileNet, DenseNet, and InceptionNet, building a U-Net/Xception-style segmentation model, deploying with FastAPI and Docker, using Microsoft SQL Server locally and PostgreSQL for the web version, hosting through Hugging Face Spaces, designing the frontend, and adding MLflow, Airflow, and local Kafka simulation. Now I am working through transformer model families, the Hugging Face ecosystem, and building my first LLM from scratch with guidance from <em>Build a Large Language Model (From Scratch)</em>.</p>
+            <div class="evidence-grid profile-grid">
+              <span>Lung disease detection app</span><span>Classification + segmentation</span><span>FastAPI · Docker · databases</span><span>Transformers zoo · LLM from scratch</span>
+            </div>
+          </article>
+
+          <article class="vault-panel" id="future">
+            <div class="panel-meta">Future direction · LLMs · RAG · Agents</div>
+            <h3>The next layer is advanced AI systems engineering.</h3>
+            <p>My future work is focused on mastering the transformers ecosystem, building an LLM from scratch, deploying more complete AI apps, diving into RAG and reasoning techniques, and mastering agentic workflows. The goal is to keep moving from isolated experiments toward advanced, reliable, and explainable AI systems.</p>
+            <div class="evidence-grid profile-grid">
+              <span>Transformers ecosystem</span><span>LLM from scratch</span><span>RAG & reasoning</span><span>AI agents</span>
             </div>
           </article>
         </div>
@@ -137,16 +187,123 @@
 
     <section class="stack-board reveal">
       <div class="section-head narrow">
-        <span class="section-kicker">Technical surface</span>
-        <h2>The tools are organized by responsibility, not popularity.</h2>
+        <span class="section-kicker">Grouped skills</span>
+        <h2>Tooling grouped by responsibility, not by project names.</h2>
+        <p>This map focuses on the tools, libraries, model families, and engineering practices behind the portfolio.</p>
       </div>
+
       <div class="stack-grid">
-        <article><b>Modeling</b><p>TensorFlow/Keras · PyTorch · Scikit-Learn · XGBoost · LightGBM · CatBoost</p></article>
-        <article><b>Vision</b><p>OpenCV · YOLOv8 · EfficientNet · KerasCV · augmentation · WBF · TTA</p></article>
-        <article><b>NLP</b><p>NLTK · GloVe · BiLSTM · TF-IDF · tokenization · WordCloud · threshold tuning</p></article>
-        <article><b>Systems</b><p>FastAPI · Docker · SQLite · PostgreSQL · Redis · Uvicorn · Jinja2</p></article>
-        <article><b>Data</b><p>Pandas · NumPy · Matplotlib · Seaborn · Regex · BeautifulSoup · PyMongo</p></article>
-        <article><b>Presentation</b><p>GitHub · GitHub Pages · portfolio UI · project storytelling · research archive</p></article>
+        <article><b>Modeling Core</b><p>PyTorch · TensorFlow/Keras · Scikit-Learn · NumPy · model training loops · validation · metrics · experiment comparison</p></article>
+        <article><b>Computer Vision & Deployment</b><p>OpenCV · KerasCV · image preprocessing · data augmentation · transfer learning · EfficientNet · MobileNet · DenseNet · InceptionNet · U-Net/Xception segmentation</p></article>
+        <article><b>NLP & Transformers</b><p>Tokenization · embeddings · WordPiece/BPE · RNNs · LSTMs · attention · self-attention · cross-attention · transformer encoders · Hugging Face Transformers · Datasets · BERT · XLM · GPT-2</p></article>
+        <article><b>Classical ML & Boosting</b><p>Pandas · Scikit-Learn pipelines · Logistic Regression · SVM/SVC · Random Forest · Decision Tree · XGBoost · LightGBM · CatBoost · feature engineering · cross-validation</p></article>
+        <article><b>Deployment Systems</b><p>FastAPI · Uvicorn · Docker · PostgreSQL · Microsoft SQL Server · Redis · Hugging Face Spaces · Render · Railway · API serving · inference endpoints</p></article>
+        <article><b>MLOps</b><p>MLflow · Airflow · Kafka · experiment tracking · model registry habits · workflow automation · reproducible pipelines · event-driven simulation</p></article>
+        <article><b>Data & EDA</b><p>Pandas · NumPy · Matplotlib · Seaborn · missing-value analysis · distribution checks · correlation analysis · text EDA · image EDA · diagnostics · feature extraction</p></article>
+        <article><b>System Interfaces</b><p>HTML · CSS · JavaScript · Jinja templates · GitHub Pages · portfolio UI · API-connected frontend · project storytelling · user-facing ML interfaces</p></article>
+      </div>
+    </section>
+
+    <section class="skill-atlas reveal" id="skill-atlas">
+      <div class="section-head narrow">
+        <span class="section-kicker">Skill atlas</span>
+        <h2>A compact map of the stack behind the work.</h2>
+        <p>A table-style view of the languages, AI skills, deployment tools, MLOps practices, education signals, and research directions that shape the portfolio.</p>
+      </div>
+
+      <div class="logo-runway" aria-label="Technology logo motion strip">
+        <div class="logo-track">
+          <span><i class="devicon-python-plain colored"></i>Python</span>
+          <span><i class="devicon-c-plain colored"></i>C</span>
+          <span><i class="devicon-cplusplus-plain colored"></i>C++</span>
+          <span><i class="devicon-javascript-plain colored"></i>JavaScript</span>
+          <span><i class="devicon-html5-plain colored"></i>HTML5</span>
+          <span><i class="devicon-css3-plain colored"></i>CSS3</span>
+          <span><i class="devicon-pytorch-original colored"></i>PyTorch</span>
+          <span><i class="devicon-tensorflow-original colored"></i>TensorFlow</span>
+          <span><i class="devicon-keras-plain colored"></i>Keras</span>
+          <span><i class="devicon-opencv-plain colored"></i>OpenCV</span>
+          <span><i class="devicon-jupyter-plain colored"></i>JupyterLab</span>
+          <span><i class="devicon-vscode-plain colored"></i>VS Code</span>
+          <span><i class="devicon-scikitlearn-plain colored"></i>Scikit-Learn</span>
+          <span><i class="devicon-fastapi-plain colored"></i>FastAPI</span>
+          <span><i class="devicon-docker-plain colored"></i>Docker</span>
+          <span><i class="devicon-postgresql-plain colored"></i>PostgreSQL</span>
+          <span><i class="devicon-mysql-original colored"></i>MySQL</span>
+          <span><i class="devicon-microsoftsqlserver-plain colored"></i>SQL Server</span>
+          <span><i class="devicon-mongodb-plain colored"></i>MongoDB</span>
+          <span><i class="devicon-redis-plain colored"></i>Redis</span>
+          <span><i class="devicon-sqlite-plain colored"></i>SQLite</span>
+          <span><i class="devicon-apacheairflow-plain colored"></i>Airflow</span>
+          <span><i class="devicon-apachekafka-original colored"></i>Kafka</span>
+          <span><i class="devicon-git-plain colored"></i>Git</span>
+          <span><i class="devicon-github-original"></i>GitHub</span>
+
+          <span><i class="devicon-python-plain colored"></i>Python</span>
+          <span><i class="devicon-c-plain colored"></i>C</span>
+          <span><i class="devicon-cplusplus-plain colored"></i>C++</span>
+          <span><i class="devicon-javascript-plain colored"></i>JavaScript</span>
+          <span><i class="devicon-html5-plain colored"></i>HTML5</span>
+          <span><i class="devicon-css3-plain colored"></i>CSS3</span>
+          <span><i class="devicon-pytorch-original colored"></i>PyTorch</span>
+          <span><i class="devicon-tensorflow-original colored"></i>TensorFlow</span>
+          <span><i class="devicon-keras-plain colored"></i>Keras</span>
+          <span><i class="devicon-opencv-plain colored"></i>OpenCV</span>
+          <span><i class="devicon-jupyter-plain colored"></i>JupyterLab</span>
+          <span><i class="devicon-vscode-plain colored"></i>VS Code</span>
+          <span><i class="devicon-scikitlearn-plain colored"></i>Scikit-Learn</span>
+          <span><i class="devicon-fastapi-plain colored"></i>FastAPI</span>
+          <span><i class="devicon-docker-plain colored"></i>Docker</span>
+          <span><i class="devicon-postgresql-plain colored"></i>PostgreSQL</span>
+          <span><i class="devicon-mysql-original colored"></i>MySQL</span>
+          <span><i class="devicon-microsoftsqlserver-plain colored"></i>SQL Server</span>
+          <span><i class="devicon-mongodb-plain colored"></i>MongoDB</span>
+          <span><i class="devicon-redis-plain colored"></i>Redis</span>
+          <span><i class="devicon-sqlite-plain colored"></i>SQLite</span>
+          <span><i class="devicon-apacheairflow-plain colored"></i>Airflow</span>
+          <span><i class="devicon-apachekafka-original colored"></i>Kafka</span>
+          <span><i class="devicon-git-plain colored"></i>Git</span>
+          <span><i class="devicon-github-original"></i>GitHub</span>
+        </div>
+      </div>
+
+      <div class="skill-table" role="table" aria-label="Skills by category">
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="devicon-python-plain colored"></i><span>Programming languages</span></div>
+          <div class="skill-items" role="cell"><span>Python</span><span>C</span><span>C++</span><span>JavaScript</span><span>HTML</span><span>CSS</span></div>
+        </div>
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="devicon-opencv-plain colored"></i><span>Computer vision</span></div>
+          <div class="skill-items" role="cell"><span>CNNs</span><span>Image preprocessing</span><span>Data augmentation</span><span>OpenCV</span><span>KerasCV</span><span>EfficientNet</span><span>MobileNet</span><span>DenseNet</span><span>InceptionNet</span><span>U-Net/Xception</span><span>Object detection</span><span>Segmentation</span></div>
+        </div>
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="fa-solid fa-language"></i><span>NLP & transformers</span></div>
+          <div class="skill-items" role="cell"><span>Tokenization</span><span>Embeddings</span><span>WordPiece</span><span>BPE</span><span>RNNs</span><span>LSTMs</span><span>Self-attention</span><span>Cross-attention</span><span>Transformer encoders</span><span>BERT</span><span>XLM</span><span>GPT-2</span><span>Hugging Face Transformers</span><span>Datasets</span></div>
+        </div>
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="devicon-scikitlearn-plain colored"></i><span>Classical ML</span></div>
+          <div class="skill-items" role="cell"><span>Scikit-Learn</span><span>Pandas</span><span>NumPy</span><span>Feature engineering</span><span>Cross-validation</span><span>Logistic Regression</span><span>SVM/SVC</span><span>Random Forest</span><span>Decision Tree</span><span>XGBoost</span><span>LightGBM</span><span>CatBoost</span></div>
+        </div>
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="devicon-fastapi-plain colored"></i><span>Deployment</span></div>
+          <div class="skill-items" role="cell"><span>FastAPI</span><span>Uvicorn</span><span>Docker</span><span>API serving</span><span>Inference endpoints</span><span>Hugging Face Spaces</span><span>Render</span><span>Railway</span><span>GitHub Pages</span><span>Jinja frontend</span></div>
+        </div>
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="devicon-postgresql-plain colored"></i><span>Databases</span></div>
+          <div class="skill-items" role="cell"><span>PostgreSQL</span><span>Microsoft SQL Server</span><span>MySQL</span><span>MongoDB</span><span>PyMongo</span><span>SQLite3</span><span>Redis cache</span></div>
+        </div>
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="devicon-apacheairflow-plain colored"></i><span>MLOps</span></div>
+          <div class="skill-items" role="cell"><span>MLflow</span><span>Airflow</span><span>Kafka</span><span>Experiment tracking</span><span>Workflow automation</span><span>Model logging</span><span>Reproducible pipelines</span><span>Event-driven simulation</span></div>
+        </div>
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="fa-solid fa-chart-line"></i><span>Data & EDA</span></div>
+          <div class="skill-items" role="cell"><span>Missing-value analysis</span><span>Distribution checks</span><span>Correlation analysis</span><span>Diagnostics</span><span>Text EDA</span><span>Image EDA</span><span>Visualization</span><span>Feature extraction</span></div>
+        </div>
+        <div class="skill-row" role="row">
+          <div class="skill-category" role="cell"><i class="fa-solid fa-graduation-cap"></i><span>Education signals</span></div>
+          <div class="skill-items" role="cell"><span>Andrew Ng ML/DL</span><span>TensorFlow Specialization</span><span>CS50</span><span>MIT Deep Learning</span><span>Core AI books</span><span>Software Engineering GPA 19.10</span></div>
+        </div>
       </div>
     </section>
 
@@ -156,25 +313,22 @@
         <h2>A focused climb from fundamentals toward advanced AI engineering.</h2>
       </div>
       <div class="journey-line">
-        <div class="journey-item"><span>Foundation</span><strong>Python, data analysis, visualization, and classical ML.</strong></div>
-        <div class="journey-item"><span>Specialization</span><strong>Andrew Ng ML/DL foundations, neural networks, CNNs, sequence models.</strong></div>
-        <div class="journey-item"><span>Competition Work</span><strong>Kaggle-style CV, NLP, tabular modeling, feature engineering, validation.</strong></div>
-        <div class="journey-item"><span>Engineering Layer</span><strong>FastAPI, Docker, databases, portfolio systems, and deployable ML apps.</strong></div>
-        <div class="journey-item"><span>North Star</span><strong>Long-term path toward AGI-level understanding and advanced AI systems.</strong></div>
+        <div class="journey-item"><span>Foundation</span><strong>Python, C/C++, data analysis, visualization, and classical machine learning.</strong></div>
+        <div class="journey-item"><span>Education</span><strong>Andrew Ng ML/DL, TensorFlow Specialization, CS50, MIT Deep Learning, and core AI books.</strong></div>
+        <div class="journey-item"><span>Deep learning stack</span><strong>Mastering PyTorch and TensorFlow through CNNs, sequence models, transfer learning, and custom training workflows.</strong></div>
+        <div class="journey-item"><span>Applied practice</span><strong>EDA, Kaggle competitions, NLP, computer vision, feature engineering, validation, and portfolio-grade project documentation.</strong></div>
+        <div class="journey-item"><span>Engineering layer</span><strong>FastAPI, Docker, databases, cloud hosting, MLflow, Airflow, Kafka, and deployable ML applications.</strong></div>
+        <div class="journey-item"><span>North star</span><strong>Transformers, LLMs from scratch, RAG, reasoning, agents, and advanced AI systems.</strong></div>
       </div>
     </section>
 
     <section class="principles reveal">
-      <article><span>Principle 01</span><b>Depth before decoration</b><p>Design matters, but it must reveal the technical work instead of hiding weak implementation.</p></article>
-      <article><span>Principle 02</span><b>Systems thinking</b><p>A strong project includes data, modeling, evaluation, deployment, and a clear story.</p></article>
-      <article><span>Principle 03</span><b>Visible progress</b><p>Every page, notebook, and repository should show a step forward in skill and maturity.</p></article>
+      <article><span>Principle 01</span><b>Depth before decoration</b><p>Design matters, but it must reveal real technical work instead of hiding weak implementation.</p></article>
+      <article><span>Principle 02</span><b>Systems thinking</b><p>A strong AI project includes data, modeling, evaluation, deployment, monitoring habits, and a clear story.</p></article>
+      <article><span>Principle 03</span><b>Visible progress</b><p>Every page, notebook, and repository should show a step forward in skill, maturity, and engineering discipline.</p></article>
     </section>
 
-    <footer class="contact reveal" id="contact">
-      <div>
-        <span class="section-kicker">Contact</span>
-        <h2>Open to AI projects, research collaboration, and engineering opportunities.</h2>
-      </div>
+    <footer class="contact reveal icon-only-footer" id="contact">
       <div class="contact-actions">
         <a href="mailto:a1mohamad.askari@gmail.com" aria-label="Gmail"><i class="fab fa-google"></i></a>
         <a href="mailto:amirmohmdaskari@icloud.com" aria-label="iCloud"><i class="fab fa-apple"></i></a>
