@@ -599,7 +599,7 @@ const projects = [
       "Confusion Matrix"
     ],
     "href": "https://a1mohamad.github.io/research/loan-approval/index.html",
-    "image": "url(assets/projects/loan-approval.png)"
+    "image": "url(assets/images/loan-approval.png)"
   }
 ];
 
