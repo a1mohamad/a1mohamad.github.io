@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amir Mohammad Askari — About Me</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="cursor-aura" id="cursor-aura"></div>
+
+  <nav class="topbar">
+    <a href="https://a1mohamad.github.io/" class="brand" aria-label="Home">
+      <span class="brand-mark">A</span>
+      <span>Amir Mohammad Askari</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://a1mohamad.github.io/app/index.html">Apps</a>
+      <a href="https://a1mohamad.github.io/research/projects/index.html">Research</a>
+      <a href="https://a1mohamad.github.io/education/index.html">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a class="nav-signal" href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener">LinkedIn</a>
+  </nav>
+
+  <main>
+    <section class="hero reveal">
+      <div class="hero-left">
+        <div class="overline"><span></span> Applied AI Engineer in progress</div>
+        <h1>Designing the bridge between learning, research, and deployable intelligence.</h1>
+        <p class="hero-text">
+          I build machine learning and deep learning projects as complete systems: data exploration, feature engineering, model training, evaluation, deployment, and polished portfolio storytelling. My long-term direction is advanced AI engineering with a serious focus on computer vision, NLP, MLOps, and the foundations needed for AGI-oriented work.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-action" href="https://github.com/a1mohamad" target="_blank" rel="noopener"><i class="fab fa-github"></i> Research Lab</a>
+          <a class="secondary-action" href="https://a1mohamad.github.io/research/projects/index.html">View Project Archive <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <aside class="hero-instrument" aria-label="Profile instrument panel">
+        <div class="instrument-top">
+          <span>PROFILE VECTOR</span>
+          <b>LIVE</b>
+        </div>
+        <div class="radar-shell">
+          <div class="radar-grid"></div>
+          <div class="radar-core">AI</div>
+          <span class="orbit orbit-a">TensorFlow</span>
+          <span class="orbit orbit-b">PyTorch</span>
+          <span class="orbit orbit-c">FastAPI</span>
+          <span class="orbit orbit-d">YOLO</span>
+          <span class="orbit orbit-e">NLP</span>
+        </div>
+        <div class="instrument-readout">
+          <div><span>Mode</span><strong>Research → Product</strong></div>
+          <div><span>Stack</span><strong>Python · DL · APIs</strong></div>
+          <div><span>Target</span><strong>Advanced AI Systems</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="manifest reveal">
+      <div class="manifest-number">01</div>
+      <div>
+        <span class="section-kicker">Operating thesis</span>
+        <h2>Not just notebooks. Not just UI. Complete intelligent workflows.</h2>
+      </div>
+      <p>
+        My portfolio is organized around a simple idea: every project should demonstrate technical depth and also be understandable as a real product artifact. I care about the invisible parts — preprocessing, validation, training strategy, inference logic, deployment, and documentation — because those are what turn experiments into engineering.
+      </p>
+    </section>
+
+    <section class="vault reveal" id="work-map">
+      <div class="section-head">
+        <span class="section-kicker">Work categories</span>
+        <h2>My work is grouped by how it contributes to AI systems.</h2>
+        <p>Instead of a basic skill list, this page treats your work like a research vault: each category has its own role, stack, and project evidence.</p>
+      </div>
+
+      <div class="vault-layout">
+        <div class="vault-tabs" role="tablist" aria-label="Work categories">
+          <button class="vault-tab active" data-vault="vision"><span>01</span>Computer Vision</button>
+          <button class="vault-tab" data-vault="nlp"><span>02</span>NLP & Text Systems</button>
+          <button class="vault-tab" data-vault="ml"><span>03</span>Classical ML</button>
+          <button class="vault-tab" data-vault="deployment"><span>04</span>Deployment Layer</button>
+          <button class="vault-tab" data-vault="data"><span>05</span>Data Engineering</button>
+        </div>
+
+        <div class="vault-panels">
+          <article class="vault-panel active" id="vision">
+            <div class="panel-meta">Computer Vision · Deep Learning · Kaggle</div>
+            <h3>Seeing, localizing, and classifying visual patterns.</h3>
+            <p>Image classification and object detection work using CNNs, EfficientNet, YOLOv8, transfer learning, fine-tuning, test-time augmentation, and bounding-box evaluation.</p>
+            <div class="evidence-grid">
+              <span>Cassava Leaf Disease</span><span>Global Wheat Detection</span><span>Digit Recognizer</span><span>YOLO · WBF · TTA</span>
+            </div>
+          </article>
+          <article class="vault-panel" id="nlp">
+            <div class="panel-meta">NLP · Sequence Models · Deployment</div>
+            <h3>Building text classifiers that move from analysis to app logic.</h3>
+            <p>Text preprocessing, TF-IDF diagnostics, tokenization, word embeddings, BiLSTM networks, threshold tuning, and deployed prediction workflows.</p>
+            <div class="evidence-grid">
+              <span>Disaster Tweets</span><span>SMS Spam Classification</span><span>GloVe Embeddings</span><span>FastAPI Text App</span>
+            </div>
+          </article>
+          <article class="vault-panel" id="ml">
+            <div class="panel-meta">Structured Data · Regression · Classification</div>
+            <h3>Feature engineering and model comparison for tabular problems.</h3>
+            <p>Classical machine learning projects with Scikit-Learn, XGBoost, LightGBM, CatBoost, cross-validation, imputation, ensemble thinking, and metrics-driven evaluation.</p>
+            <div class="evidence-grid">
+              <span>Titanic Survival</span><span>TMDB Revenue</span><span>Tesla Direction</span><span>Medical Diagnostics</span>
+            </div>
+          </article>
+          <article class="vault-panel" id="deployment">
+            <div class="panel-meta">API · Docker · Databases · Portfolio Systems</div>
+            <h3>Turning models into inspectable systems.</h3>
+            <p>FastAPI services, Dockerized apps, SQLite/PostgreSQL logging, Redis caching, clean web pages, GitHub Pages publishing, and deployment-style project packaging.</p>
+            <div class="evidence-grid">
+              <span>FastAPI</span><span>Docker Compose</span><span>SQLite Logs</span><span>GitHub Pages</span>
+            </div>
+          </article>
+          <article class="vault-panel" id="data">
+            <div class="panel-meta">EDA · Scraping · Pipelines · Visualization</div>
+            <h3>Making raw data useful before the model ever starts.</h3>
+            <p>Data cleaning, visual diagnostics, feature extraction, scraping workflows, MongoDB insertion, RSS/XML parsing, and presentation-ready analysis.</p>
+            <div class="evidence-grid">
+              <span>Berlin Scraper</span><span>NYT Scraping</span><span>Zomato Analysis</span><span>EDA Systems</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="stack-board reveal">
+      <div class="section-head narrow">
+        <span class="section-kicker">Technical surface</span>
+        <h2>The tools are organized by responsibility, not popularity.</h2>
+      </div>
+      <div class="stack-grid">
+        <article><b>Modeling</b><p>TensorFlow/Keras · PyTorch · Scikit-Learn · XGBoost · LightGBM · CatBoost</p></article>
+        <article><b>Vision</b><p>OpenCV · YOLOv8 · EfficientNet · KerasCV · augmentation · WBF · TTA</p></article>
+        <article><b>NLP</b><p>NLTK · GloVe · BiLSTM · TF-IDF · tokenization · WordCloud · threshold tuning</p></article>
+        <article><b>Systems</b><p>FastAPI · Docker · SQLite · PostgreSQL · Redis · Uvicorn · Jinja2</p></article>
+        <article><b>Data</b><p>Pandas · NumPy · Matplotlib · Seaborn · Regex · BeautifulSoup · PyMongo</p></article>
+        <article><b>Presentation</b><p>GitHub · GitHub Pages · portfolio UI · project storytelling · research archive</p></article>
+      </div>
+    </section>
+
+    <section class="journey reveal">
+      <div class="section-head narrow">
+        <span class="section-kicker">Trajectory</span>
+        <h2>A focused climb from fundamentals toward advanced AI engineering.</h2>
+      </div>
+      <div class="journey-line">
+        <div class="journey-item"><span>Foundation</span><strong>Python, data analysis, visualization, and classical ML.</strong></div>
+        <div class="journey-item"><span>Specialization</span><strong>Andrew Ng ML/DL foundations, neural networks, CNNs, sequence models.</strong></div>
+        <div class="journey-item"><span>Competition Work</span><strong>Kaggle-style CV, NLP, tabular modeling, feature engineering, validation.</strong></div>
+        <div class="journey-item"><span>Engineering Layer</span><strong>FastAPI, Docker, databases, portfolio systems, and deployable ML apps.</strong></div>
+        <div class="journey-item"><span>North Star</span><strong>Long-term path toward AGI-level understanding and advanced AI systems.</strong></div>
+      </div>
+    </section>
+
+    <section class="principles reveal">
+      <article><span>Principle 01</span><b>Depth before decoration</b><p>Design matters, but it must reveal the technical work instead of hiding weak implementation.</p></article>
+      <article><span>Principle 02</span><b>Systems thinking</b><p>A strong project includes data, modeling, evaluation, deployment, and a clear story.</p></article>
+      <article><span>Principle 03</span><b>Visible progress</b><p>Every page, notebook, and repository should show a step forward in skill and maturity.</p></article>
+    </section>
+
+    <footer class="contact reveal" id="contact">
+      <div>
+        <span class="section-kicker">Contact</span>
+        <h2>Open to AI projects, research collaboration, and engineering opportunities.</h2>
+      </div>
+      <div class="contact-actions">
+        <a href="mailto:a1mohamad.askari@gmail.com" aria-label="Gmail"><i class="fab fa-google"></i></a>
+        <a href="mailto:amirmohmdaskari@icloud.com" aria-label="iCloud"><i class="fab fa-apple"></i></a>
+        <a href="tel:+989012223122" aria-label="Phone"><i class="fas fa-phone"></i></a>
+        <a href="https://github.com/a1mohamad" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" rel="noopener" aria-label="Kaggle"><i class="fab fa-kaggle"></i></a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
