@@ -25,10 +25,9 @@
 <main class="page">
   <section class="winner-hero public-hero reveal">
     <span class="eyebrow">Applied AI Research Archive</span>
-    <h1 class="hero-title">Projects built from data, models, and deployment‑ready thinking.</h1>
+    <h1 class="hero-title">Applied AI projects across vision, NLP, tabular ML, data engineering, and deployment.</h1>
     <p class="hero-copy">
-      A curated index of machine learning, deep learning, medical AI, regression, finance, data analysis, and data-engineering projects.
-      Use search, filters, tags, and tool labels to explore the archive as it grows.
+      A searchable research catalog covering Kaggle competitions, computer vision, NLP, medical diagnostics, regression, classification, web scraping, APIs, Dockerized apps, and end-to-end machine learning workflows. Explore each project by domain, task type, tools, algorithms, and implementation strategy.
     </p>
     <div class="hero-actions">
       <a class="hero-research-lab" href="https://github.com/a1mohamad" target="_blank" rel="noopener" aria-label="Open Research Lab on GitHub">
@@ -39,12 +38,14 @@
         </span>
       </a>
 
-      <div class="hero-meta">
-        <span class="meta-pill">Machine Learning</span>
-        <span class="meta-pill">Deep Learning</span>
-        <span class="meta-pill">Medical AI</span>
-        <span class="meta-pill">Data Engineering</span>
-        <span class="meta-pill">Searchable Catalog</span>
+      <div class="hero-quick-filters" aria-label="Quick project filters">
+        <span class="quick-filter-label">Quick filters</span>
+        <button class="meta-pill quick-filter" type="button" data-quick-category="Deep Learning">Deep Learning</button>
+        <button class="meta-pill quick-filter" type="button" data-quick-category="Computer Vision">Computer Vision</button>
+        <button class="meta-pill quick-filter" type="button" data-quick-category="NLP">NLP</button>
+        <button class="meta-pill quick-filter" type="button" data-quick-category="Deployment">Deployment</button>
+        <button class="meta-pill quick-filter" type="button" data-quick-category="Medical">Medical AI</button>
+        <button class="meta-pill quick-filter" type="button" data-quick-category="Kaggle Competition">Kaggle</button>
       </div>
     </div>
   </section>
@@ -95,11 +96,11 @@
     <div class="filter-panel">
       <div class="filter-block" data-filter-block="category">
         <div class="filter-heading">
-          <div class="filter-label">Categories</div>
+          <div class="filter-label">Categories & Types</div>
           <span class="filter-total" id="category-total">0</span>
         </div>
         <div class="filter-rail-area">
-          <div class="filter-mini-search"><i class="fa-solid fa-magnifying-glass"></i><input class="filter-mini-input" id="category-filter-search" placeholder="Find category..." autocomplete="off"></div>
+          <div class="filter-mini-search"><i class="fa-solid fa-magnifying-glass"></i><input class="filter-mini-input" id="category-filter-search" placeholder="Find category/type..." autocomplete="off"></div>
           <div class="filter-list" id="category-filters"></div>
         </div>
         <button class="filter-more" type="button" data-filter-more="category">Show more <i class="fa-solid fa-chevron-down"></i></button>
@@ -126,6 +127,11 @@
         </div>
         <button class="filter-more" type="button" data-filter-more="algorithm">Show more <i class="fa-solid fa-chevron-down"></i></button>
       </div>
+    </div>
+
+    <div class="catalog-card-guide">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Hover a project card to view the full description, tools, and algorithms.</span>
     </div>
 
     <div class="project-grid" id="project-grid"></div>
