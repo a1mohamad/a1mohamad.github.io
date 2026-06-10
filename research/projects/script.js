@@ -47,7 +47,7 @@ const projects = [
     "Model Deployment"
   ],
     "href": "https://a1mohamad.github.io/research/disaster-tweets/index.html",
-    "image": "linear-gradient(135deg, rgba(239,68,68,.30), rgba(5,5,8,.82)), url(assets/images/tweets.png)"
+    "image": "url(assets/images/tweets.png)"
   },
   {
   "title": "SMS Spam Classification",
@@ -92,7 +92,7 @@ const projects = [
     "Anamoly Detection"
   ],
     "href": "https://a1mohamad.github.io/research/sms-spam/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/sms-spam.png)"
+    "image": "url(assets/images/sms-spam.png)"
   },
   {
   "title": "Global Wheat Detection",
@@ -134,7 +134,7 @@ const projects = [
     "Weighted Boxes Fusion",
   ],
     "href": "https://a1mohamad.github.io/research/wheat-detection/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/wheat.png)"
+    "image": "url(assets/images/wheat.png)"
   },
   {
     "title": "Cassava Leaf Diseases",
@@ -172,7 +172,7 @@ const projects = [
     "TTA"
   ],
     "href": "https://a1mohamad.github.io/research/cassava-leaf/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/cassava.png)"
+    "image": "url(assets/images/cassava.png)"
   },
   {
     "title": "TMDB Box Office Revenue",
@@ -218,7 +218,7 @@ const projects = [
     "Docker Deployment"
   ],
     "href": "https://a1mohamad.github.io/research/box-office-revenue/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/box-office.png)"
+    "image": "url(assets/images/revenue.png)"
   },
   {
     "title": "Berlin House Price Prediction",
@@ -250,7 +250,7 @@ const projects = [
       "Bot Creation"
     ],
      "href": "https://a1mohamad.github.io/research/berlin-house-price-scraper/index.html",
-     "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/berlin.png)"
+     "image": "url(assets/images/berlin.png)"
   },
   {
     "title": "Digit Recognizer",
@@ -281,7 +281,7 @@ const projects = [
       "K-Fold"
     ],
     "href": "https://a1mohamad.github.io/research/digit-recognizer/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/digit-recognizer.png)"
+    "image": "url(assets/images/digit-recognizer.png)"
   },
   {
     "title": "Titanic Survival Prediction Engine",
@@ -315,7 +315,7 @@ const projects = [
       "Confusion Matrix"
     ],
     "href": "https://a1mohamad.github.io/research/titanic/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.35), rgba(5,5,8,.8)), url(assets/images/titanic.png)"
+    "image": "url(assets/images/titanic.png)"
   },
   {
     "title": "Tesla Stock Direction Forecasting",
@@ -347,7 +347,7 @@ const projects = [
       "Feature Engineering"
     ],
     "href": "https://a1mohamad.github.io/research/tesla-stock/index.html",
-    "image": "linear-gradient(135deg, rgba(16,185,129,.28), rgba(5,5,8,.82)), url(assets/images/tesla-stock.png)"
+    "image": "url(assets/images/tesla-stock.png)"
   },
   {
     "title": "Breast Cancer Diagnostic Classifier",
@@ -376,7 +376,7 @@ const projects = [
       "EDA"
     ],
     "href": "https://a1mohamad.github.io/research/breast-cancer/index.html",
-    "image": "linear-gradient(135deg, rgba(236,72,153,.30), rgba(5,5,8,.82)), url(assets/images/breast-cancer.png)"
+    "image": "url(assets/images/breast-cancer.png)"
   },
   {
     "title": "Multi-Disease Identification",
@@ -407,7 +407,7 @@ const projects = [
       "Majority Voting"
     ],
     "href": "https://a1mohamad.github.io/research/multi-diseases/index.html",
-    "image": "linear-gradient(135deg, rgba(14,165,233,.28), rgba(5,5,8,.82)), url(assets/images/multi-diseases.png)"
+    "image": "url(assets/images/multi-diseases.png)"
   },
   {
     "title": "Wine Quality Chemical Classifier",
@@ -436,7 +436,7 @@ const projects = [
       "Data Imputation"
     ],
     "href": "https://a1mohamad.github.io/research/wine-quality/index.html",
-    "image": "linear-gradient(135deg, rgba(168,85,247,.30), rgba(5,5,8,.82)), url(assets/images/wine-quality.jpeg)"
+    "image": "url(assets/images/wine-quality.jpeg)"
   },
   {
     "title": "Cardiovascular Risk Diagnostics",
@@ -464,7 +464,7 @@ const projects = [
       "Data Augmentation"
     ],
     "href": "https://a1mohamad.github.io/research/heart-disease/index.html",
-    "image": "linear-gradient(135deg, rgba(248,113,113,.30), rgba(5,5,8,.82)), url(assets/images/heart-disease.png)"
+    "image": "url(assets/images/heart-disease.png)"
   },
   {
     "title": "House Price Prediction Engine",
@@ -493,7 +493,7 @@ const projects = [
       "Data Preprocessing"
     ],
     "href": "https://a1mohamad.github.io/research/house-price/index.html",
-    "image": "linear-gradient(135deg, rgba(245,158,11,.30), rgba(5,5,8,.82)), url(assets/images/house-price.jpg)"
+    "image": "url(assets/images/house-price.jpg)"
   },
   {
     "title": "California Housing Regression",
@@ -520,7 +520,7 @@ const projects = [
       "EDA"
     ],
     "href": "https://a1mohamad.github.io/research/california-housing/index.html",
-    "image": "linear-gradient(135deg, rgba(20,184,166,.28), rgba(5,5,8,.82)), url(assets/images/california-housing.jpg)"
+    "image": "url(assets/images/california-housing.jpg)"
   },
   {
     "title": "Zomato Restaurant Market Analysis",
@@ -545,7 +545,7 @@ const projects = [
       "Confusion Matrix"
     ],
     "href": "https://a1mohamad.github.io/research/zomato-analysis/index.html",
-    "image": "linear-gradient(135deg, rgba(249,115,22,.30), rgba(5,5,8,.82)), url(assets/images/zomato.jpg)"
+    "image": "url(assets/images/zomato.jpg)"
   },
   {
     "title": "New York Times Scraping Engine",
@@ -569,7 +569,7 @@ const projects = [
       "DOM Parsing"
     ],
     "href": "https://a1mohamad.github.io/research/NewYorkTimes-scraping/index.html",
-    "image": "linear-gradient(135deg, rgba(148,163,184,.28), rgba(5,5,8,.82)), url(assets/images/NYT.png)"
+    "image": "url(assets/images/NYT.png)"
   },
   {
     "title": "Loan Approval Predictive System",
@@ -599,7 +599,7 @@ const projects = [
       "Confusion Matrix"
     ],
     "href": "https://a1mohamad.github.io/research/loan-approval/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.24), rgba(5,5,8,.82)), url(assets/projects/loan-approval.png)"
+    "image": "url(assets/projects/loan-approval.png)"
   }
 ];
 
@@ -634,8 +634,9 @@ const sortWrap = document.getElementById("sort-wrap");
 const sortToggle = document.getElementById("project-sort-toggle");
 const sortMenu = document.getElementById("project-sort-menu");
 const sortLabel = document.getElementById("project-sort-label");
+const quickFilterButtons = document.querySelectorAll("[data-quick-category]");
 
-const categories = ["All", ...new Set(projects.map(p => p.category))];
+const categories = ["All", ...new Set(projects.flatMap(p => [p.category, ...p.meta.filter(item => !/^\d{4}$/.test(String(item)))]))];
 const tools = ["All", ...new Set(projects.flatMap(p => p.tools))];
 const algorithms = ["All", ...new Set(projects.flatMap(p => p.tags))];
 const sortLabels = {
@@ -714,20 +715,79 @@ function matches(p) {
   ].join(" ").toLowerCase();
 
   return (!q || haystack.includes(q)) &&
-         (state.category === "All" || p.category === state.category) &&
+         (state.category === "All" || p.category === state.category || p.meta.includes(state.category)) &&
          (state.tool === "All" || p.tools.includes(state.tool)) &&
          (state.algorithm === "All" || p.tags.includes(state.algorithm));
 }
 
+function escapeHTML(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function renderPreviewChips(items, chipClass, limit) {
+  const safeItems = Array.isArray(items) ? [...new Set(items.filter(Boolean))] : [];
+  const visible = safeItems.slice(0, limit);
+  const hidden = safeItems.slice(limit);
+  const chips = visible
+    .map(item => `<span class="${chipClass}" title="${escapeHTML(item)}">${escapeHTML(item)}</span>`)
+    .join("");
+
+  if (!hidden.length) return chips;
+
+  return chips + `<span class="chip-more" title="Full list appears inside the hover panel">+${hidden.length}</span>`;
+}
+
+function renderAllChips(items, chipClass) {
+  const safeItems = Array.isArray(items) ? [...new Set(items.filter(Boolean))] : [];
+  return safeItems
+    .map(item => `<span class="${chipClass}" title="${escapeHTML(item)}">${escapeHTML(item)}</span>`)
+    .join("");
+}
+
+function renderFullChips(items, chipClass) {
+  const safeItems = Array.isArray(items) ? [...new Set(items.filter(Boolean))] : [];
+  return safeItems
+    .map(item => `<span class="${chipClass}" title="${escapeHTML(item)}">${escapeHTML(item)}</span>`)
+    .join("");
+}
+
 function card(p) {
-  return `<a class="project-card" href="${p.href}" target="_blank" rel="noopener">
+  return `<a class="project-card" href="${p.href}" target="_blank" rel="noopener" aria-label="Open ${escapeHTML(p.title)} project page">
     <div class="thumb" style="--image:${p.image}"></div>
-    <div>
-      <div class="tool-row">${p.meta.map(t => `<span class="status">${t}</span>`).join("")}</div>
-      <h3 class="project-title">${p.title}</h3>
-      <p class="project-desc">${p.desc}</p>
-      <div class="tool-row">${p.tools.map(t => `<span class="tool">${t}</span>`).join("")}</div>
-      <div class="tag-row" style="margin-top:8px">${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+    <div class="card-content">
+      <div class="tool-row compact-row meta-row">${renderAllChips([p.category, ...p.meta], "status")}</div>
+      <h3 class="project-title">${escapeHTML(p.title)}</h3>
+      <p class="project-desc">${escapeHTML(p.desc)}</p>
+      <div class="card-taxonomy">
+        <div class="taxonomy-line">
+          <span class="taxonomy-label">Tools</span>
+          <div class="tool-row compact-row">${renderPreviewChips(p.tools, "tool", 4)}</div>
+        </div>
+        <div class="taxonomy-line">
+          <span class="taxonomy-label">Algorithms</span>
+          <div class="tag-row compact-row">${renderPreviewChips(p.tags, "tag", 4)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-detail-panel" aria-hidden="true">
+      <div class="detail-head">
+        <span>Complete project labels</span>
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </div>
+      <p>${escapeHTML(p.desc)}</p>
+      <div class="detail-group">
+        <strong>Tools</strong>
+        <div class="detail-chips">${renderFullChips(p.tools, "tool")}</div>
+      </div>
+      <div class="detail-group">
+        <strong>Algorithms</strong>
+        <div class="detail-chips">${renderFullChips(p.tags, "tag")}</div>
+      </div>
     </div>
   </a>`;
 }
@@ -807,10 +867,32 @@ function render() {
   document.querySelectorAll("#tool-filters .filter-chip").forEach(b => b.classList.toggle("active", b.dataset.value === state.tool));
   document.querySelectorAll("#algorithm-filters .filter-chip").forEach(b => b.classList.toggle("active", b.dataset.value === state.algorithm));
   document.querySelectorAll(".sort-option").forEach(b => b.classList.toggle("active", b.dataset.sort === state.sort));
+  quickFilterButtons.forEach(b => b.classList.toggle("active", b.dataset.quickCategory === state.category));
   sortLabel.textContent = sortLabels[state.sort];
 
   renderPagination(totalPages);
 }
+
+quickFilterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const value = button.dataset.quickCategory;
+    state.q = "";
+    state.category = value;
+    state.tool = "All";
+    state.algorithm = "All";
+    state.categoryQuery = "";
+    state.toolQuery = "";
+    state.algorithmQuery = "";
+    state.page = 1;
+    search.value = "";
+    categoryFilterSearch.value = "";
+    toolFilterSearch.value = "";
+    algorithmFilterSearch.value = "";
+    renderChips();
+    render();
+    document.getElementById("catalog").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+});
 
 search.addEventListener("input", e => {
   state.q = e.target.value;
