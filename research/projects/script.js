@@ -8,6 +8,7 @@ const projects = [
     "NLP",
     "Deep Learning",
     "Deployment",
+    "Kaggle Competition",
     "SQLite3"
   ],
   "desc": "Disaster tweet classifier with EDA, GloVe-backed PyTorch BiLSTM training, FastAPI/Jinja serving, SQLite logs, and Docker deployment.",
