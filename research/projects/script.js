@@ -201,10 +201,10 @@ const projects = [
       "FastAPI",
       "Uvicorn",
       "Redis",
-      "Docker"
+      "Docker",
+      "Docker Compose"
     ],
     "tags": [
-    "Revenue Prediction",
     "Gradient Boosting",
     "Linear Regression",
     "XGBoost",
@@ -218,7 +218,7 @@ const projects = [
     "Docker Deployment"
   ],
     "href": "https://a1mohamad.github.io/research/box-office-revenue/index.html",
-    "image": "url(assets/images/revenue.png)"
+    "image": "url(assets/images/box-office.png)"
   },
   {
     "title": "Berlin House Price Prediction",
