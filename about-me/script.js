@@ -29,3 +29,40 @@ tabs.forEach(tab => {
     panels.forEach(panel => panel.classList.toggle('active', panel.id === target));
   });
 });
+
+const countValues = document.querySelectorAll('.count-value');
+let countsStarted = false;
+
+function animateCount(el) {
+  const target = Number(el.dataset.count || 0);
+  const duration = 1200;
+  const startTime = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(target * eased);
+    if (progress < 1) requestAnimationFrame(tick);
+    else el.textContent = target;
+  }
+
+  requestAnimationFrame(tick);
+}
+
+function startCounts() {
+  if (countsStarted) return;
+  countsStarted = true;
+  countValues.forEach(animateCount);
+}
+
+if (countValues.length) {
+  const metrics = document.querySelector('.hero-metrics');
+  const countObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) startCounts();
+    });
+  }, { threshold: 0.35 });
+
+  if (metrics) countObserver.observe(metrics);
+  window.addEventListener('load', () => setTimeout(startCounts, 450), { once: true });
+}
