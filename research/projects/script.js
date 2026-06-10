@@ -90,8 +90,8 @@ const projects = [
     "WordCloud",
     "Anamoly Detection"
   ],
-    "href": "https://a1mohamad.github.io/research/wheat-detection/index.html",
-    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/wheat.png)"
+    "href": "https://a1mohamad.github.io/research/sms-spam/index.html",
+    "image": "linear-gradient(135deg, rgba(99,102,241,.30), rgba(5,5,8,.82)), url(assets/images/sms-spam.png)"
   },
   {
   "title": "Global Wheat Detection",
