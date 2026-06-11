@@ -1324,3 +1324,9 @@ h2,h3{color:#eadfcb;}
 @media(max-width:520px){
   .hero-tool-signature{grid-template-columns:1fr !important;}
 }
+
+
+/* V10 — remove initials badge from real profile photo */
+.portrait-image span{
+  display:none !important;
+}
