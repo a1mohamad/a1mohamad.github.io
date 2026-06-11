@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amir Mohammad Askari — AI Apps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="orb orb-one" aria-hidden="true"></div>
+  <div class="orb orb-two" aria-hidden="true"></div>
+
+  <nav class="nav" id="main-nav">
+    <a href="https://a1mohamad.github.io/" class="nav-brand" aria-label="Home">
+      <span class="brand-mark">A</span>
+      <span>Amir Mohammad Askari</span>
+    </a>
+    <div class="nav-links">
+      <a href="https://a1mohamad.github.io/app/index.html">Apps</a>
+      <a href="https://a1mohamad.github.io/research/projects/index.html">Research</a>
+      <a href="https://a1mohamad.github.io/education/index.html">Education</a>
+      <a href="https://a1mohamad.github.io/about-me/index.html">About Me</a>
+    </div>
+    <a class="nav-cta" href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener">LinkedIn</a>
+  </nav>
+
+  <main>
+    <section class="hero-section" id="home">
+      <div class="hero-left reveal">
+        <div class="kicker">Applied AI Apps · FastAPI · Docker · Cloud</div>
+        <h1>Turning trained models into usable deployed AI products.</h1>
+        <p class="hero-copy">
+          This page is focused on the engineering layer after model training: exporting models, building APIs, connecting databases and object storage, designing frontends, containerizing services, and deploying AI applications to real cloud environments.
+        </p>
+        <div class="hero-actions">
+          <a class="primary-action" href="#apps"><i class="fa-solid fa-layer-group"></i> Explore Apps</a>
+          <a class="secondary-action" href="https://github.com/a1mohamad" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Source Archive</a>
+        </div>
+        <div class="signal-strip" aria-label="Application engineering signals">
+          <div><strong data-count="2">0</strong><span>Apps shipped</span></div>
+          <div><strong data-count="5">0</strong><span>Model families</span></div>
+          <div><strong data-count="4">0</strong><span>Database systems</span></div>
+          <div><strong data-count="3">0</strong><span>Cloud targets</span></div>
+        </div>
+      </div>
+
+      <aside class="deployment-console reveal" aria-label="Deployment pipeline visual">
+        <div class="console-head">
+          <span>Runtime blueprint</span>
+          <span class="live-dot">active</span>
+        </div>
+        <div class="pipeline-map">
+          <div class="node node-model"><i class="fa-solid fa-brain"></i><span>Model</span></div>
+          <div class="node node-api"><i class="devicon-fastapi-plain"></i><span>API</span></div>
+          <div class="node node-db"><i class="devicon-postgresql-plain"></i><span>DB</span></div>
+          <div class="node node-cloud"><i class="fa-solid fa-cloud"></i><span>Cloud</span></div>
+          <div class="node node-ui"><i class="fa-solid fa-window-maximize"></i><span>UI</span></div>
+          <span class="route route-a"></span>
+          <span class="route route-b"></span>
+          <span class="route route-c"></span>
+        </div>
+        <div class="console-table">
+          <div><span>Serving</span><strong>FastAPI · Uvicorn</strong></div>
+          <div><span>Packaging</span><strong>Docker · ONNX</strong></div>
+          <div><span>Persistence</span><strong>PostgreSQL · SQLite · MSSQL</strong></div>
+          <div><span>Targets</span><strong>Render · Railway · Hugging Face</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section workflow-section reveal" id="workflow">
+      <div class="section-header">
+        <span class="section-label">Productization path</span>
+        <h2>From notebook experiment to deployed application.</h2>
+        <p>My apps are not just demos. They are practice grounds for model serving, application structure, persistence, automation, and deployment decisions.</p>
+      </div>
+      <div class="flowline" aria-label="AI app workflow">
+        <div class="flow-step">
+          <span>01</span>
+          <i class="fa-solid fa-flask"></i>
+          <h3>Train / fine-tune</h3>
+          <p>Build custom models or adapt pretrained architectures using PyTorch, TensorFlow, Keras, and Hugging Face.</p>
+        </div>
+        <div class="flow-step">
+          <span>02</span>
+          <i class="fa-solid fa-file-export"></i>
+          <h3>Export models</h3>
+          <p>Move from raw <code>.pt</code> or <code>.keras</code> artifacts toward portable <code>.onnx</code> inference assets.</p>
+        </div>
+        <div class="flow-step">
+          <span>03</span>
+          <i class="devicon-fastapi-plain"></i>
+          <h3>Serve APIs</h3>
+          <p>Expose inference through FastAPI and Uvicorn with validation, routing, prediction metadata, and app-level logic.</p>
+        </div>
+        <div class="flow-step">
+          <span>04</span>
+          <i class="fa-solid fa-database"></i>
+          <h3>Store outputs</h3>
+          <p>Save predictions, metadata, logs, and uploaded image references using PostgreSQL, SQLite, MSSQL, or object storage.</p>
+        </div>
+        <div class="flow-step">
+          <span>05</span>
+          <i class="devicon-docker-plain"></i>
+          <h3>Deploy</h3>
+          <p>Containerize with Docker and launch to Render, Railway, Hugging Face Spaces, or similar platforms.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section apps-section reveal" id="apps">
+      <div class="section-header row-header">
+        <div>
+          <span class="section-label">Application archive</span>
+          <h2>Current deployed AI apps.</h2>
+          <p>Only two apps right now, but this page is designed to scale as more trained models become product-grade interfaces.</p>
+        </div>
+        <a class="text-link" href="#stack">View stack atlas <i class="fa-solid fa-arrow-down"></i></a>
+      </div>
+
+      <div class="apps-grid">
+        <article class="app-card app-card-featured">
+          <div class="app-visual lung-visual" aria-hidden="true">
+            <div class="scan-frame">
+              <span class="scan-line"></span>
+              <div class="lung-shape left"></div>
+              <div class="lung-shape right"></div>
+              <span class="mask-dot one"></span>
+              <span class="mask-dot two"></span>
+            </div>
+          </div>
+          <div class="app-body">
+            <div class="app-meta"><span>Medical AI</span><span>Computer Vision</span><span>MLOps</span></div>
+            <h3>Lung Disease Detection App</h3>
+            <p>
+              End-to-end medical imaging application: classification ensemble, segmentation model, FastAPI backend, Docker deployment, PostgreSQL prediction storage, Supabase image storage, Hugging Face model hosting, and MLOps layers with MLflow, Airflow, and local Kafka simulation.
+            </p>
+            <div class="architecture-strip">
+              <span>EfficientNet</span><span>MobileNet</span><span>DenseNet</span><span>Inception</span><span>U-Net/Xception</span><span>FastAPI</span><span>Docker</span><span>PostgreSQL</span><span>Supabase</span><span>MLflow</span><span>Airflow</span><span>Kafka</span>
+            </div>
+            <div class="app-footer">
+              <a href="lung-disease-detection" class="disabled-link">App link placeholder</a>
+              <a href="https://github.com/a1mohamad/lung-disease-detection-app" class="disabled-link">Repository placeholder</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card">
+          <div class="app-visual tweet-visual" aria-hidden="true">
+            <div class="tweet-stack">
+              <span></span><span></span><span></span>
+            </div>
+            <i class="fa-brands fa-x-twitter"></i>
+            <div class="pulse-ring"></div>
+          </div>
+          <div class="app-body">
+            <div class="app-meta"><span>NLP</span><span>Text Classification</span><span>FastAPI</span></div>
+            <h3>Disaster Tweet Classification App</h3>
+            <p>
+              Trained disaster tweet classifier served as a web application with FastAPI, SQLite logging, Jinja frontend templates, Docker packaging, and a clean prediction interface for real-time text inference.
+            </p>
+            <div class="architecture-strip">
+              <span>PyTorch</span><span>BiLSTM</span><span>GloVe</span><span>NLTK</span><span>FastAPI</span><span>Jinja</span><span>SQLite3</span><span>Docker</span>
+            </div>
+            <div class="app-footer">
+              <a href="#disaster-tweets-app" class="disabled-link">App link placeholder</a>
+              <a href="https://github.com/a1mohamad/disaster-tweet-app" class="disabled-link">Repository placeholder</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section stack-section reveal" id="stack">
+      <div class="section-header">
+        <span class="section-label">Deployment stack atlas</span>
+        <h2>The engineering tools behind my AI apps.</h2>
+        <p>A compact map of the technologies I use to convert models into real interfaces, services, storage layers, and cloud-ready systems.</p>
+      </div>
+
+      <div class="stack-marquee" aria-label="Technology icons">
+        <div class="stack-track">
+          <i class="devicon-python-plain colored" title="Python"></i>
+          <i class="devicon-pytorch-original colored" title="PyTorch"></i>
+          <i class="devicon-tensorflow-original colored" title="TensorFlow"></i>
+          <i class="devicon-keras-plain colored" title="Keras"></i>
+          <i class="devicon-fastapi-plain colored" title="FastAPI"></i>
+          <i class="devicon-docker-plain colored" title="Docker"></i>
+          <i class="devicon-postgresql-plain colored" title="PostgreSQL"></i>
+          <i class="devicon-sqlite-plain colored" title="SQLite"></i>
+          <i class="devicon-microsoftsqlserver-plain colored" title="MSSQL"></i>
+          <i class="devicon-mongodb-plain colored" title="MongoDB"></i>
+          <i class="devicon-redis-plain colored" title="Redis"></i>
+          <i class="devicon-apacheairflow-plain colored" title="Airflow"></i>
+          <i class="devicon-apachekafka-original colored" title="Kafka"></i>
+          <i class="devicon-huggingface-plain colored" title="Hugging Face"></i>
+          <i class="devicon-html5-plain colored" title="HTML"></i>
+          <i class="devicon-css3-plain colored" title="CSS"></i>
+          <i class="devicon-javascript-plain colored" title="JavaScript"></i>
+          <i class="devicon-vscode-plain colored" title="VS Code"></i>
+          <i class="devicon-github-original" title="GitHub"></i>
+          <span class="logo-pill">ONNX</span>
+          <span class="logo-pill">Render</span>
+          <span class="logo-pill">Railway</span>
+          <span class="logo-pill">Supabase</span>
+          <span class="logo-pill">MLflow</span>
+          <i class="devicon-python-plain colored" title="Python"></i>
+          <i class="devicon-pytorch-original colored" title="PyTorch"></i>
+          <i class="devicon-fastapi-plain colored" title="FastAPI"></i>
+          <i class="devicon-docker-plain colored" title="Docker"></i>
+          <i class="devicon-postgresql-plain colored" title="PostgreSQL"></i>
+          <span class="logo-pill">ONNX</span>
+          <span class="logo-pill">Hugging Face Hub</span>
+        </div>
+      </div>
+
+      <div class="stack-matrix">
+        <div class="stack-row"><span>Model serving</span><strong>FastAPI, Uvicorn, Pydantic, ONNX-ready model artifacts</strong></div>
+        <div class="stack-row"><span>Containers</span><strong>Docker, reproducible backend environments, image-based deployment</strong></div>
+        <div class="stack-row"><span>Databases</span><strong>PostgreSQL, SQLite3, MSSQL, MongoDB, Redis cache experiments</strong></div>
+        <div class="stack-row"><span>Storage</span><strong>Supabase object storage, Hugging Face Hub model registry</strong></div>
+        <div class="stack-row"><span>MLOps</span><strong>MLflow tracking, Airflow automation, Kafka local event-driven simulation</strong></div>
+        <div class="stack-row"><span>Frontend</span><strong>HTML, CSS, JavaScript, Jinja templates, portfolio-grade app interfaces</strong></div>
+      </div>
+    </section>
+
+    <section class="section export-section reveal" id="export">
+      <div class="export-panel">
+        <div>
+          <span class="section-label">Model portability</span>
+          <h2>From framework checkpoints to global inference assets.</h2>
+          <p>
+            A major focus of the Apps section is learning how trained models move between environments: raw <code>.pt</code> and <code>.keras</code> checkpoints, exported <code>.onnx</code> models, model hub storage, API wrappers, and cloud runtime constraints.
+          </p>
+        </div>
+        <div class="format-chain" aria-label="Model export chain">
+          <div><span>.pt</span><small>PyTorch</small></div>
+          <i class="fa-solid fa-arrow-right"></i>
+          <div><span>.keras</span><small>Keras</small></div>
+          <i class="fa-solid fa-arrow-right"></i>
+          <div><span>.onnx</span><small>Portable</small></div>
+          <i class="fa-solid fa-arrow-right"></i>
+          <div><span>API</span><small>Served</small></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" id="contact">
+      <div class="footer-icons">
+        <a href="mailto:a1mohamad.askari@gmail.com" aria-label="Gmail"><i class="fab fa-google"></i></a>
+        <a href="mailto:amirmohmdaskari@icloud.com" aria-label="iCloud"><i class="fab fa-apple"></i></a>
+        <a href="tel:+989012223122" aria-label="Phone"><i class="fas fa-phone"></i></a>
+        <a href="https://github.com/a1mohamad" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" rel="noopener" aria-label="Kaggle"><i class="fab fa-kaggle"></i></a>
+      </div>
+      <div class="editorial-credits">Amir Mohamad Askari · AI Apps · 2026</div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
