@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quora Question Pairs | Amir Mohamad Askari</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Natural Language Processing &middot; Quora Question Pairs &middot; PyTorch + MLflow</div>
+    <h1>Quora Question Pair Duplicate Detection Research Lab</h1>
+    <div class="hero-subtitle">A deep NLP research project around semantic duplicate-question detection, built as an extensible research lab rather than a one-off notebook. The current completed track focuses on <strong>LSTM attention</strong>, including my own attention implementation, broad MLflow experiment tracking, calibrated F1 optimization, and reusable framework-style engineering for future research expansion.</div>
+    <div class="btn-group">
+        <a class="btn-modern-primary" href="#overview-panel" data-tab-link="overview-panel"><i class="fa-brands fa-github"></i><span>Research Lab</span></a>
+        <a class="btn-modern-secondary" href="https://www.kaggle.com/c/quora-question-pairs" target="_blank"><i class="fa-brands fa-kaggle"></i><span>Kaggle Competition</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip quora-metrics-six">
+        <div class="metric-block" data-metric-type="integer" data-metric-target="404290"><div class="metric-label">Training Rows</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="percentage" data-metric-target="36.92"><div class="metric-label">Duplicate Share</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="float4" data-metric-target="0.8131"><div class="metric-label">Best Calibrated F1</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="float4" data-metric-target="0.9234"><div class="metric-label">Validation AUROC</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="float4" data-metric-target="0.8719"><div class="metric-label">Average Precision</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="float4" data-metric-target="0.4843"><div class="metric-label">Optimal Threshold</div><div class="metric-value">0</div></div>
+    </div>
+
+    <div class="notebook-switcher">
+        <button class="notebook-tab active" data-target="overview-panel"><i class="fa-solid fa-compass"></i>Research Overview</button>
+        <button class="notebook-tab" data-target="winner-panel"><i class="fa-solid fa-trophy"></i>Winner Notebook</button>
+        <button class="notebook-tab" data-target="mlflow-panel"><i class="fa-solid fa-database"></i>MLflow Lab</button>
+        <button class="notebook-tab" data-target="engineering-panel"><i class="fa-solid fa-code"></i>Framework Code</button>
+        <button class="notebook-tab" data-target="analysis-panel"><i class="fa-solid fa-magnifying-glass-chart"></i>Error Analysis</button>
+    </div>
+
+    <div class="notebook-panel active" id="overview-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Project Thesis</span>
+                    <h2>From Duplicate Questions to a Reusable NLP Lab</h2>
+                    <p class="panel-desc">The project solves Quora duplicate-question detection while also building a cleaner research workflow around experiments, artifacts, and reusable code.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The task is binary semantic matching: given <code>question1</code> and <code>question2</code>, predict whether both questions ask the same thing. The dataset contains <strong>404,290</strong> labeled pairs, with <strong>149,263 duplicate</strong> pairs and <strong>255,027 non-duplicate</strong> pairs. The current completed research track is an LSTM-attention approach: both questions pass through a shared PyTorch encoder with a custom attention module, then the pair is represented with <code>h1</code>, <code>h2</code>, <code>|h1-h2|</code>, <code>h1*h2</code>, and cosine similarity before classification.</p>
+                    <p>This project also marks a jump in engineering style. The notebook is organized like a small Hugging Face-inspired ecosystem: configuration classes, tokenizer object, dataset object, MLflow tracker, trainer, requirement generator, exported model architecture script, checkpoints, vocabulary files, and JSON summaries. That structure makes the research easier to audit and easier to reuse later for deployment or additional modeling tracks.</p>
+                </div>
+                <div class="note-grid">
+                    <div class="note-card stagger-child"><strong>Winner run ID</strong><span><code>c3f2f9597fb94be29d8068e86166a519</code>. This is mentioned once to identify the champion experiment tracked during research.</span></div>
+                    <div class="note-card stagger-child"><strong>Main result</strong><span>Best calibrated validation F1 is <code>0.8131</code>, with AUROC <code>0.9234</code> and Average Precision <code>0.8719</code>.</span></div>
+                    <div class="note-card stagger-child"><strong>Research scope</strong><span>The page covers the winner notebook, but the project explored many attention and loss variants through MLflow.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Libraries</span>
+                    <h2>Dependencies and Their Role in the Project</h2>
+                    <p class="panel-desc">The page covers the third-party stack used in the winner notebook, with each library tied to its actual purpose.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><i class="fa-brands fa-python dep-icon"></i><div><strong>PyTorch <code>2.8.0+cu126</code></strong><span>Core deep learning framework: embeddings, BiLSTM layers, custom attention modules, Siamese classifier, BCE loss, AdamW optimizer, schedulers, gradient clipping, checkpoint tensors, and CUDA execution.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-chart-simple dep-icon"></i><div><strong>TorchMetrics <code>1.8.2</code></strong><span>Training and validation metrics: BinaryAccuracy, BinaryPrecision, BinaryRecall, BinaryF1Score, AUROC, AveragePrecision, and PrecisionRecallCurve for threshold calibration.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-database dep-icon"></i><div><strong>MLflow <code>3.9.0</code></strong><span>Experiment tracking for run names, parameters, per-epoch metrics, best-model logging, reproducibility summaries, and comparison across LSTM-attention variants.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas <code>2.3.3</code> & NumPy <code>2.4.1</code></strong><span>CSV ingestion, dataframe cleaning, null handling, class distribution checks, train/validation preparation, embedding matrix initialization, probability arrays, and diagnostic summaries.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-diagram-project dep-icon"></i><div><strong>Scikit-Learn <code>1.8.0</code> & SciPy <code>1.17.0</code></strong><span>Stratified train/validation split, precision-recall support, calibration analysis, PCA-style feature projection in error analysis, and scientific-computing support for sklearn workflows.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-language dep-icon"></i><div><strong>NLTK <code>3.9.4</code></strong><span>English stopword list used for tokenizer stop masks and token-frequency inspection.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib <code>3.10.8</code></strong><span>Diagnostic visualizations: class/probability distributions, calibration curves, attention/error plots, and feature-space views.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-bars-progress dep-icon"></i><div><strong>TQDM <code>4.67.1</code> & IPython <code>9.5.0</code></strong><span>Progress bars for training/validation loops and notebook extension support for the custom requirements refresh magic.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Experiment Breadth</span>
+                    <h2>Architecture Search Before the Winner</h2>
+                    <p class="panel-desc">The winner was selected after a wide set of LSTM-attention experiments, not from a single baseline attempt.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Single-head self attention</strong><span>Started from LSTM encoders with manually implemented attention pooling to understand how question tokens contribute to the final vector.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Multi-head self attention</strong><span>Moved from one attention view to multiple attention heads, letting the model pool several subspaces of the LSTM sequence output.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Loss-function comparison</strong><span>Compared contrastive-style distance objectives against BCE-with-logits classification, then kept the BCE formulation with label smoothing for the winner run.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Cross attention families</strong><span>Tested multi-head cross attention, self attention plus cross attention, and ordering variants around CNN blocks.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>CNN hybrid variants</strong><span>Explored CNN plus multi-head cross attention and multi-head cross attention plus CNN to capture local phrase patterns as well as pair interactions.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">06</span><div><strong>ESIM-like direction</strong><span>Prototyped entailment-style matching ideas before settling on the best calibrated LSTM-attention classifier for this page.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Dataset Anatomy</span>
+                    <h2>Raw Fields and Modeling Target</h2>
+                    <p class="panel-desc">The notebook keeps the problem clean: two questions in, binary duplicate probability out.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Column</th><th>Type</th><th>Role</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Row-level identifier from the Quora question-pair training data.</td></tr>
+                            <tr><td><code>qid1</code>, <code>qid2</code></td><td><span class="taxonomy-tag">Question IDs</span></td><td>Original Quora question identifiers for both sides of the pair.</td></tr>
+                            <tr><td><code>question1</code>, <code>question2</code></td><td><span class="taxonomy-tag">Raw text</span></td><td>The two natural-language questions cleaned, tokenized, padded/truncated, embedded, and encoded by the Siamese model.</td></tr>
+                            <tr class="target-row-highlight"><td><code>is_duplicate</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Binary label: <code>1</code> means duplicate semantic intent, <code>0</code> means different intent.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mini-insight-grid mt-24">
+                    <div class="mini-insight-card stagger-child"><h3>Class balance</h3><p>The label distribution is moderately imbalanced: <code>36.92%</code> duplicate and <code>63.08%</code> non-duplicate. The training code therefore optimizes threshold-sensitive metrics such as F1, precision, recall, AUROC, and Average Precision instead of relying only on accuracy.</p></div>
+                    <div class="mini-insight-card stagger-child"><h3>Text normalization</h3><p><code>QuoraPreproccesor</code> fills missing questions, lowercases text, removes punctuation noise, normalizes spacing, and prepares both question columns before vocabulary building and dataset construction.</p></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="winner-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Champion Architecture</span>
+                    <h2>Siamese BiLSTM With Multi-Head Bahdanau Attention</h2>
+                    <p class="panel-desc">The selected model uses shared question encoders, manually implemented multi-head additive attention, and engineered pair-comparison features.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="architecture-map stagger-child">
+                    <div class="arch-row">
+                        <div class="arch-box">Question 1<br><span>tokens, length 50</span></div>
+                        <div class="arch-arrow"></div>
+                        <div class="arch-box">Shared Embedding<br><span>GloVe 6B, 100d</span></div>
+                        <div class="arch-arrow"></div>
+                        <div class="arch-box">2-Layer BiLSTM<br><span>hidden 384 x 2</span></div>
+                        <div class="arch-arrow"></div>
+                        <div class="arch-box champion">4-Head Bahdanau<br><span>masked pooling</span></div>
+                    </div>
+                    <div class="arch-merge">Shared encoder weights are reused for Question 2</div>
+                    <div class="arch-row">
+                        <div class="arch-box">Question 2<br><span>tokens, length 50</span></div>
+                        <div class="arch-arrow"></div>
+                        <div class="arch-box">Shared Embedding<br><span>frozen then unfrozen</span></div>
+                        <div class="arch-arrow"></div>
+                        <div class="arch-box">2-Layer BiLSTM<br><span>dropout 0.35</span></div>
+                        <div class="arch-arrow"></div>
+                        <div class="arch-box champion">4-Head Bahdanau<br><span>context vector</span></div>
+                    </div>
+                    <div class="arch-row final-row">
+                        <div class="arch-box wide">Pair Feature Vector<br><span><code>h1</code> + <code>h2</code> + <code>|h1-h2|</code> + <code>h1*h2</code> + cosine</span></div>
+                        <div class="arch-arrow"></div>
+                        <div class="arch-box wide">MLP Classifier<br><span>3073 -> 1024 -> 256 -> 1 logit</span></div>
+                        <div class="arch-arrow"></div>
+                        <div class="arch-box champion">Duplicate Probability<br><span>threshold 0.4843</span></div>
+                    </div>
+                </div>
+                <div class="note-grid">
+                    <div class="note-card stagger-child"><strong>Encoder output</strong><span>BiLSTM output is <code>768</code> dimensional because <code>hidden_dim=384</code> and the LSTM is bidirectional.</span></div>
+                    <div class="note-card stagger-child"><strong>Attention design</strong><span>Each head projects sequence states into a head subspace, scores tokens with additive attention, masks padding, and pools a context vector.</span></div>
+                    <div class="note-card stagger-child"><strong>Final feature size</strong><span>Four vector features of size <code>768</code> plus one cosine scalar produce an input dimension of <code>3073</code>.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Winner Configuration</span>
+                    <h2>Model and Training Hyperparameters</h2>
+                    <p class="panel-desc">These values are pulled from the winner run artifacts and config JSON.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="phase-list">
+                    <div class="phase-row rank-leader stagger-child"><div class="phase-index">Model</div><div class="phase-main"><strong>LSTM_attention / MultiHead-Bahdanau</strong><span>2-layer bidirectional LSTM, <code>hidden_dim=384</code>, <code>num_heads=4</code>, dropout <code>0.35</code>, attention dropout <code>0.0</code>.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Embedding</span><span class="phase-metric-value good">GloVe 100d</span></div><div><span class="phase-metric-label">LSTM Out</span><span class="phase-metric-value">768</span></div><div><span class="phase-metric-label">FC Dims</span><span class="phase-metric-value">1024, 256</span></div></div></div>
+                    <div class="phase-row stagger-child"><div class="phase-index">Tokens</div><div class="phase-main"><strong>Custom vocabulary and fixed-length encoding</strong><span><code>&lt;PAD&gt;</code> index 0, <code>&lt;UNK&gt;</code> index 1, lowercase text, maximum length <code>50</code>, vocabulary cap <code>20000</code>.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Batch</span><span class="phase-metric-value">128</span></div><div><span class="phase-metric-label">Pin Memory</span><span class="phase-metric-value">true</span></div><div><span class="phase-metric-label">Workers</span><span class="phase-metric-value">0</span></div></div></div>
+                    <div class="phase-row stagger-child"><div class="phase-index">Optimization</div><div class="phase-main"><strong>BCE with label smoothing and AdamW</strong><span>Label smoothing <code>0.05</code>, learning rate <code>0.0005</code>, weight decay <code>0.001</code>, gradient clipping <code>1.5</code>.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Scheduler</span><span class="phase-metric-value">Plateau</span></div><div><span class="phase-metric-label">Factor</span><span class="phase-metric-value">0.5</span></div><div><span class="phase-metric-label">Min LR</span><span class="phase-metric-value">1e-7</span></div></div></div>
+                    <div class="phase-row stagger-child"><div class="phase-index">Control</div><div class="phase-main"><strong>F1 checkpointing with loss-based early stopping</strong><span>The trainer checkpoints on <code>F1Score</code> in max mode, watches validation loss for early stopping, and recalibrates the threshold from the precision-recall curve.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Patience</span><span class="phase-metric-value">2</span></div><div><span class="phase-metric-label">Epoch Cap</span><span class="phase-metric-value">50</span></div><div><span class="phase-metric-label">Stopped</span><span class="phase-metric-value good">9</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Implementation Core</span>
+                    <h2>Custom Attention and Siamese Forward Pass</h2>
+                    <p class="panel-desc">The main architecture is not a black-box layer; attention is implemented directly in PyTorch.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid">
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">AttentionHead + MultiHeadAttention</span></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">class</span> <span class="code-fn">AttentionHead</span>(nn.Module):
+    <span class="code-keyword">def</span> <span class="code-fn">forward</span>(self, lstm_output, mask):
+        proj = self.W(lstm_output)
+        energy = torch.tanh(proj)
+        scores = self.V(energy).squeeze(-1)
+        scores = scores.masked_fill(mask == 0, self.mask_fill_num)
+        weights = F.softmax(scores, dim=-1)
+        context = torch.bmm(weights.unsqueeze(1), proj * mask.unsqueeze(-1))
+        <span class="code-keyword">return</span> context.squeeze(1)
+
+<span class="code-keyword">class</span> <span class="code-fn">MultiHeadAttention</span>(nn.Module):
+    <span class="code-keyword">def</span> <span class="code-fn">forward</span>(self, hidden_state, mask):
+        x = torch.cat([h(hidden_state, mask) for h in self.heads], dim=-1)
+        <span class="code-keyword">return</span> self.out_linear(x)</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">QuoraSiameseClassifier.forward</span></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">def</span> <span class="code-fn">forward</span>(self, q1, q2):
+    h1 = self._encode(q1)
+    h2 = self._encode(q2)
+
+    cosine_sim = F.cosine_similarity(h1, h2).unsqueeze(-1)
+    feat = torch.cat([
+        h1,
+        h2,
+        abs(h1 - h2),
+        h1 * h2,
+        cosine_sim
+    ], dim=1)
+
+    logits = self.fc_dims(feat)
+    <span class="code-keyword">return</span> logits.squeeze(-1)</pre></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Architecture Code</span>
+                    <h2>ModelConfig and Encoder Internals</h2>
+                    <p class="panel-desc">The architecture is driven by explicit configuration, then assembled into a reusable Siamese encoder.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid">
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">ModelConfig essentials</span></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">class</span> <span class="code-fn">ModelConfig</span>:
+    MODEL_TYPE = <span class="code-str">"LSTM_attention"</span>
+    ATTENTION_TYPE = <span class="code-str">"MultiHead-Bahdanau"</span>
+    TOKEN_EMBEDDING = <span class="code-str">"gloVe-6B-100d"</span>
+    EMB_DIM = <span class="code-num">100</span>
+    FREEZE_TOKEN_EMBEDDING = <span class="code-keyword">True</span>
+
+    LOSS = <span class="code-str">"BCE with Logits"</span>
+    NUM_HEADS = <span class="code-num">4</span>
+    BIDIRECTIONAL = <span class="code-keyword">True</span>
+    HIDDEN_DIM = <span class="code-num">384</span>
+    LSTM_OUT = HIDDEN_DIM * <span class="code-num">2</span>
+    NUM_LAYERS = <span class="code-num">2</span>
+    DROPOUT = <span class="code-num">0.35</span>
+
+    LABEL_SMOOTHING = <span class="code-num">0.05</span>
+    FC_DIMS = [<span class="code-num">1024</span>, <span class="code-num">256</span>]
+    FC_DP = <span class="code-num">0.4</span>
+    INPUT_FC_DIM = <span class="code-num">3073</span></pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">Question encoder path</span></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">def</span> <span class="code-fn">_encode</span>(self, question):
+    emb = self.embedding(question)
+    emb = self.emb_dropout(emb)
+
+    mask = self._create_mask(question)
+    <span class="code-keyword">if</span> self.stop_mask <span class="code-keyword">is not</span> <span class="code-keyword">None</span>:
+        token_stop_mask = self.stop_mask[question]
+        mask = mask * token_stop_mask.float()
+
+    out, _ = self.LSTM(emb)
+    ctx = self.attention(out, mask)
+    <span class="code-keyword">return</span> ctx</pre></div>
+                    </div>
+                </div>
+                <div class="theory-block stagger-child mt-24">
+                    <div class="theory-card-header"><h3>Attention concept in plain terms</h3><span class="theory-badge champion-badge">Winner encoder</span></div>
+                    <p class="theory-explanation">Each question becomes a sequence of LSTM hidden states. For each head, the model projects every token state, scores it, masks padding and stop tokens, normalizes scores with softmax, and produces a weighted context vector. Multi-head attention repeats that in parallel subspaces, concatenates the heads, and projects them back into one <code>768</code>-dimensional question representation.</p>
+                    <div class="theory-math-container formula-clean">score_t = V tanh(W h_t), &nbsp; alpha = softmax(mask(score)), &nbsp; context = sum_t alpha_t projected(h_t)</div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Layer Construction</span>
+                    <h2>How QuoraSiameseClassifier Is Built</h2>
+                    <p class="panel-desc">The constructor wires together pretrained embeddings, recurrent encoding, attention pooling, and a pair-classification head.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid">
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">QuoraSiameseClassifier.__init__ sketch</span></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">class</span> <span class="code-fn">QuoraSiameseClassifier</span>(nn.Module):
+    <span class="code-keyword">def</span> <span class="code-fn">__init__</span>(self, vocab_size, config, embedding=None, stop_mask=None):
+        self.embedding = nn.Embedding(vocab_size, config.EMB_DIM)
+        self.emb_dropout = nn.Dropout(config.EMB_DP)
+
+        <span class="code-keyword">if</span> embedding <span class="code-keyword">is not</span> <span class="code-keyword">None</span>:
+            self.embedding.weight.data.copy_(embedding)
+            self.embedding.weight.requires_grad = <span class="code-keyword">not</span> config.FREEZE_TOKEN_EMBEDDING
+
+        self.LSTM = nn.LSTM(
+            input_size=config.EMB_DIM,
+            hidden_size=config.HIDDEN_DIM,
+            bidirectional=config.BIDIRECTIONAL,
+            num_layers=config.NUM_LAYERS,
+            dropout=config.DROPOUT,
+            batch_first=<span class="code-keyword">True</span>
+        )
+        self.attention = MultiHeadAttention(config.LSTM_OUT)
+        self.proj = nn.Identity()
+        self.fc_dims = self._build_fc_layers(config.INPUT_FC_DIM, config.FC_DIMS, config.FC_DP)</pre></div>
+                    </div>
+                    <div class="matrix-table-container stagger-child">
+                        <table>
+                            <thead><tr><th>Component</th><th>Purpose</th></tr></thead>
+                            <tbody>
+                                <tr><td><code>nn.Embedding</code></td><td>Maps token IDs to dense vectors initialized from GloVe when available.</td></tr>
+                                <tr><td><code>nn.LSTM</code></td><td>Encodes token order and contextual dependencies in each question independently.</td></tr>
+                                <tr><td><code>MultiHeadAttention</code></td><td>Compresses sequence output into a context vector while respecting masks.</td></tr>
+                                <tr><td><code>nn.Identity</code></td><td>Keeps projection optional; winner run uses full <code>768</code>-dimensional context vectors.</td></tr>
+                                <tr><td><code>_build_fc_layers</code></td><td>Builds the GELU + Dropout MLP classifier from pair-comparison features.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Winner Results</span>
+                    <h2>Validation and Calibration Summary</h2>
+                    <p class="panel-desc">The final checkpoint was selected by validation F1, then the threshold was calibrated from the precision-recall curve.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="insight-list">
+                    <div class="insight-row rank-leader stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>Best calibrated F1</strong><span>Final threshold <code>0.4843311608</code></span></div></div><div class="insight-score-metrics"><div><span class="insight-score-label">F1Score</span><span class="insight-score-value accuracy-highlight">0.8131</span></div><div><span class="insight-score-label">Precision</span><span class="insight-score-value">0.7834</span></div><div><span class="insight-score-label">Recall</span><span class="insight-score-value">0.8452</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">02</div><div class="insight-model-identity"><strong>Ranking quality</strong><span>Good separation across the probability spectrum</span></div></div><div class="insight-score-metrics"><div><span class="insight-score-label">AUROC</span><span class="insight-score-value accuracy-highlight">0.9234</span></div><div><span class="insight-score-label">Avg Precision</span><span class="insight-score-value">0.8719</span></div><div><span class="insight-score-label">Accuracy</span><span class="insight-score-value">0.8566</span></div></div></div>
+                    <div class="insight-row stagger-child"><div class="insight-left-meta"><div class="insight-rank-index">03</div><div class="insight-model-identity"><strong>Training budget</strong><span>Early stopping triggered at epoch 9 out of 50</span></div></div><div class="insight-score-metrics"><div><span class="insight-score-label">Total Time</span><span class="insight-score-value">147.02m</span></div><div><span class="insight-score-label">Avg / Epoch</span><span class="insight-score-value">16.36m</span></div><div><span class="insight-score-label">Device</span><span class="insight-score-value">CUDA</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="mlflow-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Experiment Tracking</span>
+                    <h2>MLflow as the Research Backbone</h2>
+                    <p class="panel-desc">MLflow is treated as more than a metric logger: it gives the research a repeatable experiment protocol.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>During research, MLflow was the control room for comparing many LSTM-attention variants. The custom <code>MLflowTracker</code> creates versioned run names, logs every epoch, stores parameters, captures the best checkpoint, and writes a compact summary for the selected model. For the public page, the important part is the methodology: each serious experiment has a comparable identity, config, metric history, and final calibrated result.</p>
+                </div>
+                <div class="artifact-grid">
+                    <div class="artifact-card stagger-child"><i class="fa-solid fa-sliders"></i><strong>Configuration snapshots</strong><span>Token, loader, train, model, and post-processing settings are captured so runs can be compared beyond final scores.</span></div>
+                    <div class="artifact-card stagger-child"><i class="fa-solid fa-file-code"></i><strong>Architecture export</strong><span>The model-defining code is exported from the notebook so the champion architecture is not trapped inside exploratory cells.</span></div>
+                    <div class="artifact-card stagger-child"><i class="fa-solid fa-box-archive"></i><strong>Best checkpoint discipline</strong><span>The trainer keeps the strongest validation-F1 model instead of trusting the last epoch.</span></div>
+                    <div class="artifact-card stagger-child"><i class="fa-solid fa-language"></i><strong>Tokenizer state</strong><span>Vocabulary, index mapping, stop-mask behavior, and padding rules are treated as part of the model package.</span></div>
+                    <div class="artifact-card stagger-child"><i class="fa-solid fa-list-check"></i><strong>Dependency snapshot</strong><span>The project records the third-party stack needed to reproduce the notebook environment.</span></div>
+                    <div class="artifact-card stagger-child"><i class="fa-solid fa-chart-simple"></i><strong>Final run summary</strong><span>Best F1, precision, recall, AUROC, Average Precision, threshold, and training time are summarized for the champion model.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Tracker Object</span>
+                    <h2>What the Custom MLflowTracker Automates</h2>
+                    <p class="panel-desc">The project builds a small tracking abstraction that keeps each experiment consistent and comparable.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid">
+                    <div class="tech-card stagger-child"><span class="tech-badge">Run naming</span><h3>Versioned experiment identity</h3><p>The tracker builds run names from <code>model_type</code> and <code>attention_type</code>, then generates a versioned suffix. This keeps repeated experiments understandable during comparison.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Config logging</span><h3>Full hyperparameter visibility</h3><p>Each config section is logged to MLflow parameters. That includes tokenization, model dimensions, optimizer choices, scheduler settings, and training controls.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Epoch logging</span><h3>Metric curves, not just final numbers</h3><p>The tracker logs <code>train_loss</code>, <code>val_loss</code>, train/validation metrics, learning rate, and <code>best_threshold</code> at each epoch.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Artifact logging</span><h3>Reproducible run package</h3><p>The fit loop captures vocabulary state, label mapping, configs, exported architecture, dependency files, checkpoint state, the notebook, and the final summary.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Run Summary</span>
+                    <h2>Champion Experiment Snapshot</h2>
+                    <p class="panel-desc">A concise public-facing view of the winner result and training controls.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Field</th><th>Winner Value</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>run_type</code></td><td><code>exploring-best-architecture</code></td></tr>
+                            <tr><td><code>model_type</code></td><td><code>LSTM_attention</code></td></tr>
+                            <tr><td><code>attention_type</code></td><td><code>MultiHead-Bahdanau</code></td></tr>
+                            <tr><td><code>checkpoint_metric</code></td><td><code>F1Score</code> in max mode</td></tr>
+                            <tr><td><code>early_stop_metric</code></td><td><code>loss</code> in min mode, patience <code>2</code></td></tr>
+                            <tr><td><code>best_threshold</code></td><td><code>0.4843311608</code></td></tr>
+                            <tr><td><code>best_calibrated_f1</code></td><td><code>0.8131223321</code></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="engineering-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Software Design</span>
+                    <h2>Notebook as a Mini NLP Framework</h2>
+                    <p class="panel-desc">The strongest career signal in this project is the move from loose notebook cells to reusable, class-based research components.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="class-grid">
+                    <div class="class-card stagger-child"><span>Runtime config</span><strong>SystemConfig</strong><p>Controls seed, deterministic mode, CUDA device selection, AMP scaler behavior, and tracking setup for the notebook runtime.</p></div>
+                    <div class="class-card stagger-child"><span>Path config</span><strong>PathConfig</strong><p>Centralizes dataset, embedding, notebook, exported architecture, vocabulary, label mapping, config, history, and requirement paths through one object.</p></div>
+                    <div class="class-card stagger-child"><span>Data config</span><strong>TokenConfig, LoaderConfig</strong><p>Defines <code>&lt;PAD&gt;</code>/<code>&lt;UNK&gt;</code>, maximum sequence length <code>50</code>, vocabulary cap <code>20000</code>, batch size <code>128</code>, worker count, and pin-memory behavior.</p></div>
+                    <div class="class-card stagger-child"><span>Model config</span><strong>ModelConfig</strong><p>Defines the champion architecture: GloVe 100d, 2-layer BiLSTM, 4 attention heads, hidden dimension <code>384</code>, FC stack, dropout, label smoothing, and feature-concat strategy.</p></div>
+                    <div class="class-card stagger-child"><span>Training config</span><strong>TrainConfig, PostProcessingConfig</strong><p>Defines BCE training, early stopping, F1 checkpointing, ReduceLROnPlateau, gradient clipping, train split, unfreeze epoch, and inference/metric thresholds.</p></div>
+                    <div class="class-card stagger-child"><span>Pipeline classes</span><strong>QuoraPreproccesor, QuoraTokenizer, QuoraDataset, Trainer</strong><p>Turns raw CSV rows into cleaned text, token IDs, tensors, loaders, calibrated metrics, checkpoints, summaries, and reproducible model packages.</p></div>
+                    <div class="class-card stagger-child"><span>Architecture classes</span><strong>AttentionHead, MultiHeadAttention, QuoraSiameseClassifier</strong><p>Implements masked additive attention, multi-head pooling, shared Siamese encoding, pair feature construction, and final duplicate-logit prediction.</p></div>
+                    <div class="class-card stagger-child"><span>Training utilities</span><strong>EarlyStopping, TrainingHistory, MLflowTracker, BCEWithLabelSmoothing</strong><p>Keeps training controlled, auditable, calibrated, and less overconfident through smoothed labels and run-level tracking.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Tokenizer System</span>
+                    <h2>Custom Tokenizer Inspired by Production NLP Pipelines</h2>
+                    <p class="panel-desc">The tokenizer mirrors familiar NLP ecosystem ideas: build, encode, decode, save, load, and hydrate embeddings.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid">
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">QuoraTokenizer responsibilities</span></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">class</span> <span class="code-fn">QuoraTokenizer</span>:
+    build_vocabs(df)        <span class="code-comment"># count q1 + q2 tokens</span>
+    _build_stop_mask()      <span class="code-comment"># create token-level stopword mask</span>
+    encode(text)            <span class="code-comment"># ids, truncate, pad to max_length</span>
+    decode(ids)             <span class="code-comment"># inspect encoded samples</span>
+    save(path)              <span class="code-comment"># persist vocabs and masks</span>
+    load(path)              <span class="code-comment"># restore tokenizer state</span>
+    load_embedding(dim)     <span class="code-comment"># create GloVe matrix</span></pre></div>
+                    </div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Reusable asset</span><h3>Vocabulary is part of the model package</h3><p>The tokenizer state is treated as a first-class output, so inference can reuse the same token IDs, padding behavior, stop mask, vocabulary size, and index-to-word mapping.</p><p>The loaded GloVe embedding matrix is copied directly into the PyTorch embedding layer, with a staged training strategy: frozen at first, then unfrozen from epoch <code>4</code>.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Dataset Object</span>
+                    <h2>QuoraDataset Converts Clean Text Into Model Batches</h2>
+                    <p class="panel-desc">The dataset class keeps question-pair encoding and label packaging in one predictable interface.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid">
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">QuoraDataset core behavior</span></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">class</span> <span class="code-fn">QuoraDataset</span>(Dataset):
+    <span class="code-keyword">def</span> <span class="code-fn">__init__</span>(self, df, tokenizer):
+        self.q1 = df[<span class="code-str">"question1"</span>].values
+        self.q2 = df[<span class="code-str">"question2"</span>].values
+        self.label = df[<span class="code-str">"is_duplicate"</span>].values
+        self.tokenizer = tokenizer
+
+    <span class="code-keyword">def</span> <span class="code-fn">__getitem__</span>(self, idx):
+        encoded_q1 = self.tokenizer.encode(self.q1[idx])
+        encoded_q2 = self.tokenizer.encode(self.q2[idx])
+        label = torch.tensor(self.label[idx], dtype=torch.float32)
+        <span class="code-keyword">return</span> {<span class="code-str">"q1"</span>: encoded_q1, <span class="code-str">"q2"</span>: encoded_q2, <span class="code-str">"label"</span>: label}</pre></div>
+                    </div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Batch contract</span><h3>Every batch has a stable shape</h3><p>Both questions are encoded to the same fixed length, so the trainer receives <code>q1</code>, <code>q2</code>, and <code>label</code> tensors without needing extra notebook-side glue code.</p><p>The dataset also includes a <code>pos_class_weight</code> helper, useful for experiments that need explicit positive-class weighting.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Trainer System</span>
+                    <h2>Training Loop With Calibration Built In</h2>
+                    <p class="panel-desc">The trainer wraps optimization, metric computation, threshold search, scheduler behavior, checkpointing, and artifact logging.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Initialize metrics</strong><span>Creates torchmetrics objects for Accuracy, Precision, Recall, F1Score, AUROC, AveragePrecision, and a PrecisionRecallCurve for threshold search.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Train one epoch</strong><span>Runs forward pass, smoothed BCE loss, optional AMP scaler, gradient clipping, optimizer step, and metric updates.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Evaluate and calibrate</strong><span>Collects validation probabilities, computes a PR curve, picks the threshold with best F1, then recomputes validation metrics at that threshold.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Control training</strong><span>Steps ReduceLROnPlateau, checks early stopping on validation loss, and saves the best checkpoint when validation F1 improves.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Finalize run</strong><span>Logs checkpoint folder, best model, final summary, final threshold, training time, notebook, and all reproducibility artifacts to MLflow.</span></div></div></div>
+                </div>
+                <div class="terminal-panel implementation-code stagger-child mt-24">
+                    <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">Trainer.fit simplified structure</span></div>
+                    <div class="terminal-body compact-code"><pre><span class="code-keyword">class</span> <span class="code-fn">Trainer</span>:
+    <span class="code-keyword">def</span> <span class="code-fn">fit</span>(self, num_epochs):
+        <span class="code-keyword">for</span> epoch <span class="code-keyword">in</span> range(num_epochs):
+            <span class="code-keyword">if</span> epoch == self.config.UNFREEZE_EPOCH:
+                self._unfreeze_embedding()
+
+            train_loss, train_results = self.train_one_epoch()
+            val_loss, val_results = self.evaluate(use_optimal_threshold=<span class="code-keyword">True</span>)
+
+            self._check_scheduler(val_loss)
+            self.history.update(train_loss, val_loss, train_results, val_results, self.optimizer)
+            self.tracker.log_epoch(epoch, train_loss, val_loss, train_results, val_results, lr)
+            self.tracker.log_metric(<span class="code-str">"best_threshold"</span>, self.best_threshold, epoch)
+
+            <span class="code-keyword">if</span> self._is_checkpoint_better(val_results[<span class="code-str">"F1Score"</span>]):
+                self.best_checkpoint_score = val_results[<span class="code-str">"F1Score"</span>]
+                self.tracker.save_state_dict(self.model.state_dict(), checkpoint_path)
+
+            <span class="code-keyword">if</span> self.early_stopper.step(val_loss):
+                <span class="code-keyword">break</span>
+
+        final_threshold, calibrated_results = self.find_optimal_threshold()
+        self.tracker.log_summary(calibrated_results)</pre></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Automation Utilities</span>
+                    <h2>Requirements and Model Script Creators</h2>
+                    <p class="panel-desc">Two utilities improve portability: dependency extraction and architecture export from the notebook.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="mini-insight-grid">
+                    <div class="mini-insight-card stagger-child"><h3><code>requirements.py</code></h3><p>A custom IPython magic scans notebook imports with <code>ast</code>, filters standard-library modules, maps imports to installed distributions, and updates <code>requirements.txt</code>. The winner artifact records 11 packages, including <code>mlflow==3.9.0</code>, <code>torch==2.8.0+cu126</code>, and <code>torchmetrics==1.8.2</code>.</p></div>
+                    <div class="mini-insight-card stagger-child"><h3><code>export_model_from_notebook</code></h3><p>The notebook extracts model-defining cells into <code>model_architecture.py</code>. That creates a deployable architecture script containing config and model classes, separate from the exploratory notebook itself.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Loss Design</span>
+                    <h2>BCE With Label Smoothing</h2>
+                    <p class="panel-desc">The winner model uses binary cross entropy with smoothed labels to reduce overconfident duplicate/non-duplicate decisions.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid">
+                    <div class="terminal-panel implementation-code stagger-child">
+                        <div class="terminal-header"><div class="terminal-dots"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div><span class="terminal-title">BCEWithLabelSmoothing</span></div>
+                        <div class="terminal-body compact-code"><pre><span class="code-keyword">class</span> <span class="code-fn">BCEWithLabelSmoothing</span>(nn.Module):
+    <span class="code-keyword">def</span> <span class="code-fn">__init__</span>(self, epsilon, reduction=<span class="code-str">"mean"</span>):
+        super().__init__()
+        self.epsilon = epsilon
+        self.criterion = nn.BCEWithLogitsLoss(reduction=reduction)
+
+    <span class="code-keyword">def</span> <span class="code-fn">forward</span>(self, logits, labels):
+        labels = labels.float()
+        labels = labels * (<span class="code-num">1</span> - self.epsilon) + (<span class="code-num">1</span> - labels) * self.epsilon
+        <span class="code-keyword">return</span> self.criterion(logits, labels)</pre></div>
+                    </div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Calibration</span><h3>Why smoothing matters here</h3><p>Duplicate-question detection contains many ambiguous examples: two questions can be lexically different but semantically close, or lexically similar but logically different. Label smoothing softens hard <code>0</code>/<code>1</code> targets, which helps the classifier avoid brittle confidence spikes.</p><p>The trainer then searches for the best F1 threshold on the validation precision-recall curve, so calibration is handled both in the loss and in post-processing.</p></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="analysis-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Diagnostic Notebook</span>
+                    <h2>Error Analysis and Attention Inspection</h2>
+                    <p class="panel-desc">The separate error-analysis notebook is raw and architecture-dependent, but the diagnostic thinking is important and was repeated across experiments.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>Important caveat:</strong> the error-analysis notebook may contain code from one experiment while the final architecture changed later. So it should be read as a diagnostic methodology rather than a perfectly synchronized production evaluation script.</p>
+                    <p><strong>Core idea:</strong> after each architecture, inspect where the model fails, what probability ranges are poorly calibrated, what attention is focusing on, and whether pair features separate true duplicates from hard negatives.</p>
+                </div>
+                <div class="diagnostic-grid">
+                    <div class="diagnostic-card stagger-child"><i class="fa-solid fa-triangle-exclamation"></i><strong>False positive / false negative slicing</strong><span>Splits validation predictions into TP, TN, FP, and FN, then measures the rate and characteristics of each error type.</span></div>
+                    <div class="diagnostic-card stagger-child"><i class="fa-solid fa-gauge-high"></i><strong>Probability and calibration analysis</strong><span>Plots probability distributions by class and calibration curves to see whether scores are meaningful probabilities or only rankings.</span></div>
+                    <div class="diagnostic-card stagger-child"><i class="fa-solid fa-eye"></i><strong>Manual attention inspection</strong><span>Runs encoder steps manually to recover attention weights, decode tokens, and identify which words receive high attention.</span></div>
+                    <div class="diagnostic-card stagger-child"><i class="fa-solid fa-project-diagram"></i><strong>Feature-space checks</strong><span>Extracts final pair features, projects them with PCA, and highlights FP/FN points to understand separation failure modes.</span></div>
+                    <div class="diagnostic-card stagger-child"><i class="fa-solid fa-ruler"></i><strong>Length-based behavior</strong><span>Groups examples by question length to inspect whether short, long, or asymmetric pairs create harder cases.</span></div>
+                    <div class="diagnostic-card stagger-child"><i class="fa-solid fa-scale-balanced"></i><strong>Threshold effects</strong><span>Studies how thresholds interact with BCE, class imbalance, and F1 calibration rather than treating <code>0.5</code> as fixed truth.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Interpretability</span>
+                    <h2>How Attention Was Used for Debugging</h2>
+                    <p class="panel-desc">Attention weights are not treated as absolute explanation, but they are useful for sanity-checking what the model emphasizes.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid">
+                    <div class="tech-card stagger-child"><span class="tech-badge">Token focus</span><h3>Top attended tokens</h3><p>The analysis decodes token IDs back to words and aggregates high-attention tokens across validation examples. This checks whether the model attends to meaningful semantic words or collapses into punctuation and stopwords.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Case review</span><h3>Hard examples by error type</h3><p>For false positives and true positives, the notebook prints question pairs, predicted probability or distance, and token-level attention values to compare what changed between correct and incorrect duplicate decisions.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Representation health</span><h3>Variance and feature checks</h3><p>The diagnostic code inspects LSTM outputs before attention and final feature vectors after similarity construction, looking for collapse, low variance, or poorly separated clusters.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Calibration thinking</span><h3>From raw scores to deployable decisions</h3><p>The winner training loop internalizes this lesson by searching the precision-recall curve and using the best threshold rather than assuming default sigmoid thresholding.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Final Synthesis</span>
+                    <h2>What This Project Demonstrates</h2>
+                    <p class="panel-desc">The research value is both modeling depth and engineering maturity.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>Modeling:</strong> the project implements attention manually, evaluates several attention/loss/matching families, and settles on a calibrated Siamese BiLSTM attention architecture.</p>
+                    <p><strong>Experimentation:</strong> MLflow gives the work a real lab structure: every meaningful run can carry parameters, metrics, artifacts, checkpoint files, and summaries.</p>
+                    <p><strong>Engineering:</strong> the code is no longer just notebook logic. It is organized into classes with clear responsibilities, closer to the style of reusable ML libraries.</p>
+                    <p><strong>Research direction:</strong> this foundation is designed to accept additional architecture families later, because the dataset layer, metric layer, tracker, and artifact packaging are already separated from the model implementation.</p>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a class="icon-link" href="mailto:a1mohamad.askari@gmail.com" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a class="icon-link" href="mailto:amirmohmdaskari@icloud.com" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a class="icon-link" href="tel:+989012223122" title="Phone"><i class="fas fa-phone"></i></a>
+            <a class="icon-link" href="https://github.com/a1mohamad" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a class="icon-link" href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a class="icon-link" href="https://www.kaggle.com/amirmohamadaskari" target="_blank" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari &middot; Quora Question Pairs Research Lab &middot; 2026</div>
+
+<script src="script.js"></script>
+</body>
+</html>
