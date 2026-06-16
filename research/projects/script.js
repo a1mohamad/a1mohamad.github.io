@@ -37,9 +37,8 @@ const projects = [
     "Matplotlib"
   ],
   "tags": [
-    "Medical AI",
-    "Chest X-Ray",
-    "Computer Vision",
+    "Neural Networks",
+    "CNN",
     "Image Classification",
     "Semantic Segmentation",
     "Web App",
@@ -879,8 +878,8 @@ function card(p) {
   const toolCount = Array.isArray(p.tools) ? new Set(p.tools.filter(Boolean)).size : 0;
   const tagCount = Array.isArray(p.tags) ? new Set(p.tags.filter(Boolean)).size : 0;
   const richCard = toolCount + tagCount > 28;
-  const previewToolLimit = richCard ? toolCount : 4;
-  const previewTagLimit = richCard ? tagCount : 4;
+  const previewToolLimit = 4;
+  const previewTagLimit = 4;
 
   return `<a class="project-card${richCard ? " rich-card" : ""}" href="${p.href}" target="_blank" rel="noopener" aria-label="Open ${escapeHTML(p.title)} project page">
     <div class="thumb" style="--image:${p.image}"></div>
@@ -905,6 +904,10 @@ function card(p) {
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
       </div>
       <p>${escapeHTML(p.desc)}</p>
+      <div class="detail-group">
+        <strong>Project</strong>
+        <div class="detail-chips">${renderFullChips([p.category, ...p.meta], "status")}</div>
+      </div>
       <div class="detail-group">
         <strong>Tools</strong>
         <div class="detail-chips">${renderFullChips(p.tools, "tool")}</div>
