@@ -1434,3 +1434,65 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
   background-size: cover !important;
   background-position: center !important;
 }
+
+/* Data-rich project cards: keep every tool/tag visible instead of truncating. */
+.project-card.rich-card {
+  grid-column: 1 / -1 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  grid-template-columns: 220px minmax(0, 1fr) !important;
+  align-items: start !important;
+  overflow: visible !important;
+}
+
+.project-card.rich-card .thumb {
+  width: 220px !important;
+  height: 220px !important;
+  min-width: 220px !important;
+  min-height: 220px !important;
+}
+
+.project-card.rich-card .card-content,
+.project-card.rich-card > div.card-content {
+  height: auto !important;
+  overflow: visible !important;
+  justify-content: flex-start !important;
+}
+
+.project-card.rich-card .project-desc {
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  margin-bottom: 14px !important;
+}
+
+.project-card.rich-card .compact-row,
+.project-card.rich-card .tool-row,
+.project-card.rich-card .tag-row,
+.project-card.rich-card .tool-row:first-child,
+.project-card.rich-card .tool-row:not(:first-child) {
+  max-height: none !important;
+  overflow: visible !important;
+  flex-wrap: wrap !important;
+}
+
+.project-card.rich-card .taxonomy-line {
+  grid-template-columns: 82px minmax(0, 1fr) !important;
+  align-items: start !important;
+}
+
+.project-card.rich-card .card-detail-panel {
+  max-height: calc(100% - 28px) !important;
+  overflow-y: auto !important;
+}
+
+@media(max-width:1050px) {
+  .project-card.rich-card {
+    grid-template-columns: 1fr !important;
+  }
+  .project-card.rich-card .thumb {
+    width: 100% !important;
+    height: 220px !important;
+    min-width: 0 !important;
+  }
+}
