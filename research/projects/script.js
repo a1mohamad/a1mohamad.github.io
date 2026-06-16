@@ -1,5 +1,58 @@
 const projects = [
   {
+  "title": "Quora Question Pair Duplicate Detection",
+  "category": "Communication",
+  "meta": [
+    "2026",
+    "Duplicate Detection",
+    "Classification",
+    "Deep Learning",
+    "NLP",
+    "PyTorch",
+    "MLflow",
+    "Kaggle Competition"
+  ],
+  "desc": "Quora duplicate-question research lab with a custom LSTM-attention track, Siamese question-pair modeling, manual attention implementation, MLflow experiment tracking, calibrated F1 optimization, and reusable framework-style code.",
+  "tools": [
+    "Python",
+    "PyTorch",
+    "TorchMetrics",
+    "MLflow",
+    "Scikit-Learn",
+    "Pandas",
+    "NumPy",
+    "NLTK",
+    "Matplotlib",
+    "TQDM",
+    "IPython",
+    "GloVe Embeddings"
+  ],
+  "tags": [
+    "NLP",
+    "Data Preprocessing",
+    "Question Pair Matching",
+    "Duplicate Detection",
+    "Semantic Similarity",
+    "Siamese Network",
+    "LSTM Attention",
+    "BiLSTM",
+    "Multi-Head Attention",
+    "Bahdanau Attention",
+    "Custom Attention",
+    "GloVe Embeddings",
+    "PyTorch",
+    "TorchMetrics",
+    "MLflow",
+    "Threshold Calibration",
+    "F1 Optimization",
+    "Error Analysis",
+    "OOP",
+    "Model Architecture Export"
+  ],
+    "href": "https://a1mohamad.github.io/research/quora-questions-pairs/index.html",
+    "image": "url(assets/images/qqp.png)"
+  },
+  {
   "title": "Disaster Tweet Classification App",
   "category": "Communication",
   "meta": [
