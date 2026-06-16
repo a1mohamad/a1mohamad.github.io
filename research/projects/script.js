@@ -42,6 +42,7 @@ const projects = [
     "Computer Vision",
     "Image Classification",
     "Semantic Segmentation",
+    "Web App",
     "U-Net",
     "DenseNet",
     "EfficientNet",
@@ -61,14 +62,15 @@ const projects = [
     "Airflow Pipelines",
     "MLOps"
   ],
-  "href": "https://a1mohamad.github.io/research/lung-disease-detection/index.html",
-  "image": "url(assets/images/lung.png)"
+    "href": "https://a1mohamad.github.io/research/lung-disease-detection/index.html",
+    "image": "url(assets/images/lung.png)"
   },
   {
   "title": "Quora Question Pair Duplicate Detection",
   "category": "Communication",
   "meta": [
     "2026",
+    "Duplicate Detection",
     "Classification",
     "Deep Learning",
     "NLP",
@@ -110,7 +112,8 @@ const projects = [
     "Threshold Calibration",
     "F1 Optimization",
     "Error Analysis",
-    "OOP"
+    "OOP",
+    "Model Architecture Export"
   ],
     "href": "https://a1mohamad.github.io/research/quora-questions-pairs/index.html",
     "image": "url(assets/images/qqp.png)"
@@ -247,7 +250,7 @@ const projects = [
     "Moasic Augmentation",
     "Fine-Tuning",
     "TTA",
-    "Weighted Boxes Fusion"
+    "Weighted Boxes Fusion",
   ],
     "href": "https://a1mohamad.github.io/research/wheat-detection/index.html",
     "image": "url(assets/images/wheat.png)"
