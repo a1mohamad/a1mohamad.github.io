@@ -77,8 +77,7 @@ const projects = [
     "NLTK",
     "Matplotlib",
     "TQDM",
-    "IPython",
-    "GloVe Embeddings"
+    "IPython"
   ],
   "tags": [
     "NLP",
