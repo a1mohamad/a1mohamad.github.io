@@ -4,7 +4,6 @@ const projects = [
   "category": "Communication",
   "meta": [
     "2026",
-    "Duplicate Detection",
     "Classification",
     "Deep Learning",
     "NLP",
@@ -12,7 +11,7 @@ const projects = [
     "MLflow",
     "Kaggle Competition"
   ],
-  "desc": "Quora duplicate-question research lab with a custom LSTM-attention track, Siamese question-pair modeling, manual attention implementation, MLflow experiment tracking, calibrated F1 optimization, and reusable framework-style code.",
+  "desc": "Quora duplicate-question research lab with a Siamese question-pair modeling, manual attention implementation, MLflow experiment tracking, calibrated F1 optimization",
   "tools": [
     "Python",
     "PyTorch",
