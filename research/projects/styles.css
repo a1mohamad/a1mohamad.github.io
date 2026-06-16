@@ -1214,6 +1214,7 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
   opacity: 1;
   visibility: visible;
   transform: translateY(0) scale(1);
+  pointer-events: auto;
 }
 
 .card-detail-panel::-webkit-scrollbar { width: 5px; }
@@ -1435,14 +1436,14 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
   background-position: center !important;
 }
 
-/* Data-rich project cards: keep every tool/tag visible instead of truncating. */
+/* Data-rich project cards: keep the grid compact; complete labels live in the hover panel. */
 .project-card.rich-card {
   grid-column: auto !important;
-  height: auto !important;
-  min-height: 0 !important;
+  height: 348px !important;
+  min-height: 348px !important;
   grid-template-columns: 200px minmax(0, 1fr) !important;
-  align-items: start !important;
-  overflow: visible !important;
+  align-items: center !important;
+  overflow: hidden !important;
 }
 
 .project-card.rich-card .thumb {
@@ -1455,14 +1456,15 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
 .project-card.rich-card .card-content,
 .project-card.rich-card > div.card-content {
   height: auto !important;
-  overflow: visible !important;
-  justify-content: flex-start !important;
+  overflow: hidden !important;
+  justify-content: center !important;
 }
 
 .project-card.rich-card .project-desc {
-  display: block !important;
-  -webkit-line-clamp: unset !important;
-  overflow: visible !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
   margin-bottom: 14px !important;
 }
 
@@ -1472,7 +1474,7 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
 .project-card.rich-card .tool-row:first-child,
 .project-card.rich-card .tool-row:not(:first-child) {
   max-height: none !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   flex-wrap: wrap !important;
 }
 
@@ -1484,15 +1486,6 @@ body::before{content:'';position:fixed;inset:-15%;background:radial-gradient(cir
 .project-card.rich-card .taxonomy-line {
   grid-template-columns: 76px minmax(0, 1fr) !important;
   align-items: start !important;
-}
-
-.project-card.rich-card .tool,
-.project-card.rich-card .tag,
-.project-card.rich-card .status,
-.project-card.rich-card .chip-more {
-  font-size: .56rem !important;
-  padding: 4px 7px !important;
-  white-space: nowrap !important;
 }
 
 .project-card.rich-card .card-detail-panel {
