@@ -62,7 +62,7 @@ const projects = [
     "MLOps"
   ],
     "href": "https://a1mohamad.github.io/research/lung-disease-detection/index.html",
-    "image": "url(assets/images/lung.png)"
+    "image": "url(assets/images/lung.webp)"
   },
   {
   "title": "Quora Question Pair Duplicate Detection",
