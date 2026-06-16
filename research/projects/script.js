@@ -1,59 +1,4 @@
 const projects = [
-    {
-  "title": "Lung Disease Detection",
-  "category": "Medical",
-  "meta": [
-    "2026",
-    "Classification",
-    "Segmentation",
-    "Deep Learning",
-    "Computer Vision",
-    "Deployment",
-    "Postgres"
-  ],
-  "desc": "Quora duplicate-question research lab with a Siamese question-pair modeling, manual attention implementation, MLflow experiment tracking, calibrated F1 optimization",
-  "tools": [
-    "Python",
-    "TensorFlow/Keras",
-    "FastAPI",
-    "Airflow",
-    "MLflow",
-    "Kafka",
-    "Scikit-Learn",
-    "SQLAlchemy",
-    "Pandas",
-    "NumPy",
-    "Docker",
-    "Docker compose",
-    "Matplotlib",
-    "ONNX",
-  ],
-  "tags": [
-    "CNN",
-    "Image Classification",
-    "Image Segmentation",
-    "End-to-End Pipeline",
-    "Web App",
-    "PostgresSQL",
-    "Microsoft SQL Server",
-    "Supabase",
-    "MLOps",
-    "EfficientNet",
-    "DenseNet",
-    "Inception",
-    "MobileNet",
-    "U-Net Xception",
-    "Kafka Consumers",
-    "Post-Hoc Tracking",
-    "Docker Deployment",
-    "ONNX",
-    "Hugging Face Spaces",
-    "Hugging Face Models",
-    
-  ],
-    "href": "https://a1mohamad.github.io/research/lung-disease-detection/index.html",
-    "image": "url(assets/images/lung.png)"
-  },
   {
   "title": "Quora Question Pair Duplicate Detection",
   "category": "Communication",
@@ -62,10 +7,11 @@ const projects = [
     "Classification",
     "Deep Learning",
     "NLP",
+    "PyTorch",
     "MLflow",
     "Kaggle Competition"
   ],
-  "desc": "Quora duplicate-question research lab with a Siamese question-pair modeling, manual attention implementation, MLflow experiment tracking, calibrated F1 optimization",
+  "desc": "Quora duplicate-question research lab with a custom LSTM-attention track, Siamese question-pair modeling, manual attention implementation, MLflow experiment tracking, calibrated F1 optimization, and reusable framework-style code.",
   "tools": [
     "Python",
     "PyTorch",
@@ -77,7 +23,8 @@ const projects = [
     "NLTK",
     "Matplotlib",
     "TQDM",
-    "IPython"
+    "IPython",
+    "GloVe Embeddings"
   ],
   "tags": [
     "NLP",
@@ -98,8 +45,7 @@ const projects = [
     "Threshold Calibration",
     "F1 Optimization",
     "Error Analysis",
-    "OOP",
-    "Model Architecture Export"
+    "OOP"
   ],
     "href": "https://a1mohamad.github.io/research/quora-questions-pairs/index.html",
     "image": "url(assets/images/qqp.png)"
@@ -319,7 +265,7 @@ const projects = [
     "Ensemble Models",
     "API deployment",
     "PostgreSQL",
-    "Redis",
+    "Redis Cache",
     "Docker Deployment"
   ],
     "href": "https://a1mohamad.github.io/research/box-office-revenue/index.html",
@@ -862,7 +808,13 @@ function renderFullChips(items, chipClass) {
 }
 
 function card(p) {
-  return `<a class="project-card" href="${p.href}" target="_blank" rel="noopener" aria-label="Open ${escapeHTML(p.title)} project page">
+  const toolCount = Array.isArray(p.tools) ? new Set(p.tools.filter(Boolean)).size : 0;
+  const tagCount = Array.isArray(p.tags) ? new Set(p.tags.filter(Boolean)).size : 0;
+  const richCard = toolCount + tagCount > 28;
+  const previewToolLimit = richCard ? toolCount : 4;
+  const previewTagLimit = richCard ? tagCount : 4;
+
+  return `<a class="project-card${richCard ? " rich-card" : ""}" href="${p.href}" target="_blank" rel="noopener" aria-label="Open ${escapeHTML(p.title)} project page">
     <div class="thumb" style="--image:${p.image}"></div>
     <div class="card-content">
       <div class="tool-row compact-row meta-row">${renderAllChips([p.category, ...p.meta], "status")}</div>
@@ -871,11 +823,11 @@ function card(p) {
       <div class="card-taxonomy">
         <div class="taxonomy-line">
           <span class="taxonomy-label">Tools</span>
-          <div class="tool-row compact-row">${renderPreviewChips(p.tools, "tool", 4)}</div>
+          <div class="tool-row compact-row">${renderPreviewChips(p.tools, "tool", previewToolLimit)}</div>
         </div>
         <div class="taxonomy-line">
           <span class="taxonomy-label">Algorithms</span>
-          <div class="tag-row compact-row">${renderPreviewChips(p.tags, "tag", 4)}</div>
+          <div class="tag-row compact-row">${renderPreviewChips(p.tags, "tag", previewTagLimit)}</div>
         </div>
       </div>
     </div>
