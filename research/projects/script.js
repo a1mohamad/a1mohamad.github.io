@@ -291,7 +291,7 @@ const projects = [
     "image": "url(assets/images/cassava.png)"
   },
   {
-    "title": "TMDB Box Office Revenue"
+    "title": "TMDB Box Office Revenue",
     "category": "Entertainment",
     "meta": [
       "2024",
