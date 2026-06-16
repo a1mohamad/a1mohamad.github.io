@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lung Disease Detection | End-to-End Medical AI Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section lung-hero">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Medical AI &middot; Chest X-Ray &middot; TensorFlow &middot; ONNX &middot; FastAPI &middot; Kafka &middot; MLflow &middot; Airflow</div>
+    <h1>Lung Disease Detection: End-to-End Medical AI Platform</h1>
+    <div class="hero-subtitle">A full-stack AI system for chest X-ray analysis: dataset engineering, TFRecord generation, six model families, Optuna search, lung segmentation, binary ensemble triage, disease sub-classification, ONNX conversion, FastAPI inference, React UI, database logging, Kafka event pipelines, Docker Compose runtimes, MLflow registry, Airflow retraining, Hugging Face model delivery, and Supabase object storage for prediction artifacts.</div>
+    <div class="btn-group">
+        <a class="btn-modern-primary" href="https://github.com/a1mohamad/lung-disease-detection-app" target="_blank"><i class="fa-brands fa-github"></i><span>Research Lab</span></a>
+        <a class="btn-modern-secondary" href="https://huggingface.co/a1mohamadd/lung-disease-detection" target="_blank"><i class="fa-solid fa-face-smile"></i><span>HF Model Repo</span></a>
+        <a class="btn-modern-secondary" href="https://huggingface.co/spaces/a1mohamadd" target="_blank"><i class="fa-solid fa-rocket"></i><span>HF Space</span></a>
+        <a class="btn-modern-secondary" href="https://huggingface.co/spaces/a1mohamadd/lung-disease-detection" target="_blank"><i class="fa-solid fa-window-restore"></i><span>Web App</span></a>
+        <a class="btn-modern-secondary" href="https://www.kaggle.com/datasets/tawsifurrahman/covid19-radiography-database" target="_blank"><i class="fa-solid fa-database"></i><span>Dataset</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip wheat-metrics wheat-metrics-six lung-metrics">
+        <div class="metric-block" data-metric-target="21165" data-metric-type="integer"><div class="metric-label">CXR Images</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="6" data-metric-type="integer"><div class="metric-label">Deployed Models</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="0.9544" data-metric-type="float4"><div class="metric-label">Best Binary F1</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="0.9782" data-metric-type="float4"><div class="metric-label">Disease F1</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="0.9660" data-metric-type="float4"><div class="metric-label">Segmentation Dice</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="5" data-metric-type="integer"><div class="metric-label">Event Consumers</div><div class="metric-value">0</div></div>
+    </div>
+
+    <div class="metrics-strip tool-metrics-strip">
+        <div class="metric-block"><div class="metric-label">Modeling</div><div class="metric-value tool-value">TensorFlow/Keras</div></div>
+        <div class="metric-block"><div class="metric-label">Optimization</div><div class="metric-value tool-value">Optuna</div></div>
+        <div class="metric-block"><div class="metric-label">Dataset</div><div class="metric-value tool-value">TFRecord</div></div>
+        <div class="metric-block"><div class="metric-label">API</div><div class="metric-value tool-value">FastAPI</div></div>
+        <div class="metric-block"><div class="metric-label">Frontend</div><div class="metric-value tool-value">HTML/CSS/JS</div></div>
+        <div class="metric-block"><div class="metric-label">Cloud DB</div><div class="metric-value tool-value">Postgres</div></div>
+        <div class="metric-block"><div class="metric-label">Local DB</div><div class="metric-value tool-value">MSSQL</div></div>
+        <div class="metric-block"><div class="metric-label">Deployment</div><div class="metric-value tool-value">Docker</div></div>
+        <div class="metric-block"><div class="metric-label">Registry</div><div class="metric-value tool-value">MLflow</div></div>
+        <div class="metric-block"><div class="metric-label">Pipelines</div><div class="metric-value tool-value">Airflow</div></div>
+        <div class="metric-block"><div class="metric-label">Events</div><div class="metric-value tool-value">Kafka</div></div>
+    </div>
+
+    <div class="notebook-switcher lung-switcher">
+        <button class="notebook-tab active" data-target="dataset-panel"><i class="fa-solid fa-database"></i>Dataset</button>
+        <button class="notebook-tab" data-target="training-panel"><i class="fa-solid fa-brain"></i>Training</button>
+        <button class="notebook-tab" data-target="segmentation-panel"><i class="fa-solid fa-lungs"></i>Segmentation</button>
+        <button class="notebook-tab" data-target="inference-panel"><i class="fa-solid fa-route"></i>Inference</button>
+        <button class="notebook-tab" data-target="api-panel"><i class="fa-solid fa-server"></i>API + UI</button>
+        <button class="notebook-tab" data-target="mlops-panel"><i class="fa-solid fa-gears"></i>MLOps</button>
+    </div>
+
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">System Map</span>
+                <h2>Research to Production Architecture</h2>
+                <p class="panel-desc">The project is organized around the complete lifecycle: data, modeling, segmentation, runtime inference, serving, and operations.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="theory-split lung-system-grid">
+                <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Data Layer</div><span class="theory-badge">21,165 pairs</span></div><p class="theory-explanation">Aggregates four chest X-ray classes, creates metadata and mapping JSON files, pairs each image with a lung mask, and serializes the dataset into TFRecords.</p></div>
+                <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Research Layer</div><span class="theory-badge champion-badge">6 models</span></div><p class="theory-explanation">Trains four healthy/unhealthy classifiers, one disease classifier, one U-Net/Xception segmentation model, and a multi-task segmentation/classification prototype.</p></div>
+                <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Serving Layer</div><span class="theory-badge">ONNX default</span></div><p class="theory-explanation">Loads metadata-driven Keras or ONNX artifacts, segments lung fields, crops ROI, runs ensemble voting, optionally classifies disease, and returns visual artifacts.</p></div>
+                <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Operations Layer</div><span class="theory-badge champion-badge">MLOps</span></div><p class="theory-explanation">Uses Docker Compose, SQL Server/Postgres, Kafka consumers, MLflow registry, Airflow DAGs, Hugging Face model download, and Supabase object storage for source, mask, ROI, and overlay artifacts.</p></div>
+            </div>
+        </div></div>
+    </section>
+
+    <div class="notebook-panel active" id="dataset-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Dataset Foundation</span>
+                    <h2>COVID-19 Radiography Database Preparation</h2>
+                    <p class="panel-desc">The data layer converts a public medical imaging dataset into project-ready metadata, mask pairs, mappings, and TFRecords.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The project uses the COVID-19 Radiography Database, which contains chest X-ray images and corresponding lung masks for four classes: COVID, Normal, Lung Opacity, and Viral Pneumonia. The first notebooks consolidate image/mask paths, create class mappings for binary and multi-class tasks, and turn the raw folder tree into durable metadata files used by both research and deployment.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Original classes</strong><span><code>COVID</code>, <code>Normal</code>, <code>Viral Pneumonia</code>, and <code>Lung_Opacity</code>.</span></div>
+                        <div class="note-card"><strong>Binary task</strong><span><code>Normal</code> becomes Healthy; COVID, Viral Pneumonia, and Lung Opacity become Unhealthy.</span></div>
+                        <div class="note-card"><strong>Disease task</strong><span>Only unhealthy ROI images are classified into COVID, Viral Pneumonia, or Lung Opacity.</span></div>
+                    </div>
+                </div>
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><span class="kpi-label">COVID</span><span class="kpi-value good">3,616</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Normal</span><span class="kpi-value">10,192</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Lung Opacity</span><span class="kpi-value good">6,012</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Viral Pneumonia</span><span class="kpi-value">1,345</span></div>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Artifact</th><th>Role</th><th>Used By</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>all_metadata.csv</code></td><td>Image-level metadata for 21,165 CXR records.</td><td>EDA, model training, MLOps evaluation.</td></tr>
+                            <tr><td><code>all_image_mask_pairs.csv</code></td><td>Pairs each X-ray with its lung mask.</td><td>Segmentation, ROI cropping, mask-aware classification.</td></tr>
+                            <tr><td><code>class_mapping.json</code></td><td>Original four-class mapping.</td><td>Research notebooks.</td></tr>
+                            <tr><td><code>healthy_binary_mapping.json</code></td><td>Healthy/unhealthy output mapping.</td><td>Binary ensemble and API response labels.</td></tr>
+                            <tr><td><code>diseases_mapping.json</code></td><td>COVID, Viral Pneumonia, Lung Opacity mapping.</td><td>Disease classifier and deployment assets.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Dataset Dependencies</span>
+                    <h2>Data Engineering Libraries & Dependencies</h2>
+                    <p class="panel-desc">The dataset notebooks use lightweight but important tooling for image paths, mappings, serialization, and TensorFlow input pipelines.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-table"></i></div><div><strong>Pandas + NumPy</strong><span>Build metadata tables, count classes, validate image/mask pairs, and prepare arrays for downstream TFRecord creation.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-folder-tree"></i></div><div><strong>glob + os + JSON</strong><span>Traverse class folders, collect image and mask paths, and persist binary/multiclass mappings as project contracts.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-python"></i></div><div><strong>TensorFlow TFRecord APIs</strong><span>Serialize images, masks, labels, and metadata into 10 sharded TFRecord files of roughly 77 MB each.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-shield-heart"></i></div><div><strong>Medical dataset citation</strong><span>The source README documents the COVID-19 Radiography Database, its contributing sources, class counts, and citation requirements.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">TFRecord Pipeline</span>
+                    <h2>Serialized Training Data</h2>
+                    <p class="panel-desc">The TFRecord notebook turns the large image/mask dataset into repeatable TensorFlow input shards.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">create_tfrecords.ipynb</div><div></div></div><div class="terminal-body compact-code"><pre>def create_tfrecord(df, output_path, shard_size):
+    for shard_idx, shard in enumerate(split_dataframe(df, shard_size)):
+        writer = tf.io.TFRecordWriter(f"{output_path}_{shard_idx:02d}.tfrecord")
+        for row in shard.itertuples():
+            example = serialize_example(
+                image_path=row.image_path,
+                mask_path=row.mask_path,
+                label=row.class_index,
+                binary_label=row.binary_label,
+            )
+            writer.write(example.SerializeToString())</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">shards.txt</div><div></div></div><div class="terminal-body compact-code"><pre>data_00.tfrecord ... data_09.tfrecord
+10 total shards
+~77 MB per shard
+image + mask + class label + binary label
+used by training, evaluation, and MLOps jobs</pre></div></div>
+                </div>
+                <div class="viz-display-grid two-card-row" style="margin-top:24px;">
+                    <div class="viz-wrapper-card big-viz stagger-child"><img src="assets/lung.webp" alt="Lung medical hero visual"><div class="viz-meta-text">Medical AI context image used as a page-level visual anchor.</div></div>
+                    <div class="viz-wrapper-card big-viz stagger-child"><img src="assets/image-with-mask.png" alt="Image mask crop pipeline"><div class="viz-meta-text">Image + mask supervision concept: predict lung mask, then crop the image around the relevant region.</div></div>
+                </div>
+            </div></div>
+        </section>
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">EDA and Data Quality</span>
+                    <h2>Dataset Checks Before Training</h2>
+                    <p class="panel-desc">The EDA work is not decorative. It protects the training pipeline from missing masks, broken mappings, imbalance, and inconsistent class contracts.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Pair Integrity</div><span class="theory-badge">image + mask</span></div><p class="theory-explanation">Every X-ray must have a matching lung mask. This matters because segmentation, ROI cropping, EfficientNet's mask channel, and masked-background models all depend on mask availability.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Class Imbalance</div><span class="theory-badge">Normal heavy</span></div><p class="theory-explanation">Normal scans are the largest class and Viral Pneumonia is the smallest. The project separates binary and disease tasks so imbalance is handled where it actually affects the decision.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Mapping Consistency</div><span class="theory-badge">contracts</span></div><p class="theory-explanation">Research mappings and deployment mappings are saved explicitly so notebook labels, API labels, frontend labels, and database labels stay aligned.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Serialization Check</div><span class="theory-badge">10 shards</span></div><p class="theory-explanation">TFRecord generation turns scattered image folders into deterministic shards that can be reused by notebooks, evaluation jobs, and monthly MLOps tasks.</p></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>EDA Question</th><th>What Was Checked</th><th>Why It Matters</th></tr></thead>
+                        <tbody>
+                            <tr><td>Are masks available?</td><td>Image paths and mask paths are paired in a single metadata file.</td><td>The segmentation model and ROI-based classifiers require mask supervision.</td></tr>
+                            <tr><td>Are class labels stable?</td><td>JSON mappings are generated for original four-class, binary, and disease-only tasks.</td><td>Prevents label mismatch between research, deployment, and UI labels.</td></tr>
+                            <tr><td>Is the task split sensible?</td><td>Normal is preserved for binary triage, while unhealthy classes become disease classifier inputs.</td><td>Avoids asking the disease model to classify healthy scans as a disease.</td></tr>
+                            <tr><td>Can the data stream repeatably?</td><td>TFRecord shards store image, mask, class label, and binary label.</td><td>Training and retraining jobs can consume the same artifact format.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="training-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Training Libraries First</span>
+                    <h2>Modeling Libraries & Training Dependencies</h2>
+                    <p class="panel-desc">The training tab starts with dependencies because every notebook uses a slightly different mix of Keras backbones, mask processing, callbacks, metrics, and optimization tools.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-python"></i></div><div><strong>TensorFlow / Keras</strong><span>Transfer-learning backbones, custom heads, metrics, callbacks, saved <code>.keras</code> artifacts, TFRecord datasets, and model export preparation.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-image"></i></div><div><strong>Mask + ROI preprocessing</strong><span>Every binary model uses the lung mask differently: ROI crop, mask channel, masked background, or mask-as-RGB input.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-chart-simple"></i></div><div><strong>AUC, precision, recall, F1</strong><span>Model comparison is centered on F1 for classification, while detailed sections still show AUC, precision, recall, accuracy, threshold, and validation loss.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-sliders"></i></div><div><strong>Optuna</strong><span>Used for DenseNet binary and disease classifier architecture search, optimizer search, staged LR, dropout, label smoothing, and class-weight tuning.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-file-code"></i></div><div><strong>YAML + JSON contracts</strong><span>Final training decisions are saved into model metadata, mappings, Optuna JSON, and deployment model folders.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Training Strategy</span>
+                    <h2>Six-Model Research Program</h2>
+                    <p class="panel-desc">The project trains binary triage models, a disease classifier, and segmentation models rather than relying on one monolithic classifier.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The research layer is split by clinical decision: first isolate lungs, then decide healthy versus unhealthy, then classify the disease if pathology is detected. Binary classification is intentionally ensemble-based: DenseNet121, EfficientNetV2B3, InceptionV3, and MobileNetV3 vote on the final healthy/unhealthy decision. A separate DenseNet121 model handles disease sub-classification for unhealthy scans.</p>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Model</th><th>Task</th><th>Preprocessing</th><th>Threshold / Output</th><th>F1-First Metrics</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>EfficientNetV2B3</code></td><td>Binary healthy/unhealthy</td><td>4-channel RGB + mask, normalize [-1,1]</td><td>Threshold 0.85</td><td><strong>F1 0.9544</strong>, AUC 0.9871, precision 0.9641, recall 0.9448</td></tr>
+                            <tr><td><code>DenseNet121</code></td><td>Binary healthy/unhealthy</td><td>Lung ROI + DenseNet preprocessing</td><td>Threshold 0.91</td><td><strong>F1 0.9245</strong>, AUC 0.9711, precision 0.9183, recall 0.9308</td></tr>
+                            <tr><td><code>MobileNetV3</code></td><td>Binary healthy/unhealthy</td><td>Mask-as-RGB, masked input</td><td>Threshold 0.50</td><td><strong>F1 0.9206</strong>, AUC 0.9730, precision 0.9259, recall 0.9153</td></tr>
+                            <tr><td><code>InceptionV3</code></td><td>Binary healthy/unhealthy</td><td>Mask-as-RGB, background fill -1.0</td><td>Threshold 0.50</td><td><strong>F1 0.9160</strong>, AUC 0.9699, precision 0.9244, recall 0.9077</td></tr>
+                            <tr><td><code>DenseNet121</code></td><td>COVID / Viral Pneumonia / Lung Opacity</td><td>Lung ROI + DenseNet preprocessing</td><td>3-class softmax</td><td><strong>F1 0.9782</strong>, AUC 0.9982, precision 0.9781, recall 0.9763</td></tr>
+                            <tr><td><code>U-Net Xception</code></td><td>Lung segmentation</td><td>256x256 RGB input</td><td>Mask threshold 0.50</td><td>Accuracy 0.9885, Dice 0.9660, IoU 0.9533</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Research Notebook Map</span>
+                    <h2>Training Subsections and Notebook Coverage</h2>
+                    <p class="panel-desc">The training tab is split like a small research menu because the project contains several separate experiments, not one notebook.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Notebook / File Group</th><th>Research Role</th><th>Important Details Preserved in Page</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>MobileNetV3-healthy-binary_classification.ipynb</code></td><td>Lightweight binary classifier</td><td>Mask-as-RGB preprocessing, threshold 0.50, F1 0.9206, AUC 0.9730.</td></tr>
+                            <tr><td><code>InceptionV3-healthy-binary_classification.ipynb</code></td><td>Binary classifier with Inception features</td><td>Masked background fill, threshold 0.50, F1 0.9160, AUC 0.9699.</td></tr>
+                            <tr><td><code>EfficientNetV2B3-healthy-binary_classification.ipynb</code></td><td>Strongest binary model</td><td>RGB plus mask channel input, threshold 0.85, best binary F1 0.9544, AUC 0.9871.</td></tr>
+                            <tr><td><code>DenseNet121-healthy_binary_classification.ipynb</code></td><td>ROI-based binary model</td><td>DenseNet preprocessing, ROI crop, conservative threshold 0.91, F1 0.9245.</td></tr>
+                            <tr><td><code>DenseNet121-healthy_binary_optuna_phase1/2.ipynb</code></td><td>Binary hyperparameter search</td><td>Classifier head 1024/512, AdamW, cosine decay, dropout, label smoothing, staged LR.</td></tr>
+                            <tr><td><code>DenseNet121-diseases-multiclass_classification.ipynb</code></td><td>Disease sub-classifier</td><td>Three-class unhealthy diagnosis with AUC 0.9982 and F1 0.9782.</td></tr>
+                            <tr><td><code>DenseNet121-diseases_optuna_phase1/2.ipynb</code></td><td>Disease optimization</td><td>Compact 256/64 head, class-weight power, label smoothing, dropout 0.45.</td></tr>
+                            <tr><td><code>metadata.yaml</code> files</td><td>Deployment contract</td><td>Thresholds, class labels, preprocessing, artifact paths, ONNX paths, and reported metrics.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="mobilenet-training">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Tabbed Model Training</span>
+                    <h2>Model-by-Model Training Details</h2>
+                    <p class="panel-desc">Each tab keeps the same structure: libraries first, architecture, training configuration, callbacks, metrics, and a compact code panel.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="training-model-tabs training-tabset stagger-child" role="tablist" aria-label="Training model tabs">
+                    <button class="training-model-tab active" data-model-target="model-mobilenet"><i class="fa-solid fa-mobile-screen"></i>MobileNetV3</button>
+                    <button class="training-model-tab" data-model-target="model-inception"><i class="fa-solid fa-sitemap"></i>InceptionV3</button>
+                    <button class="training-model-tab" data-model-target="model-efficientnet"><i class="fa-solid fa-gauge-high"></i>EfficientNetV2B3</button>
+                    <button class="training-model-tab" data-model-target="model-densenet-binary"><i class="fa-solid fa-layer-group"></i>DenseNet Binary</button>
+                    <button class="training-model-tab" data-model-target="model-densenet-disease"><i class="fa-solid fa-virus-covid"></i>Disease DenseNet</button>
+                </div>
+
+                <div class="training-model-panels stagger-child">
+                    <article class="training-model-panel active" id="model-mobilenet">
+                        <div class="model-panel-heading">
+                            <div><span class="panel-tag">Healthy/Unhealthy</span><h3>MobileNetV3 Lightweight Voter</h3></div>
+                            <div class="model-score"><span>F1</span><strong>0.9206</strong></div>
+                        </div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Model Role</strong><span>Compact binary voter that adds a lightweight architecture to the ensemble and reduces dependence on heavy backbones.</span></div>
+                            <div class="model-detail-card"><strong>Architecture</strong><span>ImageNet MobileNetV3 backbone, global pooling, dropout, sigmoid binary head.</span></div>
+                            <div class="model-detail-card"><strong>Config</strong><span>Mask-as-RGB input, threshold 0.50, healthy/unhealthy labels, Keras + ONNX artifacts.</span></div>
+                            <div class="model-detail-card"><strong>Callbacks</strong><span>Checkpoint best validation model, early stopping, LR reduction, validation metric tracking.</span></div>
+                        </div>
+                        <div class="matrix-table-container compact-model-table"><table><thead><tr><th>F1</th><th>AUC</th><th>Precision</th><th>Recall</th><th>Notebook Peaks</th></tr></thead><tbody><tr><td><strong>0.9206</strong></td><td>0.9730</td><td>0.9259</td><td>0.9153</td><td>val acc 0.9242, val precision 0.9381, val recall 0.9420</td></tr></tbody></table></div>
+                        <div class="implementation-grid model-code-grid">
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">MobileNet architecture</div><div></div></div><div class="terminal-body compact-code"><pre>base = MobileNetV3Large(include_top=False, weights="imagenet", input_shape=(256, 256, 3))
+base.trainable = False
+x = GlobalAveragePooling2D()(base.output)
+x = Dropout(dropout)(x)
+out = Dense(1, activation="sigmoid")(x)
+model = Model(base.input, out)
+model.compile(optimizer=Adam(lr), loss="binary_crossentropy", metrics=[AUC(), Precision(), Recall()])</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">MobileNet callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_loss", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    ReduceLROnPlateau(monitor="val_loss", factor=0.2, patience=3),
+]</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">MobileNet fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>history_head = model.fit(train_ds, validation_data=val_ds, callbacks=callbacks)
+base.trainable = True
+freeze_lower_layers(base, keep_top_blocks=True)
+model.compile(optimizer=Adam(low_lr), loss="binary_crossentropy", metrics=metrics)
+history_ft = model.fit(train_ds, validation_data=val_ds, callbacks=callbacks)</pre></div></div>
+                        </div>
+                    </article>
+
+                    <article class="training-model-panel" id="model-inception">
+                        <div class="model-panel-heading">
+                            <div><span class="panel-tag">Healthy/Unhealthy</span><h3>InceptionV3 Masked-Background Voter</h3></div>
+                            <div class="model-score"><span>F1</span><strong>0.9160</strong></div>
+                        </div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Model Role</strong><span>Masked-background binary voter that tests a deeper convolutional feature extractor with non-lung pixels suppressed.</span></div>
+                            <div class="model-detail-card"><strong>Architecture</strong><span>ImageNet InceptionV3 backbone with binary sigmoid head and fine-tuned upper layers.</span></div>
+                            <div class="model-detail-card"><strong>Config</strong><span>Mask-as-RGB input, background fill -1.0, threshold 0.50, Keras + ONNX runtime.</span></div>
+                            <div class="model-detail-card"><strong>Callbacks</strong><span>Validation loss monitoring, checkpointing, early stopping, learning-rate control.</span></div>
+                        </div>
+                        <div class="matrix-table-container compact-model-table"><table><thead><tr><th>F1</th><th>AUC</th><th>Precision</th><th>Recall</th><th>Notebook Peaks</th></tr></thead><tbody><tr><td><strong>0.9160</strong></td><td>0.9699</td><td>0.9244</td><td>0.9077</td><td>val acc 0.9171, val precision 0.9464, val recall 0.9562</td></tr></tbody></table></div>
+                        <div class="implementation-grid model-code-grid">
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Inception architecture</div><div></div></div><div class="terminal-body compact-code"><pre>base = InceptionV3(include_top=False, weights="imagenet", input_shape=(256, 256, 3))
+x = GlobalAveragePooling2D()(base.output)
+x = Dropout(dropout)(x)
+out = Dense(1, activation="sigmoid")(x)
+model = Model(base.input, out)</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Inception callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_loss", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    ReduceLROnPlateau(monitor="val_loss", factor=0.2, patience=3),
+]</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Inception masked fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>mask_rgb = tf.repeat(mask[..., :1], repeats=3, axis=-1)
+background = tf.ones_like(image) * -1.0
+masked_image = tf.where(mask_rgb > 0.5, image, background)
+model_input = tf.keras.applications.inception_v3.preprocess_input(masked_image)
+prob = model(model_input)
+label = int(prob >= 0.50)</pre></div></div>
+                        </div>
+                    </article>
+
+                    <article class="training-model-panel" id="model-efficientnet">
+                        <div class="model-panel-heading">
+                            <div><span class="panel-tag">Healthy/Unhealthy</span><h3>EfficientNetV2B3 Four-Channel Voter</h3></div>
+                            <div class="model-score champion"><span>F1</span><strong>0.9544</strong></div>
+                        </div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Model Role</strong><span>Strongest healthy/unhealthy branch, using the lung mask as an explicit fourth input channel.</span></div>
+                            <div class="model-detail-card"><strong>Architecture</strong><span>EfficientNetV2B3 transfer learning adapted for RGB plus mask-channel input.</span></div>
+                            <div class="model-detail-card"><strong>Config</strong><span>Normalize to [-1, 1], threshold 0.85, best binary F1 and AUC among deployed binary models.</span></div>
+                            <div class="model-detail-card"><strong>Callbacks</strong><span>Best-checkpoint saving, early stopping, LR scheduling, validation AUC/precision/recall tracking.</span></div>
+                        </div>
+                        <div class="matrix-table-container compact-model-table"><table><thead><tr><th>F1</th><th>AUC</th><th>Precision</th><th>Recall</th><th>Notebook Peaks</th></tr></thead><tbody><tr><td><strong>0.9544</strong></td><td>0.9871</td><td>0.9641</td><td>0.9448</td><td>val acc 0.9574, val AUC 0.9873, val loss 0.2146</td></tr></tbody></table></div>
+                        <div class="implementation-grid model-code-grid">
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">EfficientNet architecture</div><div></div></div><div class="terminal-body compact-code"><pre>inputs = Input(shape=(256, 256, 4))
+x = Conv2D(3, kernel_size=1, padding="same")(inputs)
+base = EfficientNetV2B3(include_top=False, weights="imagenet")
+x = base(x)
+x = GlobalAveragePooling2D()(x)
+out = Dense(1, activation="sigmoid")(x)</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">EfficientNet callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_auc", mode="max", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    ReduceLROnPlateau(monitor="val_loss", patience=3),
+]</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">EfficientNet 4-channel fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>mask_1c = tf.cast(mask[..., :1] > 0.5, tf.float32)
+four_channel = tf.concat([image, mask_1c], axis=-1)
+four_channel = (four_channel * 2.0) - 1.0
+prob = efficientnet_binary(four_channel)
+label = int(prob >= 0.85)</pre></div></div>
+                        </div>
+                    </article>
+
+                    <article class="training-model-panel" id="model-densenet-binary">
+                        <div class="model-panel-heading">
+                            <div><span class="panel-tag">Healthy/Unhealthy</span><h3>DenseNet121 ROI Binary Voter</h3></div>
+                            <div class="model-score"><span>F1</span><strong>0.9245</strong></div>
+                        </div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Model Role</strong><span>ROI-based conservative binary voter, optimized with two Optuna phases and a high decision threshold.</span></div>
+                            <div class="model-detail-card"><strong>Architecture</strong><span>DenseNet121 backbone, ROI crop input, 1024/512 dense head from Optuna phase 1.</span></div>
+                            <div class="model-detail-card"><strong>Config</strong><span>Threshold 0.91, label smoothing 0.075, dropout 0.25, unfreeze from <code>conv5_block1_0_bn</code>.</span></div>
+                            <div class="model-detail-card"><strong>Callbacks</strong><span>Two-stage training, warmup 3, checkpointing, early stopping, cosine LR fine-tuning.</span></div>
+                        </div>
+                        <div class="matrix-table-container compact-model-table"><table><thead><tr><th>F1</th><th>AUC</th><th>Precision</th><th>Recall</th><th>Optuna</th></tr></thead><tbody><tr><td><strong>0.9245</strong></td><td>0.9711</td><td>0.9183</td><td>0.9308</td><td>P1 0.8882, P2 0.8968</td></tr></tbody></table></div>
+                        <div class="implementation-grid model-code-grid">
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">DenseNet binary architecture</div><div></div></div><div class="terminal-body compact-code"><pre>roi = crop_lung_roi(image, mask, target_size=(256, 256), threshold=0.5)
+x = DenseNet121(include_top=False, weights="imagenet")(roi)
+x = GlobalAveragePooling2D()(x)
+x = Dense(1024, activation="relu")(x)
+x = Dropout(0.25)(x)
+x = Dense(512, activation="relu")(x)
+out = Dense(1, activation="sigmoid")(x)</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">DenseNet binary callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_auc", mode="max", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    LearningRateScheduler(cosine_warmup_schedule),
+]</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">DenseNet binary fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>loss = BinaryCrossentropy(label_smoothing=0.075)
+optimizer = AdamW(learning_rate=8.824e-4, weight_decay=1.045e-5)
+fit_classifier_head()
+unfreeze_from("conv5_block1_0_bn")
+set_lr(2.047e-5)
+fit_finetune()</pre></div></div>
+                        </div>
+                    </article>
+
+                    <article class="training-model-panel" id="model-densenet-disease">
+                        <div class="model-panel-heading">
+                            <div><span class="panel-tag">Disease Classifier</span><h3>DenseNet121 Disease Sub-Classifier</h3></div>
+                            <div class="model-score champion"><span>F1</span><strong>0.9782</strong></div>
+                        </div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Model Role</strong><span>Dedicated disease classifier used only after the ensemble predicts unhealthy, avoiding disease labels for healthy scans.</span></div>
+                            <div class="model-detail-card"><strong>Architecture</strong><span>DenseNet121 ROI classifier with compact 256/64 dense head from Optuna phase 1.</span></div>
+                            <div class="model-detail-card"><strong>Config</strong><span>3-class softmax: COVID, Viral Pneumonia, Lung Opacity. Dropout 0.45, label smoothing 0.025.</span></div>
+                            <div class="model-detail-card"><strong>Callbacks</strong><span>Checkpoint best model, early stopping, cosine LR, class-weight power 0.163 for imbalance.</span></div>
+                        </div>
+                        <div class="matrix-table-container compact-model-table"><table><thead><tr><th>F1</th><th>AUC</th><th>Precision</th><th>Recall</th><th>Notebook Peaks</th></tr></thead><tbody><tr><td><strong>0.9782</strong></td><td>0.9982</td><td>0.9781</td><td>0.9763</td><td>val AUC 0.9985, val loss 0.1672</td></tr></tbody></table></div>
+                        <div class="implementation-grid model-code-grid">
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Disease architecture</div><div></div></div><div class="terminal-body compact-code"><pre>classes = ["COVID", "Viral Pneumonia", "Lung Opacity"]
+roi = crop_lung_roi(image, mask, target_size=(256, 256))
+x = DenseNet121(include_top=False, weights="imagenet")(roi)
+x = GlobalAveragePooling2D()(x)
+x = Dense(256, activation="relu")(x)
+x = Dropout(0.45)(x)
+x = Dense(64, activation="relu")(x)
+out = Dense(3, activation="softmax")(x)</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Disease callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_loss", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    LearningRateScheduler(cosine_decay_with_warmup),
+]</pre></div></div>
+                        <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Disease fine-tuning config</div><div></div></div><div class="terminal-body compact-code"><pre>loss = CategoricalCrossentropy(label_smoothing=0.025)
+optimizer = AdamW(learning_rate=2.798e-4, weight_decay=5.429e-4)
+class_weights = compute_class_weights(power=0.163)
+fit_classifier_head()
+unfreeze_top_dense_blocks()
+fit_finetune()</pre></div></div>
+                        </div>
+                    </article>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible expanded" id="architecture-optimization-tabs" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Architecture & Optimization</span>
+                    <h2>Architecture and Optimization by Model</h2>
+                    <p class="panel-desc">Each model has its own architecture choices, input contract, thresholding, and optimization behavior.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="training-model-tabs training-tabset stagger-child" role="tablist" aria-label="Architecture optimization model tabs">
+                    <button class="training-model-tab active" data-model-target="arch-mobilenet"><i class="fa-solid fa-mobile-screen"></i>MobileNetV3</button>
+                    <button class="training-model-tab" data-model-target="arch-inception"><i class="fa-solid fa-sitemap"></i>InceptionV3</button>
+                    <button class="training-model-tab" data-model-target="arch-efficientnet"><i class="fa-solid fa-gauge-high"></i>EfficientNetV2B3</button>
+                    <button class="training-model-tab" data-model-target="arch-densenet-binary"><i class="fa-solid fa-layer-group"></i>DenseNet Binary</button>
+                    <button class="training-model-tab" data-model-target="arch-densenet-disease"><i class="fa-solid fa-virus-covid"></i>Disease DenseNet</button>
+                </div>
+                <div class="training-model-panels stagger-child">
+                    <article class="training-model-panel active" id="arch-mobilenet">
+                        <div class="model-panel-heading"><div><span class="panel-tag">MobileNetV3</span><h3>Lightweight Mask-Aware Architecture</h3></div><div class="model-score"><span>F1</span><strong>0.9206</strong></div></div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Architecture</strong><span>ImageNet MobileNetV3 feature extractor, global pooling, dropout, and sigmoid head.</span></div>
+                            <div class="model-detail-card"><strong>Input Contract</strong><span>3-channel mask-as-RGB input. Threshold remains 0.50 in deployment metadata.</span></div>
+                            <div class="model-detail-card"><strong>Optimization</strong><span>Designed as a fast ensemble voter; simpler head keeps capacity controlled.</span></div>
+                            <div class="model-detail-card"><strong>Artifact</strong><span>Keras and ONNX outputs stored with MobileNet binary metadata.</span></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>base = MobileNetV3Large(include_top=False, weights="imagenet")
+x = GlobalAveragePooling2D()(base.output)
+x = Dropout(dropout)(x)
+out = Dense(1, activation="sigmoid")(x)</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">optimization</div><div></div></div><div class="terminal-body compact-code"><pre>loss = BinaryCrossentropy()
+optimizer = Adam(learning_rate=lr)
+metrics = [AUC(), Precision(), Recall()]
+threshold = 0.50</pre></div></div>
+                        </div>
+                    </article>
+                    <article class="training-model-panel" id="arch-inception">
+                        <div class="model-panel-heading"><div><span class="panel-tag">InceptionV3</span><h3>Masked-Background Inception Architecture</h3></div><div class="model-score"><span>F1</span><strong>0.9160</strong></div></div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Architecture</strong><span>InceptionV3 backbone with global pooling, dropout, and binary sigmoid classifier.</span></div>
+                            <div class="model-detail-card"><strong>Input Contract</strong><span>Mask-as-RGB with background fill <code>-1.0</code> before Inception preprocessing.</span></div>
+                            <div class="model-detail-card"><strong>Optimization</strong><span>Separate Inception branch improves ensemble diversity through different receptive-field structure.</span></div>
+                            <div class="model-detail-card"><strong>Artifact</strong><span>Keras and ONNX exports preserve masked-background metadata.</span></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>base = InceptionV3(include_top=False, weights="imagenet")
+x = GlobalAveragePooling2D()(base.output)
+x = Dropout(dropout)(x)
+out = Dense(1, activation="sigmoid")(x)</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">masked input</div><div></div></div><div class="terminal-body compact-code"><pre>mask_rgb = tf.repeat(mask[..., :1], 3, axis=-1)
+background = tf.ones_like(image) * -1.0
+masked = tf.where(mask_rgb > 0.5, image, background)
+model_input = inception_v3.preprocess_input(masked)</pre></div></div>
+                        </div>
+                    </article>
+                    <article class="training-model-panel" id="arch-efficientnet">
+                        <div class="model-panel-heading"><div><span class="panel-tag">EfficientNetV2B3</span><h3>Four-Channel Strong Binary Architecture</h3></div><div class="model-score champion"><span>F1</span><strong>0.9544</strong></div></div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Architecture</strong><span>EfficientNetV2B3 adapted to consume RGB plus a mask channel.</span></div>
+                            <div class="model-detail-card"><strong>Input Contract</strong><span>4-channel tensor normalized to [-1, 1]. Deployment threshold is 0.85.</span></div>
+                            <div class="model-detail-card"><strong>Optimization</strong><span>Best binary F1 and AUC; threshold raised for stronger precision/recall balance.</span></div>
+                            <div class="model-detail-card"><strong>Artifact</strong><span>Keras and ONNX exports carry 4-channel preprocessing metadata.</span></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>inputs = Input(shape=(256, 256, 4))
+x = Conv2D(3, 1, padding="same")(inputs)
+base = EfficientNetV2B3(include_top=False, weights="imagenet")
+x = GlobalAveragePooling2D()(base(x))
+out = Dense(1, activation="sigmoid")(x)</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">optimization</div><div></div></div><div class="terminal-body compact-code"><pre>four_channel = tf.concat([rgb, mask[..., :1]], axis=-1)
+four_channel = (four_channel * 2.0) - 1.0
+prob = model(four_channel)
+label = int(prob >= 0.85)</pre></div></div>
+                        </div>
+                    </article>
+                    <article class="training-model-panel" id="arch-densenet-binary">
+                        <div class="model-panel-heading"><div><span class="panel-tag">DenseNet Binary</span><h3>ROI DenseNet with Optuna-Tuned Head</h3></div><div class="model-score"><span>F1</span><strong>0.9245</strong></div></div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Architecture</strong><span>DenseNet121 on lung ROI crop with 1024/512 dense layers from Optuna phase 1.</span></div>
+                            <div class="model-detail-card"><strong>Input Contract</strong><span>Uses segmentation crop and DenseNet preprocessing. Deployment threshold is 0.91.</span></div>
+                            <div class="model-detail-card"><strong>Optimization</strong><span>Phase 2 tuned AdamW, LR stages, label smoothing, dropout, weight decay, and unfreeze layer.</span></div>
+                            <div class="model-detail-card"><strong>Optuna Result</strong><span>P1 best 0.8882, P2 best 0.8968.</span></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>roi = crop_lung_roi(image, mask)
+x = DenseNet121(include_top=False, weights="imagenet")(roi)
+x = GlobalAveragePooling2D()(x)
+x = Dense(1024, activation="relu")(x)
+x = Dropout(0.25)(x)
+out = Dense(1, activation="sigmoid")(Dense(512, activation="relu")(x))</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">optimization</div><div></div></div><div class="terminal-body compact-code"><pre>optimizer = AdamW(lr=8.824e-4, weight_decay=1.045e-5)
+loss = BinaryCrossentropy(label_smoothing=0.075)
+dropout = 0.25
+unfreeze_from = "conv5_block1_0_bn"
+fine_tune_lr = 2.047e-5</pre></div></div>
+                        </div>
+                    </article>
+                    <article class="training-model-panel" id="arch-densenet-disease">
+                        <div class="model-panel-heading"><div><span class="panel-tag">Disease DenseNet</span><h3>ROI Disease Classifier Architecture</h3></div><div class="model-score champion"><span>F1</span><strong>0.9782</strong></div></div>
+                        <div class="model-detail-grid">
+                            <div class="model-detail-card"><strong>Architecture</strong><span>DenseNet121 on unhealthy ROI with compact 256/64 dense head from Optuna.</span></div>
+                            <div class="model-detail-card"><strong>Input Contract</strong><span>Runs only after unhealthy ensemble vote; outputs COVID, Viral Pneumonia, or Lung Opacity.</span></div>
+                            <div class="model-detail-card"><strong>Optimization</strong><span>Phase 2 tuned AdamW, class-weight power, dropout 0.45, and label smoothing.</span></div>
+                            <div class="model-detail-card"><strong>Optuna Result</strong><span>P1 best 0.9241, P2 best 0.9583.</span></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>roi = crop_lung_roi(image, mask)
+x = DenseNet121(include_top=False, weights="imagenet")(roi)
+x = GlobalAveragePooling2D()(x)
+x = Dense(256, activation="relu")(x)
+x = Dropout(0.45)(x)
+out = Dense(3, activation="softmax")(Dense(64, activation="relu")(x))</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">optimization</div><div></div></div><div class="terminal-body compact-code"><pre>optimizer = AdamW(lr=2.798e-4, weight_decay=5.429e-4)
+loss = CategoricalCrossentropy(label_smoothing=0.025)
+dropout = 0.45
+class_weight_power = 0.163</pre></div></div>
+                        </div>
+                    </article>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible expanded" id="callbacks-finetuning-tabs">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Callbacks & Fine-Tuning</span>
+                    <h2>Callbacks and Fine-Tuning by Model</h2>
+                    <p class="panel-desc">Every model has its own staged training and callback contract instead of one generic callback explanation.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="training-model-tabs training-tabset stagger-child" role="tablist" aria-label="Callbacks fine tuning model tabs">
+                    <button class="training-model-tab active" data-model-target="ft-mobilenet"><i class="fa-solid fa-mobile-screen"></i>MobileNetV3</button>
+                    <button class="training-model-tab" data-model-target="ft-inception"><i class="fa-solid fa-sitemap"></i>InceptionV3</button>
+                    <button class="training-model-tab" data-model-target="ft-efficientnet"><i class="fa-solid fa-gauge-high"></i>EfficientNetV2B3</button>
+                    <button class="training-model-tab" data-model-target="ft-densenet-binary"><i class="fa-solid fa-layer-group"></i>DenseNet Binary</button>
+                    <button class="training-model-tab" data-model-target="ft-densenet-disease"><i class="fa-solid fa-virus-covid"></i>Disease DenseNet</button>
+                </div>
+                <div class="training-model-panels stagger-child">
+                    <article class="training-model-panel active" id="ft-mobilenet">
+                        <div class="phase-stack">
+                            <div class="phase-row"><div class="phase-index">Stage 1</div><div class="phase-main"><strong>Classifier-head training</strong><span>Freeze MobileNetV3 and train the compact binary head on masked inputs.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Backbone</span><span class="phase-metric-value">frozen</span></div><div><span class="phase-metric-label">Input</span><span class="phase-metric-value">mask-rgb</span></div><div><span class="phase-metric-label">Head</span><span class="phase-metric-value">sigmoid</span></div></div></div>
+                            <div class="phase-row rank-leader"><div class="phase-index">Stage 2</div><div class="phase-main"><strong>Light fine-tuning</strong><span>Unfreeze upper MobileNet blocks with a lower learning rate for final adaptation.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Threshold</span><span class="phase-metric-value good">0.50</span></div><div><span class="phase-metric-label">F1</span><span class="phase-metric-value">0.9206</span></div><div><span class="phase-metric-label">AUC</span><span class="phase-metric-value">0.9730</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Control</div><div class="phase-main"><strong>Callbacks</strong><span>Use validation loss for checkpointing and early stopping, with LR reduction when validation stalls.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Monitor</span><span class="phase-metric-value">val_loss</span></div><div><span class="phase-metric-label">Save</span><span class="phase-metric-value">best</span></div><div><span class="phase-metric-label">LR</span><span class="phase-metric-value">plateau</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Persist</div><div class="phase-main"><strong>Deployment contract</strong><span>Save Keras, ONNX, metadata threshold, preprocessing flags, and binary class mapping.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Format</span><span class="phase-metric-value good">YAML</span></div><div><span class="phase-metric-label">Runtime</span><span class="phase-metric-value">ONNX</span></div><div><span class="phase-metric-label">Task</span><span class="phase-metric-value">binary</span></div></div></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>base = MobileNetV3Large(include_top=False, weights="imagenet")
+x = GlobalAveragePooling2D()(base.output)
+x = Dropout(dropout)(x)
+out = Dense(1, activation="sigmoid")(x)
+model = Model(base.input, out)</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_loss", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    ReduceLROnPlateau(monitor="val_loss", factor=0.2, patience=3),
+]</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>base.trainable = False
+fit_classifier_head()
+base.trainable = True
+freeze_lower_layers(base)
+compile_with_low_lr()
+fit_finetune()</pre></div></div>
+                        </div>
+                    </article>
+                    <article class="training-model-panel" id="ft-inception">
+                        <div class="phase-stack">
+                            <div class="phase-row"><div class="phase-index">Stage 1</div><div class="phase-main"><strong>Classifier-head training</strong><span>Freeze InceptionV3 and train the binary head on mask-filled images.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Backbone</span><span class="phase-metric-value">frozen</span></div><div><span class="phase-metric-label">Fill</span><span class="phase-metric-value">-1.0</span></div><div><span class="phase-metric-label">Head</span><span class="phase-metric-value">sigmoid</span></div></div></div>
+                            <div class="phase-row rank-leader"><div class="phase-index">Stage 2</div><div class="phase-main"><strong>Top-block fine-tuning</strong><span>Unfreeze upper Inception blocks and continue with a lower learning rate.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Threshold</span><span class="phase-metric-value good">0.50</span></div><div><span class="phase-metric-label">F1</span><span class="phase-metric-value">0.9160</span></div><div><span class="phase-metric-label">AUC</span><span class="phase-metric-value">0.9699</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Control</div><div class="phase-main"><strong>Callbacks</strong><span>Checkpoint the best model, restore best weights, and reduce LR on plateau.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Monitor</span><span class="phase-metric-value">val_loss</span></div><div><span class="phase-metric-label">Save</span><span class="phase-metric-value">best</span></div><div><span class="phase-metric-label">LR</span><span class="phase-metric-value">plateau</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Persist</div><div class="phase-main"><strong>Deployment contract</strong><span>Store background fill, mask-as-RGB flag, threshold, Keras artifact, and ONNX artifact.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Format</span><span class="phase-metric-value good">YAML</span></div><div><span class="phase-metric-label">Runtime</span><span class="phase-metric-value">ONNX</span></div><div><span class="phase-metric-label">Task</span><span class="phase-metric-value">binary</span></div></div></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>base = InceptionV3(include_top=False, weights="imagenet")
+x = GlobalAveragePooling2D()(base.output)
+x = Dropout(dropout)(x)
+out = Dense(1, activation="sigmoid")(x)
+model = Model(base.input, out)</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_loss", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    ReduceLROnPlateau(monitor="val_loss", patience=3),
+]</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>train_head_on_masked_images()
+unfreeze_top_inception_blocks()
+compile_with_low_lr()
+fit_until_validation_loss_stops_improving()
+save_best_model()</pre></div></div>
+                        </div>
+                    </article>
+                    <article class="training-model-panel" id="ft-efficientnet">
+                        <div class="phase-stack">
+                            <div class="phase-row"><div class="phase-index">Stage 1</div><div class="phase-main"><strong>Four-channel head training</strong><span>Train the classifier with RGB plus lung mask channel while the pretrained body is protected.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Input</span><span class="phase-metric-value">4ch</span></div><div><span class="phase-metric-label">Norm</span><span class="phase-metric-value">[-1,1]</span></div><div><span class="phase-metric-label">Head</span><span class="phase-metric-value">sigmoid</span></div></div></div>
+                            <div class="phase-row rank-leader"><div class="phase-index">Stage 2</div><div class="phase-main"><strong>High-F1 fine-tuning</strong><span>Fine-tune upper EfficientNet layers and select a stricter threshold.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Threshold</span><span class="phase-metric-value good">0.85</span></div><div><span class="phase-metric-label">F1</span><span class="phase-metric-value">0.9544</span></div><div><span class="phase-metric-label">AUC</span><span class="phase-metric-value">0.9871</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Control</div><div class="phase-main"><strong>Callbacks</strong><span>Monitor validation AUC for checkpointing and validation loss for early stopping.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Monitor</span><span class="phase-metric-value">val_auc</span></div><div><span class="phase-metric-label">Save</span><span class="phase-metric-value">max</span></div><div><span class="phase-metric-label">LR</span><span class="phase-metric-value">plateau</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Persist</div><div class="phase-main"><strong>Deployment contract</strong><span>Save the 4-channel preprocessing contract, threshold, metrics, Keras model, and ONNX model.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Format</span><span class="phase-metric-value good">YAML</span></div><div><span class="phase-metric-label">Runtime</span><span class="phase-metric-value">ONNX</span></div><div><span class="phase-metric-label">Task</span><span class="phase-metric-value">binary</span></div></div></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>inputs = Input(shape=(256, 256, 4))
+x = Conv2D(3, 1, padding="same")(inputs)
+base = EfficientNetV2B3(include_top=False, weights="imagenet")
+x = GlobalAveragePooling2D()(base(x))
+out = Dense(1, activation="sigmoid")(x)</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_auc", mode="max", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    ReduceLROnPlateau(monitor="val_loss", patience=3),
+]</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>build_rgb_plus_mask_dataset()
+train_classifier_head()
+unfreeze_top_efficientnet_layers()
+compile_with_lower_lr()
+fit_and_select_threshold(0.85)</pre></div></div>
+                        </div>
+                    </article>
+                    <article class="training-model-panel" id="ft-densenet-binary">
+                        <div class="phase-stack">
+                            <div class="phase-row"><div class="phase-index">Stage 1</div><div class="phase-main"><strong>Optuna-selected head training</strong><span>Train the 1024/512 DenseNet binary head on lung ROI crops.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Units</span><span class="phase-metric-value">1024/512</span></div><div><span class="phase-metric-label">LR</span><span class="phase-metric-value">8.82e-4</span></div><div><span class="phase-metric-label">Drop</span><span class="phase-metric-value">0.25</span></div></div></div>
+                            <div class="phase-row rank-leader"><div class="phase-index">Stage 2</div><div class="phase-main"><strong>Partial unfreezing</strong><span>Unfreeze from <code>conv5_block1_0_bn</code> and continue at a very low learning rate.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Threshold</span><span class="phase-metric-value good">0.91</span></div><div><span class="phase-metric-label">F1</span><span class="phase-metric-value">0.9245</span></div><div><span class="phase-metric-label">LR2</span><span class="phase-metric-value">2.05e-5</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Control</div><div class="phase-main"><strong>Callbacks</strong><span>Use validation AUC checkpointing, early stopping, and cosine warmup schedule.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Monitor</span><span class="phase-metric-value">val_auc</span></div><div><span class="phase-metric-label">Save</span><span class="phase-metric-value">max</span></div><div><span class="phase-metric-label">Warmup</span><span class="phase-metric-value">3</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Persist</div><div class="phase-main"><strong>Deployment contract</strong><span>Persist ROI preprocessing, threshold 0.91, class mapping, Keras, ONNX, and Optuna JSON.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Format</span><span class="phase-metric-value good">YAML</span></div><div><span class="phase-metric-label">Optuna</span><span class="phase-metric-value">P2</span></div><div><span class="phase-metric-label">Task</span><span class="phase-metric-value">binary</span></div></div></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>roi = crop_lung_roi(image, mask)
+x = DenseNet121(include_top=False, weights="imagenet")(roi)
+x = GlobalAveragePooling2D()(x)
+x = Dense(1024, activation="relu")(x)
+x = Dropout(0.25)(x)
+out = Dense(1, activation="sigmoid")(Dense(512, activation="relu")(x))</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_auc", mode="max", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    LearningRateScheduler(cosine_warmup_schedule),
+]</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>fit_head(lr=8.824e-4, warmup=3)
+unfreeze_from("conv5_block1_0_bn")
+set_lr(2.047e-5)
+fit_finetune(label_smoothing=0.075)
+deploy_threshold = 0.91</pre></div></div>
+                        </div>
+                    </article>
+                    <article class="training-model-panel" id="ft-densenet-disease">
+                        <div class="phase-stack">
+                            <div class="phase-row"><div class="phase-index">Stage 1</div><div class="phase-main"><strong>Disease head training</strong><span>Train the 256/64 disease head on unhealthy lung ROI crops only.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Units</span><span class="phase-metric-value">256/64</span></div><div><span class="phase-metric-label">Loss</span><span class="phase-metric-value">CCE</span></div><div><span class="phase-metric-label">Classes</span><span class="phase-metric-value">3</span></div></div></div>
+                            <div class="phase-row rank-leader"><div class="phase-index">Stage 2</div><div class="phase-main"><strong>Class-weighted fine-tuning</strong><span>Apply class-weight power, AdamW, label smoothing, and high dropout from Optuna phase 2.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">F1</span><span class="phase-metric-value good">0.9782</span></div><div><span class="phase-metric-label">Drop</span><span class="phase-metric-value">0.45</span></div><div><span class="phase-metric-label">Power</span><span class="phase-metric-value">0.163</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Control</div><div class="phase-main"><strong>Callbacks</strong><span>Checkpoint best validation loss, restore best weights, and schedule cosine decay with warmup.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Monitor</span><span class="phase-metric-value">val_loss</span></div><div><span class="phase-metric-label">Save</span><span class="phase-metric-value">best</span></div><div><span class="phase-metric-label">Schedule</span><span class="phase-metric-value">cosine</span></div></div></div>
+                            <div class="phase-row"><div class="phase-index">Persist</div><div class="phase-main"><strong>Deployment contract</strong><span>Persist disease mapping, ROI preprocessing, Keras, ONNX, metrics, and Optuna JSON.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Format</span><span class="phase-metric-value good">YAML</span></div><div><span class="phase-metric-label">Runtime</span><span class="phase-metric-value">ONNX</span></div><div><span class="phase-metric-label">Task</span><span class="phase-metric-value">disease</span></div></div></div>
+                        </div>
+                        <div class="implementation-grid model-code-grid">
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">architecture</div><div></div></div><div class="terminal-body compact-code"><pre>roi = crop_lung_roi(image, mask)
+x = DenseNet121(include_top=False, weights="imagenet")(roi)
+x = GlobalAveragePooling2D()(x)
+x = Dense(256, activation="relu")(x)
+x = Dropout(0.45)(x)
+out = Dense(3, activation="softmax")(Dense(64, activation="relu")(x))</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">callbacks</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_path, monitor="val_loss", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    LearningRateScheduler(cosine_decay_with_warmup),
+]</pre></div></div>
+                            <div class="terminal-panel implementation-code model-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">fine-tuning</div><div></div></div><div class="terminal-body compact-code"><pre>class_weights = compute_class_weights(power=0.163)
+fit_head(lr=2.798e-4)
+unfreeze_top_dense_blocks()
+fit_finetune(weight_decay=5.429e-4)
+evaluate_macro_f1_precision_recall()</pre></div></div>
+                        </div>
+                    </article>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="inception-training" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Training 02</span>
+                    <h2>InceptionV3 Healthy/Unhealthy Training</h2>
+                    <p class="panel-desc">A binary model using Inception features and masked-background preprocessing.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-sitemap"></i></div><div><strong>Backbone</strong><span><code>tf.keras.applications.InceptionV3</code> with ImageNet transfer learning.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-fill-drip"></i></div><div><strong>Input setup</strong><span>Mask-as-RGB with background fill <code>-1.0</code>, so the model focuses on lung content.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div><div><strong>Training signals</strong><span>Validation precision and recall are high in notebook outputs, while deployment F1 is reported for model comparison.</span></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Metric Group</th><th>Value</th><th>Meaning</th></tr></thead>
+                        <tbody>
+                            <tr><td>Deployment F1</td><td><strong>0.9160</strong></td><td>F1 from precision 0.9244 and recall 0.9077.</td></tr>
+                            <tr><td>Deployment AUC</td><td>0.9699</td><td>Useful ensemble member with different architecture and preprocessing.</td></tr>
+                            <tr><td>Notebook peaks</td><td>val accuracy 0.9171, val precision 0.9464, val recall 0.9562, val loss 0.2833</td><td>Shows strong recall during notebook training, with deployment threshold retained at 0.50.</td></tr>
+                            <tr><td>Artifact</td><td><code>inception-binary.keras</code> + <code>inception-binary.onnx</code></td><td>Saved with metadata for Keras/ONNX runtime selection.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Inception preprocessing</div><div></div></div><div class="terminal-body compact-code"><pre>masked = image * mask_rgb
+background = tf.ones_like(image) * -1.0
+model_input = tf.where(mask_rgb > 0.5, masked, background)
+model_input = tf.keras.applications.inception_v3.preprocess_input(model_input)
+
+prob = inception_binary(model_input)
+label = int(prob >= 0.50)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Inception training controls</div><div></div></div><div class="terminal-body compact-code"><pre>setup:
+  train classifier head first
+  fine-tune upper Inception blocks carefully
+  monitor validation loss and classification metrics
+
+metadata:
+  threshold: 0.50
+  mask_as_rgb: true
+  background_fill: -1.0</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="efficientnet-training" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Training 03</span>
+                    <h2>EfficientNetV2B3 Healthy/Unhealthy Training</h2>
+                    <p class="panel-desc">The strongest binary branch, trained with an explicit mask channel instead of only masked RGB.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-gauge-high"></i></div><div><strong>Backbone</strong><span><code>EfficientNetV2B3</code>, selected for strong accuracy/efficiency tradeoff.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-layer-group"></i></div><div><strong>Input setup</strong><span>Four channels: RGB image plus predicted or ground-truth lung mask as the fourth channel.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-trophy"></i></div><div><strong>Comparison role</strong><span>Best binary F1 and AUC, so it is the strongest individual healthy/unhealthy model.</span></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Metric Group</th><th>Value</th><th>Meaning</th></tr></thead>
+                        <tbody>
+                            <tr><td>Deployment F1</td><td><strong>0.9544</strong></td><td>Best binary F1 from precision 0.9641 and recall 0.9448.</td></tr>
+                            <tr><td>Deployment AUC</td><td>0.9871</td><td>Best binary AUC among deployed healthy/unhealthy models.</td></tr>
+                            <tr><td>Notebook peaks</td><td>val accuracy 0.9574, val AUC 0.9873, val precision 0.9799, val recall 0.9467, val loss 0.2146</td><td>Confirms the 4-channel strategy performed strongest before deployment export.</td></tr>
+                            <tr><td>Artifact</td><td><code>efficientnet-binary.keras</code> + <code>efficientnet-binary.onnx</code></td><td>Largest binary model after Inception, but best F1/AUC.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">EfficientNet 4-channel input</div><div></div></div><div class="terminal-body compact-code"><pre>rgb = resize(image, (256, 256))
+mask = resize(mask, (256, 256))
+mask = tf.cast(mask > 0.5, tf.float32)
+model_input = tf.concat([rgb, mask[..., :1]], axis=-1)
+model_input = (model_input * 2.0) - 1.0
+
+prob = efficientnet_binary(model_input)
+label = int(prob >= 0.85)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">EfficientNet controls</div><div></div></div><div class="terminal-body compact-code"><pre>setup:
+  custom input stem supports RGB + mask channel
+  train classifier head before deeper fine-tuning
+  threshold raised to 0.85 after validation review
+
+comparison:
+  primary metric: F1 0.9544
+  supporting: AUC, precision, recall, accuracy</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="densenet-binary-training" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Training 04</span>
+                    <h2>DenseNet121 Healthy/Unhealthy Training</h2>
+                    <p class="panel-desc">The ROI-based binary model and the main Optuna target for binary classifier-head and optimization search.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-layer-group"></i></div><div><strong>Backbone</strong><span><code>DenseNet121</code> with ROI crops from the segmentation mask.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-sliders"></i></div><div><strong>Optuna</strong><span>Binary phase 1 selected 1024/512 dense units; phase 2 tuned LR stages, AdamW, dropout, label smoothing, and weight decay.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-shield-halved"></i></div><div><strong>Threshold</strong><span>Uses threshold 0.91, making this branch more conservative than the 0.50 models.</span></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Metric Group</th><th>Value</th><th>Meaning</th></tr></thead>
+                        <tbody>
+                            <tr><td>Deployment F1</td><td><strong>0.9245</strong></td><td>F1 from precision 0.9183 and recall 0.9308.</td></tr>
+                            <tr><td>Deployment AUC</td><td>0.9711</td><td>Strong ROI-based classifier with conservative thresholding.</td></tr>
+                            <tr><td>Notebook peaks</td><td>val accuracy 0.9231, val AUC 0.9754, val precision 0.9786, val recall 0.9599, val loss 0.2945</td><td>Notebook training showed high validation precision/recall before deployment threshold selection.</td></tr>
+                            <tr><td>Optuna phase 2</td><td>best value 0.8968, LR1 8.82e-4, LR2 2.05e-5, dropout 0.25</td><td>Selected final optimization behavior for DenseNet binary training.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">DenseNet binary head</div><div></div></div><div class="terminal-body compact-code"><pre>base = tf.keras.applications.DenseNet121(
+    include_top=False,
+    weights="imagenet",
+    input_shape=(256, 256, 3),
+)
+x = tf.keras.layers.GlobalAveragePooling2D()(base.output)
+x = tf.keras.layers.Dense(1024, activation="relu")(x)
+x = tf.keras.layers.Dropout(0.25)(x)
+x = tf.keras.layers.Dense(512, activation="relu")(x)
+outputs = tf.keras.layers.Dense(1, activation="sigmoid")(x)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">DenseNet binary staged fit</div><div></div></div><div class="terminal-body compact-code"><pre>optimizer = tf.keras.optimizers.AdamW(
+    learning_rate=CosineDecay(lr_stage1, decay_steps),
+    weight_decay=1.045e-5,
+)
+loss = BinaryCrossentropy(label_smoothing=0.075)
+
+fit_head()
+unfreeze_from("conv5_block1_0_bn")
+fit_finetune(learning_rate=2.047e-5)</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="densenet-disease-training" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Training 05</span>
+                    <h2>DenseNet121 Disease Training</h2>
+                    <p class="panel-desc">A separate ROI-based multiclass classifier for COVID, Viral Pneumonia, and Lung Opacity after the binary ensemble detects pathology.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-virus-covid"></i></div><div><strong>Task setup</strong><span>Three-class softmax classifier; Normal is excluded because healthy scans are handled by the binary ensemble.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-weight-scale"></i></div><div><strong>Imbalance handling</strong><span>Optuna phase 2 includes class-weight power, label smoothing, dropout, and AdamW weight decay.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div><div><strong>Comparison metric</strong><span>F1 is the headline classification metric; AUC, precision, recall, and validation loss remain visible.</span></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Metric Group</th><th>Value</th><th>Meaning</th></tr></thead>
+                        <tbody>
+                            <tr><td>Deployment F1</td><td><strong>0.9782</strong></td><td>Best classification F1 in the page.</td></tr>
+                            <tr><td>Deployment AUC</td><td>0.9982</td><td>Excellent class separation for the disease-only task.</td></tr>
+                            <tr><td>Notebook peaks</td><td>val accuracy 0.9772, val AUC 0.9985, val precision 0.9781, val recall 0.9763, val loss 0.1672</td><td>Shows the dedicated disease classifier clearly outperformed the multi-task classifier for disease labels.</td></tr>
+                            <tr><td>Optuna phase 2</td><td>best value 0.9583, dense units 256/64, dropout 0.45, class-weight power 0.163</td><td>Compact classifier head with stronger regularization.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Disease classifier setup</div><div></div></div><div class="terminal-body compact-code"><pre>classes = ["COVID", "Viral Pneumonia", "Lung Opacity"]
+base = tf.keras.applications.DenseNet121(include_top=False, weights="imagenet")
+x = tf.keras.layers.GlobalAveragePooling2D()(base.output)
+x = tf.keras.layers.Dense(256, activation="relu")(x)
+x = tf.keras.layers.Dropout(0.45)(x)
+x = tf.keras.layers.Dense(64, activation="relu")(x)
+outputs = tf.keras.layers.Dense(3, activation="softmax")(x)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Disease training controls</div><div></div></div><div class="terminal-body compact-code"><pre>loss = CategoricalCrossentropy(label_smoothing=0.025)
+optimizer = AdamW(
+    learning_rate=2.798e-4,
+    weight_decay=5.429e-4,
+)
+class_weights = compute_class_weights(power=0.163)
+
+train_on_unhealthy_roi_images()
+evaluate_precision_recall_auc_f1()</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="binary-family" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Binary Classifier Family</span>
+                    <h2>Healthy vs Unhealthy Model Details</h2>
+                    <p class="panel-desc">The four binary classifiers are intentionally different in architecture and input representation so ensemble disagreement carries meaning.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">EfficientNetV2B3</div><span class="theory-badge champion-badge">F1 0.9544</span></div><p class="theory-explanation">Best binary performer by F1. It receives a 4-channel tensor where the predicted mask becomes an additional channel, allowing the network to see anatomy and the segmentation prior together.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">DenseNet121</div><span class="theory-badge">threshold 0.91</span></div><p class="theory-explanation">ROI-focused binary model. It uses the segmentation crop and a high threshold, making it a more conservative voter inside the ensemble.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">InceptionV3</div><span class="theory-badge">mask fill</span></div><p class="theory-explanation">Uses masked-background preprocessing with a background fill of -1.0, which suppresses non-lung pixels before the Inception feature extractor sees the image.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">MobileNetV3</div><span class="theory-badge">lightweight</span></div><p class="theory-explanation">Adds a smaller model family to the ensemble so the final vote is not only dominated by large backbones.</p></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">binary ensemble contract</div><div></div></div><div class="terminal-body compact-code"><pre>binary_models = {
+    "densenet": DenseNetBinary(threshold=0.91, use_roi=True),
+    "efficientnet": EfficientNetBinary(threshold=0.85, concat_mask=True),
+    "inception": InceptionBinary(threshold=0.50, mask_as_rgb=True),
+    "mobilenet": MobileNetBinary(threshold=0.50, mask_as_rgb=True),
+}
+
+labels = [model.predict(image, mask).label for model in binary_models.values()]
+final_label = int(sum(labels) > 2)
+final_prob = mean(model.prob for model in binary_models.values())</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">model-specific preprocessing</div><div></div></div><div class="terminal-body compact-code"><pre>DenseNet      -> crop_lung_roi + densenet.preprocess_input
+EfficientNet  -> concat RGB image with binary mask channel
+InceptionV3   -> mask_as_rgb + background_fill=-1.0
+MobileNetV3   -> mask_as_rgb + identity float32 preprocessing
+
+The API reads these choices from each model metadata.yaml file.</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="disease-family" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Disease Model</span>
+                    <h2>COVID, Viral Pneumonia, and Lung Opacity Classifier</h2>
+                    <p class="panel-desc">Disease classification is separated from binary triage so healthy scans do not receive unnecessary disease labels.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Component</th><th>Choice</th><th>Reason</th></tr></thead>
+                        <tbody>
+                            <tr><td>Backbone</td><td><code>DenseNet121</code></td><td>Strong feature reuse and good performance on ROI-focused medical images.</td></tr>
+                            <tr><td>Classes</td><td>COVID, Viral Pneumonia, Lung Opacity</td><td>Normal is intentionally removed because the binary ensemble already handled healthy cases.</td></tr>
+                            <tr><td>Input</td><td>Segmented lung ROI</td><td>Reduces shortcut learning from borders, labels, and background regions.</td></tr>
+                            <tr><td>Output</td><td>Softmax probabilities</td><td>Returns disease probabilities and a label only when binary final label is unhealthy.</td></tr>
+                            <tr><td>Deployment metrics</td><td>AUC 0.9982, F1 0.9782</td><td>The final page reports metadata-level results, not random notebook screenshots.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="note-grid" style="margin-top:24px;">
+                    <div class="note-card"><strong>Class order</strong><span>Deployment mapping stores <code>0 COVID</code>, <code>1 Viral Pneumonia</code>, and <code>2 Lung Opacity</code>.</span></div>
+                    <div class="note-card"><strong>Trigger condition</strong><span>The classifier is skipped if ensemble final label is Healthy.</span></div>
+                    <div class="note-card"><strong>Response detail</strong><span>The API returns disease label, disease probability, and full probability dictionary when disease inference runs.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="optuna-family" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Training Dependencies</span>
+                    <h2>Modeling Libraries & Dependencies</h2>
+                    <p class="panel-desc">Each training family shares a TensorFlow base, with model-specific augmentation, masks, ROI logic, and Optuna search.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-python"></i></div><div><strong>TensorFlow / Keras</strong><span>Implements transfer learning, distribution strategy, callbacks, custom metrics, progressive unfreezing, and saved <code>.keras</code> artifacts.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-chart-line"></i></div><div><strong>Matplotlib</strong><span>Used for model training curves, validation behavior, segmentation examples, and notebook visual diagnostics.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-flask"></i></div><div><strong>Optuna</strong><span>Searches DenseNet classifier-head architecture and optimization parameters for binary and multi-class tasks.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-weight-scale"></i></div><div><strong>Class weights + label smoothing + AdamW</strong><span>Control imbalance and overconfidence, especially for the disease classifier and DenseNet optimization phase.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-wave-square"></i></div><div><strong>CosineDecay schedules</strong><span>Used in optimized training phases to reduce learning rate smoothly after warmup and partial unfreezing.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Fine-Tuning Theory</span>
+                    <h2>Why Multiple Binary Models?</h2>
+                    <p class="panel-desc">The ensemble is a deliberate risk-control design: different architectures see the same CXR through different preprocessing views.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Mask-Aware Diversity</div><span class="theory-badge">ensemble</span></div><p class="theory-explanation">DenseNet and the disease classifier use lung ROI crops. EfficientNet receives a fourth mask channel. Inception and MobileNet use mask-as-RGB plus masked background handling. This creates architectural and preprocessing diversity.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Voting Rule</div><span class="theory-badge champion-badge">> 2 votes</span></div><div class="theory-math-container"><div class="formula-line">final_label = 1[sum(model_labels) &gt; 2]</div></div><p class="theory-explanation">All four binary models produce probabilities and thresholded labels. The final label becomes unhealthy only when more than two models vote unhealthy; the final probability is the average probability across models.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Two-Stage Diagnosis</div><span class="theory-badge">triage</span></div><p class="theory-explanation">The disease classifier runs only after the binary ensemble returns unhealthy. This prevents disease predictions from being shown for scans that the triage layer considers normal.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Clinical Framing</div><span class="theory-badge">assistive</span></div><p class="theory-explanation">The platform is a technical prototype for screening support. It exposes probabilities, per-model disagreement, segmentation visuals, and artifacts rather than hiding uncertainty behind one label.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Optuna Search</span>
+                    <h2>Architecture and Optimization Search</h2>
+                    <p class="panel-desc">DenseNet binary and disease models were tuned with two Optuna phases: classifier-head architecture first, optimization behavior second.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="phase-stack stagger-child">
+                    <div class="phase-row"><div class="phase-index">Binary P1</div><div class="phase-main"><strong>DenseNet healthy/unhealthy architecture search</strong><span>Best trial 12 selected two dense layers: 1024 and 512 units.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Best Value</span><span class="phase-metric-value good">0.8882</span></div><div><span class="phase-metric-label">LR</span><span class="phase-metric-value">3e-4</span></div><div><span class="phase-metric-label">Dropout</span><span class="phase-metric-value">0.10</span></div></div></div>
+                    <div class="phase-row rank-leader"><div class="phase-index">Binary P2</div><div class="phase-main"><strong>DenseNet healthy/unhealthy optimization search</strong><span>Best trial 10 kept 1024/512 layers and tuned AdamW, label smoothing, dropout, cosine schedule, and staged learning rates.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Best Value</span><span class="phase-metric-value good">0.8968</span></div><div><span class="phase-metric-label">LR Stage 1</span><span class="phase-metric-value">8.82e-4</span></div><div><span class="phase-metric-label">LR Stage 2</span><span class="phase-metric-value">2.05e-5</span></div></div></div>
+                    <div class="phase-row"><div class="phase-index">Disease P1</div><div class="phase-main"><strong>Disease DenseNet architecture search</strong><span>Best trial 16 selected a compact two-layer head: 256 and 64 units.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Best Value</span><span class="phase-metric-value good">0.9241</span></div><div><span class="phase-metric-label">Loss</span><span class="phase-metric-value">CCE</span></div><div><span class="phase-metric-label">Dropout</span><span class="phase-metric-value">0.10</span></div></div></div>
+                    <div class="phase-row rank-leader"><div class="phase-index">Disease P2</div><div class="phase-main"><strong>Disease DenseNet optimization search</strong><span>Best trial 9 tuned AdamW, cosine decay, label smoothing, dropout, and a class-weight power for imbalanced disease labels.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Best Value</span><span class="phase-metric-value good">0.9583</span></div><div><span class="phase-metric-label">Dropout</span><span class="phase-metric-value">0.45</span></div><div><span class="phase-metric-label">Weight Power</span><span class="phase-metric-value">0.163</span></div></div></div>
+                </div>
+                <div class="viz-display-grid single-centered" style="margin-top:24px;">
+                    <div class="viz-wrapper-card big-viz stagger-child"><img src="assets/optuna_process.png" alt="Optuna optimization process"><div class="viz-meta-text">Optuna search was used to select classifier-head architecture and optimization parameters, then persisted as JSON contracts.</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="callbacks-family" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Experiment Control</span>
+                    <h2>Callbacks, Fine-Tuning Stages, and Saved Contracts</h2>
+                    <p class="panel-desc">The notebooks use controlled training stages rather than one uncontrolled fit call.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="phase-stack stagger-child">
+                    <div class="phase-row"><div class="phase-index">Stage 1</div><div class="phase-main"><strong>Classifier-head training</strong><span>Freeze the pretrained backbone and train the custom dense head so the new task-specific layers stabilize first.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Backbone</span><span class="phase-metric-value">frozen</span></div><div><span class="phase-metric-label">LR</span><span class="phase-metric-value">higher</span></div><div><span class="phase-metric-label">Goal</span><span class="phase-metric-value">adapt</span></div></div></div>
+                    <div class="phase-row rank-leader"><div class="phase-index">Stage 2</div><div class="phase-main"><strong>Partial unfreezing</strong><span>Unfreeze the selected upper layers, lower the learning rate, and fine-tune without destroying pretrained visual features.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Warmup</span><span class="phase-metric-value good">3</span></div><div><span class="phase-metric-label">Unfreeze</span><span class="phase-metric-value">top</span></div><div><span class="phase-metric-label">Schedule</span><span class="phase-metric-value">cosine</span></div></div></div>
+                    <div class="phase-row"><div class="phase-index">Control</div><div class="phase-main"><strong>Training callbacks</strong><span>Early stopping, checkpointing, learning-rate control, validation metrics, and notebook plots make long experiments traceable.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Monitor</span><span class="phase-metric-value">val</span></div><div><span class="phase-metric-label">Save</span><span class="phase-metric-value">best</span></div><div><span class="phase-metric-label">Plots</span><span class="phase-metric-value">curves</span></div></div></div>
+                    <div class="phase-row"><div class="phase-index">Persist</div><div class="phase-main"><strong>Metadata as deployment contract</strong><span>Each final model folder stores Keras artifact, ONNX artifact, metrics, threshold, class mapping, preprocessing rules, and input shape.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Format</span><span class="phase-metric-value good">YAML</span></div><div><span class="phase-metric-label">Runtime</span><span class="phase-metric-value">Keras/ONNX</span></div><div><span class="phase-metric-label">Source</span><span class="phase-metric-value">notebook</span></div></div></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">callback pattern</div><div></div></div><div class="terminal-body compact-code"><pre>callbacks = [
+    ModelCheckpoint(best_model_path, monitor="val_loss", save_best_only=True),
+    EarlyStopping(monitor="val_loss", patience=patience, restore_best_weights=True),
+    ReduceLROnPlateau(monitor="val_loss", factor=0.2, patience=3),
+]
+
+history_stage1 = model.fit(train_ds, validation_data=val_ds, callbacks=callbacks)
+unfreeze_top_layers(model, from_layer=selected_layer)
+history_stage2 = model.fit(train_ds, validation_data=val_ds, callbacks=callbacks)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">metadata contract</div><div></div></div><div class="terminal-body compact-code"><pre>task: binary_classification
+input_size: [256, 256]
+preprocessing:
+  use_roi: true
+  concat_mask_channels: false
+threshold: 0.91
+metrics:
+  auc: 0.9711
+  accuracy: 0.9212
+  f1: 0.9245</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible" id="model-artifacts-family" hidden>
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Saved Model Inventory</span>
+                    <h2>Artifacts Produced by Training</h2>
+                    <p class="panel-desc">The research output is not just notebook metrics. It becomes a deployable artifact tree consumed by FastAPI, ONNX Runtime, MLflow, and Hugging Face.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Folder</th><th>Files</th><th>Runtime Meaning</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>saved_models/healthy_unhealthy/densenet</code></td><td><code>densenet-binary.keras</code>, <code>densenet-binary.onnx</code>, <code>metadata.yaml</code></td><td>ROI-based binary voter and metadata contract.</td></tr>
+                            <tr><td><code>saved_models/healthy_unhealthy/efficientnet</code></td><td>Keras, ONNX, metadata</td><td>4-channel strongest binary voter.</td></tr>
+                            <tr><td><code>saved_models/healthy_unhealthy/inception</code></td><td>Keras, ONNX, metadata</td><td>Masked-background Inception voter.</td></tr>
+                            <tr><td><code>saved_models/healthy_unhealthy/mobilenet</code></td><td>Keras, ONNX, metadata</td><td>Lightweight MobileNet voter.</td></tr>
+                            <tr><td><code>saved_models/diseases/densenet</code></td><td><code>densenet-diseases.keras</code>, <code>densenet-diseases.onnx</code>, metadata</td><td>Three-class disease classifier.</td></tr>
+                            <tr><td><code>saved_models/segmentation/unet_xception</code></td><td><code>unet_xception-segmentation.keras</code>, <code>unet_xception-segmentation.onnx</code>, metadata</td><td>Lung segmentation and ROI creation.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Visuals</span>
+                    <h2>Architectures Used in the Research Stack</h2>
+                    <p class="panel-desc">Selected notebook assets document the main transfer-learning backbones and segmentation design.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid three">
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">DenseNet</div><img src="assets/densenet.png" alt="DenseNet architecture"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">EfficientNetV2</div><img src="assets/efficientnet.png" alt="EfficientNetV2 architecture"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">MobileNetV3</div><img src="assets/mobilenet.png" alt="MobileNetV3 architecture"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">InceptionV3</div><img src="assets/inception.png" alt="InceptionV3 architecture"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">U-Net Xception</div><img src="assets/unet_xc.png" alt="U-Net Xception architecture"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">U-Net Skip Connections</div><img src="assets/unet_arch.png" alt="U-Net architecture"></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="segmentation-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Segmentation Notebook</span>
+                    <h2>U-Net Xception Lung Masking</h2>
+                    <p class="panel-desc">The segmentation model is the foundation for ROI extraction, artifact visualization, and mask-aware classification.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The segmentation notebook trains a U-Net-style model with an Xception backbone to predict binary lung masks from 256x256 chest X-rays. The mask is not only a visual output; it guides ROI cropping and helps multiple classifiers focus on lung tissue instead of labels, borders, shoulders, and background.</p>
+                </div>
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><span class="kpi-label">Accuracy</span><span class="kpi-value good">0.9885</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Dice</span><span class="kpi-value good">0.9660</span></div>
+                    <div class="kpi-card"><span class="kpi-label">IoU</span><span class="kpi-value">0.9533</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Mask Threshold</span><span class="kpi-value">0.50</span></div>
+                </div>
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Dice Coefficient</div><span class="theory-badge champion-badge">mask overlap</span></div><div class="theory-math-container">$$Dice = \\frac{2|P \\cap Y|}{|P| + |Y|}$$</div><p class="theory-explanation">Dice rewards overlap between predicted lung pixels and ground-truth lung pixels. It is useful for medical segmentation because foreground regions are often smaller than the background.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">ROI Crop</div><span class="theory-badge">deployment</span></div><p class="theory-explanation">At inference time the mask is thresholded, converted to a bounding box, expanded with a small margin, and resized back to 256x256. If no mask pixels exist, the pipeline safely falls back to the full image.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Segmentation Dependencies</span>
+                    <h2>Libraries & Model Dependencies</h2>
+                    <p class="panel-desc">Segmentation has its own model, metrics, custom object, preprocessing, and deployment metadata.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-python"></i></div><div><strong>TensorFlow / Keras</strong><span>Defines the U-Net/Xception segmentation network, callbacks, loss, and saved Keras model artifact.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-ruler-combined"></i></div><div><strong>Custom Dice metric</strong><span>The deployment loader registers <code>dice_coefficient</code> as a custom object when loading the Keras segmentation model.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-file-code"></i></div><div><strong>metadata.yaml</strong><span>Stores model path, ONNX path, input size, mask threshold, output classes, accuracy, Dice, and IoU.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-microscope"></i></div><div><strong>Matplotlib visual checks</strong><span>The notebooks include many segmentation visual outputs for source images, masks, predictions, and multi-task comparisons.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Multi-Task Prototype</span>
+                    <h2>Segmentation + Classification Experiment</h2>
+                    <p class="panel-desc">A separate notebook tests a shared model with segmentation and classification outputs.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Output Head</th><th>Saved Metric</th><th>Interpretation</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>segmentation</code></td><td>val Dice up to 0.9589, val IoU up to 0.9451</td><td>The shared model still learned strong lung masks.</td></tr>
+                            <tr><td><code>classification</code></td><td>val classification accuracy up to 0.8887</td><td>Useful prototype, but weaker than the dedicated ensemble strategy.</td></tr>
+                            <tr><td><code>combined loss</code></td><td>segmentation loss + classification loss</td><td>Demonstrates multi-objective learning, but final production path keeps models modular.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">roi.py</div><div></div></div><div class="terminal-body compact-code"><pre>def crop_lung_roi(img, mask, target_size, threshold=0.5, margin_ratio=0.1):
+    mask_2d = binary_mask_to_rgb_batch(mask)[0, :, :, 0] > threshold
+    indices = np.argwhere(mask_2d)
+    if indices.size > 0:
+        y_min, x_min = indices.min(axis=0)
+        y_max, x_max = indices.max(axis=0)
+        cropped = img[0, y_start:y_end, x_start:x_end, :]
+    else:
+        cropped = img[0]
+    return resize_float_image(cropped, target_size)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">segmentation metadata</div><div></div></div><div class="terminal-body compact-code"><pre>model: unet_xception-segmentation.keras
+onnx_path: unet_xception-segmentation.onnx
+input_size: [256, 256]
+postprocessing.threshold: 0.5
+metrics:
+  accuracy: 0.9885
+  dice_coefficient: 0.9660
+  iou: 0.9533</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="inference-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Runtime Inference</span>
+                    <h2>Metadata-Driven Prediction Pipeline</h2>
+                    <p class="panel-desc">The production detector is a staged pipeline: load image, segment, crop ROI, ensemble binary models, optionally classify disease, then save visuals.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Load image</strong><span>Accept local path, URL, base64, or uploaded file; validate one source only; convert to RGB and resize to 256x256.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Segment lungs</strong><span>Run U-Net Xception using Keras or ONNX, threshold the mask, and keep it for ROI and visual output.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Run binary ensemble</strong><span>DenseNet, EfficientNet, Inception, and MobileNet each use metadata-defined preprocessing and thresholds.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Disease classifier</strong><span>If the ensemble returns unhealthy, classify ROI into COVID, Viral Pneumonia, or Lung Opacity.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Save artifacts</strong><span>Persist source, mask, ROI, and overlay images locally or to Supabase storage, then return URLs and paths.</span></div></div></div>
+                </div>
+                <div class="viz-display-grid four lung-artifact-grid" style="margin-top:24px;">
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">Source</div><img src="assets/prediction_source.png" alt="Prediction source X-ray"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">Mask</div><img src="assets/prediction_mask.png" alt="Prediction mask"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">ROI</div><img src="assets/prediction_roi.png" alt="Prediction ROI"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">Overlay</div><img src="assets/prediction_overlay.png" alt="Prediction overlay"></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Inference Dependencies</span>
+                    <h2>Runtime Libraries & Artifacts</h2>
+                    <p class="panel-desc">The inference layer is driven by model metadata and can switch between Keras and ONNX execution.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-bolt"></i></div><div><strong>ONNX Runtime</strong><span><code>MODEL_RUNTIME=onnx</code> is the default runtime for slim deployment, using CPUExecutionProvider for all six exported models.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-python"></i></div><div><strong>TensorFlow / Keras fallback</strong><span>The same pipeline can load local Keras artifacts or MLflow registry models when <code>MODEL_RUNTIME</code> is not ONNX.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-file-lines"></i></div><div><strong>metadata.yaml per model</strong><span>Defines model path, ONNX path, task, threshold, classes, preprocessing steps, input channels, and reported metrics.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-image"></i></div><div><strong>Pillow + NumPy</strong><span>Load images, EXIF-correct them, resize, convert arrays, save prediction artifacts, and overlay masks.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-cloud-arrow-down"></i></div><div><strong>Hugging Face Hub</strong><span>When enabled, startup downloads required model folders from <code>a1mohamadd/lung-disease-detection</code> if local artifacts are missing.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">ONNX Conversion</span>
+                    <h2>Export and Validation</h2>
+                    <p class="panel-desc">Six Keras models are exported to ONNX and validated against Keras outputs with tolerance checks.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">export_models.py</div><div></div></div><div class="terminal-body compact-code"><pre>MODEL_SPECS = (
+    ExportSpec("binary_densenet", saved_models / "healthy_unhealthy/densenet"),
+    ExportSpec("binary_efficientnet", saved_models / "healthy_unhealthy/efficientnet"),
+    ExportSpec("binary_inception", saved_models / "healthy_unhealthy/inception"),
+    ExportSpec("binary_mobilenet", saved_models / "healthy_unhealthy/mobilenet"),
+    ExportSpec("diseases_densenet", saved_models / "diseases/densenet"),
+    ExportSpec("segmentation_unet_xception", saved_models / "segmentation/unet_xception"),
+)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">validate_onnx_outputs.py</div><div></div></div><div class="terminal-body compact-code"><pre>keras_output = keras_model.predict(sample, verbose=0)
+onnx_output = session.run(None, {input_name: sample})[0]
+
+max_abs = np.max(np.abs(keras_output - onnx_output))
+mean_abs = np.mean(np.abs(keras_output - onnx_output))
+ok = np.allclose(keras_output, onnx_output, rtol=1e-3, atol=1e-3)</pre></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Artifact</th><th>Keras Size</th><th>ONNX Size</th><th>Runtime Use</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>InceptionV3 binary</code></td><td>257.3 MB</td><td>87.2 MB</td><td>Mask-as-RGB binary classifier.</td></tr>
+                            <tr><td><code>EfficientNetV2B3 binary</code></td><td>157.2 MB</td><td>52.1 MB</td><td>4-channel RGB+mask classifier.</td></tr>
+                            <tr><td><code>DenseNet binary</code></td><td>47.9 MB</td><td>27.7 MB</td><td>ROI-based conservative ensemble voter.</td></tr>
+                            <tr><td><code>Disease DenseNet</code></td><td>47.8 MB</td><td>27.7 MB</td><td>COVID / Viral Pneumonia / Lung Opacity classifier.</td></tr>
+                            <tr><td><code>MobileNetV3 binary</code></td><td>40.6 MB</td><td>13.4 MB</td><td>Lightweight masked binary voter.</td></tr>
+                            <tr><td><code>U-Net Xception</code></td><td>23.8 MB</td><td>7.9 MB</td><td>Lung mask generator.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Runtime Startup</span>
+                    <h2>Model Loading, Path Checks, and Warmup</h2>
+                    <p class="panel-desc">The API does not wait until the first user request to discover missing models. Startup validates the whole inference stack.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Download if needed</strong><span><code>ensure_models_available_from_huggingface()</code> can pull required artifact folders when local models are absent.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Validate paths</strong><span>Startup checks required saved model directories for segmentation, binary models, and disease classification.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Read metadata</strong><span>Each model folder must include <code>metadata.yaml</code>; thresholds and preprocessing come from metadata, not hardcoded UI text.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Create detector</strong><span><code>LungDetection</code> loads segmentation, four binary models, disease classifier, and the ensemble wrapper.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Warmup</strong><span>A dummy 256x256 image runs through the detector so runtime sessions are initialized before real traffic.</span></div></div></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">startup.py</div><div></div></div><div class="terminal-body compact-code"><pre>async def lifespan(app):
+    ensure_models_available_from_huggingface()
+    check_paths_and_metadata()
+    init_database()
+    init_kafka_producer()
+    app.state.detector = create_detector()
+    warmup(app.state.detector)
+    yield</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">input validation</div><div></div></div><div class="terminal-body compact-code"><pre>accepted sources:
+  image_path
+  image_base64
+  image_url
+  multipart upload
+
+rule:
+  exactly one source must be provided
+  image is converted to RGB
+  EXIF orientation is corrected
+  final model input is resized to 256x256</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Preprocessing Contracts</span>
+                    <h2>How Each Model Receives the Same X-Ray Differently</h2>
+                    <p class="panel-desc">The runtime pipeline is metadata-driven because every model expects a slightly different view of the image and mask.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Model</th><th>Input Built From</th><th>Normalization</th><th>Reason</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>segmentation/unet_xception</code></td><td>Full RGB image</td><td>TensorFlow image scale</td><td>Predict a lung mask before downstream classifiers run.</td></tr>
+                            <tr><td><code>binary/densenet</code></td><td>Lung ROI crop</td><td>DenseNet preprocessing</td><td>Focuses the classifier on lung fields only.</td></tr>
+                            <tr><td><code>binary/efficientnet</code></td><td>RGB image plus mask channel</td><td>[-1, 1]</td><td>Combines visual content with explicit segmentation context.</td></tr>
+                            <tr><td><code>binary/inception</code></td><td>Mask-as-RGB with background fill</td><td>Inception preprocessing</td><td>Suppresses non-lung pixels while preserving 3-channel input shape.</td></tr>
+                            <tr><td><code>binary/mobilenet</code></td><td>Mask-as-RGB image</td><td>float32 identity / MobileNet style</td><td>Lightweight ensemble member with masked input.</td></tr>
+                            <tr><td><code>diseases/densenet</code></td><td>Lung ROI crop</td><td>DenseNet preprocessing</td><td>Runs only after binary ensemble says unhealthy.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="api-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">FastAPI Application</span>
+                    <h2>API Startup, Prediction Routes, and UI Mount</h2>
+                    <p class="panel-desc">The app is a real service layer with startup validation, warmup, prediction endpoints, logging, static assets, and a React SPA.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>FastAPI initializes the detector during lifespan startup. Startup checks local or Hugging Face model availability, validates every model metadata file, initializes database tables if logging is enabled, initializes Kafka if configured, creates the detector, and performs a warmup inference with a dummy 256x256 image.</p>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Route</th><th>Purpose</th><th>Important Behavior</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>GET /health</code></td><td>Health check</td><td>Returns service status and API version.</td></tr>
+                            <tr><td><code>GET /</code></td><td>Root status</td><td>Returns service name, status, and version.</td></tr>
+                            <tr><td><code>POST /predict</code></td><td>JSON inference</td><td>Accepts exactly one of image path, base64, or public URL.</td></tr>
+                            <tr><td><code>POST /predict/upload</code></td><td>Multipart inference</td><td>Accepts uploaded image file and returns the same prediction schema.</td></tr>
+                            <tr><td><code>GET /logs</code></td><td>Prediction history</td><td>Requires API key, supports limit and offset, returns DB-backed logs.</td></tr>
+                            <tr><td><code>/ui</code></td><td>React frontend</td><td>Mounted as a static SPA with fallback to <code>index.html</code>.</td></tr>
+                            <tr><td><code>/static</code></td><td>Artifacts</td><td>Serves prediction images and JSON mapping assets.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">API Dependencies</span>
+                    <h2>Serving Libraries & Dependencies</h2>
+                    <p class="panel-desc">The API section has its own deployment stack separate from model training.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-server"></i></div><div><strong>FastAPI + Uvicorn</strong><span>Serve prediction, upload, health, logs, static files, and frontend routes on port 8000 or Hugging Face port 7860.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-check-double"></i></div><div><strong>Pydantic v2</strong><span>Validates request payloads and enforces exactly one input source for JSON predictions.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-window-restore"></i></div><div><strong>React SPA frontend</strong><span>The built frontend provides upload/path/base64 modes, diagnosis gauge, ensemble matrix, visual artifact grid, docs, and API examples.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-lock"></i></div><div><strong>Logs API key</strong><span>The prediction endpoints are demo-open, while <code>/logs</code> requires <code>X-Api-Key</code> when log access is enabled.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-globe"></i></div><div><strong>CORS configuration</strong><span><code>CORS_ALLOW_ORIGINS</code> supports GitHub Pages or other frontend origins in cloud deployment.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">API Code</span>
+                    <h2>Prediction and Response Contract</h2>
+                    <p class="panel-desc">The same inference service powers JSON and upload flows, then optionally sends results to Kafka or writes directly to the DB.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">routes.py</div><div></div></div><div class="terminal-body compact-code"><pre>@router.post("/predict", response_model=PredictResponse)
+def predict_json(request: Request, req: PredictRequest, return_all: bool = True):
+    request_id = str(uuid4())
+    response = run_inference(
+        detector=request.app.state.detector,
+        image_path=req.image_path,
+        image_base64=req.image_base64,
+        image_url=req.image_url,
+        return_all=return_all,
+    )
+    if AppConfig.KAFKA_ENABLED:
+        publish_prediction_event(request_id=request_id, event=event)
+    elif AppConfig.DB_LOGGING_ENABLED:
+        persist_prediction_log(request_id=request_id, response=response)
+    return response</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">PredictResponse</div><div></div></div><div class="terminal-body compact-code"><pre>final_prob: float
+final_probs_by_label: dict[str, float]
+final_label: int
+final_label_name: str | None
+models_results: dict[str, ModelResult] | None
+disease: DiseaseResult | None
+source_url, mask_url, roi_url, overlay_url
+source_path, mask_path, roi_path, overlay_path</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Frontend</span>
+                    <h2>React Inference UI</h2>
+                    <p class="panel-desc">The deployed UI is a browser-facing medical AI dashboard rather than a notebook-only demo.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="note-grid">
+                    <div class="note-card"><strong>Input modes</strong><span>Upload file, image URL, or base64/path-style API examples.</span></div>
+                    <div class="note-card"><strong>Result surface</strong><span>Final diagnosis gauge, healthy/pathology probabilities, clinical note, and disease sub-scores.</span></div>
+                    <div class="note-card"><strong>Vision outputs</strong><span>Source, predicted mask, ROI crop, and overlay images are shown and can be opened in a lightbox.</span></div>
+                    <div class="note-card"><strong>Ensemble visibility</strong><span>Per-model binary probabilities are displayed so disagreement is visible to the user.</span></div>
+                    <div class="note-card"><strong>Documentation pages</strong><span>Architecture, dataset, training, and API integration docs are bundled into the frontend.</span></div>
+                    <div class="note-card"><strong>Safety copy</strong><span>The interface frames the output as AI assistance rather than a clinical diagnosis.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Service Internals</span>
+                    <h2>Error Handling, Artifacts, and API Documentation</h2>
+                    <p class="panel-desc">The API layer includes user-facing docs, exception handling, artifact routing, and configuration switches for local and cloud deployment.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Exception Handlers</div><span class="theory-badge">API safety</span></div><p class="theory-explanation">The service registers custom exception handlers so validation errors, inference failures, and unexpected runtime issues return structured responses instead of raw stack traces.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Artifact Router</div><span class="theory-badge">visual outputs</span></div><p class="theory-explanation">Prediction source, mask, ROI, and overlay images are saved under date-based folders and returned as local URLs or Supabase signed URLs depending on configuration.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Frontend Docs</div><span class="theory-badge">/ui/docs</span></div><p class="theory-explanation">The React UI contains pages for architecture, dataset, training, and integration so users can inspect how the model works without opening notebooks.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Config Switches</div><span class="theory-badge">env driven</span></div><p class="theory-explanation">Runtime behavior is controlled by environment variables: ONNX vs Keras, Kafka on/off, DB on/off, HF download, storage backend, CORS, and API port.</p></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">artifact storage</div><div></div></div><div class="terminal-body compact-code"><pre>prediction_id = uuid4().hex
+date_folder = utc_today()
+
+save:
+  assets/predictions/YYYY-MM-DD/&lt;prediction_id&gt;/source.png
+  assets/predictions/YYYY-MM-DD/&lt;prediction_id&gt;/mask.png
+  assets/predictions/YYYY-MM-DD/&lt;prediction_id&gt;/roi.png
+  assets/predictions/YYYY-MM-DD/&lt;prediction_id&gt;/overlay.png
+
+return:
+  *_path for local persistence
+  *_url for browser display or Supabase signed URLs</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">frontend route map</div><div></div></div><div class="terminal-body compact-code"><pre>/ui/app
+/ui/docs/architecture
+/ui/docs/dataset
+/ui/docs/training
+/ui/docs/integration
+
+Main UI:
+  upload panel
+  diagnosis gauge
+  source/mask/ROI/overlay grid
+  ensemble model matrix
+  clinical note and safety warning</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="mlops-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">MLOps Overview</span>
+                    <h2>Docker, Kafka, MLflow, Airflow, Databases, and Cloud Runtime</h2>
+                    <p class="panel-desc">The operations layer covers local full-stack development, slim cloud runtime, event consumers, registry backfill, scheduled retraining, and model downloads.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Mode</th><th>Compose / Runtime</th><th>Services</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>final</code></td><td><code>docker-compose.final.yml</code></td><td>App, SQL Server, Kafka, Kafka UI, MLflow, Airflow, consumers</td><td>Complete local production-like topology.</td></tr>
+                            <tr><td><code>app</code></td><td><code>docker-compose.app.yml</code></td><td>App, SQL Server, DB init, consumers</td><td>Application stack without separate MLflow/Airflow compose.</td></tr>
+                            <tr><td><code>runtime</code></td><td><code>docker-compose.runtime.yml</code></td><td>Slim ONNX app + Postgres</td><td>Cloud-style deployment with Kafka and MLflow off.</td></tr>
+                            <tr><td><code>mlops</code></td><td><code>docker-compose.mlops.yml</code></td><td>MLflow, Airflow, SQL Server, Airflow Postgres</td><td>Registry, backfill, evaluation, and scheduled retraining.</td></tr>
+                            <tr><td><code>kafka</code></td><td><code>docker-compose.kafka.yml</code></td><td>Zookeeper, Kafka, Kafka UI</td><td>Event pipeline development and inspection.</td></tr>
+                            <tr><td><code>HF Spaces</code></td><td><code>.env.hf_spaces.template</code></td><td>ONNX app, HF model download, Postgres, Supabase</td><td>Public deploy with external model/artifact services.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Operations Dependencies</span>
+                    <h2>MLOps & Deployment Libraries</h2>
+                    <p class="panel-desc">These dependencies belong to deployment and operations, not the training notebooks.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-docker"></i></div><div><strong>Docker + Docker Compose</strong><span>Package runtime images, SQL Server/Postgres, Kafka, MLflow, Airflow, app volumes, healthchecks, and environment-specific profiles.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-database"></i></div><div><strong>SQLAlchemy + SQL Server/Postgres</strong><span>Support both local SQL Server logging and cloud Postgres logging through normalized database URLs.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-tower-broadcast"></i></div><div><strong>Confluent Kafka</strong><span>Publishes prediction events and powers DB, monitoring, analytics, doctor-image, and notification consumers.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-chart-area"></i></div><div><strong>MLflow</strong><span>Backfills notebook artifacts, logs metadata and metrics, registers six model specs, and supports production alias loading.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-diagram-project"></i></div><div><strong>Airflow</strong><span>Schedules monthly model evaluation, retraining DAGs, and a full orchestrated retraining pipeline.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-cloud"></i></div><div><strong>Hugging Face Hub + Supabase</strong><span>Download model artifacts at startup and optionally store prediction images as signed cloud URLs.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Database Design</span>
+                    <h2>Prediction Logging Schema</h2>
+                    <p class="panel-desc">The database stores the final result, per-model ensemble decisions, disease outputs, and image artifact links.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Table</th><th>Main Fields</th><th>Reason</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>prediction_requests</code></td><td>request_id, input_type, final_label, final_prob, final_probs_json, errors, created_at</td><td>Core prediction history.</td></tr>
+                            <tr><td><code>prediction_binary_model_results</code></td><td>model_name, label, label_name, prob, probs_json</td><td>Per-model ensemble audit trail.</td></tr>
+                            <tr><td><code>prediction_disease_results</code></td><td>label, label_name, probs_json</td><td>Stores disease classifier outputs when unhealthy.</td></tr>
+                            <tr><td><code>prediction_image_links</code></td><td>source, mask, ROI, overlay URLs and paths</td><td>Connects logs to generated medical visualization artifacts.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">crud.py</div><div></div></div><div class="terminal-body compact-code"><pre>record = PredictionRequest(
+    request_id=request_id,
+    input_type=input_type,
+    final_label=response["final_label"],
+    final_label_name=response.get("final_label_name"),
+    final_prob=response["final_prob"],
+    final_probs_json=json.dumps(final_probs),
+)
+db.add(record)
+db.flush()
+db.add(PredictionImageLink(...))
+db.add(PredictionBinaryModelResult(...))
+db.add(PredictionDiseaseResult(...))</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">database modes</div><div></div></div><div class="terminal-body compact-code"><pre>DB_BACKEND=mssql      # local full stack
+DB_BACKEND=postgres   # runtime / cloud
+DATABASE_URL=...      # provider-injected URL wins
+DB_LOGGING_ENABLED=true
+LOGS_API_KEY=...</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Kafka Event Pipeline</span>
+                    <h2>Prediction Event Consumers</h2>
+                    <p class="panel-desc">Kafka decouples inference from logging, monitoring, analytics, doctor-image queues, and notifications.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">API</span><div><strong>Producer</strong><span>Publishes <code>prediction.completed</code> events to <code>lung.predictions</code> with request id, input type, timestamp, and response payload.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">DB</span><div><strong>consumer_db</strong><span>Consumes events and writes structured records into prediction tables.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">MON</span><div><strong>consumer_monitoring</strong><span>Maintains a five-minute window with request count, unhealthy rate, and average final probability.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">ANA</span><div><strong>consumer_analytics</strong><span>Writes analytics JSONL with final label, best model, model count, and disease label.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">DOC</span><div><strong>consumer_doctor_images</strong><span>Creates a doctor queue containing source, mask, ROI, and overlay artifact links.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">MSG</span><div><strong>consumer_notifications</strong><span>Formats notification messages with final label, confidence, and disease prediction when present.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">MLflow + Airflow</span>
+                    <h2>Registry Backfill, Monthly Evaluation, and Retraining</h2>
+                    <p class="panel-desc">MLOps jobs make notebook work traceable and connect saved models to a registry-oriented deployment path.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="phase-stack stagger-child">
+                    <div class="phase-row"><div class="phase-index">Backfill</div><div class="phase-main"><strong>Post-hoc notebook backfill</strong><span>Logs notebook artifacts, metadata YAML, Optuna JSON, extracted notebook params, reported metrics, and optionally validation metrics to MLflow.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Models</span><span class="phase-metric-value good">6</span></div><div><span class="phase-metric-label">Run Type</span><span class="phase-metric-value">post_hoc</span></div><div><span class="phase-metric-label">Registry</span><span class="phase-metric-value">optional</span></div></div></div>
+                    <div class="phase-row"><div class="phase-index">Monthly</div><div class="phase-main"><strong>Monthly evaluation logging</strong><span>Evaluates registered/local models on TFRecords and logs metrics, params, dataset id, metadata, and run summaries.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Schedule</span><span class="phase-metric-value good">@monthly</span></div><div><span class="phase-metric-label">Batch</span><span class="phase-metric-value">16</span></div><div><span class="phase-metric-label">Val Ratio</span><span class="phase-metric-value">0.2</span></div></div></div>
+                    <div class="phase-row rank-leader"><div class="phase-index">Retrain</div><div class="phase-main"><strong>Monthly retraining pipeline</strong><span>Loads current model, splits TFRecords, retrains, evaluates, logs to MLflow, registers model, and promotes only if the promotion metric improves.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Epochs</span><span class="phase-metric-value good">20</span></div><div><span class="phase-metric-label">Stage</span><span class="phase-metric-value">Production</span></div><div><span class="phase-metric-label">Promote</span><span class="phase-metric-value">metric</span></div></div></div>
+                    <div class="phase-row"><div class="phase-index">Orchestrate</div><div class="phase-main"><strong>Airflow DAG dependency order</strong><span>Segmentation retraining runs first, then four binary models run in parallel, then disease classification runs last.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">DAG</span><span class="phase-metric-value good">monthly</span></div><div><span class="phase-metric-label">Tasks</span><span class="phase-metric-value">6</span></div><div><span class="phase-metric-label">Catchup</span><span class="phase-metric-value">false</span></div></div></div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Makefile targets</div><div></div></div><div class="terminal-body compact-code"><pre>make mlops-up
+make backfill
+make backfill-eval
+make final-up
+make runtime-up
+
+docker.ps1 runtime-build
+docker.ps1 final-logs
+docker.ps1 mlops-ps</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">orchestrate_retrain_pipeline.py</div><div></div></div><div class="terminal-body compact-code"><pre>start >> trigger_segmentation
+trigger_segmentation >> [
+    trigger_binary_densenet,
+    trigger_binary_efficientnet,
+    trigger_binary_inception,
+    trigger_binary_mobilenet,
+] >> binary_done
+binary_done >> trigger_diseases >> end</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Cloud Runtime</span>
+                    <h2>Hugging Face, Postgres, and Supabase Path</h2>
+                    <p class="panel-desc">The slim runtime removes Kafka/MLflow from the serving path and downloads ONNX artifacts when needed.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="note-grid">
+                    <div class="note-card"><strong>HF model download</strong><span><code>HF_MODEL_DOWNLOAD_ENABLED=true</code> downloads required model folders from <code>a1mohamadd/lung-disease-detection</code>.</span></div>
+                    <div class="note-card"><strong>ONNX runtime</strong><span><code>MODEL_RUNTIME=onnx</code> keeps cloud inference CPU-friendly and avoids TensorFlow model loading in the slim image.</span></div>
+                    <div class="note-card"><strong>Postgres logging</strong><span>Cloud runtime uses <code>DB_BACKEND=postgres</code> or provider-injected <code>DATABASE_URL</code>.</span></div>
+                    <div class="note-card"><strong>Supabase artifacts</strong><span>Prediction source, mask, ROI, and overlay images can be uploaded to Supabase Storage with signed URLs.</span></div>
+                    <div class="note-card"><strong>Hugging Face Spaces</strong><span><code>PORT=7860</code>, Kafka off, MLflow off, model download on, external DB and storage configured by secrets.</span></div>
+                    <div class="note-card"><strong>GitHub Pages frontend</strong><span>CORS is configured through <code>CORS_ALLOW_ORIGINS</code> so a static frontend can call the backend safely.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Registry Contracts</span>
+                    <h2>MLflow Model Specs and Promotion Metrics</h2>
+                    <p class="panel-desc">The MLOps scripts know the six model families by explicit specs, so registry backfill and monthly evaluation are repeatable.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Registered Name</th><th>Task</th><th>Promotion Metric</th><th>Artifact Source</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>lung-binary-densenet</code></td><td>Healthy/unhealthy</td><td><code>val_f1</code></td><td>DenseNet binary notebook + metadata.</td></tr>
+                            <tr><td><code>lung-binary-efficientnet</code></td><td>Healthy/unhealthy</td><td><code>val_f1</code></td><td>EfficientNetV2B3 binary notebook + metadata.</td></tr>
+                            <tr><td><code>lung-binary-inception</code></td><td>Healthy/unhealthy</td><td><code>val_f1</code></td><td>InceptionV3 binary notebook + metadata.</td></tr>
+                            <tr><td><code>lung-binary-mobilenet</code></td><td>Healthy/unhealthy</td><td><code>val_f1</code></td><td>MobileNetV3 binary notebook + metadata.</td></tr>
+                            <tr><td><code>lung-diseases-densenet</code></td><td>Disease classification</td><td><code>val_f1</code></td><td>Disease DenseNet notebook + Optuna JSON.</td></tr>
+                            <tr><td><code>lung-segmentation-unet-xception</code></td><td>Lung segmentation</td><td><code>dice_coefficient</code></td><td>Segmentation notebook + custom Dice metric.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">post_hoc_backfill.py</div><div></div></div><div class="terminal-body compact-code"><pre>for spec in POST_HOC_SPECS:
+    with mlflow.start_run(run_name=spec.model_name):
+        log_notebook(spec.notebook_path)
+        log_artifacts(spec.support_files)
+        log_optuna_json(spec.optuna_json)
+        log_metadata_yaml(spec.metadata_path)
+        log_params(extracted_params)
+        log_metrics(reported_metrics)
+        if register:
+            mlflow.register_model(model_uri, spec.registered_name)</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">monthly_retrain.py</div><div></div></div><div class="terminal-body compact-code"><pre>current = load_registered_or_local_model(spec)
+train_ds, val_ds = split_tfrecords(tfrecord_dir)
+history = current.fit(train_ds, validation_data=val_ds)
+metrics = evaluate(current, val_ds)
+
+if metrics[spec.promotion_metric] > previous_best:
+    register_model(current, spec.registered_name)
+    transition_or_alias_to_production(current)</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Compose and Environment Design</span>
+                    <h2>Full Stack vs Runtime Stack</h2>
+                    <p class="panel-desc">The deployment files separate heavy local MLOps infrastructure from the lean serving path used for cloud deployment.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Full Stack Compose</div><span class="theory-badge">final</span></div><p class="theory-explanation"><code>docker-compose.final.yml</code> runs the app, SQL Server, Kafka, Kafka UI, MLflow, Airflow, DB init, post-hoc backfill profile, and all consumers for a local production-like lab.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Runtime Compose</div><span class="theory-badge champion-badge">slim</span></div><p class="theory-explanation"><code>docker-compose.runtime.yml</code> runs a smaller ONNX app image with Postgres. Kafka and MLflow are disabled by default to keep inference deployment practical.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Runtime Image</div><span class="theory-badge">Dockerfile.runtime</span></div><p class="theory-explanation">The runtime Dockerfile installs runtime dependencies, copies app/frontend/assets, avoids baking all saved models into the image, and lets HF model download fill artifacts at startup.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">PowerShell + Make</div><span class="theory-badge">dev UX</span></div><p class="theory-explanation">The project includes both Makefile targets and <code>docker.ps1</code> switches so local workflows can be started, stopped, inspected, and rebuilt consistently on Windows or Unix-like shells.</p></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Env Template</th><th>Primary Use</th><th>Key Switches</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>.env.template</code></td><td>Local app defaults</td><td>SQL Server backend, Kafka, MLflow, Supabase toggles.</td></tr>
+                            <tr><td><code>.env.compose.template</code></td><td>Full compose stack</td><td>Container hostnames, SQL Server credentials, Kafka brokers, MLflow URI.</td></tr>
+                            <tr><td><code>.env.runtime.template</code></td><td>Slim ONNX runtime</td><td><code>MODEL_RUNTIME=onnx</code>, Kafka off, MLflow off, Postgres DB, HF download on.</td></tr>
+                            <tr><td><code>.env.hf_spaces.template</code></td><td>Hugging Face Space</td><td><code>PORT=7860</code>, external Postgres, Supabase storage, CORS origins, HF model repo.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusion</span>
+                <h2>Project Synthesis & Roadmap</h2>
+                <p class="panel-desc">A complete medical AI portfolio system: not only a model, but a research-to-operations platform.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="synthesis-gradient-box stagger-child">
+                <p><strong>Research result:</strong> the project builds a multi-model chest X-ray system from 21,165 image/mask pairs, with TFRecords, transfer learning, Optuna search, segmentation, healthy/unhealthy ensemble voting, and disease sub-classification.</p>
+                <p><strong>Deployment result:</strong> the platform exposes the model through FastAPI and a React UI, saves source/mask/ROI/overlay artifacts, logs prediction history, supports ONNX CPU inference, and can download artifacts from Hugging Face at startup.</p>
+                <p><strong>MLOps result:</strong> Docker Compose, SQL Server/Postgres, Kafka consumers, MLflow registry backfill, Airflow monthly evaluation/retraining, and cloud env templates make the system reproducible beyond notebooks.</p>
+                <p><strong>Future directions:</strong></p>
+                <ul>
+                    <li>Add formal medical validation, external test sets, calibration reports, and confidence intervals.</li>
+                    <li>Add drift monitoring for scanner/source distribution and per-class disease performance.</li>
+                    <li>Expose a safer clinician-review workflow with audit trails and model version display.</li>
+                    <li>Move secrets and deployment targets fully into managed cloud infrastructure.</li>
+                </ul>
+            </div>
+        </div></div>
+    </section>
+</div>
+
+<footer class="portfolio-footer-gate">
+    <div class="contact-icons">
+        <a class="icon-link" href="mailto:a1mohamad.askari@gmail.com" title="Gmail"><i class="fa-brands fa-google"></i></a>
+        <a class="icon-link" href="mailto:amirmohmdaskari@icloud.com" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+        <a class="icon-link" href="tel:+989012223122" title="Phone"><i class="fas fa-phone"></i></a>
+        <a class="icon-link" href="https://github.com/a1mohamad" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a class="icon-link" href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a class="icon-link" href="https://www.kaggle.com/amirmohamadaskari" target="_blank" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+    </div>
+</footer>
+
+<div class="editorial-credits">
+    Amir Mohamad Askari &middot; Lung Disease Detection &middot; 2026
+</div>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close image">&times;</button>
+    <img id="lightboxImage" src="" alt="">
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
