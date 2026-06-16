@@ -1,5 +1,70 @@
 const projects = [
   {
+  "title": "Lung Disease Detection",
+  "category": "Medical",
+  "meta": [
+    "2026",
+    "Classification",
+    "Segmentation",
+    "Deep Learning",
+    "Computer Vision",
+    "Deployment",
+    "MLOps",
+    "PostgreSQL"
+  ],
+  "desc": "End-to-end chest X-ray AI system with lung segmentation, six TensorFlow/Keras models, ONNX inference, FastAPI UI, database logging, Docker deployment, Kafka events, MLflow tracking, and Airflow pipelines.",
+  "tools": [
+    "Python",
+    "TensorFlow/Keras",
+    "ONNX",
+    "ONNX Runtime",
+    "FastAPI",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "SQLAlchemy",
+    "PostgreSQL",
+    "Microsoft SQL Server",
+    "Supabase Storage",
+    "Docker",
+    "Docker Compose",
+    "Kafka",
+    "MLflow",
+    "Airflow",
+    "Optuna",
+    "Pandas",
+    "NumPy",
+    "Matplotlib"
+  ],
+  "tags": [
+    "Medical AI",
+    "Chest X-Ray",
+    "Computer Vision",
+    "Image Classification",
+    "Semantic Segmentation",
+    "U-Net",
+    "DenseNet",
+    "EfficientNet",
+    "InceptionV3",
+    "MobileNetV3",
+    "Ensemble Voting",
+    "Threshold Calibration",
+    "F1 Optimization",
+    "Dice Score",
+    "ONNX Inference",
+    "FastAPI",
+    "Database Logging",
+    "Object Storage",
+    "Docker Deployment",
+    "Kafka Event Streaming",
+    "MLflow Tracking",
+    "Airflow Pipelines",
+    "MLOps"
+  ],
+  "href": "https://a1mohamad.github.io/research/lung-disease-detection/index.html",
+  "image": "url(assets/images/lung.png)"
+  },
+  {
   "title": "Quora Question Pair Duplicate Detection",
   "category": "Communication",
   "meta": [
@@ -182,7 +247,7 @@ const projects = [
     "Moasic Augmentation",
     "Fine-Tuning",
     "TTA",
-    "Weighted Boxes Fusion",
+    "Weighted Boxes Fusion"
   ],
     "href": "https://a1mohamad.github.io/research/wheat-detection/index.html",
     "image": "url(assets/images/wheat.png)"
@@ -226,7 +291,7 @@ const projects = [
     "image": "url(assets/images/cassava.png)"
   },
   {
-    "title": "TMDB Box Office Revenue",
+    "title": "TMDB Box Office Revenue"
     "category": "Entertainment",
     "meta": [
       "2024",
