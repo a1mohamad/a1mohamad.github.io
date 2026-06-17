@@ -502,106 +502,205 @@
 
     <section class="section section-alt reveal-section" id="approach">
         <div class="section-inner">
-            <span class="section-tag">Theoretical Foundations</span>
+            <span class="section-tag">Applied Research Workflow</span>
             <h2 class="section-title">How I approach <span style="color:var(--accent);">machine learning</span></h2>
-            <p class="section-desc">Experimentation-driven pipeline from raw data to rigorous evaluation.</p>
+            <p class="section-desc">A current view of my research workflow across 20 full projects: from data analysis and model building to deployment, databases, and MLOps.</p>
             <div class="approach-grid">
                 <div class="approach-text">
-                    <p>Machine learning research is the science of extracting signal from noise. I begin with <strong>Exploratory Data Analysis (EDA)</strong>, statistical distributions, collinearity detection, and anomaly handling. A model is only as good as the data that feeds it.</p>
-                    <p>I work across <strong>Computer Vision</strong> (TensorFlow/Keras) and <strong>NLP</strong> (PyTorch, Transformers) following a structured pipeline: dataset creation, preprocessing, feature engineering, cross‑validation, hyperparameter optimization, and residual diagnosis.</p>
-                    <p>My research spans benchmarks like <em>Titanic</em> and <em>California Housing</em> to Kaggle challenges such as <em>Cassava Leaf Disease</em> and <em>Quora Question Pairs</em>. I build reproducible machine learning and deep learning systems with a strong focus on experimentation, evaluation, and model performance.</p>
+                    <p>I approach machine learning as a full research-to-production pipeline. I start with <strong>Exploratory Data Analysis (EDA)</strong>, data cleaning, preprocessing, feature engineering, and visualization to understand the real structure of the data before choosing a model.</p>
+                    <p>From there, I build a strong baseline first, then improve it through <strong>cross-validation</strong>, metric tracking, error analysis, threshold calibration, and controlled experiments. I care about what each model learns, where it fails, and whether the final result is actually useful beyond a notebook score.</p>
+                    <p>My current project archive now covers <strong>medical AI</strong>, <strong>computer vision</strong>, <strong>NLP</strong>, <strong>tabular machine learning</strong>, <strong>regression</strong>, <strong>classification</strong>, <strong>object detection</strong>, <strong>segmentation</strong>, <strong>web scraping</strong>, and <strong>data engineering</strong>. The newer projects go beyond notebooks into deployed systems with APIs, databases, Docker, model logging, and experiment tracking.</p>
+                    <p>For deep learning projects, I focus on practical architecture decisions: CNN backbones for image classification, YOLO-style detection for localization, U-Net-style segmentation for medical masks, and sequence models such as BiLSTM, attention, Siamese networks, embeddings, TF-IDF, and NLP preprocessing for text tasks.</p>
+                    <p>For classical machine learning, I still treat algorithms as serious production tools. I compare linear models, SVMs, tree models, Random Forests, XGBoost, LightGBM, CatBoost, voting ensembles, feature engineering strategies, and tabular validation workflows before deciding whether deep learning is really necessary.</p>
+                    <p>The direction is moving from isolated experiments toward complete AI systems: <em>Lung Disease Detection</em>, <em>Quora Question Pairs</em>, <em>Disaster Tweets</em>, <em>SMS Spam</em>, <em>Global Wheat Detection</em>, <em>Cassava Leaf Diseases</em>, <em>TMDB Revenue</em>, and earlier classical ML/data-analysis projects all connect model performance with real implementation practice.</p>
+                    <p>On the deployment side, I connect trained models with real interfaces using <strong>FastAPI</strong>, Docker, SQL databases, object storage, ONNX export, inference pipelines, prediction logging, and MLOps tools such as MLflow, Airflow, Kafka, and Optuna. The goal is not only to train models, but to understand how they become reliable AI products.</p>
                 </div>
                 <div class="tech-categories">
                     <div class="tech-cat">
-                        <h3><i class="fas fa-brain"></i> Deep Learning</h3>
+                        <h3><i class="fas fa-layer-group"></i> Core Workflow</h3>
                         <div class="tech-tags">
+                            <span class="tech-tag">EDA</span>
+                            <span class="tech-tag">Data Cleaning</span>
+                            <span class="tech-tag">Data Preprocessing</span>
+                            <span class="tech-tag">Feature Engineering</span>
+                            <span class="tech-tag">Visualization</span>
+                            <span class="tech-tag">Cross-Validation</span>
+                            <span class="tech-tag">K-Fold</span>
+                            <span class="tech-tag">Error Analysis</span>
+                            <span class="tech-tag">Threshold Calibration</span>
+                            <span class="tech-tag">F1 Optimization</span>
+                            <span class="tech-tag">Confusion Matrix</span>
+                            <span class="tech-tag">MSE</span>
+                            <span class="tech-tag">MAE</span>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <h3><i class="fas fa-brain"></i> Deep Learning & NLP</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag"><i class="devicon-tensorflow-original"></i>TensorFlow/Keras</span>
                             <span class="tech-tag"><i class="devicon-pytorch-original"></i>PyTorch</span>
-                            <span class="tech-tag"><i class="devicon-tensorflow-original"></i>TensorFlow</span>
-                            <span class="tech-tag"><i class="devicon-keras-plain"></i>Keras</span>
-                            <span class="tech-tag">
-                                <svg viewBox="0 0 40 40" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M20 2C10.06 2 2 10.06 2 20s8.06 18 18 18 18-8.06 18-18S29.94 2 20 2zm6.2 24c-.44.78-1.18 1.34-2.02 1.54-.3.06-.6.08-.9.08-.62 0-1.22-.18-1.74-.52-.36-.24-.68-.54-.94-.88-.26.34-.58.64-.94.88-.52.34-1.12.52-1.74.52-.3 0-.6-.02-.9-.08-.84-.2-1.58-.76-2.02-1.54-.42-.74-.52-1.62-.28-2.46.22-.8.74-1.48 1.44-1.9.46-.28.98-.44 1.52-.46.36-.02.72.02 1.06.12.38.1.72.28 1.04.52.26.2.48.44.66.7.18-.26.4-.5.66-.7.32-.24.66-.42 1.04-.52.34-.1.7-.14 1.06-.12.54.02 1.06.18 1.52.46.7.42 1.22 1.1 1.44 1.9.24.84.14 1.72-.28 2.46zM20 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Hugging Face
-                            </span>
-                        </div>
-                    </div>
-                    <div class="tech-cat">
-                        <h3><i class="fas fa-chart-line"></i> Gradient Boosting</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">
-                                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13h-13L12 7z"/></svg>XGBoost
-                            </span>
-                            <span class="tech-tag">
-                                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M4 2v20h16V2H4zm14 18H6V4h12v16zM8 6h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>LightGBM
-                            </span>
-                            <span class="tech-tag">
-                                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>CatBoost
-                            </span>
-                        </div>
-                    </div>
-                    <div class="tech-cat">
-                        <h3><i class="fas fa-cubes"></i> Traditional ML</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag"><i class="devicon-scikitlearn-plain"></i>Scikit‑Learn</span>
-                            <span class="tech-tag">Random Forest</span>
-                            <span class="tech-tag">SVM / SVC</span>
-                            <span class="tech-tag">Logistic Regression</span>
-                        </div>
-                    </div>
-                    <div class="tech-cat">
-                        <h3><i class="fas fa-microchip"></i> Models</h3>
-                        <div class="tech-tags">
-                            <span class="tech-tag">EfficientNetV2B3</span>
+                            <span class="tech-tag">Neural Networks</span>
                             <span class="tech-tag">CNN</span>
-                            <span class="tech-tag">YOLOv8</span>
-                            <span class="tech-tag">LSTM</span>
+                            <span class="tech-tag">BiLSTM</span>
                             <span class="tech-tag">LSTM Attention</span>
-                            <span class="tech-tag">Transformers</span>
+                            <span class="tech-tag">Siamese Network</span>
+                            <span class="tech-tag">Multi-Head Attention</span>
+                            <span class="tech-tag">Bahdanau Attention</span>
+                            <span class="tech-tag">GloVe Embeddings</span>
+                            <span class="tech-tag">TF-IDF</span>
+                            <span class="tech-tag">N-grams</span>
+                            <span class="tech-tag">Tokenization</span>
+                            <span class="tech-tag">Text Vectorization</span>
+                            <span class="tech-tag">NLTK</span>
+                            <span class="tech-tag">VADER</span>
+                            <span class="tech-tag">WordCloud</span>
                         </div>
                     </div>
                     <div class="tech-cat">
-                        <h3><i class="fas fa-database"></i> Base Tools</h3>
+                        <h3><i class="fas fa-eye"></i> Computer Vision</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag"><i class="devicon-opencv-plain"></i>OpenCV</span>
+                            <span class="tech-tag">Image Classification</span>
+                            <span class="tech-tag">Object Detection</span>
+                            <span class="tech-tag">Semantic Segmentation</span>
+                            <span class="tech-tag">YOLOv8</span>
+                            <span class="tech-tag">U-Net</span>
+                            <span class="tech-tag">EfficientNet</span>
+                            <span class="tech-tag">DenseNet</span>
+                            <span class="tech-tag">InceptionV3</span>
+                            <span class="tech-tag">MobileNetV3</span>
+                            <span class="tech-tag">Bounding Boxes</span>
+                            <span class="tech-tag">COCO mAP</span>
+                            <span class="tech-tag">Dice Score</span>
+                            <span class="tech-tag">TTA</span>
+                            <span class="tech-tag">Weighted Boxes Fusion</span>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <h3><i class="fas fa-tree"></i> Classical ML & Ensembles</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag"><i class="devicon-scikitlearn-plain"></i>Scikit-Learn</span>
+                            <span class="tech-tag">XGBoost</span>
+                            <span class="tech-tag">LightGBM</span>
+                            <span class="tech-tag">CatBoost</span>
+                            <span class="tech-tag">Gradient Boosting</span>
+                            <span class="tech-tag">Random Forest</span>
+                            <span class="tech-tag">Decision Tree</span>
+                            <span class="tech-tag">SVC / SVM</span>
+                            <span class="tech-tag">Logistic Regression</span>
+                            <span class="tech-tag">Logistic Regression CV</span>
+                            <span class="tech-tag">KNN</span>
+                            <span class="tech-tag">GaussianNB</span>
+                            <span class="tech-tag">SVR</span>
+                            <span class="tech-tag">XGBRF</span>
+                            <span class="tech-tag">Majority Voting</span>
+                            <span class="tech-tag">Ensemble Voting</span>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <h3><i class="fas fa-rocket"></i> Deployment & MLOps</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag"><i class="devicon-fastapi-plain"></i>FastAPI</span>
+                            <span class="tech-tag"><i class="devicon-docker-plain"></i>Docker</span>
+                            <span class="tech-tag">Docker Compose</span>
+                            <span class="tech-tag">ONNX</span>
+                            <span class="tech-tag">ONNX Runtime</span>
+                            <span class="tech-tag">MLflow</span>
+                            <span class="tech-tag">Airflow</span>
+                            <span class="tech-tag">Kafka</span>
+                            <span class="tech-tag">Optuna</span>
+                            <span class="tech-tag">Uvicorn</span>
+                            <span class="tech-tag">Pydantic</span>
+                            <span class="tech-tag">Jinja2</span>
+                            <span class="tech-tag">Model Deployment</span>
+                            <span class="tech-tag">Database Logging</span>
+                            <span class="tech-tag">Object Storage</span>
+                            <span class="tech-tag">Model Architecture Export</span>
+                        </div>
+                    </div>
+                    <div class="tech-cat">
+                        <h3><i class="fas fa-database"></i> Data, Web & Storage</h3>
                         <div class="tech-tags">
                             <span class="tech-tag"><i class="devicon-python-plain"></i>Python</span>
-                            <span class="tech-tag"><i class="devicon-numpy-original"></i>NumPy</span>
                             <span class="tech-tag"><i class="devicon-pandas-original"></i>Pandas</span>
+                            <span class="tech-tag"><i class="devicon-numpy-original"></i>NumPy</span>
                             <span class="tech-tag"><i class="devicon-matplotlib-plain"></i>Matplotlib</span>
-                            <span class="tech-tag"><svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:2px;"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 4H6v5h5V6zm7 0h-5v8h5V6zm-7 7H6v5h5v-5zm7 3h-5v2h5v-2z"/></svg>Seaborn</span>
+                            <span class="tech-tag">Seaborn</span>
+                            <span class="tech-tag"><i class="devicon-html5-plain"></i>HTML</span>
+                            <span class="tech-tag"><i class="devicon-css3-plain"></i>CSS</span>
+                            <span class="tech-tag"><i class="devicon-javascript-plain"></i>JavaScript</span>
+                            <span class="tech-tag"><i class="devicon-postgresql-plain"></i>PostgreSQL</span>
+                            <span class="tech-tag"><i class="devicon-microsoftsqlserver-plain"></i>Microsoft SQL Server</span>
+                            <span class="tech-tag"><i class="devicon-sqlite-plain"></i>SQLite</span>
+                            <span class="tech-tag">SQLAlchemy</span>
+                            <span class="tech-tag"><i class="devicon-redis-plain"></i>Redis</span>
+                            <span class="tech-tag"><i class="devicon-mongodb-plain"></i>MongoDB</span>
+                            <span class="tech-tag">Supabase Storage</span>
+                            <span class="tech-tag">BeautifulSoup</span>
+                            <span class="tech-tag">Requests</span>
+                            <span class="tech-tag">Regex</span>
+                            <span class="tech-tag">JSON</span>
+                            <span class="tech-tag">lxml</span>
+                            <span class="tech-tag">feedparser</span>
+                            <span class="tech-tag">newspaper3k</span>
+                            <span class="tech-tag">PyMongo</span>
+                            <span class="tech-tag">SciPy</span>
+                            <span class="tech-tag">joblib</span>
+                            <span class="tech-tag">pickle</span>
+                            <span class="tech-tag">TQDM</span>
+                            <span class="tech-tag">IPython</span>
+                            <span class="tech-tag">TorchMetrics</span>
+                            <span class="tech-tag">KerasCV</span>
+                            <span class="tech-tag">ensemble-boxes</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="tech-marquee">
                 <div class="tech-track">
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 24 24"><path d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm-1 4H6v5h5V6zm7 0h-5v8h5V6zm-7 7H6v5h5v-5zm7 3h-5v2h5v-2z"/></svg>
-                        Seaborn
-                    </span>
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 5l6.5 13h-13L12 7z"/></svg>
-                        XGBoost
-                    </span>
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-                        CatBoost
-                    </span>
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 40 40"><path d="M20 2C10.06 2 2 10.06 2 20s8.06 18 18 18 18-8.06 18-18S29.94 2 20 2zm6.2 24c-.44.78-1.18 1.34-2.02 1.54-.3.06-.6.08-.9.08-.62 0-1.22-.18-1.74-.52-.36-.24-.68-.54-.94-.88-.26.34-.58.64-.94.88-.52.34-1.12.52-1.74.52-.3 0-.6-.02-.9-.08-.84-.2-1.58-.76-2.02-1.54-.42-.74-.52-1.62-.28-2.46.22-.8.74-1.48 1.44-1.9.46-.28.98-.44 1.52-.46.36-.02.72.02 1.06.12.38.1.72.28 1.04.52.26.2.48.44.66.7.18-.26.4-.5.66-.7.32-.24.66-.42 1.04-.52.34-.1.7-.14 1.06-.12.54.02 1.06.18 1.52.46.7.42 1.22 1.1 1.44 1.9.24.84.14 1.72-.28 2.46zM20 17.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        Hugging Face
-                    </span>
+                    <i class="devicon-python-plain"></i>
                     <i class="devicon-pandas-original"></i>
                     <i class="devicon-numpy-original"></i>
                     <i class="devicon-matplotlib-plain"></i>
-                    <i class="devicon-pytorch-original"></i>
                     <i class="devicon-scikitlearn-plain"></i>
+                    <i class="devicon-tensorflow-original"></i>
+                    <i class="devicon-keras-plain"></i>
+                    <i class="devicon-pytorch-original"></i>
+                    <i class="devicon-opencv-plain"></i>
+                    <i class="devicon-fastapi-plain"></i>
+                    <i class="devicon-docker-plain"></i>
+                    <i class="devicon-postgresql-plain"></i>
+                    <i class="devicon-microsoftsqlserver-plain"></i>
+                    <i class="devicon-sqlite-plain"></i>
+                    <i class="devicon-redis-plain"></i>
+                    <i class="devicon-mongodb-plain"></i>
+                    <i class="devicon-html5-plain"></i>
+                    <i class="devicon-css3-plain"></i>
+                    <i class="devicon-javascript-plain"></i>
                     <i class="devicon-jupyter-plain"></i>
                     <i class="devicon-vscode-plain"></i>
-                    <i class="devicon-keras-plain"></i>
-                    <i class="devicon-tensorflow-original"></i>
                     <i class="devicon-python-plain"></i>
-                    <span class="tech-logo-badge">
-                        <svg viewBox="0 0 24 24"><path d="M4 2v20h16V2H4zm14 18H6V4h12v16zM8 6h8v2H8V6zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>
-                        LightGBM
-                    </span>
+                    <i class="devicon-pandas-original"></i>
+                    <i class="devicon-numpy-original"></i>
+                    <i class="devicon-matplotlib-plain"></i>
+                    <i class="devicon-scikitlearn-plain"></i>
+                    <i class="devicon-tensorflow-original"></i>
+                    <i class="devicon-keras-plain"></i>
+                    <i class="devicon-pytorch-original"></i>
+                    <i class="devicon-opencv-plain"></i>
+                    <i class="devicon-fastapi-plain"></i>
+                    <i class="devicon-docker-plain"></i>
+                    <i class="devicon-postgresql-plain"></i>
+                    <i class="devicon-microsoftsqlserver-plain"></i>
+                    <i class="devicon-sqlite-plain"></i>
+                    <i class="devicon-redis-plain"></i>
+                    <i class="devicon-mongodb-plain"></i>
+                    <i class="devicon-html5-plain"></i>
+                    <i class="devicon-css3-plain"></i>
+                    <i class="devicon-javascript-plain"></i>
+                    <i class="devicon-jupyter-plain"></i>
+                    <i class="devicon-vscode-plain"></i>
                 </div>
             </div>
         </div>
