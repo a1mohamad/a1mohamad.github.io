@@ -493,7 +493,7 @@
             <a href="https://github.com/a1mohamad" class="btn-secondary" target="_blank"><i class="fab fa-github"></i> Research Repo</a>
         </div>
         <div class="stats-strip">
-            <div class="stat-block"><div class="stat-num">18+</div><div class="stat-label">Research Projects</div></div>
+            <div class="stat-block"><div class="stat-num" id="project-stat-count">20</div><div class="stat-label">Research Projects</div></div>
             <div class="stat-block"><div class="stat-num">4+</div><div class="stat-label">Years Python</div></div>
             <div class="stat-block"><div class="stat-num">2+</div><div class="stat-label">Years AI/ML</div></div>
             <div class="stat-block"><div class="stat-num">100%</div><div class="stat-label">Open Source</div></div>
@@ -744,38 +744,7 @@
             <span class="section-tag">Capabilities</span>
             <h2 class="section-title">Areas of <span style="color:var(--accent);">expertise</span></h2>
             <p class="section-desc">Deep technical skills developed through research and competition.</p>
-            <div class="expertise-list">
-                <div class="exp-item">
-                    <div class="exp-header"><span class="exp-title">Deep Learning</span><span class="exp-percent">95%</span></div>
-                    <div class="exp-bar-bg"><div class="exp-bar-fill" data-width="95"></div></div>
-                    <p class="exp-desc">Proficient in building and training neural networks using modern frameworks, with experience in CNN, RNN, Transformer architectures.</p>
-                </div>
-                <div class="exp-item">
-                    <div class="exp-header"><span class="exp-title">Computer Vision</span><span class="exp-percent">90%</span></div>
-                    <div class="exp-bar-bg"><div class="exp-bar-fill" data-width="90"></div></div>
-                    <p class="exp-desc">Image classification, object detection, data augmentation, multi‑class segmentation using TensorFlow and PyTorch.</p>
-                </div>
-                <div class="exp-item">
-                    <div class="exp-header"><span class="exp-title">Natural Language Processing</span><span class="exp-percent">88%</span></div>
-                    <div class="exp-bar-bg"><div class="exp-bar-fill" data-width="88"></div></div>
-                    <p class="exp-desc">BERT fine‑tuning, Siamese Networks, semantic similarity, Hugging Face ecosystem, sequence classification.</p>
-                </div>
-                <div class="exp-item">
-                    <div class="exp-header"><span class="exp-title">Exploratory Data Analysis</span><span class="exp-percent">85%</span></div>
-                    <div class="exp-bar-bg"><div class="exp-bar-fill" data-width="85"></div></div>
-                    <p class="exp-desc">Statistical distributions, collinearity detection, anomaly handling, robust cross‑validation strategies.</p>
-                </div>
-                <div class="exp-item">
-                    <div class="exp-header"><span class="exp-title">Gradient Boosting</span><span class="exp-percent">92%</span></div>
-                    <div class="exp-bar-bg"><div class="exp-bar-fill" data-width="92"></div></div>
-                    <p class="exp-desc">XGBoost, LightGBM, CatBoost ensembles; hyperparameter tuning, SHAP explainability.</p>
-                </div>
-                <div class="exp-item">
-                    <div class="exp-header"><span class="exp-title">Research Methodology</span><span class="exp-percent">90%</span></div>
-                    <div class="exp-bar-bg"><div class="exp-bar-fill" data-width="90"></div></div>
-                    <p class="exp-desc">Hypothesis‑driven experimentation, ablation studies, statistical significance testing, reproducible pipelines.</p>
-                </div>
-            </div>
+            <div class="expertise-list" id="expertise-list" aria-live="polite"></div>
         </div>
     </section>
 
@@ -800,7 +769,74 @@
         <span>Built with precision · Deployed with purpose</span>
     </div>
 
+    <script src="projects/projects-data.js"></script>
     <script>
+        const expertiseRules = {
+            "Deep Learning": {
+                keywords: ["Deep Learning", "TensorFlow/Keras", "PyTorch", "Neural Networks", "CNN", "BiLSTM", "LSTM Attention", "Siamese Network", "Multi-Head Attention", "Bahdanau Attention", "EfficientNet", "DenseNet", "MobileNetV3", "InceptionV3"],
+                desc: "Neural-network projects across image classification, segmentation, sequence modeling, transfer learning, and practical architecture design."
+            },
+            "Computer Vision": {
+                keywords: ["Computer Vision", "Image Classification", "Object Detection", "YOLOv8", "Bounding Boxes", "Semantic Segmentation", "U-Net", "OpenCV", "COCO mAP", "Dice Score"],
+                desc: "Image-based AI coverage including CNN classification, object localization, medical segmentation, augmentation, and detection metrics."
+            },
+            "Natural Language Processing": {
+                keywords: ["NLP", "Text Classification", "Question Pair Matching", "Duplicate Detection", "Semantic Similarity", "BiLSTM", "GloVe Embeddings", "TF-IDF", "Tokenization", "NLTK", "VADER", "WordCloud"],
+                desc: "Text projects covering preprocessing, embeddings, TF-IDF analysis, sequence models, attention, semantic similarity, and deployed classifiers."
+            },
+            "Deployment & MLOps": {
+                keywords: ["Deployment", "FastAPI", "Docker", "Docker Compose", "PostgreSQL", "SQLite", "Redis", "ONNX", "ONNX Runtime", "MLflow", "Airflow", "Kafka", "Uvicorn", "Pydantic", "Database Logging", "Object Storage"],
+                desc: "Production-oriented work with APIs, containers, databases, model export, inference services, tracking, scheduling, and event pipelines."
+            },
+            "Tabular & Classical ML": {
+                keywords: ["Machine Learning", "Regression", "Classification", "XGBoost", "LightGBM", "Catboost", "Random Forest", "Decision Tree", "SVC", "Logistic Regression", "GaussianNB", "Feature Engineering", "Data Imputation"],
+                desc: "Structured-data modeling with feature engineering, preprocessing, classical baselines, boosting ensembles, validation, and diagnostic analysis."
+            },
+            "Research Workflow & EDA": {
+                keywords: ["EDA", "Data Cleaning", "Data Preprocessing", "Feature Engineering", "Cross-Validation", "K-Fold", "Error Analysis", "Threshold Calibration", "F1 Optimization", "Confusion Matrix", "TTA", "Fine-Tuning", "Hyperparameter Tuning"],
+                desc: "Experiment workflow built around data understanding, validation strategy, metric analysis, threshold tuning, error review, and reproducible iteration."
+            }
+        };
+
+        function collectProjectText(project) {
+            return [
+                project.title, project.category, project.desc,
+                ...(project.meta || []), ...(project.tools || []), ...(project.tags || [])
+            ].join(" ").toLowerCase();
+        }
+
+        function renderDynamicExpertise() {
+            const list = document.getElementById("expertise-list");
+            const projects = window.PROJECTS_DATA || [];
+            if (!list || !projects.length) return;
+
+            const scored = Object.entries(expertiseRules).map(([title, config]) => {
+                const matchedProjects = projects.filter(project => {
+                    const searchable = collectProjectText(project);
+                    return config.keywords.some(keyword => searchable.includes(keyword.toLowerCase()));
+                });
+                return { title, ...config, count: matchedProjects.length };
+            });
+
+            const totalProjects = projects.length || 1;
+            const projectStatCount = document.getElementById("project-stat-count");
+            if (projectStatCount) projectStatCount.textContent = String(projects.length);
+
+            list.innerHTML = scored.map(item => {
+                const percent = Math.round((item.count / totalProjects) * 100);
+                const barWidth = item.count === 0 ? 0 : Math.max(12, percent);
+                const projectLabel = item.count === 1 ? "project" : "projects";
+                return `
+                    <div class="exp-item">
+                        <div class="exp-header"><span class="exp-title">${item.title}</span><span class="exp-percent">${percent}%</span></div>
+                        <div class="exp-bar-bg"><div class="exp-bar-fill" data-width="${barWidth}"></div></div>
+                        <p class="exp-desc">${item.desc} <strong>${item.count}</strong> matching ${projectLabel} detected from project metadata, tools, and tags.</p>
+                    </div>`;
+            }).join("");
+        }
+
+        renderDynamicExpertise();
+
         const glow = document.getElementById('cursor-glow');
         document.addEventListener('mousemove', (e) => {
             glow.style.left = e.clientX + 'px';
