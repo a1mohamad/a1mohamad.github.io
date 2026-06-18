@@ -21,7 +21,7 @@
       <span>Amir Mohammad Askari</span>
     </a>
     <div class="nav-links">
-      <a href="https://a1mohamad.github.io/app/index.html">Apps</a>
+      <a href="https://a1mohamad.github.io/apps/index.html">Apps</a>
       <a href="https://a1mohamad.github.io/research/projects/index.html">Research</a>
       <a href="https://a1mohamad.github.io/education/index.html">Education</a>
       <a href="https://a1mohamad.github.io/about-me/index.html">About Me</a>
@@ -126,12 +126,43 @@
       <div class="apps-grid">
         <article class="app-card app-card-featured">
           <div class="app-visual lung-visual" aria-hidden="true">
-            <div class="scan-frame">
-              <span class="scan-line"></span>
-              <div class="lung-shape left"></div>
-              <div class="lung-shape right"></div>
-              <span class="mask-dot one"></span>
-              <span class="mask-dot two"></span>
+            <div class="medical-panel">
+              <div class="panel-grid"></div>
+              <div class="vital-chip vital-chip-top"><i class="fa-solid fa-wave-square"></i><span>CT · Segmentation</span></div>
+              <svg class="lung-svg" viewBox="0 0 420 360" role="img" aria-label="Stylized lung medical scan">
+                <defs>
+                  <linearGradient id="lungStroke" x1="0" x2="1" y1="0" y2="1">
+                    <stop offset="0" stop-color="#eef2ff" />
+                    <stop offset="0.52" stop-color="#7dd3fc" />
+                    <stop offset="1" stop-color="#818cf8" />
+                  </linearGradient>
+                  <radialGradient id="lungGlow" cx="50%" cy="48%" r="60%">
+                    <stop offset="0" stop-color="#7dd3fc" stop-opacity="0.24" />
+                    <stop offset="1" stop-color="#0f172a" stop-opacity="0" />
+                  </radialGradient>
+                  <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <rect x="30" y="22" width="360" height="316" rx="42" fill="rgba(15,23,42,0.72)" stroke="rgba(226,232,240,0.12)" />
+                <ellipse cx="210" cy="190" rx="154" ry="128" fill="url(#lungGlow)" />
+                <path class="trachea" d="M210 54 C210 84 210 104 210 126 M210 126 C194 142 181 158 173 177 M210 126 C226 142 239 158 247 177" />
+                <path class="lung-path left-lung" d="M191 108 C175 92 151 85 126 89 C92 95 72 122 66 160 C61 194 68 239 87 274 C104 304 132 322 159 318 C181 315 194 297 197 271 C201 240 197 214 200 184 C203 151 209 128 191 108 Z" />
+                <path class="lung-path right-lung" d="M229 108 C245 92 269 85 294 89 C328 95 348 122 354 160 C359 194 352 239 333 274 C316 304 288 322 261 318 C239 315 226 297 223 271 C219 240 223 214 220 184 C217 151 211 128 229 108 Z" />
+                <path class="cardiac-notch" d="M201 178 C194 195 190 217 191 244 C192 263 193 280 184 294" />
+                <path class="bronchi" d="M173 177 C155 191 140 208 130 228 M173 177 C159 204 153 232 152 266 M173 177 C185 194 194 214 198 240 M247 177 C265 191 280 208 290 228 M247 177 C261 204 267 232 268 266 M247 177 C235 194 226 214 222 240" />
+                <path class="rib rib-one" d="M78 148 C120 128 168 122 210 136 C252 122 300 128 342 148" />
+                <path class="rib rib-two" d="M64 204 C111 185 162 180 210 192 C258 180 309 185 356 204" />
+                <path class="rib rib-three" d="M84 258 C126 243 169 239 210 248 C251 239 294 243 336 258" />
+                <circle class="finding finding-one" cx="146" cy="228" r="12" />
+                <circle class="finding finding-two" cx="280" cy="192" r="10" />
+              </svg>
+              <span class="scan-beam"></span>
+              <div class="vital-chip vital-chip-bottom"><strong>0.94</strong><span>mask confidence</span></div>
             </div>
           </div>
           <div class="app-body">
@@ -144,8 +175,8 @@
               <span>EfficientNet</span><span>MobileNet</span><span>DenseNet</span><span>Inception</span><span>U-Net/Xception</span><span>FastAPI</span><span>Docker</span><span>PostgreSQL</span><span>Supabase</span><span>MLflow</span><span>Airflow</span><span>Kafka</span>
             </div>
             <div class="app-footer">
-              <a href="lung-disease-detection" class="disabled-link">App link placeholder</a>
-              <a href="https://github.com/a1mohamad/lung-disease-detection-app" class="disabled-link">Repository placeholder</a>
+              <a href="lung-disease-detection" class="app-action app-action-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open App</span></a>
+              <a href="https://github.com/a1mohamad/lung-disease-detection-app" target="_blank" rel="noopener" class="app-action app-action-secondary"><i class="fa-brands fa-github"></i><span>GitHub Repo</span></a>
             </div>
           </div>
         </article>
@@ -168,8 +199,8 @@
               <span>PyTorch</span><span>BiLSTM</span><span>GloVe</span><span>NLTK</span><span>FastAPI</span><span>Jinja</span><span>SQLite3</span><span>Docker</span>
             </div>
             <div class="app-footer">
-              <a href="#disaster-tweets-app" class="disabled-link">App link placeholder</a>
-              <a href="https://github.com/a1mohamad/disaster-tweet-app" class="disabled-link">Repository placeholder</a>
+              <a href="#disaster-tweets-app" class="app-action app-action-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open App</span></a>
+              <a href="https://github.com/a1mohamad/disaster-tweet-app" target="_blank" rel="noopener" class="app-action app-action-secondary"><i class="fa-brands fa-github"></i><span>GitHub Repo</span></a>
             </div>
           </div>
         </article>
@@ -183,40 +214,31 @@
         <p>A compact map of the technologies I use to convert models into real interfaces, services, storage layers, and cloud-ready systems.</p>
       </div>
 
-      <div class="stack-marquee" aria-label="Technology icons">
-        <div class="stack-track">
-          <i class="devicon-python-plain colored" title="Python"></i>
-          <i class="devicon-pytorch-original colored" title="PyTorch"></i>
-          <i class="devicon-tensorflow-original colored" title="TensorFlow"></i>
-          <i class="devicon-keras-plain colored" title="Keras"></i>
-          <i class="devicon-fastapi-plain colored" title="FastAPI"></i>
-          <i class="devicon-docker-plain colored" title="Docker"></i>
-          <i class="devicon-postgresql-plain colored" title="PostgreSQL"></i>
-          <i class="devicon-sqlite-plain colored" title="SQLite"></i>
-          <i class="devicon-microsoftsqlserver-plain colored" title="MSSQL"></i>
-          <i class="devicon-mongodb-plain colored" title="MongoDB"></i>
-          <i class="devicon-redis-plain colored" title="Redis"></i>
-          <i class="devicon-apacheairflow-plain colored" title="Airflow"></i>
-          <i class="devicon-apachekafka-original colored" title="Kafka"></i>
-          <i class="devicon-huggingface-plain colored" title="Hugging Face"></i>
-          <i class="devicon-html5-plain colored" title="HTML"></i>
-          <i class="devicon-css3-plain colored" title="CSS"></i>
-          <i class="devicon-javascript-plain colored" title="JavaScript"></i>
-          <i class="devicon-vscode-plain colored" title="VS Code"></i>
-          <i class="devicon-github-original" title="GitHub"></i>
-          <span class="logo-pill">ONNX</span>
-          <span class="logo-pill">Render</span>
-          <span class="logo-pill">Railway</span>
-          <span class="logo-pill">Supabase</span>
-          <span class="logo-pill">MLflow</span>
-          <i class="devicon-python-plain colored" title="Python"></i>
-          <i class="devicon-pytorch-original colored" title="PyTorch"></i>
-          <i class="devicon-fastapi-plain colored" title="FastAPI"></i>
-          <i class="devicon-docker-plain colored" title="Docker"></i>
-          <i class="devicon-postgresql-plain colored" title="PostgreSQL"></i>
-          <span class="logo-pill">ONNX</span>
-          <span class="logo-pill">Hugging Face Hub</span>
-        </div>
+      <div class="stack-wall" aria-label="Technology icons">
+        <div class="stack-logo-card"><i class="devicon-python-plain colored"></i><span>Python</span></div>
+        <div class="stack-logo-card"><i class="devicon-pytorch-original colored"></i><span>PyTorch</span></div>
+        <div class="stack-logo-card"><i class="devicon-tensorflow-original colored"></i><span>TensorFlow</span></div>
+        <div class="stack-logo-card"><i class="devicon-keras-plain colored"></i><span>Keras</span></div>
+        <div class="stack-logo-card"><i class="devicon-fastapi-plain colored"></i><span>FastAPI</span></div>
+        <div class="stack-logo-card"><i class="devicon-docker-plain colored"></i><span>Docker</span></div>
+        <div class="stack-logo-card"><i class="devicon-postgresql-plain colored"></i><span>PostgreSQL</span></div>
+        <div class="stack-logo-card"><i class="devicon-sqlite-plain colored"></i><span>SQLite</span></div>
+        <div class="stack-logo-card"><i class="devicon-microsoftsqlserver-plain colored"></i><span>MSSQL</span></div>
+        <div class="stack-logo-card"><i class="devicon-redis-plain colored"></i><span>Redis</span></div>
+        <div class="stack-logo-card"><i class="devicon-apacheairflow-plain colored"></i><span>Airflow</span></div>
+        <div class="stack-logo-card"><i class="devicon-apachekafka-original colored"></i><span>Kafka</span></div>
+        <div class="stack-logo-card"><span class="stack-custom-icon stack-hf-icon">🤗</span><span>HF Hub</span></div>
+        <div class="stack-logo-card"><i class="fa-solid fa-diagram-project"></i><span>ONNX</span></div>
+        <div class="stack-logo-card"><i class="fa-solid fa-cloud-arrow-up"></i><span>Render</span></div>
+        <div class="stack-logo-card"><i class="fa-solid fa-train-subway"></i><span>Railway</span></div>
+        <div class="stack-logo-card"><i class="fa-solid fa-database"></i><span>Supabase</span></div>
+        <div class="stack-logo-card"><i class="fa-solid fa-chart-line"></i><span>MLflow</span></div>
+        <div class="stack-logo-card"><i class="devicon-html5-plain colored"></i><span>HTML</span></div>
+        <div class="stack-logo-card"><i class="devicon-css3-plain colored"></i><span>CSS</span></div>
+        <div class="stack-logo-card"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></div>
+        <div class="stack-logo-card"><i class="devicon-vscode-plain colored"></i><span>VS Code</span></div>
+        <div class="stack-logo-card"><i class="devicon-jupyter-plain colored"></i><span>Jupyter</span></div>
+        <div class="stack-logo-card"><i class="devicon-github-original"></i><span>GitHub</span></div>
       </div>
 
       <div class="stack-matrix">
@@ -230,22 +252,193 @@
     </section>
 
     <section class="section export-section reveal" id="export">
-      <div class="export-panel">
-        <div>
-          <span class="section-label">Model portability</span>
-          <h2>From framework checkpoints to global inference assets.</h2>
-          <p>
-            A major focus of the Apps section is learning how trained models move between environments: raw <code>.pt</code> and <code>.keras</code> checkpoints, exported <code>.onnx</code> models, model hub storage, API wrappers, and cloud runtime constraints.
-          </p>
+      <div class="section-header">
+        <span class="section-label">Application delivery map</span>
+        <h2>More than model conversion: the full path to usable AI apps.</h2>
+        <p>
+          Exporting models is only one layer. The bigger focus of this page is how trained systems become real applications through API serving, database integration, cloud storage, interface design, and MLOps orchestration.
+        </p>
+      </div>
+
+      <div class="focus-hub">
+        <div class="focus-tabs" role="tablist" aria-label="Application focus areas">
+          <button class="focus-tab active" type="button" role="tab" aria-selected="true" aria-controls="focus-api" id="tab-api" data-focus-target="focus-api">API Serving</button>
+          <button class="focus-tab" type="button" role="tab" aria-selected="false" aria-controls="focus-db" id="tab-db" data-focus-target="focus-db">Database Layer</button>
+          <button class="focus-tab" type="button" role="tab" aria-selected="false" aria-controls="focus-cloud" id="tab-cloud" data-focus-target="focus-cloud">Cloud & Storage</button>
+          <button class="focus-tab" type="button" role="tab" aria-selected="false" aria-controls="focus-ui" id="tab-ui" data-focus-target="focus-ui">UI Creation</button>
+          <button class="focus-tab" type="button" role="tab" aria-selected="false" aria-controls="focus-mlops" id="tab-mlops" data-focus-target="focus-mlops">MLOps</button>
+          <button class="focus-tab" type="button" role="tab" aria-selected="false" aria-controls="focus-portability" id="tab-portability" data-focus-target="focus-portability">Model Portability</button>
         </div>
-        <div class="format-chain" aria-label="Model export chain">
-          <div><span>.pt</span><small>PyTorch</small></div>
-          <i class="fa-solid fa-arrow-right"></i>
-          <div><span>.keras</span><small>Keras</small></div>
-          <i class="fa-solid fa-arrow-right"></i>
-          <div><span>.onnx</span><small>Portable</small></div>
-          <i class="fa-solid fa-arrow-right"></i>
-          <div><span>API</span><small>Served</small></div>
+
+        <div class="focus-panels">
+          <article class="focus-panel active" id="focus-api" role="tabpanel" aria-labelledby="tab-api">
+            <div class="focus-copy">
+              <span class="focus-kicker">Core serving layer</span>
+              <h3>FastAPI is the runtime backbone of the app layer.</h3>
+              <p>My main deployment interest is exposing predictions through structured endpoints with request validation, preprocessing logic, model inference, and response formatting.</p>
+              <div class="focus-tags"><span>FastAPI</span><span>Uvicorn</span><span>Pydantic</span><span>Inference routes</span></div>
+              <ul class="focus-list">
+                <li>Receive image or text inputs from users.</li>
+                <li>Validate payloads and prepare inference-ready features.</li>
+                <li>Serve clean prediction responses to the frontend.</li>
+              </ul>
+            </div>
+            <div class="focus-visual api-visual" aria-hidden="true">
+              <div class="visual-node"><i class="fa-solid fa-link"></i><span>Request</span></div>
+              <span class="visual-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+              <div class="visual-node highlight-node"><i class="devicon-fastapi-plain colored"></i><span>FastAPI</span></div>
+              <span class="visual-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+              <div class="visual-node"><i class="fa-solid fa-sliders"></i><span>Validation</span></div>
+              <span class="visual-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+              <div class="visual-node"><i class="fa-solid fa-brain"></i><span>Model</span></div>
+              <span class="visual-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+              <div class="visual-node"><i class="fa-solid fa-code"></i><span>JSON</span></div>
+            </div>
+          </article>
+
+          <article class="focus-panel" id="focus-db" role="tabpanel" aria-labelledby="tab-db" hidden>
+            <div class="focus-copy">
+              <span class="focus-kicker">Persistence layer</span>
+              <h3>Predictions become more useful when they are stored and traceable.</h3>
+              <p>I care about connecting applications to databases for prediction history, metadata, uploaded file references, audit trails, and application-side analytics.</p>
+              <div class="focus-tags"><span>PostgreSQL</span><span>SQLite</span><span>MSSQL</span><span>Metadata</span></div>
+              <ul class="focus-list">
+                <li>Track each prediction request and response.</li>
+                <li>Store user inputs, timestamps, and model outputs.</li>
+                <li>Support lightweight local storage or managed SQL services.</li>
+              </ul>
+            </div>
+            <div class="focus-visual db-visual" aria-hidden="true">
+              <div class="db-column">
+                <div class="visual-node"><i class="fa-solid fa-upload"></i><span>Uploads</span></div>
+                <div class="visual-node"><i class="fa-solid fa-wave-square"></i><span>Predictions</span></div>
+                <div class="visual-node"><i class="fa-solid fa-clock-rotate-left"></i><span>Logs</span></div>
+              </div>
+              <div class="visual-database-core">
+                <i class="fa-solid fa-database"></i>
+                <strong>SQL Layer</strong>
+                <span>PostgreSQL · SQLite · MSSQL</span>
+              </div>
+              <div class="db-notes">
+                <div class="db-note">prediction history</div>
+                <div class="db-note">metadata tables</div>
+                <div class="db-note">reproducible records</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="focus-panel" id="focus-cloud" role="tabpanel" aria-labelledby="tab-cloud" hidden>
+            <div class="focus-copy">
+              <span class="focus-kicker">Cloud runtime</span>
+              <h3>Models, assets, and services must live in deployable cloud environments.</h3>
+              <p>This part covers storing models and uploaded assets, then connecting them to actual serving targets such as Render, Railway, Hugging Face Spaces, and model registries.</p>
+              <div class="focus-tags"><span>Hugging Face Hub</span><span>Supabase</span><span>Render</span><span>Railway</span></div>
+              <ul class="focus-list">
+                <li>Store model artifacts and object assets remotely.</li>
+                <li>Connect backends to cloud deployment targets.</li>
+                <li>Separate serving runtime from persistent storage concerns.</li>
+              </ul>
+            </div>
+            <div class="focus-visual cloud-visual" aria-hidden="true">
+              <div class="cloud-row top-row">
+                <div class="visual-node"><i class="fa-solid fa-hard-drive"></i><span>Local build</span></div>
+                <div class="visual-node"><span class="stack-custom-icon stack-hf-icon">🤗</span><span>HF Hub</span></div>
+                <div class="visual-node"><i class="fa-solid fa-database"></i><span>Supabase</span></div>
+              </div>
+              <div class="cloud-row mid-row">
+                <span class="visual-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+                <span class="visual-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+                <span class="visual-arrow"><i class="fa-solid fa-arrow-down"></i></span>
+              </div>
+              <div class="cloud-row bottom-row">
+                <div class="visual-node highlight-node"><i class="fa-solid fa-cloud-arrow-up"></i><span>Render</span></div>
+                <div class="visual-node"><i class="fa-solid fa-train-subway"></i><span>Railway</span></div>
+                <div class="visual-node"><i class="fa-solid fa-cubes"></i><span>HF Spaces</span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="focus-panel" id="focus-ui" role="tabpanel" aria-labelledby="tab-ui" hidden>
+            <div class="focus-copy">
+              <span class="focus-kicker">Interface layer</span>
+              <h3>The frontend is what turns a backend into a usable AI product.</h3>
+              <p>Beyond the model, I want to practice building clear interfaces for uploads, forms, prediction cards, status feedback, and portfolio-grade presentation.</p>
+              <div class="focus-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Jinja</span></div>
+              <ul class="focus-list">
+                <li>Create flows for text input or medical image upload.</li>
+                <li>Display predictions, confidence, and metadata clearly.</li>
+                <li>Design interfaces that feel like real applications, not demos.</li>
+              </ul>
+            </div>
+            <div class="focus-visual ui-visual" aria-hidden="true">
+              <div class="browser-shell">
+                <div class="browser-top"><span></span><span></span><span></span></div>
+                <div class="browser-body">
+                  <div class="browser-sidebar"></div>
+                  <div class="browser-main">
+                    <div class="browser-card large-card"></div>
+                    <div class="browser-card-row">
+                      <div class="browser-card small-card"></div>
+                      <div class="browser-card small-card"></div>
+                    </div>
+                    <div class="browser-response">Prediction · Confidence · Details</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="focus-panel" id="focus-mlops" role="tabpanel" aria-labelledby="tab-mlops" hidden>
+            <div class="focus-copy">
+              <span class="focus-kicker">Operational layer</span>
+              <h3>MLOps connects experimentation with repeatable delivery.</h3>
+              <p>My end goal is not only deployment, but also tracking, orchestration, and structured workflow control around the application stack.</p>
+              <div class="focus-tags"><span>MLflow</span><span>Airflow</span><span>Kafka</span><span>Automation</span></div>
+              <ul class="focus-list">
+                <li>Track experiments and version important runs.</li>
+                <li>Orchestrate scheduled jobs and pipeline steps.</li>
+                <li>Explore event-driven thinking around application workflows.</li>
+              </ul>
+            </div>
+            <div class="focus-visual mlops-visual" aria-hidden="true">
+              <div class="mlops-track">
+                <div class="mlops-step"><i class="fa-solid fa-vial"></i><span>Train</span></div>
+                <span class="visual-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                <div class="mlops-step"><i class="fa-solid fa-chart-line"></i><span>Track</span></div>
+                <span class="visual-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                <div class="mlops-step"><i class="fa-solid fa-wind"></i><span>Airflow</span></div>
+                <span class="visual-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                <div class="mlops-step"><i class="fa-solid fa-network-wired"></i><span>Kafka</span></div>
+                <span class="visual-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                <div class="mlops-step"><i class="fa-solid fa-rocket"></i><span>Deploy</span></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="focus-panel" id="focus-portability" role="tabpanel" aria-labelledby="tab-portability" hidden>
+            <div class="focus-copy">
+              <span class="focus-kicker">Supporting layer</span>
+              <h3>Model export matters, but it is only one piece of the delivery pipeline.</h3>
+              <p>I still care about moving from raw checkpoints toward portable assets like <code>.onnx</code>, especially when deployment constraints make lighter inference formats more practical.</p>
+              <div class="focus-tags"><span>.pt</span><span>.keras</span><span>.onnx</span><span>Runtime portability</span></div>
+              <ul class="focus-list">
+                <li>Keep framework-specific checkpoints for training work.</li>
+                <li>Export portable inference assets when deployment benefits from it.</li>
+                <li>Integrate exported models back into API serving workflows.</li>
+              </ul>
+            </div>
+            <div class="focus-visual portability-visual" aria-hidden="true">
+              <div class="portability-chain">
+                <div class="port-card"><strong>.pt</strong><span>PyTorch</span></div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div class="port-card"><strong>.keras</strong><span>Keras</span></div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div class="port-card emphasis-card"><strong>.onnx</strong><span>Portable</span></div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div class="port-card"><strong>API</strong><span>Served</span></div>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
