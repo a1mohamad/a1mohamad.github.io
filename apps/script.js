@@ -50,3 +50,25 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+const focusTabs = document.querySelectorAll('.focus-tab');
+const focusPanels = document.querySelectorAll('.focus-panel');
+
+focusTabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const targetId = tab.dataset.focusTarget;
+
+    focusTabs.forEach((item) => {
+      const isActive = item === tab;
+      item.classList.toggle('active', isActive);
+      item.setAttribute('aria-selected', String(isActive));
+      item.tabIndex = isActive ? 0 : -1;
+    });
+
+    focusPanels.forEach((panel) => {
+      const isActive = panel.id === targetId;
+      panel.classList.toggle('active', isActive);
+      panel.hidden = !isActive;
+    });
+  });
+});
