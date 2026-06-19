@@ -862,61 +862,202 @@ code {
 }
 
 .stack-wall {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  border-top: 1px solid rgba(255, 255, 255, 0.13);
-  border-left: 1px solid rgba(255, 255, 255, 0.085);
-  margin-bottom: 34px;
+  gap: 28px 18px;
+  padding: clamp(30px, 4vw, 58px) clamp(20px, 3.6vw, 44px);
+  margin-bottom: 44px;
+  border: 0;
+  border-radius: 0;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.055), transparent 36rem),
-    rgba(255, 255, 255, 0.012);
+    radial-gradient(circle at 50% 0%, rgba(125, 211, 252, 0.06), transparent 31rem),
+    radial-gradient(circle at 14% 36%, rgba(255, 255, 255, 0.035), transparent 18rem),
+    radial-gradient(circle at 86% 62%, rgba(255, 255, 255, 0.028), transparent 20rem);
+  box-shadow: none;
+  isolation: isolate;
+}
+
+.stack-wall::before,
+.stack-wall::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.stack-wall::before {
+  inset: 10px 4%;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.035), transparent 62%),
+    radial-gradient(circle at 52% 50%, rgba(125, 211, 252, 0.035), transparent 44%);
+  filter: blur(24px);
+  opacity: 0.72;
+}
+
+.stack-wall::after {
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.045), transparent);
+  opacity: 0.42;
+  filter: blur(0.5px);
 }
 
 .stack-logo-card {
-  min-height: 118px;
+  --brand-halo: rgba(255, 255, 255, 0.16);
+  position: relative;
+  min-height: 104px;
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 12px;
-  border-right: 1px solid rgba(255, 255, 255, 0.085);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.085);
-  color: #cfd3dc;
-  filter: grayscale(0.15);
-  transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  gap: 13px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #f5f7fb;
+  filter: none;
+  transform: translateY(0);
+  transition: transform 0.28s ease, opacity 0.28s ease;
+}
+
+.stack-logo-card::before {
+  content: "";
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.82);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--brand-halo), transparent 66%);
+  filter: blur(16px);
+  opacity: 0.22;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.stack-logo-card::after {
+  content: "";
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.018);
+  opacity: 0.26;
+  filter: blur(0.2px);
+  transition: opacity 0.28s ease, transform 0.28s ease, background 0.28s ease;
 }
 
 .stack-logo-card:hover {
-  background: rgba(255, 255, 255, 0.046);
-  transform: translateY(-2px);
+  transform: translateY(-5px);
+  background: transparent;
   color: #ffffff;
+}
+
+.stack-logo-card:hover::before {
+  opacity: 0.7;
+  transform: translateX(-50%) scale(1.15);
+}
+
+.stack-logo-card:hover::after {
+  opacity: 0.42;
+  transform: translateX(-50%) scale(1.06);
+  background: rgba(255, 255, 255, 0.028);
 }
 
 .stack-logo-card i,
 .stack-custom-icon {
-  font-size: 2.3rem;
-  opacity: 0.9;
-}
-
-.stack-custom-icon {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-size: 2.65rem;
+  opacity: 0.92;
+  width: auto;
+  height: auto;
+  background: transparent;
+  border: 0;
+  transition: transform 0.28s ease, opacity 0.28s ease, filter 0.28s ease;
+}
+
+.stack-logo-card:hover i,
+.stack-logo-card:hover .stack-custom-icon {
+  transform: scale(1.055);
+  opacity: 1;
+  filter: drop-shadow(0 0 20px var(--brand-halo));
+}
+
+.stack-custom-icon {
   line-height: 1;
 }
 
 .stack-hf-icon {
-  filter: saturate(1.1);
+  filter: saturate(1.08);
 }
 
-.stack-logo-card span {
-  font: 900 0.62rem var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #8f929c;
+.stack-logo-card span:last-child {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-main);
+  font-size: clamp(0.92rem, 0.9vw, 1.05rem);
+  font-weight: 760;
+  letter-spacing: -0.042em;
+  line-height: 1.08;
+  color: rgba(244, 247, 251, 0.66);
+  text-transform: none;
+  transition: color 0.28s ease, transform 0.28s ease;
 }
 
-.stack-logo-card:hover span {
-  color: #dfe5ee;
+.stack-logo-card:hover span:last-child {
+  color: rgba(255, 255, 255, 0.94);
+  transform: translateY(1px);
+}
+
+.brand-python { --brand-halo: rgba(255, 212, 59, 0.28); }
+.brand-pytorch { --brand-halo: rgba(238, 76, 44, 0.25); }
+.brand-tensorflow { --brand-halo: rgba(255, 111, 0, 0.25); }
+.brand-keras { --brand-halo: rgba(210, 0, 0, 0.24); }
+.brand-fastapi { --brand-halo: rgba(0, 150, 136, 0.25); }
+.brand-docker { --brand-halo: rgba(36, 150, 237, 0.27); }
+.brand-postgresql { --brand-halo: rgba(51, 103, 145, 0.28); }
+.brand-sqlite { --brand-halo: rgba(0, 105, 160, 0.25); }
+.brand-mssql { --brand-halo: rgba(204, 41, 35, 0.24); }
+.brand-redis { --brand-halo: rgba(220, 56, 47, 0.25); }
+.brand-airflow { --brand-halo: rgba(1, 119, 194, 0.25); }
+.brand-kafka { --brand-halo: rgba(255, 255, 255, 0.16); }
+.brand-huggingface { --brand-halo: rgba(255, 214, 102, 0.30); }
+.brand-onnx { --brand-halo: rgba(87, 129, 255, 0.27); }
+.brand-render { --brand-halo: rgba(255, 255, 255, 0.18); }
+.brand-railway { --brand-halo: rgba(147, 197, 253, 0.23); }
+.brand-supabase { --brand-halo: rgba(62, 207, 142, 0.28); }
+.brand-mlflow { --brand-halo: rgba(0, 166, 255, 0.25); }
+.brand-html { --brand-halo: rgba(227, 79, 38, 0.26); }
+.brand-css { --brand-halo: rgba(21, 114, 182, 0.26); }
+.brand-js { --brand-halo: rgba(247, 223, 30, 0.24); }
+.brand-vscode { --brand-halo: rgba(0, 122, 204, 0.27); }
+.brand-jupyter { --brand-halo: rgba(242, 132, 32, 0.26); }
+.brand-github { --brand-halo: rgba(255, 255, 255, 0.18); }
+
+.brand-onnx i,
+.brand-render i,
+.brand-railway i,
+.brand-supabase i,
+.brand-mlflow i {
+  color: rgba(238, 242, 247, 0.9);
+}
+
+.brand-github span:last-child,
+.brand-render span:last-child,
+.brand-fastapi span:last-child,
+.brand-onnx span:last-child,
+.brand-mlflow span:last-child {
+  font-weight: 800;
 }
 
 .stack-matrix {
