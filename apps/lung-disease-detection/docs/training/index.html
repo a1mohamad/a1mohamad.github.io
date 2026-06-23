@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lung Disease Detection</title>
+    <script>
+      (function (location) {
+        var baseSegments = 2;
+        var pathParts = location.pathname.split("/");
+        var basePath = pathParts.slice(0, 1 + baseSegments).join("/");
+        var routePath = pathParts
+          .slice(1 + baseSegments)
+          .join("/")
+          .replace(/\/$/, "");
+        var query = location.search
+          ? "&" + location.search.slice(1).replace(/&/g, "~and~")
+          : "";
+
+        location.replace(
+          location.protocol +
+            "//" +
+            location.hostname +
+            (location.port ? ":" + location.port : "") +
+            basePath +
+            "/?/" +
+            routePath.replace(/&/g, "~and~") +
+            query +
+            location.hash
+        );
+      })(window.location);
+    </script>
+  </head>
+  <body></body>
+</html>
