@@ -715,110 +715,205 @@ code {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 94%;
-  height: 94%;
+  width: 97%;
+  height: 97%;
   transform: translate(-50%, -50%);
 }
 
-.lung-path,
-.trachea,
-.bronchi,
-.rib,
-.cardiac-notch {
-  fill: rgba(15, 23, 42, 0.28);
+.scan-rib {
+  fill: none;
+  stroke: rgba(226, 232, 240, 0.11);
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.scan-frame {
+  fill: rgba(7, 15, 32, 0.14);
+  stroke: rgba(125, 211, 252, 0.18);
+  stroke-width: 1.35;
+}
+
+
+.spine-line {
+  fill: none;
+  stroke: rgba(226, 232, 240, 0.12);
+  stroke-width: 1.55;
+  stroke-linecap: round;
+}
+
+.thorax-outline,
+.mediastinum {
+  fill: none;
+  stroke: rgba(226, 232, 240, 0.14);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mediastinum {
+  stroke: rgba(125, 211, 252, 0.14);
+}
+
+.lung-path {
   stroke: url(#lungStroke);
-  stroke-width: 3.5;
+  stroke-width: 4.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url(#softGlow);
+  animation: lungSignal 5.2s ease-in-out infinite;
+}
+
+.left-lung {
+  fill: rgba(22, 57, 98, 0.40);
+}
+
+.right-lung {
+  fill: rgba(20, 56, 98, 0.40);
+}
+
+.trachea {
+  fill: none;
+  stroke: url(#lungStroke);
+  stroke-width: 5.8;
   stroke-linecap: round;
   stroke-linejoin: round;
   filter: url(#softGlow);
 }
 
-.trachea,
-.bronchi,
-.rib,
-.cardiac-notch {
+.bronchi {
   fill: none;
-  stroke-width: 4;
+  stroke: rgba(176, 235, 255, 0.96);
+  stroke-width: 4.05;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 12px rgba(125, 211, 252, 0.58));
 }
 
-.left-lung {
-  fill: rgba(14, 33, 55, 0.34);
+.airway-tree {
+  fill: none;
+  stroke: rgba(125, 211, 252, 0.84);
+  stroke-width: 2.55;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(125, 211, 252, 0.36));
 }
 
-.right-lung {
-  fill: rgba(18, 37, 64, 0.34);
+.lung-fissure,
+.cardiac-notch,
+.diaphragm,
+.rib {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: none;
+}
+
+.lung-fissure,
+.cardiac-notch,
+.diaphragm {
+  stroke: rgba(226, 232, 240, 0.26);
+  stroke-width: 2;
 }
 
 .cardiac-notch {
-  stroke: rgba(125, 211, 252, 0.46);
-  stroke-width: 2.5;
-  filter: none;
+  stroke: rgba(125, 211, 252, 0.48);
+  stroke-width: 2.25;
+}
+
+.diaphragm {
+  stroke: rgba(125, 211, 252, 0.30);
+  stroke-width: 1.85;
 }
 
 .rib {
-  stroke: rgba(226, 232, 240, 0.18);
-  stroke-width: 2;
-  filter: none;
+  stroke: rgba(226, 232, 240, 0.13);
+  stroke-width: 1.65;
+}
+
+.hilar-point {
+  fill: rgba(199, 242, 255, 0.98);
+  filter: drop-shadow(0 0 10px rgba(125, 211, 252, 0.74));
 }
 
 .finding {
-  fill: rgba(251, 113, 133, 0.72);
-  stroke: rgba(255, 255, 255, 0.68);
+  fill: rgba(251, 113, 133, 0.76);
+  stroke: rgba(255, 255, 255, 0.72);
   stroke-width: 1.5;
   filter: drop-shadow(0 0 14px rgba(251, 113, 133, 0.8));
 }
 
+.lesion-ring {
+  fill: rgba(251, 113, 133, 0.10);
+  stroke: rgba(251, 113, 133, 0.76);
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 10px rgba(251, 113, 133, 0.44));
+}
+
 .scan-beam {
   position: absolute;
-  left: 32px;
-  right: 32px;
-  top: 48px;
+  left: 28px;
+  right: 28px;
+  top: 46px;
   height: 2px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, #7dd3fc, transparent);
-  box-shadow: 0 0 24px rgba(125, 211, 252, 0.9);
+  background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.94), transparent);
+  box-shadow: 0 0 24px rgba(125, 211, 252, 0.85);
   animation: scanMedical 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
 .vital-chip {
   position: absolute;
-  z-index: 4;
+  z-index: 5;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.42);
+  background: rgba(4, 7, 15, 0.62);
   backdrop-filter: blur(10px);
   color: #dbeafe;
-  font: 850 0.58rem var(--font-mono);
+  padding: 8px 12px;
+  font: 800 0.57rem var(--font-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.vital-chip i {
+  font-size: 0.74rem;
 }
 
 .vital-chip-top {
   top: 16px;
   left: 16px;
-  padding: 8px 12px;
 }
 
 .vital-chip-bottom {
   right: 16px;
   bottom: 16px;
-  padding: 8px 12px;
 }
 
 .vital-chip-bottom strong {
   color: #ffffff;
+  font-weight: 900;
 }
 
 .vital-chip-bottom span {
-  color: #9ca3af;
+  color: #aab6ca;
+}
+
+@keyframes lungSignal {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
 }
 
 @keyframes scanMedical {
-  0%, 100% { top: 42px; opacity: 0.52; }
-  50% { top: 204px; opacity: 1; }
+  0%, 100% { top: 44px; opacity: 0.5; }
+  50% { top: 206px; opacity: 1; }
 }
 
 .tweet-visual {
