@@ -129,37 +129,17 @@
             <div class="medical-panel">
               <div class="panel-grid"></div>
               <div class="vital-chip vital-chip-top"><i class="fa-solid fa-wave-square"></i><span>CT · Segmentation</span></div>
-              <svg class="lung-svg" viewBox="0 0 420 360" role="img" aria-label="Stylized lung medical scan">
+              <svg class="lung-svg" viewBox="0 0 420 320" role="img" aria-label="Futuristic lung medical scan illustration">
                 <defs>
-                  <linearGradient id="lungStroke" x1="0" x2="1" y1="0" y2="1">
-                    <stop offset="0" stop-color="#eef2ff" />
-                    <stop offset="0.52" stop-color="#7dd3fc" />
-                    <stop offset="1" stop-color="#818cf8" />
-                  </linearGradient>
-                  <radialGradient id="lungGlow" cx="50%" cy="48%" r="60%">
-                    <stop offset="0" stop-color="#7dd3fc" stop-opacity="0.24" />
-                    <stop offset="1" stop-color="#0f172a" stop-opacity="0" />
-                  </radialGradient>
-                  <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="4" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
+                  <clipPath id="scanPanelClip">
+                    <rect x="88" y="42" width="244" height="224" rx="24" ry="24"></rect>
+                  </clipPath>
                 </defs>
-                <rect x="30" y="22" width="360" height="316" rx="42" fill="rgba(15,23,42,0.72)" stroke="rgba(226,232,240,0.12)" />
-                <ellipse cx="210" cy="190" rx="154" ry="128" fill="url(#lungGlow)" />
-                <path class="trachea" d="M210 54 C210 84 210 104 210 126 M210 126 C194 142 181 158 173 177 M210 126 C226 142 239 158 247 177" />
-                <path class="lung-path left-lung" d="M191 108 C175 92 151 85 126 89 C92 95 72 122 66 160 C61 194 68 239 87 274 C104 304 132 322 159 318 C181 315 194 297 197 271 C201 240 197 214 200 184 C203 151 209 128 191 108 Z" />
-                <path class="lung-path right-lung" d="M229 108 C245 92 269 85 294 89 C328 95 348 122 354 160 C359 194 352 239 333 274 C316 304 288 322 261 318 C239 315 226 297 223 271 C219 240 223 214 220 184 C217 151 211 128 229 108 Z" />
-                <path class="cardiac-notch" d="M201 178 C194 195 190 217 191 244 C192 263 193 280 184 294" />
-                <path class="bronchi" d="M173 177 C155 191 140 208 130 228 M173 177 C159 204 153 232 152 266 M173 177 C185 194 194 214 198 240 M247 177 C265 191 280 208 290 228 M247 177 C261 204 267 232 268 266 M247 177 C235 194 226 214 222 240" />
-                <path class="rib rib-one" d="M78 148 C120 128 168 122 210 136 C252 122 300 128 342 148" />
-                <path class="rib rib-two" d="M64 204 C111 185 162 180 210 192 C258 180 309 185 356 204" />
-                <path class="rib rib-three" d="M84 258 C126 243 169 239 210 248 C251 239 294 243 336 258" />
-                <circle class="finding finding-one" cx="146" cy="228" r="12" />
-                <circle class="finding finding-two" cx="280" cy="192" r="10" />
+                <image href="futuristic_glowing_lung_anatomy_illustration.png" x="92" y="46" width="236" height="216" preserveAspectRatio="xMidYMid meet" clip-path="url(#scanPanelClip)" />
+                <rect class="scan-frame" x="88" y="42" width="244" height="224" rx="24" ry="24" />
+                <path class="scan-rib scan-rib-top" d="M106 96 C144 83 178 78 210 79 C242 78 276 83 314 96" />
+                <path class="scan-rib scan-rib-mid" d="M98 158 C146 149 181 147 210 148 C239 147 274 149 322 158" />
+                <path class="scan-rib scan-rib-bottom" d="M110 220 C146 215 180 213 210 214 C240 213 274 215 310 220" />
               </svg>
               <span class="scan-beam"></span>
               <div class="vital-chip vital-chip-bottom"><strong>0.94</strong><span>mask confidence</span></div>
