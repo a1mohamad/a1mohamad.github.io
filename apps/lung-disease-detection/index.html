@@ -42,5 +42,31 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <script>
+      (function () {
+        function isLandingPath() {
+          var path = window.location.pathname.replace(/\/+$/, "");
+          return !/(\/app(?:\/|$)|\/docs\/)/.test(path);
+        }
+
+        function addMobileLandingHeader() {
+          if (!isLandingPath() || document.querySelector(".mobile-landing-shell-header")) return;
+          var root = document.getElementById("root");
+          if (!root) return;
+          var nav = document.createElement("nav");
+          nav.className = "mobile-landing-shell-header";
+          nav.setAttribute("aria-label", "Mobile landing navigation");
+          nav.innerHTML = '<div class="mobile-landing-shell-header__top"><a class="mobile-landing-shell-header__mark" href="./" aria-label="Lung landing"><i class="fa-solid fa-lungs"></i></a><div class="mobile-landing-shell-header__title"><strong>Lung Disease Detection</strong><span>AI Respiratory Diagnostics</span></div></div><div class="mobile-landing-shell-header__tabs"><a href="./app">App</a><a href="./docs/architecture">Architecture</a><a href="./docs/dataset">Dataset</a><a href="./docs/training">Training</a><a href="./docs/integration">API</a></div>';
+          document.body.insertBefore(nav, root);
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", addMobileLandingHeader, { once: true });
+        } else {
+          addMobileLandingHeader();
+        }
+      })();
+    </script>
   </body>
 </html>
