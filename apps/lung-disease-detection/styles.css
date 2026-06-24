@@ -304,3 +304,193 @@
     font-size: 1.54rem !important;
   }
 }
+
+
+/* V2 mobile repair: keep app/docs header clean, non-sticky, and non-horizontal-scroll on phone.
+   Desktop remains untouched. */
+@media (max-width: 760px) {
+  /* Landing injected mobile header: make every tab visible without sideways scrolling. */
+  .mobile-landing-shell-header__tabs {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 0 !important;
+    width: 100% !important;
+    overflow: visible !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .mobile-landing-shell-header__tabs a {
+    min-width: 0 !important;
+    flex: initial !important;
+    text-align: center !important;
+    font-size: clamp(.62rem, 2.8vw, .74rem) !important;
+    letter-spacing: -.02em !important;
+    white-space: nowrap !important;
+  }
+
+  /* React app/docs top ribbon: stop it from following the page and covering content. */
+  .top-ribbon {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    z-index: 40 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px 18px 12px !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    background: linear-gradient(180deg, rgba(6, 7, 12, .98), rgba(6, 7, 12, .92)) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .11) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+  }
+
+  .top-ribbon .brand {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  .top-ribbon .brand-logo {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    border-radius: 15px !important;
+  }
+
+  .top-ribbon .brand-text {
+    min-width: 0 !important;
+  }
+
+  .top-ribbon .brand-text h1 {
+    font-size: clamp(1.16rem, 5.6vw, 1.48rem) !important;
+    line-height: 1.05 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .top-ribbon .brand-text span {
+    font-size: clamp(.58rem, 2.9vw, .72rem) !important;
+    letter-spacing: .12em !important;
+    white-space: nowrap !important;
+  }
+
+  .top-ribbon .header-actions {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    align-items: center !important;
+    overflow: visible !important;
+    position: static !important;
+  }
+
+  .top-ribbon .header-actions > .hidden-mobile {
+    grid-column: 1 / -1 !important;
+    order: 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: 0 !important;
+    align-items: center !important;
+    overflow: visible !important;
+  }
+
+  .top-ribbon .header-actions > .hidden-mobile a {
+    min-width: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 2px 8px !important;
+    font-family: Inter, system-ui, sans-serif !important;
+    font-size: clamp(.66rem, 3.2vw, .82rem) !important;
+    font-weight: 650 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -.035em !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-decoration: none !important;
+    position: relative !important;
+  }
+
+  .top-ribbon .header-actions > .hidden-mobile a::after {
+    content: "";
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #3b82f6, rgba(59, 130, 246, .08));
+    opacity: .45;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+
+  .top-ribbon .header-actions > .hidden-mobile a:hover::after,
+  .top-ribbon .header-actions > .hidden-mobile a:focus-visible::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .top-ribbon .github-source-btn,
+  .top-ribbon .system-status {
+    order: 2 !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    min-height: 42px !important;
+    justify-content: center !important;
+    padding: 0 10px !important;
+    border-radius: 999px !important;
+    font-size: clamp(.74rem, 3.4vw, .9rem) !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    position: static !important;
+  }
+
+  .top-ribbon .github-source-btn {
+    grid-column: 1 / 2 !important;
+  }
+
+  .top-ribbon .system-status {
+    grid-column: 2 / 3 !important;
+  }
+
+  .top-ribbon .system-status span.hidden-mobile {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .top-ribbon {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .top-ribbon .header-actions > .hidden-mobile a {
+    font-size: .66rem !important;
+    letter-spacing: -.045em !important;
+  }
+
+  .top-ribbon .github-source-btn,
+  .top-ribbon .system-status {
+    font-size: .72rem !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
