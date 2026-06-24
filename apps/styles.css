@@ -1846,9 +1846,11 @@ code {
     order: 3;
     width: 100%;
     display: flex;
-    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
     overflow-x: auto;
-    padding: 2px 0 4px;
+    padding: 4px 1px 2px;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
@@ -1859,20 +1861,43 @@ code {
 
   .nav-links a {
     flex: 0 0 auto;
-    padding: 7px 10px;
-    border: 1px solid rgba(255, 255, 255, 0.11);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.025);
-    color: rgba(244, 244, 245, 0.78);
-    font: 800 0.64rem var(--font-mono);
-    letter-spacing: 0.02em;
-    line-height: 1;
+    position: relative;
+    padding: 4px 0 7px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: rgba(244, 244, 245, 0.70);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 750;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    transition: color 0.2s ease;
   }
 
-  .nav-links a:hover {
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(125, 211, 252, 0.95), rgba(129, 140, 248, 0.85));
+    opacity: 0;
+    transform: scaleX(0.35);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:focus-visible {
     color: #ffffff;
-    border-color: rgba(125, 211, 252, 0.30);
-    background: rgba(125, 211, 252, 0.06);
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after {
+    opacity: 1;
+    transform: scaleX(1);
   }
 
   .nav-cta {
@@ -2088,9 +2113,13 @@ code {
     padding-right: 16px;
   }
 
+  .nav-links {
+    gap: 11px;
+  }
+
   .nav-links a {
-    font-size: 0.60rem;
-    padding: 7px 9px;
+    font-size: 0.72rem;
+    padding: 4px 0 7px;
   }
 
   .hero-section {
