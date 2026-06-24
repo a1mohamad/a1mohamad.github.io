@@ -335,3 +335,37 @@ footer.relative .container > div:nth-child(3){
 @media(min-width:701px){
   .lung-landing-page .top-ribbon{display:none!important;}
 }
+
+
+/* === Final route-separation patch: static landing shell only on landing route === */
+body.lung-route-app .lung-landing-header{
+  display:none!important;
+}
+body.lung-route-landing .lung-landing-header{
+  display:flex!important;
+}
+@media(max-width:700px){
+  body.lung-route-landing .lung-landing-header{
+    display:grid!important;
+  }
+}
+@media(min-width:701px){
+  body.lung-route-landing .top-ribbon{
+    display:none!important;
+  }
+  body.lung-route-app .top-ribbon{
+    display:flex!important;
+  }
+}
+.global-footer .footer-link .sr-only,
+footer.relative .container > div:first-child a .sr-only{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}

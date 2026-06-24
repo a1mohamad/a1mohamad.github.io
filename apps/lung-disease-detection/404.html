@@ -33,6 +33,113 @@
     <link rel="stylesheet" crossorigin href="/apps/lung-disease-detection/styles.css">
   </head>
   <body>
+
+<script>
+(function(){
+  var PROJECT_BASE = '/apps/lung-disease-detection';
+  var lastPath = null;
+  var footerFixQueued = false;
+
+  try {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  } catch (e) {}
+
+  function currentSuffix(){
+    var path = window.location.pathname || '/';
+    var idx = path.indexOf(PROJECT_BASE);
+    var suffix = idx >= 0 ? path.slice(idx + PROJECT_BASE.length) : path;
+    suffix = suffix.replace(/\/index\.html$/,'').replace(/\/+$/,'');
+    return suffix;
+  }
+
+  function isLandingRoute(){
+    var suffix = currentSuffix();
+    return suffix === '' || suffix === '/';
+  }
+
+  function replaceContactIcon(link, iconClass, label){
+    if (!link || link.dataset.lungIconFixed === iconClass) return;
+    link.dataset.lungIconFixed = iconClass;
+    link.setAttribute('aria-label', label);
+    link.innerHTML = '<i class="' + iconClass + '" aria-hidden="true"></i><span class="sr-only">' + label + '</span>';
+  }
+
+  function fixFooterIcons(){
+    var links = document.querySelectorAll('.global-footer a, footer.relative a, .footer-links a');
+    links.forEach(function(link){
+      var haystack = [
+        link.getAttribute('aria-label') || '',
+        link.getAttribute('title') || '',
+        link.textContent || '',
+        link.getAttribute('href') || ''
+      ].join(' ').toLowerCase();
+
+      if (haystack.indexOf('icloud') !== -1 || haystack.indexOf('@icloud') !== -1) {
+        replaceContactIcon(link, 'fab fa-apple', 'iCloud');
+      } else if (haystack.indexOf('gmail') !== -1 || haystack.indexOf('google') !== -1 || haystack.indexOf('@gmail') !== -1) {
+        replaceContactIcon(link, 'fab fa-google', 'Gmail');
+      }
+    });
+  }
+
+  function queueFooterFix(){
+    if (footerFixQueued) return;
+    footerFixQueued = true;
+    window.setTimeout(function(){
+      footerFixQueued = false;
+      fixFooterIcons();
+    }, 50);
+  }
+
+  function syncShell(){
+    var landing = isLandingRoute();
+    document.body.classList.toggle('lung-route-landing', landing);
+    document.body.classList.toggle('lung-route-app', !landing);
+
+    var landingHeader = document.querySelector('.lung-landing-header');
+    if (landingHeader) landingHeader.hidden = !landing;
+
+    var path = window.location.pathname;
+    if (path !== lastPath) {
+      lastPath = path;
+      if (!landing) {
+        window.requestAnimationFrame(function(){ window.scrollTo(0,0); });
+        window.setTimeout(function(){ window.scrollTo(0,0); }, 80);
+        window.setTimeout(function(){ window.scrollTo(0,0); }, 220);
+      }
+    }
+
+    queueFooterFix();
+  }
+
+  function patchHistory(method){
+    var original = history[method];
+    if (!original || original.__lungPatched) return;
+    function patched(){
+      var result = original.apply(this, arguments);
+      window.setTimeout(syncShell, 0);
+      return result;
+    }
+    patched.__lungPatched = true;
+    history[method] = patched;
+  }
+
+  patchHistory('pushState');
+  patchHistory('replaceState');
+  window.addEventListener('popstate', function(){ window.setTimeout(syncShell, 0); });
+  window.addEventListener('pageshow', syncShell);
+  document.addEventListener('DOMContentLoaded', function(){
+    syncShell();
+    var root = document.getElementById('root') || document.body;
+    if (window.MutationObserver && root) {
+      new MutationObserver(queueFooterFix).observe(root, {childList:true, subtree:true});
+    }
+  });
+
+  if (document.body) syncShell();
+})();
+</script>
+
     <div id="root"></div>
   </body>
 </html>
