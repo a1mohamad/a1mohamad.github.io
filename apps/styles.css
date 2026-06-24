@@ -1818,3 +1818,312 @@ code {
     justify-content: center;
   }
 }
+
+/* Mobile-only refinement: compact header links, shorter tool wall, cleaner process diagrams */
+@media (max-width: 760px) {
+  .nav {
+    height: auto;
+    min-height: 108px;
+    padding: 12px 18px 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+  }
+
+  .nav-brand {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .nav-brand span:last-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.98rem;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 2px 0 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    flex: 0 0 auto;
+    padding: 7px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.025);
+    color: rgba(244, 244, 245, 0.78);
+    font: 800 0.64rem var(--font-mono);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .nav-links a:hover {
+    color: #ffffff;
+    border-color: rgba(125, 211, 252, 0.30);
+    background: rgba(125, 211, 252, 0.06);
+  }
+
+  .nav-cta {
+    display: none;
+  }
+
+  .hero-section {
+    padding-top: 142px;
+  }
+
+  .section,
+  .footer {
+    scroll-margin-top: 118px;
+  }
+
+  /* Keep the tools wall premium, but stop it from becoming a very long phone page. */
+  .stack-wall {
+    grid-template-columns: none !important;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, 96px);
+    grid-auto-columns: 94px;
+    gap: 12px 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 8px 24px;
+    margin-left: -4px;
+    margin-right: -4px;
+    margin-bottom: 32px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+  }
+
+  .stack-wall::-webkit-scrollbar {
+    display: none;
+  }
+
+  .stack-wall::before {
+    inset: 8px 0;
+    filter: blur(18px);
+  }
+
+  .stack-wall::after {
+    display: none;
+  }
+
+  .stack-logo-card {
+    min-height: 96px;
+    gap: 8px;
+    scroll-snap-align: start;
+  }
+
+  .stack-logo-card::before {
+    width: 58px;
+    height: 58px;
+    top: 4px;
+    filter: blur(12px);
+  }
+
+  .stack-logo-card::after {
+    width: 44px;
+    height: 44px;
+    top: 10px;
+  }
+
+  .stack-logo-card i,
+  .stack-custom-icon {
+    font-size: 2.05rem;
+  }
+
+  .stack-logo-card span:last-child {
+    max-width: 90px;
+    font-size: 0.78rem;
+    line-height: 1.05;
+    text-align: center;
+  }
+
+  /* Make every focus diagram readable on a narrow screen. */
+  .focus-hub {
+    border-radius: 26px;
+  }
+
+  .focus-tabs {
+    padding: 18px 18px 0;
+  }
+
+  .focus-panels {
+    padding: 18px;
+  }
+
+  .focus-panel {
+    gap: 18px;
+  }
+
+  .focus-copy,
+  .focus-visual {
+    border-radius: 22px;
+  }
+
+  .focus-visual {
+    width: 100%;
+    padding: 18px;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .visual-node,
+  .mlops-step,
+  .port-card {
+    min-width: 0;
+    width: 100%;
+    min-height: 74px;
+    border-radius: 18px;
+    padding: 12px;
+  }
+
+  .visual-node i,
+  .visual-node .stack-custom-icon,
+  .mlops-step i,
+  .visual-database-core i {
+    font-size: 1.22rem;
+  }
+
+  .visual-node span,
+  .mlops-step span,
+  .visual-database-core span,
+  .port-card span {
+    font-size: 0.57rem;
+    letter-spacing: 0.10em;
+  }
+
+  .api-visual,
+  .mlops-track,
+  .portability-chain {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 9px;
+  }
+
+  .api-visual .visual-arrow,
+  .mlops-track .visual-arrow,
+  .portability-chain > i {
+    width: 100%;
+    height: 18px;
+    display: grid;
+    place-items: center;
+    color: #8a92a0;
+  }
+
+  .api-visual .visual-arrow i,
+  .mlops-track .visual-arrow i,
+  .portability-chain > i {
+    transform: rotate(90deg);
+  }
+
+  .port-card strong {
+    font-size: 1rem;
+  }
+
+  .db-visual {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .db-column,
+  .db-notes {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 9px;
+  }
+
+  .visual-database-core {
+    min-height: 130px;
+    border-radius: 20px;
+  }
+
+  .visual-database-core strong {
+    font-size: 1.05rem;
+  }
+
+  .db-note {
+    border-radius: 16px;
+    padding: 9px 7px;
+    font-size: 0.53rem;
+    line-height: 1.35;
+  }
+
+  .cloud-visual {
+    gap: 10px;
+  }
+
+  .cloud-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 9px;
+  }
+
+  .mid-row {
+    min-height: 20px;
+  }
+
+  .cloud-row .visual-node {
+    min-height: 82px;
+  }
+}
+
+@media (max-width: 430px) {
+  .nav {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .nav-links a {
+    font-size: 0.60rem;
+    padding: 7px 9px;
+  }
+
+  .hero-section {
+    padding-top: 138px;
+  }
+
+  .stack-wall {
+    grid-template-rows: repeat(2, 90px);
+    grid-auto-columns: 88px;
+    gap: 10px 12px;
+  }
+
+  .stack-logo-card {
+    min-height: 90px;
+  }
+
+  .stack-logo-card i,
+  .stack-custom-icon {
+    font-size: 1.9rem;
+  }
+
+  .stack-logo-card span:last-child {
+    font-size: 0.72rem;
+  }
+
+  .focus-panels,
+  .focus-visual {
+    padding: 14px;
+  }
+
+  .db-column,
+  .db-notes,
+  .cloud-row {
+    gap: 7px;
+  }
+}
