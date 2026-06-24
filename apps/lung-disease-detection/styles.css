@@ -1070,3 +1070,284 @@ footer.relative.z-10.border-t > div > div:not(:first-child){
   .global-footer .footer-links,
   footer.relative.z-10.border-t > div > div:first-child{gap:22px !important;}
 }
+
+
+/* FINAL CLEAN FIX — no duplicate landing header on app/docs, icon-only contacts, readable mobile tabs */
+html.is-lung-app-route .mobile-landing-shell-header,
+body.is-lung-app-route .mobile-landing-shell-header{
+  display:none !important;
+}
+
+/* Footer contacts: icons only, desktop and phone */
+.global-footer .footer-links,
+footer.relative.z-10.border-t > div > div:first-child{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:center !important;
+  flex-wrap:nowrap !important;
+  gap:30px !important;
+  width:100% !important;
+  max-width:520px !important;
+  margin:0 auto 22px !important;
+}
+.global-footer .footer-link,
+footer.relative.z-10.border-t > div > div:first-child a{
+  width:auto !important;
+  min-width:0 !important;
+  height:auto !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:0 !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:#a8b3c7 !important;
+  font-size:0 !important;
+  line-height:0 !important;
+  text-decoration:none !important;
+  white-space:nowrap !important;
+}
+.global-footer .footer-link i,
+.global-footer .footer-link svg,
+footer.relative.z-10.border-t > div > div:first-child a i,
+footer.relative.z-10.border-t > div > div:first-child a svg{
+  display:block !important;
+  width:1.38rem !important;
+  height:1.38rem !important;
+  font-size:1.38rem !important;
+  line-height:1 !important;
+  flex:0 0 auto !important;
+}
+.global-footer .footer-link:hover,
+footer.relative.z-10.border-t > div > div:first-child a:hover{
+  color:#ffffff !important;
+  transform:translateY(-3px) !important;
+}
+.global-footer .ai-warning,
+.global-footer .copyright,
+footer.relative.z-10.border-t > div > div:not(:first-child){
+  width:100% !important;
+  max-width:680px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  text-align:center !important;
+  line-height:1.7 !important;
+}
+
+/* Desktop app/docs: use only the original React header; no injected mobile tabs. */
+@media (min-width:761px){
+  .mobile-app-doc-tabs{display:none !important;}
+}
+
+@media (max-width:760px){
+  html,body,#root{max-width:100% !important;overflow-x:hidden !important;}
+
+  /* Landing header fits phone while staying a normal header. */
+  .mobile-landing-shell-header{
+    position:relative !important;
+    min-height:0 !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    justify-content:flex-start !important;
+    gap:12px !important;
+    padding:16px 18px 14px !important;
+  }
+  .mobile-landing-shell-header__top{width:100% !important;}
+  .mobile-landing-shell-header__tabs{
+    width:100% !important;
+    display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:0 !important;
+    justify-content:stretch !important;
+    overflow:visible !important;
+  }
+  .mobile-landing-shell-header__tabs a{
+    width:100% !important;
+    text-align:center !important;
+    font-size:clamp(.72rem,3.2vw,.86rem) !important;
+    font-weight:700 !important;
+    letter-spacing:-.055em !important;
+    padding:0 1px 9px !important;
+  }
+
+  /* App/docs header: one header, readable tabs, no horizontal tab scrolling. */
+  .top-ribbon{
+    position:relative !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    z-index:40 !important;
+    height:auto !important;
+    min-height:0 !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    justify-content:flex-start !important;
+    gap:13px !important;
+    width:100% !important;
+    max-width:100% !important;
+    padding:16px 18px 15px !important;
+    margin:0 !important;
+    overflow:visible !important;
+    background:linear-gradient(180deg,rgba(6,7,12,.98),rgba(6,7,12,.92)) !important;
+    border-bottom:1px solid rgba(255,255,255,.11) !important;
+    backdrop-filter:blur(18px) !important;
+    -webkit-backdrop-filter:blur(18px) !important;
+  }
+  .top-ribbon .brand{
+    width:100% !important;
+    min-width:0 !important;
+    display:flex !important;
+    align-items:center !important;
+    gap:12px !important;
+    order:0 !important;
+  }
+  .top-ribbon .brand-logo{
+    width:52px !important;
+    height:52px !important;
+    min-width:52px !important;
+    border-radius:17px !important;
+  }
+  .top-ribbon .brand-text{min-width:0 !important;}
+  .top-ribbon .brand-text h1{
+    font-size:clamp(1.24rem,5.9vw,1.58rem) !important;
+    line-height:1.05 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+  .top-ribbon .brand-text span{
+    display:block !important;
+    font-size:clamp(.60rem,3vw,.74rem) !important;
+    letter-spacing:.12em !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+
+  .top-ribbon .header-actions > .hidden-mobile{
+    display:none !important;
+  }
+  .mobile-app-doc-tabs{
+    order:1 !important;
+    width:100% !important;
+    max-width:100% !important;
+    display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:0 !important;
+    align-items:center !important;
+    justify-content:stretch !important;
+    overflow:visible !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+  .mobile-app-doc-tabs a{
+    position:relative !important;
+    min-width:0 !important;
+    width:100% !important;
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    padding:0 1px 9px !important;
+    color:#94a3b8 !important;
+    font-family:Inter,system-ui,sans-serif !important;
+    font-size:clamp(.74rem,3.25vw,.88rem) !important;
+    font-weight:750 !important;
+    line-height:1.05 !important;
+    letter-spacing:-.055em !important;
+    text-align:center !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
+    text-decoration:none !important;
+    background:transparent !important;
+    border:0 !important;
+    border-radius:0 !important;
+  }
+  .mobile-app-doc-tabs a::after{
+    content:"" !important;
+    position:absolute !important;
+    left:18% !important;
+    right:18% !important;
+    bottom:0 !important;
+    height:2px !important;
+    border-radius:999px !important;
+    background:linear-gradient(90deg,#3b82f6,rgba(59,130,246,.12)) !important;
+    opacity:0 !important;
+    transform:scaleX(.5) !important;
+    transition:opacity .2s ease,transform .2s ease !important;
+  }
+  .mobile-app-doc-tabs a.active,
+  .mobile-app-doc-tabs a:hover,
+  .mobile-app-doc-tabs a:focus-visible{color:#3b82f6 !important;}
+  .mobile-app-doc-tabs a.active::after,
+  .mobile-app-doc-tabs a:hover::after,
+  .mobile-app-doc-tabs a:focus-visible::after{
+    opacity:1 !important;
+    transform:scaleX(1) !important;
+  }
+
+  .top-ribbon .header-actions{
+    order:2 !important;
+    width:100% !important;
+    max-width:100% !important;
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px !important;
+    align-items:center !important;
+    overflow:visible !important;
+    position:static !important;
+  }
+  .top-ribbon .github-source-btn,
+  .top-ribbon .system-status{
+    min-width:0 !important;
+    width:100% !important;
+    height:46px !important;
+    min-height:46px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:8px !important;
+    padding:0 12px !important;
+    border-radius:999px !important;
+    font-size:clamp(.82rem,3.65vw,.98rem) !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+    position:static !important;
+    margin:0 !important;
+  }
+  .top-ribbon .github-source-btn{grid-column:1 / 2 !important;}
+  .top-ribbon .system-status{grid-column:2 / 3 !important;}
+  .top-ribbon .system-status span.hidden-mobile,
+  .top-ribbon .system-status .hidden-mobile{display:inline !important;}
+
+  .global-footer .footer-links,
+  footer.relative.z-10.border-t > div > div:first-child{
+    gap:25px !important;
+    max-width:380px !important;
+    margin-bottom:20px !important;
+  }
+  .global-footer .footer-link i,
+  .global-footer .footer-link svg,
+  footer.relative.z-10.border-t > div > div:first-child a i,
+  footer.relative.z-10.border-t > div > div:first-child a svg{
+    width:1.45rem !important;
+    height:1.45rem !important;
+    font-size:1.45rem !important;
+  }
+}
+
+@media (max-width:390px){
+  .top-ribbon,
+  .mobile-landing-shell-header{padding-left:14px !important;padding-right:14px !important;}
+  .mobile-app-doc-tabs a,
+  .mobile-landing-shell-header__tabs a{font-size:.72rem !important;letter-spacing:-.065em !important;}
+  .top-ribbon .github-source-btn,
+  .top-ribbon .system-status{font-size:.78rem !important;padding-left:8px !important;padding-right:8px !important;}
+  .global-footer .footer-links,
+  footer.relative.z-10.border-t > div > div:first-child{gap:22px !important;}
+}
