@@ -465,6 +465,80 @@
                 font-size: clamp(2rem, 10vw, 3rem);
             }
         }
+
+
+        /* Mobile-only contact/footer polish — keeps desktop behavior untouched */
+        @media (max-width: 640px) {
+            .contact-section {
+                padding: 74px 16px 56px;
+                overflow: hidden;
+            }
+            .contact-section > div[style] {
+                max-width: 100% !important;
+            }
+            .contact-section h2 {
+                font-size: clamp(2.15rem, 11vw, 2.85rem) !important;
+                line-height: 1.05 !important;
+                letter-spacing: -0.05em;
+                margin-bottom: 14px !important;
+            }
+            .contact-section p {
+                max-width: 320px;
+                margin: 0 auto;
+                line-height: 1.55;
+            }
+            .contact-icons-mini {
+                display: grid !important;
+                grid-template-columns: repeat(6, minmax(0, 1fr));
+                align-items: center;
+                justify-items: center;
+                gap: 0 !important;
+                width: 100%;
+                max-width: 390px;
+                margin: 34px auto 0 !important;
+                padding: 0 6px;
+                flex-wrap: nowrap;
+            }
+            .contact-icon-mini {
+                width: 100%;
+                min-width: 0;
+                font-size: clamp(1.72rem, 8.4vw, 2.12rem);
+            }
+            .footer-bar {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                padding: 22px 18px 26px !important;
+                text-align: center;
+                font-size: 0.78rem;
+                line-height: 1.7;
+            }
+            .footer-bar span {
+                display: block;
+                max-width: 330px;
+            }
+            .footer-bar span:first-child {
+                padding-bottom: 10px;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+
+        @media (max-width: 380px) {
+            .contact-icons-mini {
+                max-width: 340px;
+                padding: 0;
+            }
+            .contact-icon-mini {
+                font-size: 1.62rem;
+            }
+            .footer-bar {
+                padding-left: 14px !important;
+                padding-right: 14px !important;
+                font-size: 0.72rem;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -475,10 +549,9 @@
         </a>
         <ul class="nav-links">
             <li><a href="https://a1mohamad.github.io/apps">Apps</a></li>
-            <li><a href="#projects"></a>Projects</li>
             <li><a href="https://a1mohamad.github.io/education">Education</a></li>
-            <li><a href="#contact">Connect</a></li>
             <li><a href="https://a1mohamad.github.io/about-me">About Me</a></li>
+            <li><a href="#contact">Contact Me</a></li>
         </ul>
         <a href="https://www.linkedin.com/in/amirmohammad-askari/" class="nav-cta" target="_blank">Let's connect</a>
     </nav>
