@@ -34,5 +34,53 @@
   </head>
   <body>
     <div id="root"></div>
+  
+<script>
+(function () {
+  var tabs = [
+    { href: "/app", label: "App", match: /\/app\/?$/ },
+    { href: "/docs/architecture", label: "Architecture", match: /\/docs\/architecture\/?$/ },
+    { href: "/docs/dataset", label: "Dataset", match: /\/docs\/dataset\/?$/ },
+    { href: "/docs/training", label: "Training", match: /\/docs\/training\/?$/ },
+    { href: "/docs/integration", label: "Integration", match: /\/docs\/integration\/?$/ }
+  ];
+
+  function isAppOrDocsPath() {
+    return /\/(app|docs)(\/|$)/.test(window.location.pathname);
+  }
+
+  function ensureMobileAppTabs() {
+    if (!isAppOrDocsPath()) return;
+    var ribbon = document.querySelector(".top-ribbon");
+    if (!ribbon || ribbon.querySelector(".mobile-app-doc-tabs")) return;
+
+    var nav = document.createElement("nav");
+    nav.className = "mobile-app-doc-tabs";
+    nav.setAttribute("aria-label", "App documentation navigation");
+    nav.innerHTML = tabs.map(function (item) {
+      var active = item.match.test(window.location.pathname) ? " active" : "";
+      return '<a class="' + active.trim() + '" href="' + item.href + '">' + item.label + '</a>';
+    }).join("");
+
+    var actions = ribbon.querySelector(".header-actions");
+    if (actions) ribbon.insertBefore(nav, actions);
+    else ribbon.appendChild(nav);
+  }
+
+  function boot() {
+    ensureMobileAppTabs();
+    var observer = new MutationObserver(ensureMobileAppTabs);
+    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("popstate", function () { setTimeout(ensureMobileAppTabs, 0); });
+    setTimeout(ensureMobileAppTabs, 100);
+    setTimeout(ensureMobileAppTabs, 450);
+    setTimeout(ensureMobileAppTabs, 1000);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
+</script>
+
   </body>
 </html>
