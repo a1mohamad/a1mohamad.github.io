@@ -1330,3 +1330,216 @@ h2,h3{color:#eadfcb;}
 .portrait-image span{
   display:none !important;
 }
+
+/* V11 — mobile-only Personal Archive fix
+   Keeps desktop/tablet behavior intact, improves phone vault readability,
+   prevents clipped text, and turns the category selector into a compact sticky rail. */
+@media(max-width:840px){
+  html,
+  body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+  }
+
+  .vault{
+    scroll-margin-top:92px;
+  }
+
+  .vault-layout.wide-tabs,
+  .vault-layout,
+  .vault-panels,
+  .profile-panels,
+  .vault-panel,
+  .profile-grid,
+  .evidence-grid,
+  .book-strip{
+    min-width:0 !important;
+    max-width:100% !important;
+  }
+
+  .vault-layout.wide-tabs{
+    grid-template-columns:1fr !important;
+    overflow:hidden !important;
+    border-radius:30px !important;
+  }
+
+  .wide-tabs .vault-tabs,
+  .vault-tabs{
+    position:sticky !important;
+    top:74px;
+    z-index:12;
+    display:flex !important;
+    flex-direction:row !important;
+    grid-template-columns:none !important;
+    gap:8px;
+    max-height:none !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    padding:10px 12px !important;
+    border-right:0 !important;
+    border-bottom:1px solid rgba(238,229,212,.16) !important;
+    background:linear-gradient(180deg,rgba(5,4,6,.98),rgba(5,4,6,.90)) !important;
+    backdrop-filter:blur(18px);
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    scroll-snap-type:x proximity;
+  }
+
+  .wide-tabs .vault-tabs::-webkit-scrollbar,
+  .vault-tabs::-webkit-scrollbar{
+    display:none;
+  }
+
+  .vault-tab{
+    flex:0 0 auto;
+    width:auto;
+    min-width:max-content;
+    min-height:42px;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px !important;
+    border:1px solid rgba(238,229,212,.13) !important;
+    border-radius:999px;
+    color:#aa9d86 !important;
+    background:rgba(255,255,255,.018) !important;
+    white-space:nowrap;
+    scroll-snap-align:center;
+    box-shadow:none !important;
+  }
+
+  .vault-tab::after{
+    display:none !important;
+  }
+
+  .vault-tab span{
+    font-size:.58rem !important;
+    color:rgba(214,181,111,.84) !important;
+  }
+
+  .vault-tab.active,
+  .vault-tab:hover{
+    color:#f0e4cc !important;
+    border-color:rgba(214,181,111,.44) !important;
+    background:linear-gradient(135deg,rgba(214,181,111,.18),rgba(113,136,255,.06)) !important;
+    box-shadow:0 12px 30px rgba(0,0,0,.26), inset 0 0 0 1px rgba(214,181,111,.12) !important;
+  }
+
+  .profile-panels{
+    min-height:0 !important;
+  }
+
+  .profile-panels .vault-panel,
+  .vault-panel{
+    min-height:0 !important;
+    height:auto !important;
+    justify-content:flex-start !important;
+    padding:30px 22px 28px !important;
+    overflow:visible !important;
+  }
+
+  .vault-panel.active{
+    display:flex !important;
+  }
+
+  .panel-meta{
+    width:100% !important;
+    max-width:100% !important;
+    display:flex !important;
+    white-space:normal !important;
+    line-height:1.45 !important;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+
+  .vault-panel h3{
+    max-width:100% !important;
+    font-size:clamp(1.72rem,8.4vw,2.08rem) !important;
+    line-height:1.04 !important;
+    letter-spacing:-.066em !important;
+    overflow-wrap:normal;
+    word-break:normal;
+    hyphens:auto;
+  }
+
+  .profile-panels .vault-panel p,
+  .vault-panel p{
+    max-width:100% !important;
+    margin:17px 0 24px !important;
+    font-size:.96rem !important;
+    line-height:1.82 !important;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+
+  .profile-grid,
+  .evidence-grid{
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+  }
+
+  .evidence-grid span,
+  .book-strip span{
+    min-width:0 !important;
+    max-width:100% !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+    line-height:1.55 !important;
+  }
+}
+
+@media(max-width:560px){
+  main{
+    width:min(100% - 28px,1240px) !important;
+  }
+
+  .section-head{
+    padding-left:14px !important;
+  }
+
+  .vault-layout.wide-tabs{
+    border-radius:28px !important;
+  }
+
+  .wide-tabs .vault-tabs,
+  .vault-tabs{
+    top:72px;
+    padding:9px 10px !important;
+  }
+
+  .vault-tab{
+    min-height:40px;
+    padding:9px 12px !important;
+    font-size:.74rem !important;
+  }
+
+  .profile-panels .vault-panel,
+  .vault-panel{
+    padding:26px 18px 26px !important;
+  }
+
+  .vault-panel h3{
+    font-size:clamp(1.62rem,8.9vw,1.95rem) !important;
+    line-height:1.06 !important;
+  }
+
+  .profile-panels .vault-panel p,
+  .vault-panel p{
+    font-size:.93rem !important;
+    line-height:1.78 !important;
+  }
+
+  .panel-meta{
+    font-size:.56rem !important;
+    letter-spacing:1.15px !important;
+  }
+
+  .evidence-grid span,
+  .book-strip span{
+    font-size:.70rem !important;
+    padding:12px 13px !important;
+  }
+}
+
