@@ -631,3 +631,652 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
     top: 14px !important;
     z-index: 50 !important;
 }
+
+
+/* ===== Mobile-first correction layer for SMS Spam page =====
+   Desktop and existing project styling above are intentionally preserved.
+   These overrides only activate on phone-sized screens. ===== */
+@media (max-width: 760px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        padding-bottom: 34px;
+    }
+
+    body * {
+        min-width: 0;
+    }
+
+    img,
+    svg,
+    video,
+    canvas {
+        max-width: 100%;
+    }
+
+    .hero-section,
+    .main-layout {
+        width: 100%;
+        max-width: 100%;
+        padding-left: clamp(16px, 5vw, 22px);
+        padding-right: clamp(16px, 5vw, 22px);
+    }
+
+    .hero-section {
+        padding-top: 52px;
+        padding-bottom: 28px;
+        overflow: hidden;
+    }
+
+    .hero-accent-blur {
+        width: 88vw;
+        max-width: 360px;
+        height: 210px;
+    }
+
+    .hero-meta {
+        max-width: 100%;
+        font-size: 0.68rem;
+        line-height: 1.9;
+        letter-spacing: 2.2px;
+        overflow-wrap: anywhere;
+    }
+
+    h1 {
+        max-width: 100%;
+        font-size: clamp(2rem, 9.8vw, 2.85rem);
+        line-height: 1.12;
+        letter-spacing: -0.045em;
+        overflow-wrap: anywhere;
+    }
+
+    h2,
+    .panel-header-content h2 {
+        font-size: clamp(1.35rem, 6.7vw, 2rem);
+        line-height: 1.16;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-subtitle,
+    .panel-desc,
+    .overview-text,
+    .theory-explanation,
+    .executive-summary-box,
+    .synthesis-gradient-box,
+    .subsection-caption {
+        max-width: 100%;
+        font-size: 0.96rem;
+        line-height: 1.72;
+        overflow-wrap: anywhere;
+    }
+
+    .btn-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .btn-modern-primary,
+    .btn-modern-secondary {
+        width: 100%;
+        justify-content: center;
+        min-height: 56px;
+        padding: 14px 18px;
+        font-size: 0.98rem;
+        text-align: center;
+    }
+
+    .btn-modern-primary i,
+    .btn-modern-secondary i {
+        font-size: 1.2rem;
+    }
+
+    .section {
+        padding: 30px 0;
+        scroll-margin-top: 16px;
+    }
+
+    .accordion-guide {
+        border-radius: 14px;
+    }
+
+    .section-header {
+        grid-template-columns: minmax(0, 1fr) 54px;
+        gap: 10px;
+        padding: 16px 0 16px 16px;
+        border-radius: 14px;
+    }
+
+    .panel-header-content {
+        min-width: 0;
+    }
+
+    .panel-tag,
+    .subsection-label {
+        font-size: 0.66rem;
+        letter-spacing: 1.5px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+    }
+
+    .section-header .chevron {
+        width: 54px;
+        height: 32px;
+        justify-self: end;
+    }
+
+    .section-header .chevron::before {
+        width: 24px;
+        height: 24px;
+    }
+
+    .section.expanded .section-header .chevron::before {
+        transform: translateX(22px);
+    }
+
+    .section-header .chevron::after {
+        right: 7px;
+        font-size: 0.48rem;
+    }
+
+    .section.expanded .section-header .chevron::after {
+        left: 8px;
+    }
+
+    .section-body-inner {
+        padding-top: 18px;
+    }
+
+    .metrics-strip,
+    .metrics-strip.sms-metrics-six,
+    .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+        padding: 18px 0;
+        align-items: stretch;
+    }
+
+    .metrics-strip {
+        border-bottom-color: rgba(255,255,255,0.08);
+    }
+
+    .metric-block,
+    .metrics-strip.sms-metrics-six .metric-block,
+    .kpi-card {
+        min-height: auto;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.025);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .metric-block:first-child,
+    .metric-block:last-child {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .metric-label,
+    .metrics-strip.sms-metrics-six .metric-label,
+    .kpi-label {
+        min-height: auto;
+        margin-bottom: 12px;
+        align-items: flex-start;
+        font-size: 0.62rem;
+        line-height: 1.35;
+        letter-spacing: 0.9px;
+    }
+
+    .metric-value,
+    .metrics-strip.sms-metrics-six .metric-value,
+    .kpi-value {
+        margin-top: 0;
+        font-size: clamp(1.28rem, 7.6vw, 1.9rem);
+        line-height: 1.05;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .notebook-switcher {
+        position: sticky !important;
+        top: 8px !important;
+        z-index: 80 !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px;
+        margin: 22px 0 16px;
+        padding: 8px;
+        border-radius: 16px;
+        max-height: min(32vh, 230px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .notebook-tab {
+        min-height: 48px;
+        padding: 11px 9px;
+        font-size: 0.82rem;
+        line-height: 1.25;
+        white-space: normal;
+    }
+
+    .notebook-tab i {
+        margin-right: 5px;
+    }
+
+    .theory-split,
+    .tech-grid,
+    .implementation-grid,
+    .mini-insight-grid,
+    .note-grid,
+    .viz-display-grid,
+    .viz-display-grid.two,
+    .viz-display-grid.three,
+    .viz-display-grid.two-card-row,
+    .viz-display-grid.single-centered {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+
+    .theory-block,
+    .note-card,
+    .tech-card,
+    .mini-insight-card,
+    .terminal-panel,
+    .matrix-table-container,
+    .viz-wrapper-card,
+    .synthesis-gradient-box,
+    .executive-summary-box {
+        max-width: 100%;
+        border-radius: 13px;
+    }
+
+    .theory-block,
+    .note-card,
+    .tech-card,
+    .mini-insight-card,
+    .synthesis-gradient-box,
+    .executive-summary-box {
+        padding: 20px;
+    }
+
+    .theory-card-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .theory-title,
+    .theory-badge,
+    .tech-badge {
+        max-width: 100%;
+        white-space: normal;
+        line-height: 1.35;
+    }
+
+    .dependency-row {
+        gap: 12px;
+        padding: 14px 0;
+    }
+
+    .dep-icon {
+        width: 22px;
+        flex: 0 0 22px;
+    }
+
+    .dependency-row strong,
+    .dependency-row span,
+    .flow-content strong,
+    .flow-content span,
+    .tech-card h3,
+    .tech-card p,
+    .mini-insight-card h3,
+    .mini-insight-card p,
+    .note-card span {
+        overflow-wrap: anywhere;
+    }
+
+    .timeline-flow {
+        padding-left: 20px;
+    }
+
+    .flow-node {
+        gap: 12px;
+        padding-bottom: 20px;
+    }
+
+    .flow-dot {
+        left: -20px;
+    }
+
+    .flow-node::before {
+        left: -16px;
+    }
+
+    .flow-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 4px;
+    }
+
+    .flow-step {
+        min-width: 22px;
+        font-size: 0.76rem;
+    }
+
+    .insight-row {
+        grid-template-columns: 1fr !important;
+        gap: 14px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--surface-card);
+    }
+
+    .insight-left-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .insight-rank-index {
+        width: auto;
+        min-width: 0;
+        flex: none;
+        white-space: normal;
+    }
+
+    .insight-score-metrics {
+        min-width: 0;
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        text-align: left;
+        align-items: stretch;
+    }
+
+    .insight-score-item {
+        min-width: 0;
+        align-items: flex-start;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.025);
+    }
+
+    .insight-score-value {
+        font-size: 1.05rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .terminal-header {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .terminal-title {
+        min-width: 0;
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+
+    .terminal-body,
+    .terminal-panel.code-showcase .terminal-body,
+    .terminal-panel.implementation-code .terminal-body.compact-code {
+        padding: 18px 16px;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: visible;
+        font-size: 0.76rem;
+        line-height: 1.72;
+    }
+
+    .terminal-body pre,
+    .terminal-body code,
+    .terminal-panel .terminal-body pre,
+    .terminal-panel.implementation-code .terminal-body.compact-code pre,
+    .terminal-body.code-mini pre {
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        min-width: 0 !important;
+        max-width: 100%;
+    }
+
+    .theory-math-container,
+    .theory-math-container.formula-clean,
+    .formula-line {
+        display: block;
+        max-width: 100%;
+        min-height: auto;
+        padding: 16px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        font-size: 0.82rem;
+        white-space: normal;
+    }
+
+    .theory-math-container mjx-container {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .matrix-table-container {
+        overflow: visible;
+        border: 0;
+        background: transparent;
+    }
+
+    .matrix-table-container table,
+    .matrix-table-container thead,
+    .matrix-table-container tbody,
+    .matrix-table-container th,
+    .matrix-table-container td,
+    .matrix-table-container tr,
+    table.data-table,
+    table.data-table thead,
+    table.data-table tbody,
+    table.data-table th,
+    table.data-table td,
+    table.data-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .matrix-table-container thead,
+    table.data-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .matrix-table-container tbody,
+    table.data-table tbody {
+        display: grid;
+        gap: 12px;
+    }
+
+    .matrix-table-container tr,
+    table.data-table tr {
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: var(--surface-card);
+        overflow: hidden;
+    }
+
+    .matrix-table-container tr:hover td,
+    table.data-table tr:hover td {
+        background: transparent;
+    }
+
+    .matrix-table-container td,
+    table.data-table td {
+        display: grid;
+        grid-template-columns: minmax(92px, 34%) minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        padding: 13px 15px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-secondary);
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    .matrix-table-container td:last-child,
+    table.data-table td:last-child {
+        border-bottom: none;
+    }
+
+    .matrix-table-container td::before,
+    table.data-table td::before {
+        content: attr(data-label);
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.45;
+        text-transform: uppercase;
+    }
+
+    td code,
+    .dataset-code-inline code,
+    .overview-text code,
+    .note-card code,
+    .tech-card code,
+    .mini-insight-card code,
+    .synthesis-gradient-box code,
+    .executive-summary-box code,
+    .panel-desc code,
+    .flow-content code,
+    .code-pill {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .viz-section-stack {
+        gap: 20px;
+    }
+
+    .viz-wrapper-card img,
+    .viz-wrapper-card img.wordcloud-shot,
+    .viz-wrapper-card img.chart-shot,
+    .viz-wrapper-card img.arch-shot,
+    .viz-display-grid.single-centered .viz-wrapper-card.big-viz img,
+    .viz-display-grid.two .viz-wrapper-card.big-viz img {
+        width: 100%;
+        height: auto;
+        max-height: 340px;
+        object-fit: contain;
+    }
+
+    .viz-meta-text,
+    .viz-title {
+        min-height: auto;
+        padding: 13px;
+        font-size: 0.8rem;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+    }
+
+    .portfolio-footer-gate {
+        padding: 30px 16px;
+        margin-top: 26px;
+    }
+
+    .contact-icons {
+        width: 100%;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .icon-link {
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.025);
+        font-size: 1.1rem;
+    }
+
+    .editorial-credits {
+        margin-top: 20px;
+        padding: 0 18px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    .lightbox-overlay {
+        padding: 16px;
+    }
+
+    .lightbox-wrapper,
+    .lightbox-overlay img,
+    #lightboxImage {
+        max-width: 94vw;
+        max-height: 82vh;
+    }
+
+    .lightbox-close {
+        position: fixed;
+        top: 14px;
+        right: 16px;
+        z-index: 10001;
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 999px;
+        background: rgba(0,0,0,0.45);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 380px) {
+    .metrics-strip,
+    .metrics-strip.sms-metrics-six,
+    .kpi-grid,
+    .notebook-switcher,
+    .insight-score-metrics {
+        grid-template-columns: 1fr !important;
+    }
+
+    .matrix-table-container td,
+    table.data-table td {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+}
+
+/* ===== SMS mobile table readability refinement ===== */
+@media (max-width: 760px) {
+    .matrix-table-container td,
+    table.data-table td {
+        display: block !important;
+    }
+
+    .matrix-table-container td::before,
+    table.data-table td::before {
+        display: block;
+        margin-bottom: 6px;
+    }
+}
