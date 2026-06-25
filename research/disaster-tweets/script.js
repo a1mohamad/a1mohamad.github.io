@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     // ========== RESPONSIVE TABLE LABELS (used by mobile CSS only) ==========
     document.querySelectorAll('table').forEach(table => {
         const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
@@ -13,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
-        if (!targetEl || !block.hasAttribute('data-metric-target')) return;
         const type = block.getAttribute('data-metric-type');
         const targetVal = parseFloat(block.getAttribute('data-metric-target'));
         let initial = 0;
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <i class="fa-solid fa-toggle-on"></i>
                 <span>Expandable case study</span>
             </div>
-            <div class="accordion-guide-hint">Use the switch or tap any title row for more technical info.</div>
+            <div class="accordion-guide-hint">Use the switch — or tap any title row — for more technical info.</div>
         `;
         collapsibleSections[0].parentNode.insertBefore(guide, collapsibleSections[0]);
     }
@@ -185,7 +185,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     refreshExpandedHeights();
                     window.dispatchEvent(new Event('resize'));
                     if (window.matchMedia('(max-width: 760px)').matches) {
-                        document.querySelector('.notebook-switcher')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        targetPanel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
                     }
                 });
             }
@@ -228,42 +229,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    // ========== TEMPLATE-STYLE CODE SYNTAX COLORING ==========
-    const escapeHtml = (value) => value
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-
-    const highlightPythonCode = (code) => {
-        const protectedParts = [];
-        let html = escapeHtml(code);
-
-        const protect = (fragment) => {
-            const token = `@@CODETOKEN${protectedParts.length}@@`;
-            protectedParts.push(fragment);
-            return token;
-        };
-
-        html = html.replace(/(#[^\n]*)/g, (match) => protect(`<span class="code-comment">${match}</span>`));
-        html = html.replace(/("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
-            (match) => protect(`<span class="code-str">${match}</span>`)
-        );
-        html = html.replace(/\b(\d+(?:\.\d+)?(?:e[-+]?\d+)?)\b/gi, '<span class="code-num">$1</span>');
-        html = html.replace(/\b(import|from|as|def|return|for|in|if|else|elif|with|while|lambda|True|False|None|class|try|except|finally|break|continue|and|or|not|is)\b/g,
-            '<span class="code-keyword">$1</span>'
-        );
-        html = html.replace(/\b([A-Za-z_]\w*)(?=\s*\()/g, '<span class="code-fn">$1</span>');
-
-        protectedParts.forEach((fragment, index) => {
-            html = html.replace(`@@CODETOKEN${index}@@`, fragment);
-        });
-        return html;
-    };
-
-    document.querySelectorAll('.terminal-body pre').forEach((pre) => {
-        const raw = pre.textContent;
-        pre.innerHTML = highlightPythonCode(raw);
-    });
-
 });
