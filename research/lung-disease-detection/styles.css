@@ -1673,3 +1673,27 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
     }
 }
 
+
+/* ===== Final Lung tab persistence correction =====
+   Keep the primary project tab bar available while the page scrolls on
+   desktop, tablet, and phone without changing its existing layout. */
+.notebook-switcher.lung-switcher {
+    position: sticky !important;
+    top: 14px !important;
+    z-index: 120 !important;
+}
+
+@media (max-width: 760px) {
+    /* `clip` prevents horizontal spill without creating a scroll container
+       that can disable `position: sticky` in mobile browsers. */
+    html,
+    body {
+        overflow-x: clip;
+    }
+
+    .notebook-switcher.lung-switcher {
+        position: sticky !important;
+        top: 8px !important;
+        z-index: 120 !important;
+    }
+}
