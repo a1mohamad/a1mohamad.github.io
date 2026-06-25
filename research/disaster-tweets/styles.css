@@ -1367,3 +1367,101 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
         grid-template-columns: 1fr !important;
     }
 }
+
+/* ===== Disaster mobile sticky tabs + one-row footer refinement ===== */
+@media (max-width: 760px) {
+    .notebook-switcher.disaster-switcher,
+    .notebook-switcher {
+        display: flex !important;
+        grid-template-columns: none !important;
+        align-items: stretch;
+        position: sticky !important;
+        top: 8px !important;
+        z-index: 90 !important;
+        width: 100%;
+        min-height: 60px;
+        max-height: none;
+        gap: 8px;
+        margin: 22px 0 16px;
+        padding: 7px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .notebook-switcher.disaster-switcher::-webkit-scrollbar,
+    .notebook-switcher::-webkit-scrollbar {
+        display: none;
+    }
+
+    .notebook-tab {
+        flex: 0 0 auto;
+        min-width: max-content;
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 14px;
+        font-size: 0.8rem;
+        line-height: 1.2;
+        text-align: center;
+        white-space: nowrap;
+        scroll-snap-align: center;
+    }
+
+    .notebook-tab i {
+        flex: 0 0 auto;
+        margin-right: 6px;
+    }
+
+    .portfolio-footer-gate {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .contact-icons {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap !important;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(6px, 2vw, 12px);
+    }
+
+    .icon-link {
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 340px) {
+    .notebook-switcher.disaster-switcher,
+    .notebook-switcher {
+        display: flex !important;
+        grid-template-columns: none !important;
+    }
+
+    .contact-icons {
+        gap: 6px;
+    }
+
+    .icon-link {
+        flex-basis: 38px;
+        width: 38px;
+        height: 38px;
+    }
+}
+
+/* Keep viewport-level horizontal clipping without creating a sticky-breaking scroll container. */
+@media (max-width: 760px) {
+    html,
+    body {
+        overflow-x: clip !important;
+    }
+}
