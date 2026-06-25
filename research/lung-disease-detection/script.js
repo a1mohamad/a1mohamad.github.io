@@ -171,12 +171,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    const centerActiveLungTabOnMobile = (tab) => {
+        if (!tab || !window.matchMedia('(max-width: 760px)').matches) return;
+        const switcher = tab.closest('.notebook-switcher.lung-switcher');
+        if (!switcher) return;
+        requestAnimationFrame(() => {
+            const targetLeft = tab.offsetLeft - (switcher.clientWidth - tab.offsetWidth) / 2;
+            switcher.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+        });
+    };
+
     notebookTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetId = tab.dataset.target;
             notebookTabs.forEach(item => item.classList.remove('active'));
             notebookPanels.forEach(panel => panel.classList.remove('active'));
             tab.classList.add('active');
+            centerActiveLungTabOnMobile(tab);
             const targetPanel = document.getElementById(targetId);
             if (targetPanel) {
                 targetPanel.classList.add('active');
