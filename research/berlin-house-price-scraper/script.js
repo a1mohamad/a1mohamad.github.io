@@ -1,10 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // ========== RESPONSIVE TABLE LABELS (used by mobile CSS only) ==========
+    document.querySelectorAll('table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(row => {
+            Array.from(row.children).forEach((cell, index) => {
+                if (headers[index]) cell.setAttribute('data-label', headers[index]);
+            });
+        });
+    });
+
     // ========== METRIC COUNTER (percentage, float, integer) ==========
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
+        if (!targetEl || !block.hasAttribute('data-metric-target')) return;
         const type = block.getAttribute('data-metric-type');
         const targetVal = parseFloat(block.getAttribute('data-metric-target'));
+        if (Number.isNaN(targetVal)) return;
         let initial = 0;
         const runtime = 1200;
         const steps = 40;
@@ -170,7 +182,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (targetPanel) {
                 targetPanel.classList.add('active');
                 targetPanel.querySelectorAll('.section-collapsible.expanded').forEach(revealSectionChildren);
-                requestAnimationFrame(() => { refreshExpandedHeights(); window.dispatchEvent(new Event('resize')); });
+                requestAnimationFrame(() => {
+                    refreshExpandedHeights();
+                    window.dispatchEvent(new Event('resize'));
+                    if (window.matchMedia('(max-width: 760px)').matches) {
+                        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        targetPanel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+                    }
+                });
             }
         });
     });
