@@ -185,7 +185,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     refreshExpandedHeights();
                     window.dispatchEvent(new Event('resize'));
                     if (window.matchMedia('(max-width: 760px)').matches) {
-                        document.querySelector('.notebook-switcher')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        const switcher = tab.closest('.notebook-switcher');
+                        if (switcher) {
+                            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                            const targetLeft = tab.offsetLeft - (switcher.clientWidth - tab.offsetWidth) / 2;
+                            switcher.scrollTo({
+                                left: Math.max(0, targetLeft),
+                                behavior: reduceMotion ? 'auto' : 'smooth'
+                            });
+                        }
                     }
                 });
             }
