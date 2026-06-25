@@ -176,6 +176,19 @@ document.addEventListener("DOMContentLoaded", () => {
             notebookTabs.forEach(item => item.classList.remove('active'));
             notebookPanels.forEach(panel => panel.classList.remove('active'));
             tab.classList.add('active');
+
+            if (window.matchMedia('(max-width: 760px)').matches) {
+                const switcher = tab.closest('.notebook-switcher');
+                if (switcher) {
+                    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const centeredLeft = tab.offsetLeft - (switcher.clientWidth - tab.offsetWidth) / 2;
+                    switcher.scrollTo({
+                        left: Math.max(0, centeredLeft),
+                        behavior: reduceMotion ? 'auto' : 'smooth'
+                    });
+                }
+            }
+
             const targetPanel = document.getElementById(targetId);
             if (targetPanel) {
                 targetPanel.classList.add('active');
