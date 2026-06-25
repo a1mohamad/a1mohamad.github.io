@@ -171,6 +171,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+
+    const centerMobileNotebookTab = (tab) => {
+        if (!tab || !window.matchMedia('(max-width: 760px)').matches) return;
+        const switcher = tab.closest('.notebook-switcher');
+        if (!switcher) return;
+
+        const targetLeft = tab.offsetLeft - ((switcher.clientWidth - tab.offsetWidth) / 2);
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        switcher.scrollTo({
+            left: Math.max(0, targetLeft),
+            behavior: reduceMotion ? 'auto' : 'smooth'
+        });
+    };
+
     notebookTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetId = tab.dataset.target;
@@ -183,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 targetPanel.querySelectorAll('.section-collapsible.expanded').forEach(revealSectionChildren);
                 requestAnimationFrame(() => {
                     refreshExpandedHeights();
+                    centerMobileNotebookTab(tab);
                     window.dispatchEvent(new Event('resize'));
                     if (window.matchMedia('(max-width: 760px)').matches) {
                         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
