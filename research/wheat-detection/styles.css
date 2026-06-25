@@ -535,3 +535,633 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
         top: 10px !important;
     }
 }
+
+/* ===== Mobile-only correction layer for Global Wheat Detection page =====
+   Desktop/tablet rules above stay untouched. These rules only activate on
+   phone-sized screens to remove overflow and improve readability. ===== */
+@media (max-width: 760px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        padding-bottom: 34px;
+    }
+
+    body * {
+        min-width: 0;
+    }
+
+    img,
+    svg,
+    video,
+    canvas {
+        max-width: 100%;
+    }
+
+    .hero-section,
+    .main-layout {
+        width: 100%;
+        max-width: 100%;
+        padding-left: clamp(16px, 5vw, 22px);
+        padding-right: clamp(16px, 5vw, 22px);
+    }
+
+    .hero-section {
+        padding-top: 52px;
+        padding-bottom: 28px;
+        overflow: hidden;
+    }
+
+    .hero-accent-blur {
+        width: 88vw;
+        max-width: 360px;
+        height: 210px;
+    }
+
+    .hero-meta {
+        max-width: 100%;
+        font-size: 0.68rem;
+        line-height: 1.9;
+        letter-spacing: 2.2px;
+        overflow-wrap: anywhere;
+    }
+
+    h1 {
+        max-width: 100%;
+        font-size: clamp(2rem, 9.6vw, 2.8rem);
+        line-height: 1.12;
+        letter-spacing: -0.045em;
+        overflow-wrap: anywhere;
+    }
+
+    h2 {
+        font-size: clamp(1.34rem, 6.6vw, 1.95rem);
+        line-height: 1.18;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-subtitle,
+    .panel-desc,
+    .overview-text,
+    .theory-explanation,
+    .synthesis-gradient-box,
+    .executive-summary-box {
+        max-width: 100%;
+        font-size: 0.95rem;
+        line-height: 1.72;
+        overflow-wrap: anywhere;
+    }
+
+    .btn-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .btn-modern-primary,
+    .btn-modern-secondary {
+        width: 100%;
+        justify-content: center;
+        min-height: 56px;
+        padding: 14px 18px;
+        font-size: 0.98rem;
+        text-align: center;
+    }
+
+    .btn-modern-primary i,
+    .btn-modern-secondary i {
+        font-size: 1.2rem;
+    }
+
+    .metrics-strip,
+    .metrics-strip.wheat-metrics,
+    .metrics-strip.wheat-metrics-six,
+    .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+        padding: 18px 0;
+        align-items: stretch;
+    }
+
+    .metrics-strip.wheat-metrics-six .metric-block,
+    .metric-block,
+    .kpi-card {
+        min-height: auto;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.025);
+        justify-content: space-between;
+    }
+
+    .metric-block:first-child,
+    .metric-block:last-child {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .metrics-strip.wheat-metrics-six .metric-label,
+    .metric-label,
+    .kpi-label {
+        min-height: auto;
+        align-items: flex-start;
+        margin-bottom: 12px;
+        font-size: 0.62rem;
+        line-height: 1.38;
+        letter-spacing: 0.9px;
+    }
+
+    .metrics-strip.wheat-metrics-six .metric-value,
+    .metric-value,
+    .kpi-value {
+        margin-top: 0;
+        font-size: clamp(1.28rem, 7.6vw, 1.9rem);
+        line-height: 1.05;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .metric-value.compact-k {
+        letter-spacing: -0.07em;
+    }
+
+    .notebook-switcher {
+        position: sticky !important;
+        top: 8px !important;
+        z-index: 120 !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px;
+        margin: 22px 0 16px;
+        padding: 8px;
+        border-radius: 16px;
+        max-height: min(34vh, 230px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .notebook-tab {
+        min-height: 48px;
+        padding: 11px 10px;
+        font-size: 0.8rem;
+        line-height: 1.25;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .notebook-tab i {
+        margin-right: 5px;
+    }
+
+    .section {
+        padding: 30px 0;
+        scroll-margin-top: 14px;
+    }
+
+    .accordion-guide {
+        border-radius: 14px;
+        padding: 14px 16px;
+    }
+
+    .accordion-guide-main {
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+    }
+
+    .section-header {
+        grid-template-columns: minmax(0, 1fr) 54px;
+        gap: 10px;
+        padding: 16px 0 16px 16px;
+        border-radius: 14px;
+    }
+
+    .panel-header-content {
+        min-width: 0;
+    }
+
+    .panel-tag {
+        font-size: 0.66rem;
+        letter-spacing: 1.4px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+    }
+
+    .section-header .chevron {
+        width: 54px;
+        height: 32px;
+        justify-self: end;
+        margin-right: 0;
+    }
+
+    .section-header .chevron::before {
+        width: 24px;
+        height: 24px;
+    }
+
+    .section.expanded .section-header .chevron::before {
+        transform: translateX(22px);
+    }
+
+    .section-header .chevron::after {
+        right: 7px;
+        font-size: 0.48rem;
+    }
+
+    .section.expanded .section-header .chevron::after {
+        left: 8px;
+    }
+
+    .section-body-inner {
+        padding-top: 18px;
+    }
+
+    .theory-split,
+    .tech-grid,
+    .implementation-grid,
+    .note-grid,
+    .wheat-viz-grid,
+    .inference-three-grid,
+    .viz-display-grid,
+    .viz-display-grid.two,
+    .viz-display-grid.three,
+    .viz-display-grid.two-card-row,
+    .viz-display-grid.single-centered {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+
+    .wheat-viz-wide,
+    .wheat-viz-card,
+    .viz-wrapper-card.big-viz,
+    .big-viz {
+        grid-column: auto !important;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .theory-block,
+    .note-card,
+    .tech-card,
+    .kpi-card,
+    .terminal-panel,
+    .matrix-table-container,
+    .viz-wrapper-card,
+    .synthesis-gradient-box,
+    .executive-summary-box {
+        max-width: 100%;
+        border-radius: 13px;
+    }
+
+    .theory-block,
+    .note-card,
+    .tech-card,
+    .synthesis-gradient-box,
+    .executive-summary-box {
+        padding: 20px;
+    }
+
+    .theory-card-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .theory-badge,
+    .tech-badge {
+        max-width: 100%;
+        white-space: normal;
+        line-height: 1.35;
+    }
+
+    .dependency-row {
+        gap: 12px;
+        padding: 14px 0;
+    }
+
+    .dep-icon {
+        width: 22px;
+        flex: 0 0 22px;
+        font-size: 1.05rem;
+    }
+
+    .dependency-row strong,
+    .dependency-row span,
+    .flow-content strong,
+    .flow-content span,
+    .phase-main strong,
+    .phase-main span,
+    .tech-card p,
+    .tech-card li,
+    .note-card span {
+        overflow-wrap: anywhere;
+    }
+
+    .timeline-flow {
+        padding-left: 20px;
+    }
+
+    .flow-node {
+        gap: 12px;
+        padding-bottom: 20px;
+    }
+
+    .flow-dot {
+        left: -20px;
+    }
+
+    .flow-node::before {
+        left: -16px;
+    }
+
+    .flow-content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 4px;
+    }
+
+    .flow-step {
+        min-width: 0;
+        font-size: 0.76rem;
+    }
+
+    .phase-row {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--surface-card);
+        margin-bottom: 12px;
+    }
+
+    .phase-metrics {
+        width: 100%;
+        max-width: none;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .phase-metrics > div {
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.025);
+    }
+
+    .phase-metric-label {
+        min-height: auto;
+        font-size: 0.62rem;
+    }
+
+    .phase-metric-value {
+        font-size: 1rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .terminal-header {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .terminal-title {
+        min-width: 0;
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+
+    .terminal-body,
+    .terminal-panel .terminal-body,
+    .terminal-panel.code-showcase .terminal-body,
+    .terminal-panel.implementation-code .terminal-body.compact-code {
+        padding: 18px 16px;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: visible;
+        font-size: 0.76rem;
+        line-height: 1.72;
+    }
+
+    .terminal-body pre,
+    .terminal-body code,
+    .terminal-panel .terminal-body pre,
+    .terminal-panel.implementation-code .terminal-body.compact-code pre,
+    .terminal-body.code-mini pre {
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        min-width: 0 !important;
+        max-width: 100%;
+    }
+
+    .theory-math-container,
+    .formula-line {
+        max-width: 100%;
+        min-height: auto;
+        display: block;
+        padding: 16px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        font-size: 0.82rem;
+    }
+
+    .theory-math-container mjx-container {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .matrix-table-container {
+        overflow: visible;
+        border: 0;
+        background: transparent;
+    }
+
+    .matrix-table-container table,
+    .matrix-table-container thead,
+    .matrix-table-container tbody,
+    .matrix-table-container th,
+    .matrix-table-container td,
+    .matrix-table-container tr,
+    table.pipeline-table,
+    table.pipeline-table thead,
+    table.pipeline-table tbody,
+    table.pipeline-table th,
+    table.pipeline-table td,
+    table.pipeline-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .matrix-table-container thead,
+    table.pipeline-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .matrix-table-container tbody,
+    table.pipeline-table tbody {
+        display: grid;
+        gap: 12px;
+    }
+
+    .matrix-table-container tr,
+    table.pipeline-table tr {
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: var(--surface-card);
+        overflow: hidden;
+    }
+
+    .matrix-table-container tr:hover td,
+    table.pipeline-table tr:hover td {
+        background: transparent;
+    }
+
+    .matrix-table-container td,
+    table.pipeline-table td {
+        display: grid;
+        grid-template-columns: minmax(92px, 34%) minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        padding: 13px 15px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-secondary);
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    .matrix-table-container td:last-child,
+    table.pipeline-table td:last-child {
+        border-bottom: none;
+    }
+
+    .matrix-table-container td::before,
+    table.pipeline-table td::before {
+        content: attr(data-label);
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        line-height: 1.45;
+        text-transform: uppercase;
+    }
+
+    td code,
+    .dependency-list code,
+    .executive-summary-box code,
+    .overview-text code,
+    .flow-content code,
+    .panel-desc code,
+    .tech-card code,
+    .note-card code,
+    .synthesis-gradient-box code,
+    .code-pill {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .viz-wrapper-card img,
+    .wheat-viz-card img,
+    .big-viz img,
+    .viz-display-grid.two .viz-wrapper-card.big-viz img,
+    .viz-display-grid.single-centered .viz-wrapper-card.big-viz img {
+        width: 100%;
+        height: auto;
+        max-height: 340px;
+        object-fit: contain;
+    }
+
+    .viz-meta-text {
+        min-height: auto;
+        padding: 13px;
+        font-size: 0.8rem;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+    }
+
+    .portfolio-footer-gate {
+        padding: 30px 16px;
+        margin-top: 26px;
+    }
+
+    .contact-icons {
+        width: 100%;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .icon-link {
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.025);
+        font-size: 1.1rem;
+    }
+
+    .editorial-credits {
+        margin-top: 20px;
+        padding: 0 18px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    .lightbox-overlay {
+        padding: 16px;
+    }
+
+    .lightbox-wrapper,
+    .lightbox-overlay img,
+    #lightboxImage {
+        max-width: 94vw;
+        max-height: 82vh;
+    }
+
+    .lightbox-close {
+        position: fixed;
+        top: 14px;
+        right: 16px;
+        z-index: 10001;
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 999px;
+        background: rgba(0,0,0,0.45);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 360px) {
+    .metrics-strip,
+    .metrics-strip.wheat-metrics,
+    .metrics-strip.wheat-metrics-six,
+    .kpi-grid,
+    .notebook-switcher,
+    .phase-metrics {
+        grid-template-columns: 1fr !important;
+    }
+
+    .matrix-table-container td,
+    table.pipeline-table td {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+}
