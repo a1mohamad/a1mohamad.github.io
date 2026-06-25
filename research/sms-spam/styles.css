@@ -1280,3 +1280,88 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
         margin-bottom: 6px;
     }
 }
+
+/* ===== SMS mobile compact sticky tabs + single-row contact footer ===== */
+@media (max-width: 760px) {
+    .notebook-switcher {
+        position: sticky !important;
+        top: 8px !important;
+        z-index: 80 !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: stretch;
+        gap: 8px !important;
+        width: 100%;
+        max-width: 100%;
+        max-height: none !important;
+        margin: 22px 0 16px;
+        padding: 8px !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        overscroll-behavior-x: contain;
+        overscroll-behavior-y: auto;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .notebook-switcher::-webkit-scrollbar {
+        display: none;
+    }
+
+    .notebook-tab,
+    .notebook-tab:last-child {
+        grid-column: auto !important;
+        flex: 0 0 auto !important;
+        width: auto !important;
+        min-width: max-content;
+        min-height: 46px;
+        padding: 11px 14px !important;
+        white-space: nowrap !important;
+        text-align: center;
+        line-height: 1.2;
+        scroll-snap-align: center;
+    }
+
+    .notebook-tab i {
+        margin-right: 6px;
+    }
+
+    .portfolio-footer-gate {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+    }
+
+    .contact-icons {
+        width: 100%;
+        max-width: 100%;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: center;
+        align-items: center;
+        gap: clamp(6px, 2vw, 12px) !important;
+    }
+
+    .icon-link {
+        flex: 0 0 clamp(36px, 10.5vw, 44px);
+        width: clamp(36px, 10.5vw, 44px) !important;
+        height: clamp(36px, 10.5vw, 44px) !important;
+        font-size: clamp(1rem, 4.5vw, 1.1rem);
+    }
+}
+
+@media (max-width: 340px) {
+    .notebook-switcher {
+        display: flex !important;
+        grid-template-columns: none !important;
+    }
+}
+
+@media (max-width: 760px) {
+    html,
+    body {
+        overflow-x: clip !important;
+    }
+}
+
