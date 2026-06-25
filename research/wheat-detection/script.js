@@ -1,4 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // ========== RESPONSIVE TABLE LABELS (used only by mobile CSS) ==========
+    document.querySelectorAll('table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(row => {
+            Array.from(row.children).forEach((cell, index) => {
+                if (headers[index]) cell.setAttribute('data-label', headers[index]);
+            });
+        });
+    });
+
     // ========== METRIC COUNTER (percentage, float, integer) ==========
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
@@ -170,7 +180,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (targetPanel) {
                 targetPanel.classList.add('active');
                 targetPanel.querySelectorAll('.section-collapsible.expanded').forEach(revealSectionChildren);
-                requestAnimationFrame(() => { refreshExpandedHeights(); window.dispatchEvent(new Event('resize')); });
+                requestAnimationFrame(() => {
+                    refreshExpandedHeights();
+                    window.dispatchEvent(new Event('resize'));
+                    if (window.matchMedia('(max-width: 760px)').matches) {
+                        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                        targetPanel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+                    }
+                });
             }
         });
     });
@@ -220,26 +237,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const highlightPythonCode = (code) => {
         const protectedParts = [];
-        let html = escapeHtml(code);
-
         const protect = (fragment) => {
-            const token = `@@CODETOKEN${protectedParts.length}@@`;
+            const token = String.fromCharCode(0xE000 + protectedParts.length);
             protectedParts.push(fragment);
             return token;
         };
+
+        let html = escapeHtml(code);
 
         html = html.replace(/(#[^\n]*)/g, (match) => protect(`<span class="code-comment">${match}</span>`));
         html = html.replace(/("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
             (match) => protect(`<span class="code-str">${match}</span>`)
         );
-        html = html.replace(/\b(\d+(?:\.\d+)?(?:e[-+]?\d+)?)\b/gi, '<span class="code-num">$1</span>');
-        html = html.replace(/\b(import|from|as|def|return|for|in|if|else|elif|with|while|lambda|True|False|None|class|try|except|finally|break|continue|and|or|not|is)\b/g,
-            '<span class="code-keyword">$1</span>'
+        html = html.replace(/\b([A-Za-z_]\w*)(?=\s*\()/g,
+            (match) => protect(`<span class="code-fn">${match}</span>`)
         );
-        html = html.replace(/\b([A-Za-z_]\w*)(?=\s*\()/g, '<span class="code-fn">$1</span>');
+        html = html.replace(/\b(import|from|as|def|return|for|in|if|else|elif|with|while|lambda|True|False|None|class|try|except|finally|break|continue|and|or|not|is)\b/g,
+            (match) => protect(`<span class="code-keyword">${match}</span>`)
+        );
+        html = html.replace(/\b(\d+(?:\.\d+)?(?:e[-+]?\d+)?)\b/gi,
+            (match) => protect(`<span class="code-num">${match}</span>`)
+        );
 
         protectedParts.forEach((fragment, index) => {
-            html = html.replace(`@@CODETOKEN${index}@@`, fragment);
+            html = html.replace(String.fromCharCode(0xE000 + index), fragment);
         });
         return html;
     };
