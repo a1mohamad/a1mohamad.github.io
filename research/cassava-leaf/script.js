@@ -80,8 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
             targetPanel?.classList.add('active');
             requestAnimationFrame(() => {
                 refreshVisibleSectionHeights();
-                if (window.matchMedia('(max-width: 760px)').matches && targetPanel) {
-                    targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (window.matchMedia('(max-width: 760px)').matches) {
+                    tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    if (targetPanel) {
+                        targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }
             });
         });
