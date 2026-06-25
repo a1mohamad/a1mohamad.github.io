@@ -1363,3 +1363,29 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
         font-size: 0.95rem;
     }
 }
+
+
+/* ===== Sticky mobile tab persistence hardening =====
+   Some mobile browsers were not keeping this project tab rail sticky.
+   This reinforces the sticky behavior without changing desktop layout. */
+@media (max-width: 760px) {
+    html,
+    body {
+        overflow-x: clip !important;
+    }
+
+    .main-layout,
+    .main-layout > * {
+        overflow: visible !important;
+    }
+
+    .notebook-switcher.box-office-switcher {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: calc(env(safe-area-inset-top, 0px) + 8px) !important;
+        z-index: 140 !important;
+        align-self: start;
+        transform: translateZ(0);
+        will-change: transform;
+    }
+}
