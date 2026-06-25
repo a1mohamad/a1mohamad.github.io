@@ -1,8 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // ========== RESPONSIVE TABLE LABELS (used by mobile CSS only) ==========
+    document.querySelectorAll('table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(row => {
+            Array.from(row.children).forEach((cell, index) => {
+                if (headers[index]) cell.setAttribute('data-label', headers[index]);
+            });
+        });
+    });
+
     // ========== METRIC COUNTER (percentage, float, integer) ==========
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
+        if (!targetEl || !block.hasAttribute('data-metric-target')) return;
         const type = block.getAttribute('data-metric-type');
         const targetVal = parseFloat(block.getAttribute('data-metric-target'));
         let initial = 0;
@@ -170,7 +181,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (targetPanel) {
                 targetPanel.classList.add('active');
                 targetPanel.querySelectorAll('.section-collapsible.expanded').forEach(revealSectionChildren);
-                requestAnimationFrame(() => { refreshExpandedHeights(); window.dispatchEvent(new Event('resize')); });
+                requestAnimationFrame(() => {
+                    refreshExpandedHeights();
+                    window.dispatchEvent(new Event('resize'));
+                    if (window.matchMedia('(max-width: 760px)').matches) {
+                        document.querySelector('.notebook-switcher')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
             }
         });
     });
@@ -219,28 +236,26 @@ document.addEventListener("DOMContentLoaded", () => {
         .replace(/>/g, '&gt;');
 
     const highlightPythonCode = (code) => {
-        const protectedParts = [];
-        let html = escapeHtml(code);
+        const tokenPattern = /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')|(#.*$)|\b(\d+(?:\.\d+)?(?:e[-+]?\d+)?)\b|\b(import|from|as|def|return|for|in|if|else|elif|with|while|lambda|True|False|None|class|try|except|finally|break|continue|and|or|not|is)\b|\b([A-Za-z_]\w*)(?=\s*\()/gmi;
+        let html = '';
+        let lastIndex = 0;
 
-        const protect = (fragment) => {
-            const token = `@@CODETOKEN${protectedParts.length}@@`;
-            protectedParts.push(fragment);
-            return token;
-        };
-
-        html = html.replace(/(#[^\n]*)/g, (match) => protect(`<span class="code-comment">${match}</span>`));
-        html = html.replace(/("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g,
-            (match) => protect(`<span class="code-str">${match}</span>`)
-        );
-        html = html.replace(/\b(\d+(?:\.\d+)?(?:e[-+]?\d+)?)\b/gi, '<span class="code-num">$1</span>');
-        html = html.replace(/\b(import|from|as|def|return|for|in|if|else|elif|with|while|lambda|True|False|None|class|try|except|finally|break|continue|and|or|not|is)\b/g,
-            '<span class="code-keyword">$1</span>'
-        );
-        html = html.replace(/\b([A-Za-z_]\w*)(?=\s*\()/g, '<span class="code-fn">$1</span>');
-
-        protectedParts.forEach((fragment, index) => {
-            html = html.replace(`@@CODETOKEN${index}@@`, fragment);
+        code.replace(tokenPattern, (match, stringToken, commentToken, numberToken, keywordToken, functionToken, offset) => {
+            html += escapeHtml(code.slice(lastIndex, offset));
+            const className = stringToken ? 'code-str'
+                : commentToken ? 'code-comment'
+                : numberToken ? 'code-num'
+                : keywordToken ? 'code-keyword'
+                : functionToken ? 'code-fn'
+                : '';
+            html += className
+                ? `<span class="${className}">${escapeHtml(match)}</span>`
+                : escapeHtml(match);
+            lastIndex = offset + match.length;
+            return match;
         });
+
+        html += escapeHtml(code.slice(lastIndex));
         return html;
     };
 
