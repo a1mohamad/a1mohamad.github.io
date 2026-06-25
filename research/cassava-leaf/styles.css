@@ -334,3 +334,641 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
     .metric-block { min-height: auto; }
     .metric-label { min-height: auto; }
 }
+
+/* ===== Mobile-only correction layer for Cassava Leaf Disease page =====
+   Desktop behavior above 760px is preserved. These overrides only target
+   phone-sized screens to remove overflow and improve reading density. ===== */
+@media (max-width: 760px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body * {
+        min-width: 0;
+    }
+
+    img,
+    svg,
+    video,
+    canvas,
+    iframe {
+        max-width: 100%;
+    }
+
+    .hero-section,
+    .main-layout {
+        width: 100%;
+        max-width: 100%;
+        padding-left: clamp(16px, 5vw, 22px);
+        padding-right: clamp(16px, 5vw, 22px);
+    }
+
+    .hero-section {
+        padding-top: 52px;
+        padding-bottom: 30px;
+        overflow: visible;
+    }
+
+    .hero-accent-blur {
+        left: 50%;
+        width: 88vw;
+        max-width: 380px;
+        height: 220px;
+        filter: blur(28px);
+    }
+
+    .hero-meta {
+        max-width: 100%;
+        font-size: 0.68rem;
+        line-height: 1.8;
+        letter-spacing: 0.12em;
+        overflow-wrap: anywhere;
+    }
+
+    h1 {
+        max-width: 100%;
+        font-size: clamp(2.05rem, 10vw, 2.85rem);
+        line-height: 1.12;
+        letter-spacing: -0.035em;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-subtitle,
+    .overview-text,
+    .overview-text p,
+    .panel-desc,
+    .theory-explanation,
+    .executive-summary-box,
+    .synthesis-gradient-box,
+    .note-card span,
+    .dependency-row span {
+        max-width: 100%;
+        font-size: 0.96rem;
+        line-height: 1.72;
+        overflow-wrap: anywhere;
+    }
+
+    .btn-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .btn-modern-primary,
+    .btn-modern-secondary {
+        width: 100%;
+        min-height: 56px;
+        justify-content: center;
+        padding: 14px 18px;
+        font-size: 0.98rem;
+        text-align: center;
+    }
+
+    .metrics-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+        padding: 18px 0;
+        margin-bottom: 24px;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .metric-block,
+    .metric-block:first-child,
+    .metric-block:last-child {
+        min-height: auto;
+        padding: 16px;
+        border: 1px solid var(--border) !important;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.025);
+    }
+
+    .metric-label {
+        min-height: auto;
+        margin-bottom: 12px;
+        font-size: 0.64rem;
+        line-height: 1.35;
+        letter-spacing: 0.08em;
+        align-items: flex-start;
+    }
+
+    .metric-value {
+        margin-top: 0;
+        font-size: clamp(1.35rem, 8vw, 2rem);
+        line-height: 1.05;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .notebook-switcher {
+        position: sticky !important;
+        top: 8px !important;
+        z-index: 90 !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8px;
+        margin: 22px 0 16px;
+        padding: 8px;
+        border-radius: 16px;
+        max-height: min(38vh, 280px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .notebook-tab {
+        min-height: 46px;
+        padding: 11px 10px;
+        font-size: 0.78rem;
+        line-height: 1.25;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .notebook-tab i {
+        margin-right: 5px;
+    }
+
+    .section {
+        padding: 30px 0;
+        scroll-margin-top: 14px;
+    }
+
+    .accordion-guide {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        margin-top: 20px;
+    }
+
+    .accordion-guide-hint {
+        font-size: 0.82rem;
+        line-height: 1.55;
+    }
+
+    .section-header {
+        grid-template-columns: minmax(0, 1fr) 54px;
+        gap: 10px;
+        padding: 16px 0 16px 16px;
+        border-radius: 14px;
+    }
+
+    .section-header::before {
+        top: 16px;
+        bottom: 16px;
+    }
+
+    .panel-header-content {
+        min-width: 0;
+    }
+
+    .panel-tag {
+        font-size: 0.66rem;
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+        overflow-wrap: anywhere;
+    }
+
+    .panel-header-content h2,
+    h2 {
+        font-size: clamp(1.35rem, 7vw, 2rem);
+        line-height: 1.16;
+        overflow-wrap: anywhere;
+    }
+
+    .section-header .chevron {
+        width: 54px;
+        height: 32px;
+        margin-right: 0;
+        justify-self: end;
+    }
+
+    .section-header .chevron::before {
+        width: 24px;
+        height: 24px;
+    }
+
+    .section.expanded .section-header .chevron::before {
+        transform: translateX(22px);
+    }
+
+    .section-header .chevron::after {
+        right: 7px;
+        font-size: 0.48rem;
+    }
+
+    .section.expanded .section-header .chevron::after {
+        left: 8px;
+    }
+
+    .section-body-inner {
+        padding-top: 18px;
+    }
+
+    .theory-split,
+    .note-grid,
+    .tech-grid,
+    .implementation-grid,
+    .viz-display-grid,
+    .inference-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+
+    .inference-card,
+    .inference-card:nth-child(4),
+    .inference-card:nth-child(5) {
+        grid-column: auto !important;
+    }
+
+    .theory-block,
+    .note-card,
+    .terminal-panel,
+    .matrix-table-container,
+    .executive-summary-box,
+    .synthesis-gradient-box,
+    .viz-wrapper-card,
+    .kpi-card {
+        max-width: 100%;
+        border-radius: 13px;
+    }
+
+    .theory-block,
+    .note-card,
+    .kpi-card {
+        padding: 20px;
+    }
+
+    .theory-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .theory-title,
+    .note-card strong,
+    .dependency-row strong,
+    .flow-content strong,
+    .insight-model-identity strong {
+        overflow-wrap: anywhere;
+    }
+
+    .theory-badge,
+    .taxonomy-tag {
+        max-width: 100%;
+        white-space: normal;
+        line-height: 1.35;
+    }
+
+    .theory-math-container {
+        max-width: 100%;
+        min-height: auto;
+        padding: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: normal;
+        font-size: 0.78rem;
+        line-height: 1.65;
+    }
+
+    .theory-math-container code {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .dependency-row {
+        gap: 12px;
+        padding: 14px 0;
+    }
+
+    .dep-icon {
+        flex: 0 0 22px;
+        width: 22px;
+        font-size: 1rem;
+    }
+
+    .timeline-flow {
+        padding-left: 20px;
+    }
+
+    .flow-node {
+        padding-bottom: 20px;
+    }
+
+    .flow-dot {
+        left: -20px;
+        top: 9px;
+    }
+
+    .flow-node::before {
+        left: -16px;
+        top: 21px;
+    }
+
+    .flow-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .flow-step {
+        font-size: 0.76rem;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+        margin: 20px 0;
+    }
+
+    .kpi-card {
+        min-height: 112px;
+        justify-content: space-between;
+    }
+
+    .kpi-label {
+        min-height: auto;
+        font-size: 0.61rem;
+        line-height: 1.35;
+    }
+
+    .kpi-value {
+        font-size: clamp(1.12rem, 6vw, 1.55rem);
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .engine-insights-stack {
+        gap: 12px;
+    }
+
+    .insight-row {
+        grid-template-columns: 1fr !important;
+        gap: 14px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: rgba(255,255,255,0.02);
+    }
+
+    .insight-left-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .insight-rank-index {
+        width: auto;
+        min-width: auto;
+        flex: 0 0 auto;
+    }
+
+    .insight-score-metrics {
+        width: 100%;
+        min-width: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .insight-score-item {
+        min-width: 0;
+        align-items: flex-start;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.025);
+    }
+
+    .insight-score-label {
+        min-height: auto;
+        font-size: 0.61rem;
+        line-height: 1.35;
+    }
+
+    .insight-score-value {
+        font-size: 0.98rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .terminal-header {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .terminal-title {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .terminal-body {
+        padding: 18px 16px;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: visible;
+    }
+
+    .terminal-body pre {
+        margin: 0;
+        min-width: 0 !important;
+        max-width: 100%;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        font-size: 0.76rem;
+        line-height: 1.72;
+    }
+
+    .matrix-table-container {
+        overflow: visible;
+        border: 0;
+        background: transparent;
+    }
+
+    .matrix-table-container table,
+    .matrix-table-container thead,
+    .matrix-table-container tbody,
+    .matrix-table-container th,
+    .matrix-table-container td,
+    .matrix-table-container tr {
+        display: block;
+        width: 100%;
+    }
+
+    .matrix-table-container thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    .matrix-table-container tbody {
+        display: grid;
+        gap: 12px;
+    }
+
+    .matrix-table-container tr {
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: var(--surface-card);
+        overflow: hidden;
+    }
+
+    .matrix-table-container tr:hover td {
+        background: transparent;
+    }
+
+    .matrix-table-container td {
+        display: grid;
+        grid-template-columns: minmax(92px, 34%) minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        padding: 13px 15px;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-secondary);
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    .matrix-table-container td:last-child {
+        border-bottom: none;
+    }
+
+    .matrix-table-container td::before {
+        content: attr(data-label);
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.64rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.45;
+        text-transform: uppercase;
+    }
+
+    td code,
+    .overview-text code,
+    .panel-desc code,
+    .note-card code,
+    .flow-content code,
+    .executive-summary-box code,
+    .synthesis-gradient-box code,
+    .terminal-body code {
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .viz-display-grid,
+    .inference-grid {
+        align-items: start;
+    }
+
+    .viz-wrapper-card img,
+    .inference-card img {
+        width: 100%;
+        max-height: 360px;
+        object-fit: contain;
+    }
+
+    .viz-meta-text {
+        min-height: auto;
+        padding: 13px 14px;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+    }
+
+    .lightbox-overlay {
+        padding: 16px;
+    }
+
+    .lightbox-wrapper {
+        max-width: 96vw;
+        max-height: 86vh;
+    }
+
+    .lightbox-wrapper img {
+        max-width: 96vw;
+        max-height: 82vh;
+        object-fit: contain;
+    }
+
+    .lightbox-close {
+        top: -36px;
+        right: 4px;
+    }
+
+    .executive-summary-box,
+    .synthesis-gradient-box {
+        padding: 22px;
+        border-left-width: 3px;
+        background: rgba(255,255,255,0.018);
+        border-radius: 14px;
+        border-top: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .synthesis-gradient-box ul {
+        padding-left: 18px;
+        color: var(--text-secondary);
+    }
+
+    .portfolio-footer-gate {
+        padding: 30px 16px;
+        margin-top: 26px;
+    }
+
+    .contact-icons {
+        width: 100%;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .icon-link {
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.025);
+        font-size: 1.1rem;
+    }
+
+    .editorial-credits {
+        margin: 18px 0 28px;
+        padding: 0 18px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 380px) {
+    .kpi-grid,
+    .insight-score-metrics {
+        grid-template-columns: 1fr !important;
+    }
+
+    .matrix-table-container td {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 340px) {
+    .metrics-strip,
+    .notebook-switcher {
+        grid-template-columns: 1fr !important;
+    }
+}
