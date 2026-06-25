@@ -172,12 +172,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
+    const centerActiveBerlinTabOnMobile = (tab) => {
+        if (!tab || !window.matchMedia('(max-width: 760px)').matches) return;
+        const switcher = tab.closest('.notebook-switcher.legacy-switcher') || tab.closest('.notebook-switcher');
+        if (!switcher) return;
+        requestAnimationFrame(() => {
+            const targetLeft = tab.offsetLeft - (switcher.clientWidth - tab.offsetWidth) / 2;
+            switcher.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+        });
+    };
+
     notebookTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const targetId = tab.dataset.target;
             notebookTabs.forEach(item => item.classList.remove('active'));
             notebookPanels.forEach(panel => panel.classList.remove('active'));
             tab.classList.add('active');
+            centerActiveBerlinTabOnMobile(tab);
             const targetPanel = document.getElementById(targetId);
             if (targetPanel) {
                 targetPanel.classList.add('active');
@@ -193,6 +204,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    const initialActiveBerlinTab = document.querySelector('.notebook-switcher.legacy-switcher .notebook-tab.active');
+    if (initialActiveBerlinTab) {
+        centerActiveBerlinTabOnMobile(initialActiveBerlinTab);
+    }
 
     // ========== SECTION REVEAL FOR DIVIDER ANIMATION ==========
     const revealObserver = new IntersectionObserver((entries) => {
