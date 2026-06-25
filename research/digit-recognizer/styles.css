@@ -775,3 +775,57 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
         font-size: 0.92rem;
     }
 }
+
+/* ===== Final mobile section toggle alignment =====
+   Keep the ON/OFF control on the right and vertically centered inside each
+   section header on phones. */
+@media (max-width: 760px) {
+    .section-header {
+        grid-template-columns: minmax(0, 1fr) 56px !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding-right: 0 !important;
+    }
+
+    .section-header .chevron {
+        justify-self: end !important;
+        align-self: center !important;
+        margin-top: 0 !important;
+        width: 56px !important;
+        height: 34px !important;
+        flex: 0 0 56px !important;
+    }
+}
+
+@media (max-width: 380px) {
+    .section-header {
+        grid-template-columns: minmax(0, 1fr) 48px !important;
+        align-items: center !important;
+    }
+
+    .section-header .chevron {
+        justify-self: end !important;
+        align-self: center !important;
+        width: 48px !important;
+        height: 30px !important;
+        flex-basis: 48px !important;
+    }
+
+    .section-header .chevron::before {
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    .section.expanded .section-header .chevron::before {
+        transform: translateX(18px) !important;
+    }
+
+    .section-header .chevron::after {
+        right: 6px !important;
+        font-size: 0.46rem !important;
+    }
+
+    .section.expanded .section-header .chevron::after {
+        left: 7px !important;
+    }
+}
