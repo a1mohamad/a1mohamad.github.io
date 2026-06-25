@@ -576,3 +576,728 @@ td code { font-family: var(--font-mono); color: var(--accent); font-size: 0.85re
         top: 8px !important;
     }
 }
+
+
+/* ===== Berlin legacy page mobile responsive correction layer ===== */
+@media (max-width: 760px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        padding-bottom: 36px;
+    }
+
+    .hero-section {
+        width: 100%;
+        max-width: 100%;
+        padding: 52px 18px 26px;
+        overflow: hidden;
+    }
+
+    .hero-accent-blur {
+        width: 340px;
+        max-width: 92vw;
+        height: 190px;
+        opacity: 0.9;
+    }
+
+    .hero-meta {
+        font-size: 0.68rem;
+        letter-spacing: 1.7px;
+        line-height: 1.55;
+        margin-bottom: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    h1 {
+        max-width: 100%;
+        font-size: clamp(2.02rem, 10.6vw, 2.65rem);
+        line-height: 1.08;
+        letter-spacing: -0.055em;
+        margin-bottom: 16px;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-subtitle {
+        max-width: 100%;
+        font-size: 0.98rem;
+        line-height: 1.68;
+        margin-bottom: 24px;
+    }
+
+    .btn-group {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .btn-modern-primary,
+    .btn-modern-secondary {
+        width: 100%;
+        justify-content: center;
+        min-height: 54px;
+        padding: 13px 16px;
+        font-size: 0.96rem;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .btn-modern-primary i,
+    .btn-modern-secondary i {
+        font-size: 1.28rem;
+        flex: 0 0 auto;
+    }
+
+    .main-layout {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 16px;
+        overflow: hidden;
+    }
+
+    .metrics-strip,
+    .metrics-strip.wheat-metrics,
+    .metrics-strip.wheat-metrics-six,
+    .metrics-strip.legacy-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+        padding: 18px 0 10px;
+        align-items: stretch;
+    }
+
+    .metrics-strip.wheat-metrics-six .metric-block,
+    .metric-block {
+        min-width: 0;
+        min-height: 104px;
+        justify-content: space-between;
+        padding: 16px 14px !important;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.022);
+    }
+
+    .metrics-strip.wheat-metrics-six .metric-label,
+    .metric-label {
+        min-height: 34px;
+        align-items: flex-start;
+        font-size: 0.62rem;
+        line-height: 1.35;
+        letter-spacing: 0.9px;
+        margin-bottom: 10px;
+    }
+
+    .metrics-strip.wheat-metrics-six .metric-value,
+    .metric-value {
+        font-size: clamp(1.42rem, 8vw, 2rem);
+        line-height: 1;
+        margin-top: auto;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .notebook-switcher,
+    .notebook-switcher.legacy-switcher {
+        position: sticky !important;
+        top: 8px !important;
+        z-index: 90 !important;
+        grid-template-columns: 1fr !important;
+        gap: 9px;
+        margin: 22px 0 16px;
+        padding: 9px;
+        border-radius: 16px;
+        background: rgba(12, 13, 20, 0.92) !important;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+    }
+
+    .notebook-tab {
+        width: 100%;
+        min-height: 48px;
+        padding: 11px 12px;
+        font-size: 0.88rem;
+        line-height: 1.25;
+        border-radius: 12px;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .notebook-tab i {
+        margin-right: 7px;
+    }
+
+    .notebook-panel,
+    .notebook-panel.active {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .section {
+        width: 100%;
+        max-width: 100%;
+        padding: 30px 0;
+        scroll-margin-top: 190px;
+    }
+
+    .accordion-guide {
+        gap: 7px;
+        margin: 20px 0 2px;
+        padding: 13px 14px;
+        border-radius: 15px;
+    }
+
+    .accordion-guide-main {
+        font-size: 0.62rem;
+        letter-spacing: 1px;
+        line-height: 1.45;
+    }
+
+    .accordion-guide-hint {
+        font-size: 0.78rem;
+        line-height: 1.5;
+    }
+
+    .section-header {
+        grid-template-columns: minmax(0, 1fr) 54px;
+        gap: 10px;
+        align-items: start;
+        padding: 16px 0 16px 16px;
+        border-radius: 15px;
+    }
+
+    .section-header::before {
+        top: 16px;
+        bottom: 16px;
+    }
+
+    .panel-header-content {
+        min-width: 0;
+    }
+
+    .panel-tag {
+        font-size: 0.62rem;
+        letter-spacing: 1.4px;
+        line-height: 1.45;
+        margin-bottom: 8px;
+        overflow-wrap: anywhere;
+    }
+
+    h2 {
+        font-size: clamp(1.34rem, 6.5vw, 1.76rem);
+        line-height: 1.18;
+        margin-bottom: 8px;
+        overflow-wrap: anywhere;
+    }
+
+    .panel-desc {
+        font-size: 0.88rem;
+        line-height: 1.58;
+    }
+
+    .section-header .chevron {
+        width: 50px;
+        height: 31px;
+        margin-top: 4px;
+    }
+
+    .section-header .chevron::before {
+        width: 23px;
+        height: 23px;
+    }
+
+    .section.expanded .section-header .chevron::before {
+        transform: translateX(19px);
+    }
+
+    .section-header .chevron::after {
+        right: 7px;
+        font-size: 0.47rem;
+    }
+
+    .section.expanded .section-header .chevron::after {
+        left: 8px;
+    }
+
+    .section-body-inner {
+        padding-top: 18px;
+        padding-bottom: 6px;
+    }
+
+    .overview-text,
+    .overview-text p,
+    .executive-summary-box,
+    .synthesis-gradient-box,
+    .theory-explanation,
+    .flow-content span,
+    .dependency-row span,
+    .note-card span,
+    .tech-card p,
+    .tech-card li {
+        font-size: 0.88rem;
+        line-height: 1.68;
+    }
+
+    .overview-text,
+    .synthesis-gradient-box,
+    .executive-summary-box,
+    .theory-block,
+    .note-card,
+    .tech-card,
+    .terminal-panel,
+    .matrix-table-container,
+    .viz-wrapper-card {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .note-grid,
+    .kpi-grid,
+    .theory-split,
+    .tech-grid,
+    .implementation-grid,
+    .viz-display-grid,
+    .viz-display-grid.two,
+    .viz-display-grid.three,
+    .viz-display-grid.two-card-row,
+    .viz-display-grid.single-centered,
+    .inference-grid,
+    .wheat-viz-grid,
+    .inference-three-grid {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .note-grid {
+        margin-top: 18px;
+    }
+
+    .note-card,
+    .tech-card,
+    .theory-block,
+    .kpi-card {
+        padding: 18px;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .theory-card-header {
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 14px;
+    }
+
+    .theory-title {
+        font-size: 1.02rem;
+        line-height: 1.35;
+    }
+
+    .theory-badge,
+    .tech-badge {
+        font-size: 0.6rem;
+        line-height: 1.2;
+    }
+
+    .theory-math-container {
+        max-width: 100%;
+        padding: 14px;
+        margin-bottom: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .theory-math-container code,
+    .overview-text code,
+    .flow-content code,
+    .panel-desc code,
+    .executive-summary-box code,
+    .synthesis-gradient-box code,
+    td code {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .kpi-card {
+        min-height: 98px;
+    }
+
+    .kpi-label {
+        min-height: auto;
+        font-size: 0.6rem;
+        line-height: 1.35;
+    }
+
+    .kpi-value {
+        font-size: 1.45rem;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .dependency-list {
+        gap: 0;
+    }
+
+    .dependency-row {
+        gap: 12px;
+        padding: 14px 0;
+    }
+
+    .dep-icon {
+        width: 24px;
+        min-width: 24px;
+        font-size: 1rem;
+    }
+
+    .dependency-row strong {
+        font-size: 0.98rem;
+        line-height: 1.35;
+    }
+
+    .timeline-flow {
+        padding-left: 22px;
+    }
+
+    .flow-node {
+        gap: 12px;
+        padding-bottom: 22px;
+    }
+
+    .flow-dot {
+        left: -22px;
+    }
+
+    .flow-node::before {
+        left: -18px;
+    }
+
+    .flow-content {
+        min-width: 0;
+        gap: 11px;
+    }
+
+    .flow-step {
+        min-width: 22px;
+        font-size: 0.74rem;
+    }
+
+    .flow-content strong {
+        font-size: 0.96rem;
+        line-height: 1.35;
+    }
+
+    .phase-stack {
+        gap: 12px;
+    }
+
+    .phase-row {
+        grid-template-columns: 1fr !important;
+        gap: 12px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.018);
+    }
+
+    .phase-index {
+        white-space: normal;
+        font-size: 0.78rem;
+    }
+
+    .phase-metrics {
+        width: 100%;
+        max-width: none;
+        grid-template-columns: 1fr !important;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .phase-metric-label {
+        min-height: auto;
+    }
+
+    .phase-metric-value {
+        font-size: 1.05rem;
+        white-space: normal;
+    }
+
+    .matrix-table-container {
+        overflow: visible;
+        border-radius: 14px;
+        background: transparent;
+        border: 0;
+    }
+
+    .matrix-table-container table,
+    table {
+        display: block;
+        width: 100%;
+    }
+
+    .matrix-table-container thead,
+    table thead {
+        display: none;
+    }
+
+    .matrix-table-container tbody,
+    .matrix-table-container tr,
+    .matrix-table-container td,
+    table tbody,
+    table tr,
+    table td {
+        display: block;
+        width: 100%;
+    }
+
+    .matrix-table-container tr,
+    table tr {
+        margin-bottom: 12px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--surface-card);
+        overflow: hidden;
+    }
+
+    .matrix-table-container td,
+    table td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.84rem;
+        line-height: 1.58;
+        overflow-wrap: anywhere;
+    }
+
+    .matrix-table-container td:last-child,
+    table td:last-child {
+        border-bottom: none;
+    }
+
+    .matrix-table-container td::before,
+    table td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 5px;
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        line-height: 1.35;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+        color: var(--text-muted);
+    }
+
+    .pipeline-table td:nth-child(1),
+    .pipeline-table td:nth-child(2),
+    .compact-param-table td:nth-child(1),
+    .compact-param-table td:nth-child(2) {
+        width: auto;
+    }
+
+    .terminal-panel {
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .terminal-header {
+        padding: 12px 14px;
+        gap: 10px;
+    }
+
+    .terminal-title {
+        max-width: 68%;
+        font-size: 0.65rem;
+        line-height: 1.35;
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+
+    .terminal-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .terminal-body,
+    .terminal-panel .terminal-body,
+    .terminal-panel.implementation-code .terminal-body.compact-code {
+        max-width: 100%;
+        padding: 15px 14px !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        -webkit-overflow-scrolling: touch;
+        font-size: 0.72rem;
+        line-height: 1.62;
+    }
+
+    .terminal-body pre,
+    .terminal-panel .terminal-body pre,
+    .terminal-panel.implementation-code .terminal-body.compact-code pre,
+    .terminal-body.code-mini pre {
+        min-width: 0 !important;
+        max-width: 100%;
+        margin: 0;
+        white-space: pre-wrap !important;
+        overflow-wrap: anywhere !important;
+        word-break: break-word !important;
+        font-size: 0.72rem;
+        line-height: 1.62;
+    }
+
+    .viz-display-grid,
+    .viz-display-grid.two-card-row,
+    .viz-display-grid.single-centered {
+        justify-content: stretch;
+        align-items: start;
+    }
+
+    .viz-wrapper-card {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 14px;
+    }
+
+    .viz-wrapper-card:hover {
+        transform: none;
+    }
+
+    .viz-wrapper-card img,
+    .big-viz img,
+    .wheat-viz-card img,
+    .inference-card img {
+        width: 100%;
+        max-width: 100%;
+        max-height: 320px;
+        object-fit: contain;
+    }
+
+    .viz-meta-text {
+        padding: 12px 14px;
+        font-size: 0.78rem;
+        line-height: 1.45;
+    }
+
+    .executive-summary-box {
+        padding: 14px 0 14px 16px;
+    }
+
+    .synthesis-gradient-box {
+        padding: 18px 0 18px 16px;
+    }
+
+    .synthesis-gradient-box ul {
+        padding-left: 18px;
+    }
+
+    .portfolio-footer-gate {
+        margin-top: 28px;
+        padding: 28px 0;
+    }
+
+    .contact-icons {
+        width: 100%;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .icon-link {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.025);
+        font-size: 1.05rem;
+    }
+
+    .editorial-credits {
+        padding: 0 18px;
+        font-size: 0.68rem;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    .lightbox-overlay {
+        padding: 12px;
+    }
+
+    .lightbox-wrapper {
+        max-width: 100%;
+        max-height: 86vh;
+    }
+
+    .lightbox-wrapper img {
+        max-width: 100%;
+        max-height: 82vh;
+        object-fit: contain;
+    }
+
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+        z-index: 2;
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.58);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-section {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .main-layout {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .metrics-strip,
+    .metrics-strip.wheat-metrics,
+    .metrics-strip.wheat-metrics-six,
+    .metrics-strip.legacy-metrics {
+        grid-template-columns: 1fr !important;
+    }
+
+    .metric-block {
+        min-height: 92px;
+    }
+
+    .section-header {
+        grid-template-columns: minmax(0, 1fr) 48px;
+        padding-left: 13px;
+    }
+
+    .section-header .chevron {
+        width: 46px;
+        height: 30px;
+    }
+
+    .section.expanded .section-header .chevron::before {
+        transform: translateX(17px);
+    }
+
+    .terminal-body,
+    .terminal-body pre,
+    .terminal-panel.implementation-code .terminal-body.compact-code pre {
+        font-size: 0.68rem;
+    }
+
+    .contact-icons {
+        gap: 14px;
+    }
+
+    .icon-link {
+        width: 38px;
+        height: 38px;
+    }
+}
