@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // ========== METRIC COUNTER (supports integer, decimal, percentage) ==========
+    // ========== METRIC COUNTER (supports float, integer, percentage) ==========
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (currentStep < steps) {
                 if (type === 'percentage') {
                     targetEl.innerText = initial.toFixed(2) + '%';
-                } else if (type === 'decimal') {
-                    targetEl.innerText = initial.toFixed(3);
+                } else if (type === 'float') {
+                    targetEl.innerText = initial.toFixed(4);
                 } else {
                     targetEl.innerText = Math.floor(initial);
                 }
@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 if (type === 'percentage') {
                     targetEl.innerText = targetVal.toFixed(2) + '%';
-                } else if (type === 'decimal') {
-                    targetEl.innerText = targetVal.toFixed(3);
+                } else if (type === 'float') {
+                    targetEl.innerText = targetVal.toFixed(4);
                 } else {
                     targetEl.innerText = targetVal;
                 }
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.section').forEach(section => revealObserver.observe(section));
 
-    // ========== LIGHTBOX (from original) ==========
+    // ========== LIGHTBOX FUNCTIONALITY ==========
     const overlay = document.getElementById('lightboxOverlay');
     const lightboxImg = document.getElementById('lightboxImage');
     const closeBtn = document.getElementById('lightboxClose');
@@ -179,4 +179,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+});
+
+
+// ========== RESPONSIVE TABLE LABELS (mobile CSS only) ==========
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.matrix-table-container table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(row => {
+            Array.from(row.children).forEach((cell, index) => {
+                if (headers[index]) cell.setAttribute('data-label', headers[index]);
+            });
+        });
+    });
 });
