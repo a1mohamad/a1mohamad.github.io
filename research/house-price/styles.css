@@ -1,506 +1,331 @@
-:root {
-    --bg: #050508;
-    --surface: #0c0d14;
-    --surface-card: #121420;
-    --border: rgba(255, 255, 255, 0.06);
-    --border-hover: rgba(255, 255, 255, 0.12);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --accent: #6366f1;
-    --accent-glow: rgba(99, 102, 241, 0.15);
-    --champion: #10b981;
-    --champion-glow: rgba(16, 185, 129, 0.1);
-    --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction | ML Regression Suite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">Regression Intelligence · Real Estate Analytics</div>
+    <h1>House Price Prediction Engine<br>Multi‑Model Comparative Regression Suite</h1>
+    <div class="hero-subtitle">Evaluating SVR, Random Forest & Linear Regression on a 13‑dimensional feature space to forecast residential sale prices.</div>
+    <div class="btn-group">
+        <a href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/House%20Price%20Prediction" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
+    </div>
+</div>
 
-body { 
-    background-color: var(--bg); 
-    color: var(--text-primary); 
-    font-family: var(--font-sans); 
-    line-height: 1.7; 
-    -webkit-font-smoothing: antialiased;
-    padding-bottom: 60px;
-}
+<div class="main-layout">
+    <!-- Metric strip with MAE scores (lower is better) -->
+    <div class="metrics-strip">
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.1841"><div class="metric-label">SVR (MAE)</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.1860"><div class="metric-label">Random Forest (MAE)</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.1895"><div class="metric-label">Linear Regression (MAE)</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-type="float" data-metric-target="0.1895"><div class="metric-label">CatBoost (MAE)</div><div class="metric-value">0</div></div>
+    </div>
 
-#scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 2px;
-    background: var(--accent);
-    z-index: 9999;
-    transition: width 0.1s linear;
-    width: 0%;
-}
+    <!-- Project Overview (expanded) -->
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Regression Blueprint</span>
+                <h2>Project Overview</h2>
+                <p class="panel-desc">End‑to‑end pipeline for predicting house sale prices using structured property attributes.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>This project implements a complete regression pipeline on a residential dataset (2919 records, 13 features). After exploratory data analysis (correlation heatmap, categorical distribution plots), the pipeline performs data cleaning (drop <code>Id</code>, impute missing <code>SalePrice</code> with mean, drop remaining null rows). Categorical variables are one‑hot encoded, then three regression models — Support Vector Regressor (SVR), Random Forest Regressor, and Linear Regression — are trained and evaluated. The primary metric is Mean Absolute Error (MAE). SVR achieves the lowest error (≈0.184), indicating superior generalisation. An optional CatBoost model is also explored.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.hero-section {
-    max-width: 1200px; margin: 0 auto; padding: 80px 40px 40px 40px; position: relative;
-}
-.hero-accent-blur {
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 600px; height: 250px;
-    background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, rgba(0,0,0,0) 70%);
-    z-index: -1; pointer-events: none;
-}
-.hero-meta {
-    font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase;
-    letter-spacing: 3px; color: var(--accent); margin-bottom: 20px; font-weight: 600;
-}
-h1 {
-    font-size: 3.5rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.04em;
-    margin-bottom: 20px; max-width: 900px;
-    background: linear-gradient(180deg, #ffffff 0%, #a5b4fc 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.hero-subtitle {
-    font-size: 1.25rem; color: var(--text-secondary); max-width: 700px;
-    font-weight: 400; margin-bottom: 32px;
-}
-.btn-group { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-.btn-modern-primary {
-    display: inline-flex; align-items: center; gap: 12px;
-    background: var(--text-primary); color: var(--bg);
-    padding: 16px 32px;
-    border-radius: 8px; text-decoration: none;
-    font-weight: 600; font-size: 1.05rem;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.btn-modern-primary i { font-size: 1.8rem; }
-.btn-modern-primary:hover {
-    transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 255, 255, 0.1);
-    background: #ffffff;
-}
-.main-layout { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    <!-- Dependencies -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Infrastructure</span>
+                <h2>Core Pipeline Dependencies</h2>
+                <p class="panel-desc">Essential libraries for data manipulation, modelling and evaluation.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas & NumPy</strong><span>Data loading, cleaning, null handling, and numeric transformations.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Scikit‑Learn</strong><span>OneHotEncoder, train_test_split, SVR, RandomForestRegressor, LinearRegression, metrics (mean_absolute_error, r2_score).</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib & Seaborn</strong><span>Correlation heatmap, categorical variable bar plots, distribution analysis.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-simple dep-icon"></i><div><strong>CatBoost (optional)</strong><span>Gradient boosting library for advanced benchmarking (MAE ~0.1895).</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.section { position: relative; padding: 50px 0; border-bottom: none; }
-.section::after {
-    content: ""; position: absolute; bottom: 0; left: 0;
-    width: 0%; height: 1px; background: var(--border);
-    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.section.revealed::after { width: 100%; }
+    <!-- System Architecture -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Workflow Blueprint</span>
+                <h2>System Architecture Overview</h2>
+                <p class="panel-desc">From raw property data to price prediction — a five‑stage computational graph.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Data Ingestion & Cleaning</strong><span>Load Excel file, drop `Id`, impute missing `SalePrice` with mean, drop remaining NaN rows (if any).</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Exploratory Data Analysis</strong><span>Generate correlation heatmap (numerical features) and distribution bar plots for categorical variables.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>One‑Hot Encoding</strong><span>Transform categorical columns (MSZoning, LotConfig, BldgType, Exterior1st) into binary vectors.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Train / Test Split</strong><span>70% training, 30% testing (random_state=40).</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Model Training & Evaluation</strong><span>Train SVR, RandomForest, LinearRegression; compute MAE and R². Champion: SVR (lowest MAE). Optional CatBoost provides gradient boosting baseline.</span></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.section-collapsible {
-    position: relative;
-    display: block;
-}
+    <!-- Mathematical Mechanics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Mathematical Mechanics</span>
+                <h2>Advanced Regression Theory</h2>
+                <p class="panel-desc">Core formulations of the three regression algorithms plus CatBoost.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Support Vector Regression (SVR)</div><span class="theory-badge">ε‑insensitive</span></div><div class="theory-explanation">Finds a function $f(x) = \langle w, x \rangle + b$ that deviates from actual targets by at most $\varepsilon$ while remaining as flat as possible. Soft margin allows slack variables $\xi_i, \xi_i^*$:</div><div class="theory-math-container">$$\min_{w,b,\xi,\xi^*} \frac{1}{2}\|w\|^2 + C\sum_{i=1}^{N}(\xi_i + \xi_i^*)$$<br>s.t. $y_i - \langle w, x_i \rangle - b \le \varepsilon + \xi_i$, $\langle w, x_i \rangle + b - y_i \le \varepsilon + \xi_i^*$, $\xi_i,\xi_i^* \ge 0$.</div><div class="theory-explanation">RBF kernel maps features to higher dimension for non‑linear relationships.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Random Forest Regressor</div><span class="theory-badge champion-badge">Ensemble</span></div><div class="theory-explanation">Builds $B$ decorrelated decision trees on bootstrap samples, averages predictions:</div><div class="theory-math-container">$$\hat{y} = \frac{1}{B}\sum_{b=1}^{B} h_b(x)$$</div><div class="theory-explanation">Each tree splits on random feature subsets, reducing variance while preserving low bias.</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Linear Regression</div><span class="theory-badge">Parametric</span></div><div class="theory-explanation">Models relationship as linear combination of features: $\hat{y} = \beta_0 + \beta_1 x_1 + \dots + \beta_p x_p$. Minimises residual sum of squares:</div><div class="theory-math-container">$$\min_{\beta} \sum_{i=1}^{N} (y_i - \hat{y}_i)^2$$</div></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">CatBoost (Optional)</div><span class="theory-badge">Gradient Boosting</span></div><div class="theory-explanation">Gradient boosting on decision trees with categorical feature handling. Uses symmetric trees and ordered boosting to reduce overfitting. Optimises MAE or other loss functions:</div><div class="theory-math-container">$$\hat{y} = \sum_{t=1}^{T} \eta \cdot f_t(x)$$</div><div class="theory-explanation">Achieved MAE ≈ 0.1895 on test set.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.accordion-guide {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    margin: 30px 0 4px 0;
-    padding: 14px 18px;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.10), rgba(255, 255, 255, 0.018) 42%, rgba(16, 185, 129, 0.05));
-    color: var(--text-secondary);
-    overflow: hidden;
-}
-.accordion-guide::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 16% 50%, rgba(99, 102, 241, 0.12), transparent 28%);
-    pointer-events: none;
-}
-.accordion-guide-main,
-.accordion-guide-hint {
-    position: relative;
-    z-index: 1;
-}
-.accordion-guide-main {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--text-primary);
-}
-.accordion-guide-main i { color: var(--accent); }
-.accordion-guide-hint {
-    font-size: 0.86rem;
-    color: var(--text-secondary);
-}
+    <!-- Feature Space / Dataset Description -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Data Taxonomy</span>
+                <h2>Feature Space Configuration</h2>
+                <p class="panel-desc">13 raw attributes, after one‑hot encoding expanded to 37 dimensions.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead>
+                            <tr><th>Feature</th><th>Category</th><th>Description</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><code>Id</code></td><td><span class="taxonomy-tag">Identifier</span></td><td>Record identifier (dropped during preprocessing)</td></tr>
+                            <tr><td><code>MSSubClass</code></td><td><span class="taxonomy-tag">Dwelling</span></td><td>Type of dwelling involved in the sale</td></tr>
+                            <tr><td><code>MSZoning</code></td><td><span class="taxonomy-tag">Zoning</span></td><td>General zoning classification (one‑hot encoded)</td></tr>
+                            <tr><td><code>LotArea</code></td><td><span class="taxonomy-tag">Site</span></td><td>Lot size in square feet</td></tr>
+                            <tr><td><code>LotConfig</code></td><td><span class="taxonomy-tag">Configuration</span></td><td>Lot configuration (one‑hot)</td></tr>
+                            <tr><td><code>BldgType</code></td><td><span class="taxonomy-tag">Dwelling</span></td><td>Type of dwelling (one‑hot)</td></tr>
+                            <tr><td><code>OverallCond</code></td><td><span class="taxonomy-tag">Condition</span></td><td>Overall condition rating (1–10)</td></tr>
+                            <tr><td><code>YearBuilt</code></td><td><span class="taxonomy-tag">Chronological</span></td><td>Original construction year</td></tr>
+                            <tr><td><code>YearRemodAdd</code></td><td><span class="taxonomy-tag">Chronological</span></td><td>Remodel date (same as construction if no remodel)</td></tr>
+                            <tr><td><code>Exterior1st</code></td><td><span class="taxonomy-tag">Exterior</span></td><td>Exterior covering material (one‑hot, 16 categories)</td></tr>
+                            <tr><td><code>BsmtFinSF2</code></td><td><span class="taxonomy-tag">Basement</span></td><td>Type 2 finished square feet of basement area</td></tr>
+                            <tr><td><code>TotalBsmtSF</code></td><td><span class="taxonomy-tag">Basement</span></td><td>Total square feet of basement area</td></tr>
+                            <tr class="target-row-highlight"><td><code>SalePrice</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>Sale price of the house (to be predicted)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.section-header {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 28px;
-    cursor: pointer;
-    user-select: none;
-    padding: 18px 0 18px 24px;
-    border-radius: 18px;
-    isolation: isolate;
-    transition: background 0.24s ease;
-}
-.section-header::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 16px;
-    bottom: 16px;
-    width: 3px;
-    border-radius: 999px;
-    background: linear-gradient(180deg, var(--accent), rgba(99, 102, 241, 0.18));
-    opacity: 0.72;
-    box-shadow: 0 0 0 rgba(99, 102, 241, 0);
-    transition: opacity 0.24s ease, box-shadow 0.24s ease;
-}
-.section-header:hover,
-.section-header:focus-visible {
-    background: linear-gradient(90deg, rgba(99, 102, 241, 0.075), rgba(255, 255, 255, 0.018) 62%, rgba(255, 255, 255, 0));
-    outline: none;
-}
-.section-header:hover::before,
-.section-header:focus-visible::before,
-.section.expanded .section-header::before {
-    opacity: 1;
-    box-shadow: 0 0 28px rgba(99, 102, 241, 0.42);
-}
-.section-header:hover .panel-header-content h2,
-.section-header:focus-visible .panel-header-content h2 { color: #ffffff; }
+    <!-- Code Terminal -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Implementation</span>
+                <h2>Model Training & Evaluation Pipeline</h2>
+                <p class="panel-desc">Core Python implementation extracted from the notebook.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="terminal-panel stagger-child">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">house_price_pipeline.py</div><div></div></div>
+                    <div class="terminal-body"><pre>
+<span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
+<span class="code-keyword">from</span> sklearn.preprocessing <span class="code-keyword">import</span> OneHotEncoder
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> train_test_split
+<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> mean_absolute_error
+<span class="code-keyword">from</span> sklearn.svm <span class="code-keyword">import</span> SVR
+<span class="code-keyword">from</span> sklearn.ensemble <span class="code-keyword">import</span> RandomForestRegressor
+<span class="code-keyword">from</span> sklearn.linear_model <span class="code-keyword">import</span> LinearRegression
 
-.section-header .chevron {
-    position: relative;
-    flex: 0 0 auto;
-    width: 64px;
-    height: 36px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.045);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
-    transition: background 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
-}
-.section-header .chevron::before {
-    content: "";
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: linear-gradient(180deg, #ffffff, #cbd5e1);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-    transform: translateX(0);
-    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), background 0.28s ease;
-}
-.section-header .chevron::after {
-    content: "OFF";
-    position: absolute;
-    right: 9px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: var(--font-mono);
-    font-size: 0.52rem;
-    font-weight: 800;
-    letter-spacing: 0.7px;
-    color: rgba(255, 255, 255, 0.42);
-    pointer-events: none;
-}
-.section-header .chevron i,
-.section-header .chevron .accordion-action-text {
-    display: none;
-}
-.section-header:hover .chevron,
-.section-header:focus-visible .chevron {
-    border-color: rgba(99, 102, 241, 0.35);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35), 0 0 28px rgba(99, 102, 241, 0.12);
-}
-.section.expanded .section-header .chevron {
-    background: linear-gradient(135deg, var(--accent), #818cf8);
-    border-color: rgba(129, 140, 248, 0.58);
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.22);
-}
-.section.expanded .section-header .chevron::before {
-    transform: translateX(28px);
-    background: linear-gradient(180deg, #ffffff, #eef2ff);
-}
-.section.expanded .section-header .chevron::after {
-    content: "ON";
-    left: 10px;
-    right: auto;
-    color: rgba(255, 255, 255, 0.88);
-}
+ds = pd.read_excel(<span class="code-str">'HousePricePrediction.xlsx'</span>)
+ds.drop(<span class="code-str">'Id'</span>, axis=<span class="code-num">1</span>, inplace=<span class="code-keyword">True</span>)
+ds[<span class="code-str">'SalePrice'</span>] = ds[<span class="code-str">'SalePrice'</span>].fillna(ds[<span class="code-str">'SalePrice'</span>].mean())
+ds = ds.dropna()
 
-.section-body {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.56s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.section-body-inner {
-    padding-top: 24px;
-    padding-bottom: 10px;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: opacity 0.28s ease 0.08s, transform 0.28s ease 0.08s;
-}
-.section.expanded .section-body-inner {
-    opacity: 1;
-    transform: translateY(0);
-}
+obj_cols = ds.select_dtypes(include=[<span class="code-str">'object'</span>]).columns
+encoder = OneHotEncoder(sparse=<span class="code-keyword">False</span>, handle_unknown=<span class="code-str">'ignore'</span>)
+encoded = pd.DataFrame(encoder.fit_transform(ds[obj_cols]))
+encoded.index = ds.index
+encoded.columns = encoder.get_feature_names_out()
+final_df = pd.concat([ds.drop(obj_cols, axis=<span class="code-num">1</span>), encoded], axis=<span class="code-num">1</span>)
 
-.panel-tag {
-    font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent);
-    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block;
-}
-h2 { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 10px; transition: color 0.3s; }
-.panel-desc { color: var(--text-secondary); font-size: 1rem; }
+X = final_df.drop(<span class="code-str">'SalePrice'</span>, axis=<span class="code-num">1</span>)
+y = final_df[<span class="code-str">'SalePrice'</span>]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="code-num">0.3</span>, random_state=<span class="code-num">40</span>)
 
-.metrics-strip {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    padding: 24px 0; border-bottom: 1px solid var(--border);
-}
-.metric-block { padding: 0 20px; }
-.metric-block:first-child { padding-left: 0; }
-.metric-block:last-child { padding-right: 0; }
-.metric-label {
-    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px;
-    color: var(--text-muted); margin-bottom: 8px; font-weight: 600;
-}
-.metric-value {
-    font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em;
-    color: var(--text-primary); font-family: var(--font-sans);
-}
-.metric-value.champion-color { color: var(--champion); }
+models = [SVR(), RandomForestRegressor(n_estimators=<span class="code-num">10</span>), LinearRegression()]
+<span class="code-keyword">for</span> model <span class="code-keyword">in</span> models:
+    model.fit(X_train, y_train)
+    preds = model.predict(X_test)
+    mae = mean_absolute_error(y_test, preds)
+    print(<span class="code-keyword">f</span><span class="code-str">"{model.__class__.__name__}: MAE = {mae:.5f}"</span>)
+</pre></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.overview-text { color: var(--text-secondary); max-width: 900px; }
+    <!-- Visual Diagnostics with three images -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Analytics Layer</span>
+                <h2>Exploratory Visual Diagnostics</h2>
+                <p class="panel-desc">Correlation heatmap, categorical distributions, and confusion matrix. Click any image to enlarge.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="viz-display-grid stagger-child">
+                    <div class="viz-wrapper-card">
+                        <img src="confusion_matrix.png" alt="Confusion Matrix / Correlation Heatmap">
+                        <div class="viz-meta-text">Correlation Matrix – Numerical Features</div>
+                    </div>
+                    <div class="viz-wrapper-card">
+                        <img src="categorical_vars.png" alt="Categorical Variables Distribution 1">
+                        <div class="viz-meta-text">Categorical Feature Distributions (Part 1)</div>
+                    </div>
+                    <div class="viz-wrapper-card">
+                        <img src="categorical_vars_distribution.png" alt="Categorical Variables Distribution 2">
+                        <div class="viz-meta-text">Categorical Feature Distributions (Part 2)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.dependency-list { display: flex; flex-direction: column; gap: 4px; }
-.dependency-row {
-    display: flex; align-items: flex-start; gap: 14px;
-    padding: 12px 0; border-bottom: 1px solid var(--border);
-}
-.dependency-row:last-child { border-bottom: none; }
-.dep-icon { font-size: 1.2rem; color: var(--text-primary); margin-top: 3px; width: 24px; text-align: center; }
-.dependency-row strong { font-size: 1.05rem; font-weight: 600; display: block; margin-bottom: 4px; }
-.dependency-row span { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }
+    <!-- Performance Diagnostics -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Evaluation Matrix</span>
+                <h2>Performance Diagnostics & Engine Insights</h2>
+                <p class="panel-desc">Mean Absolute Error (MAE) comparison on test set (30% holdout).</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="engine-insights-stack">
+                    <div class="insight-row rank-leader stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>Support Vector Regressor (SVR)</strong><span>ε‑insensitive, RBF kernel</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.1841</span><span class="insight-score-label">MAE (Champion)</span></div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">02</div><div class="insight-model-identity"><strong>Random Forest Regressor</strong><span>10 trees, bootstrap aggregation</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.1860</span><span class="insight-score-label">MAE</span></div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">03</div><div class="insight-model-identity"><strong>Linear Regression</strong><span>Ordinary Least Squares</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.1895</span><span class="insight-score-label">MAE</span></div>
+                    </div>
+                    <div class="insight-row stagger-child">
+                        <div class="insight-left-meta"><div class="insight-rank-index">04</div><div class="insight-model-identity"><strong>CatBoost (optional)</strong><span>Gradient boosting on categorical features</span></div></div>
+                        <div class="insight-score-metrics"><span class="insight-score-value">0.1895</span><span class="insight-score-label">MAE</span></div>
+                    </div>
+                </div>
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Diagnostic Breakdown:</strong> SVR achieves the lowest MAE (≈0.1841), indicating superior predictive accuracy among the three base models. Random Forest performs comparably (0.1860), while linear regression and CatBoost yield slightly higher errors (0.1895). The dataset’s moderate non‑linearity is better captured by kernel‑based SVR and ensemble methods.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.timeline-flow { position: relative; padding-left: 28px; }
-.flow-node { position: relative; padding-bottom: 24px; display: flex; align-items: flex-start; gap: 18px; }
-.flow-node:last-child { padding-bottom: 0; }
-.flow-dot { position: absolute; left: -28px; top: 7px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; z-index: 1; }
-.flow-node::before { content: ""; position: absolute; left: -24px; top: 22px; width: 1px; height: calc(100% - 12px); background: var(--border); }
-.flow-node:last-child::before { display: none; }
-.flow-content { display: flex; gap: 16px; }
-.flow-step { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); font-weight: 600; min-width: 24px; }
-.flow-content strong { display: block; font-size: 1rem; font-weight: 600; margin-bottom: 4px; color: var(--text-primary); }
-.flow-content span { font-size: 0.85rem; color: var(--text-secondary); }
+    <!-- Synthesis & Future Work -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusions</span>
+                <h2>Project Synthesis & Roadmap</h2>
+                <p class="panel-desc">Empirical summary and next‑generation enhancements.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body">
+            <div class="section-body-inner">
+                <div class="synthesis-gradient-box">
+                    <p class="stagger-child"><strong>Empirical Breakdown:</strong> The SVR model outperforms Random Forest and Linear Regression on the test set, achieving the lowest MAE (0.1841). The pipeline effectively handles missing values, one‑hot encodes categorical variables, and splits data for robust evaluation.</p>
+                    <p class="stagger-child"><strong>Future Directions:</strong> Advanced feature engineering (e.g., interaction terms, polynomial features), hyperparameter tuning via GridSearchCV, and implementation of gradient boosting models (XGBoost, LightGBM) could further reduce prediction error. Additionally, deployment as a REST API and SHAP explainability for feature importance analysis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.theory-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.theory-block {
-    background: var(--surface-card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 30px; transition: border-color 0.2s;
-}
-.theory-block:hover { border-color: var(--border-hover); }
-.theory-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-.theory-title { font-size: 1.15rem; font-weight: 600; }
-.theory-badge {
-    font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent);
-    background: var(--accent-glow); padding: 4px 10px; border-radius: 4px; font-weight: 500;
-}
-.theory-badge.champion-badge { color: var(--champion); background: var(--champion-glow); }
-.theory-math-container {
-    background: rgba(0,0,0,0.2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 20px; margin-bottom: 20px; overflow-x: auto;
-}
-.theory-explanation { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+    <!-- Footer -->
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+<div class="editorial-credits">Amir Mohamad Askari · Real Estate Analytics Lab · 2026</div>
 
-.matrix-table-container {
-    border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
-    background: var(--surface-card);
-}
-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
-th {
-    background: rgba(255,255,255,0.02); color: var(--text-muted);
-    font-weight: 600; font-size: 0.75rem; text-transform: uppercase;
-    letter-spacing: 1px; padding: 16px 24px; border-bottom: 1px solid var(--border);
-}
-td { padding: 16px 24px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
-tr:last-child td { border-bottom: none; }
-tr:hover td { color: var(--text-primary); background: rgba(255,255,255,0.01); }
-td code {
-    font-family: var(--font-mono); color: var(--accent); font-size: 0.85rem;
-    background: var(--accent-glow); padding: 3px 8px; border-radius: 4px;
-}
-.taxonomy-tag {
-    font-size: 0.75rem; font-weight: 500; color: var(--text-primary);
-    background: rgba(255,255,255,0.06); padding: 4px 10px; border-radius: 4px; display: inline-block;
-}
-.taxonomy-tag.target-style { background: var(--champion-glow); color: var(--champion); font-weight: 600; }
-.target-row-highlight td { background: rgba(16,185,129,0.02); }
+<!-- Lightbox Overlay -->
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
 
-.terminal-panel {
-    background: #07080d; border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-}
-.terminal-header {
-    background: rgba(255,255,255,0.02); border-bottom: 1px solid var(--border);
-    padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
-}
-.terminal-dots { display: flex; gap: 6px; }
-.terminal-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
-.terminal-title { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); }
-.terminal-body {
-    padding: 30px; overflow-x: auto; font-family: var(--font-mono);
-    font-size: 0.85rem; line-height: 1.65; color: #cbd5e1;
-}
-.code-comment { color: #475569; font-style: italic; }
-.code-keyword { color: #f43f5e; font-weight: 500; }
-.code-fn { color: #38bdf8; }
-.code-str { color: #10b981; }
-.code-num { color: #fbbf24; }
-
-/* Visualization grid – responsive, keeps 3 images in one row on desktop */
-.viz-display-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    justify-content: center;
-}
-.viz-wrapper-card {
-    background: var(--surface-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    will-change: transform;
-}
-.viz-wrapper-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-.viz-wrapper-card img {
-    width: 100%;
-    height: auto;
-    max-height: 280px;
-    object-fit: contain;
-    background: #0a0b10;
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-.viz-wrapper-card:hover img {
-    transform: scale(1.02);
-}
-.viz-meta-text {
-    position: relative;
-    z-index: 2;
-    background: var(--surface-card);
-    padding: 15px;
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    text-align: center;
-    font-weight: 600;
-    border-top: 1px solid var(--border);
-}
-
-.lightbox-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.95); display: none; z-index: 10000;
-    align-items: center; justify-content: center; padding: 20px;
-    backdrop-filter: blur(10px);
-}
-.lightbox-overlay.active { display: flex; }
-.lightbox-wrapper { position: relative; max-width: 90%; max-height: 90%; }
-.lightbox-wrapper img { max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 24px 48px rgba(0,0,0,0.8); }
-.lightbox-close { position: absolute; top: -40px; right: 0; color: white; font-size: 1.5rem; cursor: pointer; }
-
-.engine-insights-stack { display: flex; flex-direction: column; gap: 4px; margin-bottom: 32px; }
-.insight-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 0; border-bottom: 1px solid var(--border);
-}
-.insight-row:last-child { border-bottom: none; }
-.insight-row.rank-leader { border-bottom-color: rgba(16,185,129,0.25); }
-.insight-left-meta { display: flex; align-items: center; gap: 20px; }
-.insight-rank-index {
-    font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700;
-    color: var(--text-muted); width: 20px;
-}
-.rank-leader .insight-rank-index { color: var(--champion); }
-.insight-model-identity strong { display: block; font-size: 1.1rem; font-weight: 600; color: var(--text-primary); }
-.insight-model-identity span { font-size: 0.85rem; color: var(--text-secondary); }
-.insight-score-metrics { text-align: right; }
-.insight-score-value { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; color: var(--text-primary); }
-.rank-leader .insight-score-value { color: var(--champion); }
-.insight-score-label { font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
-
-.executive-summary-box {
-    background: transparent; border-left: 2px solid var(--border);
-    padding: 16px 24px; font-size: 0.92rem; color: var(--text-secondary);
-}
-.executive-summary-box strong { color: var(--text-primary); }
-
-.synthesis-gradient-box {
-    background: transparent; border-left: 4px solid var(--champion);
-    padding: 24px 0 24px 24px;
-}
-.synthesis-gradient-box p { margin-bottom: 12px; font-size: 0.95rem; color: var(--text-secondary); }
-.synthesis-gradient-box p:last-child { margin-bottom: 0; }
-.synthesis-gradient-box strong { color: var(--text-primary); }
-
-.portfolio-footer-gate {
-    display: flex; justify-content: center;
-    padding: 40px 0; margin-top: 40px;
-    border-top: 1px solid var(--border);
-}
-.contact-icons { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
-.icon-link {
-    display: inline-flex; align-items: center; justify-content: center;
-    text-decoration: none; color: var(--text-muted); font-size: 1.25rem;
-    transition: color 0.2s ease, transform 0.2s ease;
-}
-.icon-link:hover { color: var(--accent); transform: translateY(-2px); }
-
-.editorial-credits {
-    text-align: center; margin-top: 40px;
-    font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted); letter-spacing: 0.5px;
-}
-
-.stagger-child {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-}
-.stagger-child.revealed {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@media (max-width: 1024px) {
-    .metrics-strip { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .theory-split { grid-template-columns: 1fr; }
-    h1 { font-size: 2.5rem; }
-    .section { padding: 40px 0; }
-}
-@media (max-width: 760px) {
-    .accordion-guide { align-items: flex-start; flex-direction: column; gap: 6px; margin-top: 24px; padding: 14px 16px; }
-    .accordion-guide-hint { font-size: 0.82rem; }
-    .section-header { grid-template-columns: 1fr auto; gap: 14px; padding: 18px 0 18px 18px; }
-    .section-header .chevron { width: 58px; height: 34px; }
-    .section-header .chevron::before { width: 26px; height: 26px; }
-    .section.expanded .section-header .chevron::before { transform: translateX(24px); }
-}
-@media (max-width: 640px) {
-    .metrics-strip { grid-template-columns: 1fr; }
-    h1 { font-size: 2.2rem; }
-    .hero-section { padding: 60px 20px 30px 20px; }
-    .main-layout { padding: 0 20px; }
-    .section { padding: 32px 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-    .section-collapsible, .section-header, .section-header::before, .section-header::after,
-    .section-header .chevron, .section-header .chevron::before, .section-header .chevron::after,
-    .section-body, .section-body-inner, .stagger-child { transition: none !important; }
-}
+<script src="script.js"></script>
+</body>
+</html>
