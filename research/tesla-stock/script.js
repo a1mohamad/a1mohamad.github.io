@@ -1,9 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // ========== RESPONSIVE TABLE LABELS (used by mobile CSS only) ==========
+    document.querySelectorAll('table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(row => {
+            Array.from(row.children).forEach((cell, index) => {
+                if (headers[index]) cell.setAttribute('data-label', headers[index]);
+            });
+        });
+    });
+
     // ========== METRIC COUNTER (4 decimal places) ==========
     const blocks = document.querySelectorAll('.metric-block');
     blocks.forEach(block => {
         const targetEl = block.querySelector('.metric-value');
+        if (!targetEl || !block.hasAttribute('data-metric-target')) return;
         const targetVal = parseFloat(block.getAttribute('data-metric-target'));
+        if (Number.isNaN(targetVal)) return;
         let initial = 0;
         const runtime = 1200;
         const steps = 40;
