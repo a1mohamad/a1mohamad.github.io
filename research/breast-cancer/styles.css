@@ -1104,3 +1104,93 @@ td code {
         font-size: 0.95rem;
     }
 }
+
+
+/* ===== Breast Cancer metric-number pairing correction =====
+   Keeps each score attached to its own label on desktop and mobile. */
+.insight-score-metrics {
+    min-width: 226px;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    justify-items: end;
+    align-content: center;
+    text-align: right;
+}
+
+.insight-score-pair {
+    display: grid;
+    grid-template-columns: auto max-content;
+    align-items: baseline;
+    justify-content: end;
+    column-gap: 10px;
+    row-gap: 2px;
+    width: 100%;
+}
+
+.insight-score-pair .insight-score-value,
+.insight-score-pair .insight-score-label {
+    display: block;
+}
+
+.insight-score-pair .insight-score-value {
+    white-space: nowrap;
+    line-height: 1.05;
+}
+
+.insight-score-pair .insight-score-label {
+    margin-left: 0;
+    white-space: nowrap;
+    align-self: center;
+    line-height: 1.2;
+}
+
+@media (max-width: 760px) {
+    .insight-score-metrics {
+        min-width: 0;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)) !important;
+        gap: 10px !important;
+        justify-items: stretch !important;
+        text-align: left !important;
+    }
+
+    .insight-score-pair {
+        display: flex !important;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 7px;
+        min-width: 0;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.018);
+    }
+
+    .insight-score-pair .insight-score-value {
+        font-size: clamp(1.18rem, 6vw, 1.46rem) !important;
+        line-height: 1.05;
+        letter-spacing: 0;
+    }
+
+    .insight-score-pair .insight-score-label {
+        max-width: 100%;
+        font-size: 0.58rem !important;
+        line-height: 1.35;
+        letter-spacing: 0.12em;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 380px) {
+    .insight-score-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 9px !important;
+    }
+
+    .insight-score-pair {
+        padding: 11px;
+    }
+}
