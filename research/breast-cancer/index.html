@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breast Cancer Diagnosis | ML Classification Suite</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Breast Cancer Diagnosis | ML Classification Suite</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="styles.css" rel="stylesheet"/>
+<script>
         window.MathJax = {
             tex: {
                 inlineMath: [['$', '$'], ['\\(', '\\)']],
@@ -19,157 +20,149 @@
             chtml: { scale: 1, displayAlign: 'left' }
         };
     </script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script async="" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-
 <div class="hero-section">
-    <div class="hero-accent-blur"></div>
-    <div class="hero-meta">Medical Diagnostics · Binary Classification</div>
-    <h1>Breast Cancer Prediction<br>Multi‑Model Comparative Analysis</h1>
-    <div class="hero-subtitle">Evaluating 7 classifiers and an ensemble (majority voting) on the Wisconsin Breast Cancer dataset with ADASYN augmentation to predict malignancy (M) vs benign (B).</div>
-    <div class="btn-group">
-        <a href="https://github.com/a1mohamad/machine-learning-portfolio" class="btn-modern-primary" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
-    </div>
+<div class="hero-accent-blur"></div>
+<div class="hero-meta">Medical Diagnostics · Binary Classification</div>
+<h1>Breast Cancer Prediction<br/>Multi‑Model Comparative Analysis</h1>
+<div class="hero-subtitle">Evaluating 7 classifiers and an ensemble (majority voting) on the Wisconsin Breast Cancer dataset with ADASYN augmentation to predict malignancy (M) vs benign (B).</div>
+<div class="btn-group">
+<a class="btn-modern-primary" href="https://github.com/a1mohamad/machine-learning-portfolio" target="_blank"><i class="fa-brands fa-github"></i> <span>Research Lab</span></a>
 </div>
-
+</div>
 <div class="main-layout">
-    <!-- Metric strip -->
-    <div class="metrics-strip">
-        <div class="metric-block" data-metric-target="1.0000"><div class="metric-label">XGBoost (Test Acc)</div><div class="metric-value champion-color">0</div></div>
-        <div class="metric-block" data-metric-target="0.9922"><div class="metric-label">Random Forest (Test Acc)</div><div class="metric-value">0</div></div>
-        <div class="metric-block" data-metric-target="0.9969"><div class="metric-label">Ensemble (Majority Vote)</div><div class="metric-value">0</div></div>
-        <div class="metric-block" data-metric-target="0.9922"><div class="metric-label">Decision Tree (Test Acc)</div><div class="metric-value">0</div></div>
-    </div>
-
-    <!-- Project Overview (expanded) -->
-    <section class="section section-collapsible expanded">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Diagnostic Intelligence</span>
-                <h2>Project Overview</h2>
-                <p class="panel-desc">Building robust classifiers to distinguish malignant from benign breast tumours using cytological features.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="overview-text stagger-child">
-                    <p>This project leverages the Wisconsin Breast Cancer (Diagnostic) dataset (569 samples → augmented to 1284 via ADASYN) to predict tumour diagnosis. After EDA (class distribution, feature correlations, data types), we preprocess by dropping <code>id</code> and <code>Unnamed: 32</code>, encode diagnosis (M=1, B=0), split 80/20, and standardise features. Seven classifiers are trained (SVC, LinearSVC, RandomForest, LogisticRegression, DecisionTree, XGBClassifier, XGBRFClassifier). Performance is measured via accuracy and F1 scores. XGBoost achieves perfect test accuracy (1.000) but may overfit; Random Forest and Decision Tree achieve 0.9922. An ensemble (majority vote) further boosts accuracy to 0.9969.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Dependencies -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Core Stack</span>
-                <h2>Pipeline Dependencies</h2>
-                <p class="panel-desc">Libraries used for data augmentation, modelling and evaluation.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="dependency-list">
-                    <div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas & NumPy</strong><span>Data loading, cleaning, mapping diagnosis labels.</span></div></div>
-                    <div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib & Seaborn</strong><span>Exploratory analysis, distribution plots, correlation heatmaps.</span></div></div>
-                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Scikit‑Learn & Imbalanced‑Learn</strong><span>StandardScaler, train_test_split, classifiers, metrics, and ADASYN oversampling.</span></div></div>
-                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>XGBoost</strong><span>XGBClassifier, XGBRFClassifier for gradient boosted tree ensembles.</span></div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- System Architecture -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Workflow Blueprint</span>
-                <h2>System Architecture Overview</h2>
-                <p class="panel-desc">From raw measurements to final diagnosis — five‑stage pipeline.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="timeline-flow">
-                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Data Augmentation (ADASYN)</strong><span>Apply ADASYN on original 569 samples to generate synthetic minority (malignant) instances, producing combined dataset of 1284 records.</span></div></div></div>
-                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Preprocessing & Feature Scaling</strong><span>Drop `id`, `Unnamed:32`, map diagnosis to binary (1 for M, 0 for B), standardise 30 numeric features using StandardScaler.</span></div></div></div>
-                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Train/Test Split</strong><span>80% training, 20% testing (random_state=42), preserving class distribution.</span></div></div></div>
-                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Model Training & Evaluation</strong><span>Train 7 classifiers, compute accuracy & F1, store confusion matrices. Ensemble via majority vote.</span></div></div></div>
-                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Performance Benchmarking</strong><span>Compare test accuracy, F1 scores; XGBoost and ensemble achieve near‑perfect results.</span></div></div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mathematical Mechanics -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Mathematical Mechanics</span>
-                <h2>Core Classification Algorithms</h2>
-                <p class="panel-desc">Formal definitions of models used in the competition.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="theory-split">
-                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Support Vector Machine (SVC)</div><span class="theory-badge">Kernel Method</span></div><div class="theory-explanation">Finds hyperplane that maximises margin; uses RBF/poly kernel to separate malignant vs benign classes.</div><div class="theory-math-container">$$\min_{w,b,\xi} \frac{1}{2}\|w\|^2 + C\sum_{i=1}^{N}\xi_i$$<br>subject to $y_i(w^T\phi(x_i)+b) \ge 1 - \xi_i,\ \xi_i \ge 0$</div><div class="theory-explanation">Test accuracy: 0.8872 (SVC), 0.9611 (LinearSVC).</div></div>
-                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Random Forest & Decision Tree</div><span class="theory-badge champion-badge">Ensemble / Single Tree</span></div><div class="theory-explanation">Random forest averages multiple decorrelated decision trees; single tree splits based on Gini impurity. Both achieve 0.9922 test accuracy.</div><div class="theory-math-container">$$\hat{y} = \frac{1}{B}\sum_{b=1}^{B} T_b(x)$$</div></div>
-                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">XGBoost</div><span class="theory-badge">Gradient Boosting</span></div><div class="theory-explanation">Sequential additive training of decision trees with regularisation. Perfect test accuracy (1.000) but potential overfitting.</div><div class="theory-math-container">$$\mathcal{L} = \sum_i l(y_i,\hat{y}_i) + \sum_k \Omega(f_k)$$</div></div>
-                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Logistic Regression</div><span class="theory-badge">Linear Classifier</span></div><div class="theory-explanation">Models probability of malignancy using sigmoid function: $P(y=1|x) = \frac{1}{1+e^{-(\beta^T x)}}$. Test accuracy 0.9689.</div><div class="theory-math-container">$$\min_{\beta} -\sum_{i=1}^{N} [y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]$$</div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Feature Space -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Data Taxonomy</span>
-                <h2>Feature Space Configuration</h2>
-                <p class="panel-desc">30 numeric features derived from digitised cell nuclei (mean, SE, worst).</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="matrix-table-container stagger-child">
-                    <table>
-                        <thead><tr><th>Group</th><th>Features</th><th>Description</th></tr></thead>
-                        <tbody>
-                            <tr><td><code>mean</code></td><td><span class="taxonomy-tag">radius, texture, perimeter, area, smoothness, compactness, concavity, concave points, symmetry, fractal_dim</span></td><td>Average of measurements from all nuclei in the image</td></tr>
-                            <tr><td><code>se</code></td><td><span class="taxonomy-tag">radius_se, texture_se, perimeter_se, area_se, smoothness_se, compactness_se, concavity_se, concave points_se, symmetry_se, fractal_dimension_se</span></td><td>Standard error of the measurements</td></tr>
-                            <tr><td><code>worst</code></td><td><span class="taxonomy-tag">radius_worst, texture_worst, perimeter_worst, area_worst, smoothness_worst, compactness_worst, concavity_worst, concave points_worst, symmetry_worst, fractal_dimension_worst</span></td><td>"Worst" or largest (mean of the three largest values) measurements</td></tr>
-                            <tr class="target-row-highlight"><td><code>diagnosis</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>M (malignant) = 1, B (benign) = 0</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Code Terminal -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Implementation</span>
-                <h2>Model Training & Evaluation Pipeline</h2>
-                <p class="panel-desc">Full Python code including ADASYN, scaling, training, and ensemble.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="terminal-panel stagger-child">
-                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">breast_cancer_pipeline.py</div><div></div></div>
-                    <div class="terminal-body"><pre>
+<!-- Metric strip -->
+<div class="metrics-strip">
+<div class="metric-block" data-metric-target="1.0000"><div class="metric-label">XGBoost (Test Acc)</div><div class="metric-value champion-color">0</div></div>
+<div class="metric-block" data-metric-target="0.9922"><div class="metric-label">Random Forest (Test Acc)</div><div class="metric-value">0</div></div>
+<div class="metric-block" data-metric-target="0.9969"><div class="metric-label">Ensemble (Majority Vote)</div><div class="metric-value">0</div></div>
+<div class="metric-block" data-metric-target="0.9922"><div class="metric-label">Decision Tree (Test Acc)</div><div class="metric-value">0</div></div>
+</div>
+<!-- Project Overview (expanded) -->
+<section class="section section-collapsible expanded">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Diagnostic Intelligence</span>
+<h2>Project Overview</h2>
+<p class="panel-desc">Building robust classifiers to distinguish malignant from benign breast tumours using cytological features.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="overview-text stagger-child">
+<p>This project leverages the Wisconsin Breast Cancer (Diagnostic) dataset (569 samples → augmented to 1284 via ADASYN) to predict tumour diagnosis. After EDA (class distribution, feature correlations, data types), we preprocess by dropping <code>id</code> and <code>Unnamed: 32</code>, encode diagnosis (M=1, B=0), split 80/20, and standardise features. Seven classifiers are trained (SVC, LinearSVC, RandomForest, LogisticRegression, DecisionTree, XGBClassifier, XGBRFClassifier). Performance is measured via accuracy and F1 scores. XGBoost achieves perfect test accuracy (1.000) but may overfit; Random Forest and Decision Tree achieve 0.9922. An ensemble (majority vote) further boosts accuracy to 0.9969.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Dependencies -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Core Stack</span>
+<h2>Pipeline Dependencies</h2>
+<p class="panel-desc">Libraries used for data augmentation, modelling and evaluation.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="dependency-list">
+<div class="dependency-row stagger-child"><i class="fa-solid fa-table dep-icon"></i><div><strong>Pandas &amp; NumPy</strong><span>Data loading, cleaning, mapping diagnosis labels.</span></div></div>
+<div class="dependency-row stagger-child"><i class="fa-solid fa-chart-line dep-icon"></i><div><strong>Matplotlib &amp; Seaborn</strong><span>Exploratory analysis, distribution plots, correlation heatmaps.</span></div></div>
+<div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Scikit‑Learn &amp; Imbalanced‑Learn</strong><span>StandardScaler, train_test_split, classifiers, metrics, and ADASYN oversampling.</span></div></div>
+<div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>XGBoost</strong><span>XGBClassifier, XGBRFClassifier for gradient boosted tree ensembles.</span></div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- System Architecture -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Workflow Blueprint</span>
+<h2>System Architecture Overview</h2>
+<p class="panel-desc">From raw measurements to final diagnosis — five‑stage pipeline.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="timeline-flow">
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Data Augmentation (ADASYN)</strong><span>Apply ADASYN on original 569 samples to generate synthetic minority (malignant) instances, producing combined dataset of 1284 records.</span></div></div></div>
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Preprocessing &amp; Feature Scaling</strong><span>Drop `id`, `Unnamed:32`, map diagnosis to binary (1 for M, 0 for B), standardise 30 numeric features using StandardScaler.</span></div></div></div>
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Train/Test Split</strong><span>80% training, 20% testing (random_state=42), preserving class distribution.</span></div></div></div>
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Model Training &amp; Evaluation</strong><span>Train 7 classifiers, compute accuracy &amp; F1, store confusion matrices. Ensemble via majority vote.</span></div></div></div>
+<div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Performance Benchmarking</strong><span>Compare test accuracy, F1 scores; XGBoost and ensemble achieve near‑perfect results.</span></div></div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Mathematical Mechanics -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Mathematical Mechanics</span>
+<h2>Core Classification Algorithms</h2>
+<p class="panel-desc">Formal definitions of models used in the competition.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="theory-split">
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Support Vector Machine (SVC)</div><span class="theory-badge">Kernel Method</span></div><div class="theory-explanation">Finds hyperplane that maximises margin; uses RBF/poly kernel to separate malignant vs benign classes.</div><div class="theory-math-container">$$\min_{w,b,\xi} \frac{1}{2}\|w\|^2 + C\sum_{i=1}^{N}\xi_i$$<br/>subject to $y_i(w^T\phi(x_i)+b) \ge 1 - \xi_i,\ \xi_i \ge 0$</div><div class="theory-explanation">Test accuracy: 0.8872 (SVC), 0.9611 (LinearSVC).</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Random Forest &amp; Decision Tree</div><span class="theory-badge champion-badge">Ensemble / Single Tree</span></div><div class="theory-explanation">Random forest averages multiple decorrelated decision trees; single tree splits based on Gini impurity. Both achieve 0.9922 test accuracy.</div><div class="theory-math-container">$$\hat{y} = \frac{1}{B}\sum_{b=1}^{B} T_b(x)$$</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">XGBoost</div><span class="theory-badge">Gradient Boosting</span></div><div class="theory-explanation">Sequential additive training of decision trees with regularisation. Perfect test accuracy (1.000) but potential overfitting.</div><div class="theory-math-container">$$\mathcal{L} = \sum_i l(y_i,\hat{y}_i) + \sum_k \Omega(f_k)$$</div></div>
+<div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Logistic Regression</div><span class="theory-badge">Linear Classifier</span></div><div class="theory-explanation">Models probability of malignancy using sigmoid function: $P(y=1|x) = \frac{1}{1+e^{-(\beta^T x)}}$. Test accuracy 0.9689.</div><div class="theory-math-container">$$\min_{\beta} -\sum_{i=1}^{N} [y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]$$</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature Space -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Data Taxonomy</span>
+<h2>Feature Space Configuration</h2>
+<p class="panel-desc">30 numeric features derived from digitised cell nuclei (mean, SE, worst).</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="matrix-table-container stagger-child">
+<table>
+<thead><tr><th>Group</th><th>Features</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td><code>mean</code></td><td><span class="taxonomy-tag">radius, texture, perimeter, area, smoothness, compactness, concavity, concave points, symmetry, fractal_dim</span></td><td>Average of measurements from all nuclei in the image</td></tr>
+<tr><td><code>se</code></td><td><span class="taxonomy-tag">radius_se, texture_se, perimeter_se, area_se, smoothness_se, compactness_se, concavity_se, concave points_se, symmetry_se, fractal_dimension_se</span></td><td>Standard error of the measurements</td></tr>
+<tr><td><code>worst</code></td><td><span class="taxonomy-tag">radius_worst, texture_worst, perimeter_worst, area_worst, smoothness_worst, compactness_worst, concavity_worst, concave points_worst, symmetry_worst, fractal_dimension_worst</span></td><td>"Worst" or largest (mean of the three largest values) measurements</td></tr>
+<tr class="target-row-highlight"><td><code>diagnosis</code></td><td><span class="taxonomy-tag target-style">Target</span></td><td>M (malignant) = 1, B (benign) = 0</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<!-- Code Terminal -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Implementation</span>
+<h2>Model Training &amp; Evaluation Pipeline</h2>
+<p class="panel-desc">Full Python code including ADASYN, scaling, training, and ensemble.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="terminal-panel stagger-child">
+<div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">breast_cancer_pipeline.py</div><div></div></div>
+<div class="terminal-body"><pre>
 <span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd
 <span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
 <span class="code-keyword">from</span> imblearn.over_sampling <span class="code-keyword">import</span> ADASYN
@@ -214,154 +207,147 @@ final_preds = mode(all_preds, axis=<span class="code-num">0</span>)[<span class=
 ensemble_acc = accuracy_score(y, final_preds)
 print(<span class="code-keyword">f</span><span class="code-str">"Ensemble (majority) Accuracy: {ensemble_acc:.4f}"</span>)
 </pre></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Visual Diagnostics: single image (confusion matrix) with lightbox -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Analytics Layer</span>
-                <h2>Exploratory Visual Diagnostics</h2>
-                <p class="panel-desc">Confusion matrix of the majority vote ensemble – click to enlarge.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="viz-display-grid stagger-child">
-                    <div class="viz-wrapper-card">
-                        <img src="confusion-matrix.png" alt="Confusion Matrix – Majority Vote Ensemble">
-                        <div class="viz-meta-text">Confusion Matrix (Ensemble Model)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Performance Diagnostics -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Evaluation Matrix</span>
-                <h2>Performance Diagnostics & Engine Insights</h2>
-                <p class="panel-desc">Test set performance (20% holdout) for seven classifiers and ensemble.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="engine-insights-stack">
-                    <div class="insight-row rank-leader stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>XGBClassifier</strong><span>Gradient boosting (100 estimators)</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">1.0000</span><span class="insight-score-label">Test Accuracy</span><br><span class="insight-score-value">1.0000</span><span class="insight-score-label">F1 (Class 1)</span></div>
-                    </div>
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">02</div><div class="insight-model-identity"><strong>Ensemble (Majority Vote)</strong><span>Aggregation of all 7 models</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">0.9969</span><span class="insight-score-label">Accuracy</span><br><span class="insight-score-value">0.9965</span><span class="insight-score-label">F1 (Class 1)</span></div>
-                    </div>
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">03</div><div class="insight-model-identity"><strong>RandomForestClassifier</strong><span>100 trees, bootstrap</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">0.9922</span><span class="insight-score-label">Test Accuracy</span><br><span class="insight-score-value">0.9900</span><span class="insight-score-label">F1 (Class 1)</span></div>
-                    </div>
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">04</div><div class="insight-model-identity"><strong>DecisionTreeClassifier</strong><span>Single unpruned tree</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">0.9922</span><span class="insight-score-label">Test Accuracy</span><br><span class="insight-score-value">0.9900</span><span class="insight-score-label">F1 (Class 1)</span></div>
-                    </div>
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">05</div><div class="insight-model-identity"><strong>XGBRFClassifier</strong><span>Random forest + boosting</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">0.9922</span><span class="insight-score-label">Test Accuracy</span><br><span class="insight-score-value">0.9900</span><span class="insight-score-label">F1 (Class 1)</span></div>
-                    </div>
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">06</div><div class="insight-model-identity"><strong>LogisticRegression</strong><span>L2 regularisation</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">0.9689</span><span class="insight-score-label">Test Accuracy</span><br><span class="insight-score-value">0.9596</span><span class="insight-score-label">F1 (Class 1)</span></div>
-                    </div>
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">07</div><div class="insight-model-identity"><strong>LinearSVC</strong><span>Linear SVM</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">0.9611</span><span class="insight-score-label">Test Accuracy</span><br><span class="insight-score-value">0.9515</span><span class="insight-score-label">F1 (Class 1)</span></div>
-                    </div>
-                    <div class="insight-row stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">08</div><div class="insight-model-identity"><strong>SVC (RBF/poly)</strong><span>Kernel SVM</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">0.8872</span><span class="insight-score-label">Test Accuracy</span><br><span class="insight-score-value">0.8557</span><span class="insight-score-label">F1 (Class 1)</span></div>
-                    </div>
-                </div>
-                <div class="executive-summary-box stagger-child">
-                    <p><strong>Diagnostic Breakdown:</strong> XGBoost achieves perfect test accuracy (1.000) but may overfit (train accuracy also 1.000). Ensemble majority voting slightly reduces overfitting while maintaining near‑perfect 0.9969 accuracy. Tree‑based models (Random Forest, Decision Tree, XGBRF) all excel with 0.9922 test accuracy. Linear models (Logistic Regression, LinearSVC) perform well but are slightly inferior. The dataset after ADASYN augmentation provides a balanced representation, enabling robust learning.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ensemble Results (additional confusion matrix) -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Ensemble Intelligence</span>
-                <h2>Majority Voting Ensemble Performance</h2>
-                <p class="panel-desc">Combining predictions from all seven models improves robustness.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="engine-insights-stack">
-                    <div class="insight-row rank-leader stagger-child">
-                        <div class="insight-left-meta"><div class="insight-rank-index">★</div><div class="insight-model-identity"><strong>Ensemble (Mode)</strong><span>Majority vote over 7 base classifiers</span></div></div>
-                        <div class="insight-score-metrics"><span class="insight-score-value">0.9969</span><span class="insight-score-label">Accuracy</span><br><span class="insight-score-value">0.9965</span><span class="insight-score-label">F1 Class 1</span><br><span class="insight-score-value">0.9972</span><span class="insight-score-label">F1 Class 0</span></div>
-                    </div>
-                </div>
-                <div class="viz-wrapper-card" style="max-width: 600px; margin: 20px auto 0 auto;">
-                    <img src="confusion-matrix.png" alt="Confusion Matrix Ensemble">
-                    <div class="viz-meta-text">Confusion Matrix (Ensemble)<br>True Negatives: 138, False Positives: 1, False Negatives: 0, True Positives: 118</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Synthesis & Future Work -->
-    <section class="section section-collapsible">
-        <div class="section-header">
-            <div class="panel-header-content">
-                <span class="panel-tag">Conclusions</span>
-                <h2>Project Synthesis & Roadmap</h2>
-                <p class="panel-desc">Empirical summary and next‑generation enhancements.</p>
-            </div>
-            <div class="chevron"></div>
-        </div>
-        <div class="section-body">
-            <div class="section-body-inner">
-                <div class="synthesis-gradient-box">
-                    <p class="stagger-child"><strong>Empirical Breakdown:</strong> XGBoost and ensemble voting deliver state‑of‑the‑art accuracy (>99%) on the augmented breast cancer dataset. ADASYN effectively balances the classes, improving model generalisation. Tree‑based ensembles (Random Forest, XGBRF) also achieve excellent results. Linear models are slightly weaker but still clinically promising.</p>
-                    <p class="stagger-child"><strong>Future Directions:</strong> Hyperparameter tuning via GridSearchCV, cross‑validation, feature selection (recursive elimination), and deployment as a diagnostic API. Integration of SHAP explanations to interpret model decisions for medical practitioners. Exploration of deep learning (CNNs) on raw image data if available.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="portfolio-footer-gate">
-        <div class="contact-icons">
-            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
-            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
-            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
-            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
-        </div>
-    </footer>
+</div>
+</div>
+</div>
+</section>
+<!-- Visual Diagnostics: single image (confusion matrix) with lightbox -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Analytics Layer</span>
+<h2>Exploratory Visual Diagnostics</h2>
+<p class="panel-desc">Confusion matrix of the majority vote ensemble – click to enlarge.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="viz-display-grid stagger-child">
+<div class="viz-wrapper-card">
+<img alt="Confusion Matrix – Majority Vote Ensemble" src="confusion-matrix.png"/>
+<div class="viz-meta-text">Confusion Matrix (Ensemble Model)</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Performance Diagnostics -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Evaluation Matrix</span>
+<h2>Performance Diagnostics &amp; Engine Insights</h2>
+<p class="panel-desc">Test set performance (20% holdout) for seven classifiers and ensemble.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="engine-insights-stack">
+<div class="insight-row rank-leader stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">01</div><div class="insight-model-identity"><strong>XGBClassifier</strong><span>Gradient boosting (100 estimators)</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">1.0000</span><span class="insight-score-label">Test Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">1.0000</span><span class="insight-score-label">F1 (Class 1)</span></div></div>
+</div>
+<div class="insight-row stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">02</div><div class="insight-model-identity"><strong>Ensemble (Majority Vote)</strong><span>Aggregation of all 7 models</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">0.9969</span><span class="insight-score-label">Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">0.9965</span><span class="insight-score-label">F1 (Class 1)</span></div></div>
+</div>
+<div class="insight-row stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">03</div><div class="insight-model-identity"><strong>RandomForestClassifier</strong><span>100 trees, bootstrap</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">0.9922</span><span class="insight-score-label">Test Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">0.9900</span><span class="insight-score-label">F1 (Class 1)</span></div></div>
+</div>
+<div class="insight-row stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">04</div><div class="insight-model-identity"><strong>DecisionTreeClassifier</strong><span>Single unpruned tree</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">0.9922</span><span class="insight-score-label">Test Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">0.9900</span><span class="insight-score-label">F1 (Class 1)</span></div></div>
+</div>
+<div class="insight-row stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">05</div><div class="insight-model-identity"><strong>XGBRFClassifier</strong><span>Random forest + boosting</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">0.9922</span><span class="insight-score-label">Test Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">0.9900</span><span class="insight-score-label">F1 (Class 1)</span></div></div>
+</div>
+<div class="insight-row stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">06</div><div class="insight-model-identity"><strong>LogisticRegression</strong><span>L2 regularisation</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">0.9689</span><span class="insight-score-label">Test Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">0.9596</span><span class="insight-score-label">F1 (Class 1)</span></div></div>
+</div>
+<div class="insight-row stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">07</div><div class="insight-model-identity"><strong>LinearSVC</strong><span>Linear SVM</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">0.9611</span><span class="insight-score-label">Test Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">0.9515</span><span class="insight-score-label">F1 (Class 1)</span></div></div>
+</div>
+<div class="insight-row stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">08</div><div class="insight-model-identity"><strong>SVC (RBF/poly)</strong><span>Kernel SVM</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">0.8872</span><span class="insight-score-label">Test Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">0.8557</span><span class="insight-score-label">F1 (Class 1)</span></div></div>
+</div>
+</div>
+<div class="executive-summary-box stagger-child">
+<p><strong>Diagnostic Breakdown:</strong> XGBoost achieves perfect test accuracy (1.000) but may overfit (train accuracy also 1.000). Ensemble majority voting slightly reduces overfitting while maintaining near‑perfect 0.9969 accuracy. Tree‑based models (Random Forest, Decision Tree, XGBRF) all excel with 0.9922 test accuracy. Linear models (Logistic Regression, LinearSVC) perform well but are slightly inferior. The dataset after ADASYN augmentation provides a balanced representation, enabling robust learning.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Ensemble Results (additional confusion matrix) -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Ensemble Intelligence</span>
+<h2>Majority Voting Ensemble Performance</h2>
+<p class="panel-desc">Combining predictions from all seven models improves robustness.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="engine-insights-stack">
+<div class="insight-row rank-leader stagger-child">
+<div class="insight-left-meta"><div class="insight-rank-index">★</div><div class="insight-model-identity"><strong>Ensemble (Mode)</strong><span>Majority vote over 7 base classifiers</span></div></div>
+<div class="insight-score-metrics"><div class="insight-score-pair"><span class="insight-score-value">0.9969</span><span class="insight-score-label">Accuracy</span></div><div class="insight-score-pair"><span class="insight-score-value">0.9965</span><span class="insight-score-label">F1 Class 1</span></div><div class="insight-score-pair"><span class="insight-score-value">0.9972</span><span class="insight-score-label">F1 Class 0</span></div></div>
+</div>
+</div>
+<div class="viz-wrapper-card" style="max-width: 600px; margin: 20px auto 0 auto;">
+<img alt="Confusion Matrix Ensemble" src="confusion-matrix.png"/>
+<div class="viz-meta-text">Confusion Matrix (Ensemble)<br/>True Negatives: 138, False Positives: 1, False Negatives: 0, True Positives: 118</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Synthesis & Future Work -->
+<section class="section section-collapsible">
+<div class="section-header">
+<div class="panel-header-content">
+<span class="panel-tag">Conclusions</span>
+<h2>Project Synthesis &amp; Roadmap</h2>
+<p class="panel-desc">Empirical summary and next‑generation enhancements.</p>
+</div>
+<div class="chevron"></div>
+</div>
+<div class="section-body">
+<div class="section-body-inner">
+<div class="synthesis-gradient-box">
+<p class="stagger-child"><strong>Empirical Breakdown:</strong> XGBoost and ensemble voting deliver state‑of‑the‑art accuracy (&gt;99%) on the augmented breast cancer dataset. ADASYN effectively balances the classes, improving model generalisation. Tree‑based ensembles (Random Forest, XGBRF) also achieve excellent results. Linear models are slightly weaker but still clinically promising.</p>
+<p class="stagger-child"><strong>Future Directions:</strong> Hyperparameter tuning via GridSearchCV, cross‑validation, feature selection (recursive elimination), and deployment as a diagnostic API. Integration of SHAP explanations to interpret model decisions for medical practitioners. Exploration of deep learning (CNNs) on raw image data if available.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="portfolio-footer-gate">
+<div class="contact-icons">
+<a class="icon-link" href="mailto:a1mohamad.askari@gmail.com" title="Gmail"><i class="fa-brands fa-google"></i></a>
+<a class="icon-link" href="mailto:amirmohmdaskari@icloud.com" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+<a class="icon-link" href="tel:+989012223122" title="Phone"><i class="fas fa-phone"></i></a>
+<a class="icon-link" href="https://github.com/a1mohamad" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+<a class="icon-link" href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+<a class="icon-link" href="https://www.kaggle.com/amirmohamadaskari" target="_blank" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+</div>
+</footer>
 </div>
 <div class="editorial-credits">Amir Mohamad Askari · Medical AI Lab · 2026</div>
-
 <!-- Lightbox Overlay -->
 <div class="lightbox-overlay" id="lightboxOverlay">
-    <div class="lightbox-wrapper">
-        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
-        <img id="lightboxImage" src="" alt="Expanded View">
-    </div>
+<div class="lightbox-wrapper">
+<span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+<img alt="Expanded View" id="lightboxImage" src=""/>
 </div>
-
+</div>
 <script src="script.js"></script>
 </body>
 </html>
