@@ -144,3 +144,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.section').forEach(section => revealObserver.observe(section));
 });
+
+
+// ========== RESPONSIVE TABLE LABELS (used by mobile CSS only) ==========
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(row => {
+            Array.from(row.children).forEach((cell, index) => {
+                if (headers[index]) cell.setAttribute('data-label', headers[index]);
+            });
+        });
+    });
+    window.dispatchEvent(new Event('resize'));
+});
