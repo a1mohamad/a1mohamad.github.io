@@ -517,3 +517,590 @@ td code {
     .section-header .chevron, .section-header .chevron::before, .section-header .chevron::after,
     .section-body, .section-body-inner, .stagger-child { transition: none !important; }
 }
+
+
+/* ===== Mobile-only correction layer for Breast Cancer project =====
+   Desktop behavior above is preserved. These overrides only improve phone
+   layout, reading flow, section toggles, tables, code blocks, visuals and footer. */
+@media (max-width: 760px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip;
+    }
+
+    body * {
+        min-width: 0;
+    }
+
+    img,
+    svg,
+    video,
+    canvas,
+    iframe {
+        max-width: 100%;
+    }
+
+    .hero-section,
+    .main-layout {
+        width: 100%;
+        max-width: 100%;
+        padding-left: clamp(16px, 5vw, 22px);
+        padding-right: clamp(16px, 5vw, 22px);
+    }
+
+    .hero-section {
+        padding-top: 52px;
+        padding-bottom: 30px;
+        overflow: visible;
+    }
+
+    .hero-accent-blur {
+        left: 50%;
+        width: 88vw;
+        max-width: 380px;
+        height: 220px;
+        filter: blur(28px);
+    }
+
+    .hero-meta {
+        max-width: 100%;
+        font-size: 0.68rem;
+        line-height: 1.8;
+        letter-spacing: 0.12em;
+        overflow-wrap: anywhere;
+    }
+
+    h1 {
+        max-width: 100%;
+        font-size: clamp(2.05rem, 10vw, 2.85rem);
+        line-height: 1.12;
+        letter-spacing: -0.035em;
+        overflow-wrap: anywhere;
+    }
+
+    .hero-subtitle,
+    .overview-text,
+    .panel-desc,
+    .theory-explanation,
+    .dependency-row span,
+    .flow-content span,
+    .executive-summary-box,
+    .executive-summary-box p,
+    .synthesis-gradient-box,
+    .synthesis-gradient-box p {
+        max-width: 100%;
+        font-size: 0.96rem;
+        line-height: 1.72;
+        overflow-wrap: anywhere;
+    }
+
+    .btn-group {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .btn-modern-primary {
+        width: 100%;
+        min-height: 56px;
+        justify-content: center;
+        padding: 14px 18px;
+        font-size: 0.98rem;
+        text-align: center;
+    }
+
+    .metrics-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+        padding: 18px 0;
+        margin-bottom: 24px;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .metric-block,
+    .metric-block:first-child,
+    .metric-block:last-child {
+        min-height: auto;
+        padding: 16px;
+        border: 1px solid var(--border) !important;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.025);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .metric-label {
+        min-height: auto;
+        margin-bottom: 12px;
+        font-size: 0.62rem;
+        line-height: 1.35;
+        letter-spacing: 0.08em;
+    }
+
+    .metric-value {
+        margin-top: auto;
+        font-size: clamp(1.32rem, 7.8vw, 1.95rem);
+        line-height: 1.05;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .accordion-guide {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 14px 16px;
+        border-radius: 14px;
+        margin-top: 20px;
+    }
+
+    .accordion-guide-hint {
+        font-size: 0.82rem;
+        line-height: 1.55;
+    }
+
+    .section {
+        padding: 30px 0;
+        scroll-margin-top: 14px;
+    }
+
+    .section-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 56px;
+        align-items: center;
+        gap: 10px;
+        padding: 16px 0 16px 16px;
+        border-radius: 14px;
+    }
+
+    .section-header::before {
+        top: 16px;
+        bottom: 16px;
+    }
+
+    .panel-header-content {
+        min-width: 0;
+    }
+
+    .panel-tag {
+        font-size: 0.66rem;
+        line-height: 1.45;
+        letter-spacing: 0.12em;
+        overflow-wrap: anywhere;
+    }
+
+    h2 {
+        font-size: clamp(1.25rem, 7vw, 1.65rem);
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        overflow-wrap: anywhere;
+    }
+
+    .section-header .chevron {
+        justify-self: end;
+        align-self: center;
+        width: 54px;
+        height: 32px;
+        padding: 3px;
+    }
+
+    .section-header .chevron::before {
+        width: 24px;
+        height: 24px;
+    }
+
+    .section-header .chevron::after {
+        right: 8px;
+        font-size: 0.48rem;
+    }
+
+    .section.expanded .section-header .chevron::before {
+        transform: translateX(22px);
+    }
+
+    .section.expanded .section-header .chevron::after {
+        left: 9px;
+    }
+
+    .section-body-inner {
+        padding-top: 18px;
+    }
+
+    .dependency-row {
+        gap: 12px;
+        padding: 14px 0;
+    }
+
+    .dep-icon {
+        flex: 0 0 24px;
+    }
+
+    .timeline-flow {
+        padding-left: 20px;
+    }
+
+    .flow-node {
+        gap: 12px;
+        padding-bottom: 20px;
+    }
+
+    .flow-dot {
+        left: -20px;
+        top: 9px;
+    }
+
+    .flow-node::before {
+        left: -16px;
+        top: 21px;
+    }
+
+    .flow-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+
+    .flow-step {
+        font-size: 0.76rem;
+    }
+
+    .theory-split,
+    .viz-display-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px;
+    }
+
+    .theory-block,
+    .terminal-panel,
+    .matrix-table-container,
+    .viz-wrapper-card,
+    .synthesis-gradient-box,
+    .executive-summary-box {
+        max-width: 100%;
+        border-radius: 13px;
+    }
+
+    .theory-block {
+        padding: 20px;
+    }
+
+    .theory-card-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .theory-title {
+        font-size: 1.04rem;
+        line-height: 1.35;
+    }
+
+    .theory-badge,
+    .taxonomy-tag {
+        max-width: 100%;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .theory-math-container {
+        padding: 14px;
+        overflow-x: auto;
+        font-size: 0.88rem;
+    }
+
+    .matrix-table-container {
+        overflow: visible;
+        background: transparent;
+        border: 0;
+    }
+
+    .matrix-table-container table,
+    .matrix-table-container thead,
+    .matrix-table-container tbody,
+    .matrix-table-container th,
+    .matrix-table-container td,
+    .matrix-table-container tr {
+        display: block;
+        width: 100%;
+    }
+
+    .matrix-table-container thead {
+        display: none;
+    }
+
+    .matrix-table-container tbody {
+        display: grid;
+        gap: 12px;
+    }
+
+    .matrix-table-container tr {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: var(--surface-card);
+        overflow: hidden;
+    }
+
+    .matrix-table-container td {
+        display: grid;
+        grid-template-columns: minmax(88px, 34%) minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        padding: 13px 14px;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.88rem;
+        line-height: 1.55;
+        overflow-wrap: anywhere;
+    }
+
+    .matrix-table-container td:last-child {
+        border-bottom: 0;
+    }
+
+    .matrix-table-container td::before {
+        content: attr(data-label);
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        font-size: 0.66rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        line-height: 1.5;
+    }
+
+    .terminal-header {
+        gap: 12px;
+        padding: 12px 14px;
+    }
+
+    .terminal-title {
+        min-width: 0;
+        font-size: 0.68rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .terminal-body {
+        padding: 16px;
+        max-width: 100%;
+        overflow-x: auto;
+        font-size: 0.72rem;
+        line-height: 1.62;
+    }
+
+    .terminal-body pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+
+    .engine-insights-stack {
+        gap: 12px;
+        margin-bottom: 22px;
+    }
+
+    .insight-row,
+    .insight-row.rank-leader {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.02);
+    }
+
+    .insight-left-meta {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .insight-rank-index {
+        width: auto;
+        min-width: 22px;
+        flex: 0 0 auto;
+    }
+
+    .insight-model-identity strong {
+        font-size: 1rem;
+        line-height: 1.35;
+    }
+
+    .insight-score-metrics {
+        text-align: left;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 12px;
+    }
+
+    .insight-score-value {
+        font-size: clamp(1.05rem, 5.8vw, 1.32rem);
+        line-height: 1.1;
+    }
+
+    .insight-score-label {
+        font-size: 0.58rem;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+
+    .executive-summary-box {
+        padding: 18px;
+        border-left-width: 2px;
+        background: rgba(255,255,255,0.015);
+    }
+
+    .synthesis-gradient-box {
+        padding: 18px 0 18px 16px;
+    }
+
+    .viz-wrapper-card {
+        width: 100%;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .viz-wrapper-card img {
+        width: 100%;
+        max-height: 320px;
+        object-fit: contain;
+    }
+
+    .viz-wrapper-card:hover,
+    .viz-wrapper-card:hover img {
+        transform: none;
+    }
+
+    .viz-meta-text {
+        padding: 13px;
+        font-size: 0.8rem;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+    }
+
+    .lightbox-overlay {
+        padding: 12px;
+    }
+
+    .lightbox-wrapper {
+        max-width: 100%;
+        max-height: 86vh;
+    }
+
+    .lightbox-wrapper img {
+        max-width: 100%;
+        max-height: 82vh;
+        object-fit: contain;
+    }
+
+    .lightbox-close {
+        top: 10px;
+        right: 10px;
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: rgba(0,0,0,0.5);
+    }
+
+    .portfolio-footer-gate {
+        padding: 30px 10px;
+        margin-top: 26px;
+    }
+
+    .contact-icons {
+        width: 100%;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        justify-content: center;
+        align-items: center;
+        gap: 8px !important;
+    }
+
+    .icon-link {
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255,255,255,0.025);
+        font-size: 1rem;
+    }
+
+    .editorial-credits {
+        margin: 18px 0 28px;
+        padding: 0 18px;
+        font-size: 0.66rem;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-section,
+    .main-layout {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .metric-block,
+    .metric-block:first-child,
+    .metric-block:last-child {
+        padding: 14px;
+    }
+
+    .metric-label {
+        font-size: 0.58rem;
+    }
+
+    .section-header {
+        grid-template-columns: minmax(0, 1fr) 52px;
+        padding-left: 13px;
+    }
+
+    .section-header .chevron {
+        width: 50px;
+        height: 30px;
+    }
+
+    .section-header .chevron::before {
+        width: 22px;
+        height: 22px;
+    }
+
+    .section.expanded .section-header .chevron::before {
+        transform: translateX(22px);
+    }
+
+    .matrix-table-container td {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .terminal-body {
+        padding: 14px;
+        font-size: 0.68rem;
+    }
+
+    .contact-icons {
+        gap: 6px !important;
+    }
+
+    .icon-link {
+        flex-basis: 38px;
+        width: 38px;
+        height: 38px;
+        font-size: 0.95rem;
+    }
+}
