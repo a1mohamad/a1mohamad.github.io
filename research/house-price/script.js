@@ -180,3 +180,16 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+// ========== RESPONSIVE TABLE LABELS (mobile CSS only) ==========
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.matrix-table-container table').forEach(table => {
+        const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+        table.querySelectorAll('tbody tr').forEach(row => {
+            Array.from(row.children).forEach((cell, index) => {
+                if (headers[index]) cell.setAttribute('data-label', headers[index]);
+            });
+        });
+    });
+});
