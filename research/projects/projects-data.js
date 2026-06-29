@@ -10,7 +10,8 @@ window.PROJECTS_DATA = [
     "Computer Vision",
     "Deployment",
     "MLOps",
-    "PostgreSQL"
+    "PostgreSQL",
+    "CI/CD"
   ],
   "desc": "End-to-end chest X-ray AI system with lung segmentation, six TensorFlow/Keras models, ONNX inference, FastAPI UI, database logging, Docker deployment, Kafka events, MLflow tracking, and Airflow pipelines.",
   "tools": [
@@ -26,6 +27,9 @@ window.PROJECTS_DATA = [
     "PostgreSQL",
     "Microsoft SQL Server",
     "Supabase Storage",
+    "HuggingFace Hub",
+    "HuggingFace Spaces",
+    "Render",
     "Docker",
     "Docker Compose",
     "Kafka",
@@ -34,7 +38,8 @@ window.PROJECTS_DATA = [
     "Optuna",
     "Pandas",
     "NumPy",
-    "Matplotlib"
+    "Matplotlib",
+    "Pytest"
   ],
   "tags": [
     "Neural Networks",
@@ -59,7 +64,12 @@ window.PROJECTS_DATA = [
     "Kafka Event Streaming",
     "MLflow Tracking",
     "Airflow Pipelines",
-    "MLOps"
+    "Render",
+    "HuggingFace Spaces",
+    "HuggingFace Hub",
+    "MLOps",
+    "CI/CD",
+    "Pytest"
   ],
     "href": "https://a1mohamad.github.io/research/lung-disease-detection/index.html",
     "image": "url(assets/images/lung.webp)"
