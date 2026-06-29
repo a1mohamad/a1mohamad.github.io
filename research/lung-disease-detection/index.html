@@ -64,6 +64,7 @@
         <button class="notebook-tab" data-target="inference-panel"><i class="fa-solid fa-route"></i>Inference</button>
         <button class="notebook-tab" data-target="api-panel"><i class="fa-solid fa-server"></i>API + UI</button>
         <button class="notebook-tab" data-target="mlops-panel"><i class="fa-solid fa-gears"></i>MLOps</button>
+        <button class="notebook-tab" data-target="cicd-panel"><i class="fa-solid fa-code-branch"></i>CI/CD</button>
     </div>
 
     <section class="section section-collapsible expanded">
@@ -1800,6 +1801,247 @@ if metrics[spec.promotion_metric] > previous_best:
                             <tr><td><code>.env.compose.template</code></td><td>Full compose stack</td><td>Container hostnames, SQL Server credentials, Kafka brokers, MLflow URI.</td></tr>
                             <tr><td><code>.env.runtime.template</code></td><td>Slim ONNX runtime</td><td><code>MODEL_RUNTIME=onnx</code>, Kafka off, MLflow off, Postgres DB, HF download on.</td></tr>
                             <tr><td><code>.env.hf_spaces.template</code></td><td>Hugging Face Space</td><td><code>PORT=7860</code>, external Postgres, Supabase storage, CORS origins, HF model repo.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="cicd-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">CI/CD Libraries</span>
+                    <h2>Automation Libraries & Dependencies</h2>
+                    <p class="panel-desc">The CI/CD tab starts with the tools that keep testing, packaging, and deployment repeatable.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-github"></i></div><div><strong>GitHub Actions</strong><span>Runs pull-request checks, main-branch release jobs, workflow dispatch, concurrency control, Docker build, and Hugging Face Space deployment.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-python"></i></div><div><strong>Python 3.11</strong><span>Matches the CI runtime used by <code>actions/setup-python@v5</code> and keeps the lightweight deployment test environment consistent.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-vial"></i></div><div><strong>pytest + pytest-cov</strong><span>Executes route, unit, service, contract, and MLOps tests while reporting coverage for <code>app</code> and <code>kafka_pipeline</code>.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-server"></i></div><div><strong>FastAPI TestClient</strong><span>Tests the health, JSON prediction, and upload endpoints without starting an external web server.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-brands fa-docker"></i></div><div><strong>Docker Build</strong><span>Validates that <code>deployment/Dockerfile.runtime</code> can package the slim ONNX-oriented runtime used by the cloud API.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div><div><strong>Hugging Face CLI</strong><span>Uploads the prepared runtime bundle to the Space and turns a successful main-branch build into a deployed API release.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-heart-pulse"></i></div><div><strong>curl health check</strong><span>Polls the deployed <code>/health</code> endpoint so the workflow proves the Space became healthy after upload.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Quality Gate</span>
+                    <h2>Tests and CI/CD Pipeline</h2>
+                    <p class="panel-desc">The CI/CD layer turns the project from a working prototype into a repeatable deployment workflow with automated checks before release.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Pull Request Safety</div><span class="theory-badge">tests first</span></div><p class="theory-explanation">Every pull request runs the lightweight pytest suite before code can be merged. This protects API routes, preprocessing, model contracts, inference behavior, and MLOps utilities from accidental regressions.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Push to Main</div><span class="theory-badge champion-badge">release path</span></div><p class="theory-explanation">After tests pass on the main branch, CI builds the slim runtime Docker image, prepares the Hugging Face Space bundle, uploads it, and waits for the deployed health endpoint to respond.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">External Services Off</div><span class="theory-badge">mocked</span></div><p class="theory-explanation">CI disables database logging, Kafka, MLflow, and Hugging Face model download so tests remain fast, deterministic, and safe to run without production secrets.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Deployment Proof</div><span class="theory-badge champion-badge">/health</span></div><p class="theory-explanation">The final deployment step polls the Hugging Face Space health endpoint. A release is considered complete only after the hosted API becomes healthy.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Test Coverage</span>
+                    <h2>What the Automated Tests Validate</h2>
+                    <p class="panel-desc">The test suite focuses on the runtime pieces most likely to break production behavior.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Test Area</th><th>Files</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td>API routes</td><td><code>tests/api/test_routes.py</code></td><td>Checks health, prediction route behavior, validation errors, and API response structure.</td></tr>
+                            <tr><td>Unit logic</td><td><code>tests/unit/</code></td><td>Validates request parsing, preprocessing helpers, pipeline composition, and ensemble decision logic.</td></tr>
+                            <tr><td>Inference service</td><td><code>tests/services/test_inference_service.py</code></td><td>Tests runtime inference behavior without depending on large external model downloads.</td></tr>
+                            <tr><td>Model contracts</td><td><code>tests/contracts/test_model_contracts.py</code></td><td>Protects metadata, class mapping, model output labels, and deployment contract assumptions.</td></tr>
+                            <tr><td>MLOps utilities</td><td><code>tests/mlops/</code></td><td>Checks ONNX release packaging and reviewed-data ingestion helpers used by operations workflows.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">tests/api/test_routes.py</div><div></div></div><div class="terminal-body compact-code"><pre>def test_health_endpoint():
+    response = _client().get("/health")
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "name": None,
+        "status": "ok",
+        "version": "1.0.0",
+    }
+
+@patch("app.api.routes.run_inference")
+def test_predict_endpoint_passes_json_input_to_inference(run_inference):
+    run_inference.return_value = _prediction_response()
+
+    response = _client().post(
+        "/predict?return_all=false",
+        json={"image_url": "https://example.com/xray.png"},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["final_label_name"] == "Healthy"</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">tests/contracts/test_model_contracts.py</div><div></div></div><div class="terminal-body compact-code"><pre>def test_checked_in_class_mappings_match_api_labels():
+    classification = json.loads(AppConfig.CLASSIFICATION_JSON.read_text())
+    diseases = json.loads(AppConfig.DISEASES_JSON.read_text())
+
+    assert classification == {"0": "Healthy", "1": "Unhealthy"}
+    assert diseases == {
+        "0": "COVID",
+        "1": "Viral Pneumonia",
+        "2": "Lung Opacity",
+    }
+
+def test_onnx_path_prefers_explicit_name_and_has_keras_fallback(tmp_path):
+    explicit = get_onnx_model_path(
+        tmp_path,
+        {"model": {"path": "model.keras", "onnx_path": "export/model.onnx"}},
+    )
+    fallback = get_onnx_model_path(tmp_path, {"model": {"path": "model.keras"}})
+
+    assert explicit == tmp_path / "export" / "model.onnx"
+    assert fallback == tmp_path / "model.onnx"</pre></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">GitHub Actions</span>
+                    <h2>CI/CD Job Flow</h2>
+                    <p class="panel-desc">The workflow separates validation, image build, and production deployment into explicit dependent jobs.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="phase-stack stagger-child">
+                    <div class="phase-row"><div class="phase-index">1</div><div class="phase-main"><strong>Tests</strong><span>Runs on pull requests and pushes to main. Installs test dependencies in the deployment folder and runs pytest with coverage for app and Kafka pipeline code.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Python</span><span class="phase-metric-value good">3.11</span></div><div><span class="phase-metric-label">Command</span><span class="phase-metric-value">pytest</span></div><div><span class="phase-metric-label">Trigger</span><span class="phase-metric-value">PR/push</span></div></div></div>
+                    <div class="phase-row"><div class="phase-index">2</div><div class="phase-main"><strong>Runtime Docker build</strong><span>Runs only on pushes after tests pass. Builds the Hugging Face runtime image from <code>deployment/Dockerfile.runtime</code>.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Needs</span><span class="phase-metric-value good">tests</span></div><div><span class="phase-metric-label">Image</span><span class="phase-metric-value">runtime</span></div><div><span class="phase-metric-label">Branch</span><span class="phase-metric-value">main</span></div></div></div>
+                    <div class="phase-row rank-leader"><div class="phase-index">3</div><div class="phase-main"><strong>Deploy Hugging Face Space</strong><span>Runs only after tests and Docker build pass. Creates a space bundle, uploads it with the Hugging Face CLI, and checks the deployed <code>/health</code> endpoint.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Secret</span><span class="phase-metric-value good">HF_TOKEN</span></div><div><span class="phase-metric-label">Target</span><span class="phase-metric-value">Space</span></div><div><span class="phase-metric-label">Gate</span><span class="phase-metric-value">health</span></div></div></div>
+                </div>
+                <div class="terminal-panel implementation-code stagger-child" style="margin-top:24px;"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">.github/workflows/ci.yml</div><div></div></div><div class="terminal-body compact-code"><pre>name: CI/CD
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deployment
+    env:
+      DB_LOGGING_ENABLED: "false"
+      KAFKA_ENABLED: "false"
+      MLFLOW_ENABLED: "false"
+      HF_MODEL_DOWNLOAD_ENABLED: "false"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-test.txt
+      - name: Run lightweight test suite
+        run: pytest --cov=app --cov=kafka_pipeline --cov-report=term-missing
+
+  docker-build:
+    if: github.event_name == 'push'
+    needs: tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Hugging Face runtime image
+        run: docker build --file deployment/Dockerfile.runtime --tag lung-detection-runtime:${{ github.sha }} deployment
+
+  deploy-space:
+    if: github.event_name == 'push'
+    needs: [tests, docker-build]
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE_ID: a1mohamadd/lung-disease-detection-api
+      SPACE_HEALTH_URL: https://a1mohamadd-lung-disease-detection-api.hf.space/health
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Hugging Face CLI
+        run: pip install huggingface-hub==1.2.1
+      - name: Prepare Space bundle
+        run: |
+          mkdir -p space-bundle/assets
+          cp deployment/Dockerfile.runtime space-bundle/Dockerfile
+          cp deployment/requirements-runtime.txt space-bundle/requirements-runtime.txt
+          cp -R deployment/app space-bundle/app
+          cp -R deployment/kafka_pipeline space-bundle/kafka_pipeline
+          cp -R deployment/frontend space-bundle/frontend
+          cp deployment/assets/*.json space-bundle/assets/
+      - name: Upload runtime to Hugging Face Space
+        run: hf upload "$HF_SPACE_ID" space-bundle . --repo-type space --commit-message "Deploy GitHub commit $GITHUB_SHA"
+      - name: Wait for deployed API
+        run: |
+          for attempt in $(seq 1 45); do
+            if curl --fail --silent --show-error "$SPACE_HEALTH_URL"; then
+              echo "Space health check passed."
+              exit 0
+            fi
+            sleep 20
+          done
+          exit 1</pre></div></div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Commands and Environment</span>
+                    <h2>Local and CI Execution Pattern</h2>
+                    <p class="panel-desc">The same test command can run locally, while CI adds deterministic environment flags and deployment-only jobs.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">local test command</div><div></div></div><div class="terminal-body compact-code"><pre>cd deployment
+python -m pip install -r requirements-test.txt
+pytest --cov=app --cov=kafka_pipeline --cov-report=term-missing</pre></div></div>
+                    <div class="terminal-panel implementation-code"><div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">ci safety switches</div><div></div></div><div class="terminal-body compact-code"><pre>DB_LOGGING_ENABLED=false
+KAFKA_ENABLED=false
+MLFLOW_ENABLED=false
+HF_MODEL_DOWNLOAD_ENABLED=false
+
+HF_TOKEN=GitHub secret used only by the deploy job</pre></div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Pipeline Rule</th><th>Why It Matters</th><th>Project Impact</th></tr></thead>
+                        <tbody>
+                            <tr><td>Tests before build</td><td>Stops broken runtime code before image creation.</td><td>Protects API and inference behavior.</td></tr>
+                            <tr><td>Build before deploy</td><td>Confirms the runtime Dockerfile and dependencies still package correctly.</td><td>Protects Hugging Face Space release quality.</td></tr>
+                            <tr><td>Secrets only in deploy</td><td>Keeps pull-request validation independent from production credentials.</td><td>Safer open collaboration and repeatable checks.</td></tr>
+                            <tr><td>Health check after upload</td><td>Verifies the hosted service starts successfully after deployment.</td><td>Turns deployment into a measurable release gate.</td></tr>
                         </tbody>
                     </table>
                 </div>
