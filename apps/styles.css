@@ -536,6 +536,10 @@ code {
   gap: 22px;
 }
 
+.single-app-grid {
+  grid-template-columns: 1fr;
+}
+
 .app-card {
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 30px;
@@ -613,6 +617,19 @@ code {
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 26px;
+}
+
+.app-footer-three {
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+.app-footer-three .app-action {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 12px;
+  font-size: 0.78rem;
 }
 
 .app-action {
@@ -956,6 +973,118 @@ code {
   50% { transform: scale(1.3); opacity: 0.28; }
 }
 
+.edu-visual {
+  background:
+    radial-gradient(circle at 50% 30%, rgba(125, 211, 252, 0.18), transparent 38%),
+    radial-gradient(circle at 78% 20%, rgba(250, 204, 21, 0.10), transparent 24%),
+    linear-gradient(135deg, #020204, #07101b 46%, #020204);
+}
+
+.edu-panel {
+  position: relative;
+  width: min(90%, 428px);
+  height: 266px;
+  border: 1px solid rgba(226, 232, 240, 0.14);
+  border-radius: 34px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012)),
+    #05070b;
+  box-shadow:
+    inset 0 0 56px rgba(125, 211, 252, 0.065),
+    0 30px 100px rgba(0, 0, 0, 0.55);
+}
+
+.edu-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.38;
+  mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 82%);
+}
+
+.edu-icon-shell {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.edu-app-icon {
+  position: relative;
+  z-index: 2;
+  width: min(44%, 170px);
+  border-radius: 28px;
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.42);
+  animation: floatEdu 5.6s ease-in-out infinite;
+}
+
+.edu-ring {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(125, 211, 252, 0.18);
+}
+
+.edu-ring-one {
+  width: 180px;
+  height: 180px;
+  animation: orbitPulse 3.8s ease-in-out infinite;
+}
+
+.edu-ring-two {
+  width: 224px;
+  height: 224px;
+  border-color: rgba(250, 204, 21, 0.13);
+  animation: orbitPulse 4.6s ease-in-out infinite reverse;
+}
+
+.edu-chip {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font: 800 0.58rem var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #d7dfec;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(7, 16, 27, 0.72);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+  animation: floatChip 5s ease-in-out infinite;
+}
+
+.edu-chip i {
+  color: #7dd3fc;
+  font-size: 0.82rem;
+}
+
+.chip-top-left { top: 18px; left: 18px; }
+.chip-top-right { top: 18px; right: 18px; animation-delay: -0.8s; }
+.chip-bottom-left { bottom: 18px; left: 18px; animation-delay: -1.4s; }
+.chip-bottom-right { bottom: 18px; right: 18px; animation-delay: -2.1s; }
+
+@keyframes floatEdu {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes orbitPulse {
+  0%, 100% { transform: scale(0.96); opacity: 0.35; }
+  50% { transform: scale(1.04); opacity: 0.8; }
+}
+
+@keyframes floatChip {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
 .stack-wall {
   position: relative;
   display: grid;
@@ -1123,13 +1252,13 @@ code {
 .brand-postgresql { --brand-halo: rgba(51, 103, 145, 0.28); }
 .brand-sqlite { --brand-halo: rgba(0, 105, 160, 0.25); }
 .brand-mssql { --brand-halo: rgba(204, 41, 35, 0.24); }
-.brand-redis { --brand-halo: rgba(220, 56, 47, 0.25); }
+.brand-cpp { --brand-halo: rgba(96, 165, 250, 0.26); }
 .brand-airflow { --brand-halo: rgba(1, 119, 194, 0.25); }
 .brand-kafka { --brand-halo: rgba(255, 255, 255, 0.16); }
 .brand-huggingface { --brand-halo: rgba(255, 214, 102, 0.30); }
 .brand-onnx { --brand-halo: rgba(87, 129, 255, 0.27); }
 .brand-render { --brand-halo: rgba(255, 255, 255, 0.18); }
-.brand-railway { --brand-halo: rgba(147, 197, 253, 0.23); }
+.brand-qt { --brand-halo: rgba(34, 197, 94, 0.26); }
 .brand-supabase { --brand-halo: rgba(62, 207, 142, 0.28); }
 .brand-mlflow { --brand-halo: rgba(0, 166, 255, 0.25); }
 .brand-html { --brand-halo: rgba(227, 79, 38, 0.26); }
@@ -1141,7 +1270,7 @@ code {
 
 .brand-onnx i,
 .brand-render i,
-.brand-railway i,
+.brand-qt i,
 .brand-supabase i,
 .brand-mlflow i {
   color: rgba(238, 242, 247, 0.9);
@@ -1178,6 +1307,12 @@ code {
   font-size: 1rem;
   color: #d6dae2;
   line-height: 1.7;
+}
+
+.stack-row-separated {
+  margin-top: 26px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(125, 211, 252, 0.14);
 }
 
 .focus-hub {
@@ -1751,14 +1886,35 @@ code {
   .node-cloud { left: 58px; }
   .node-ui { right: 58px; }
 
-  .medical-panel {
+  .medical-panel,
+  .edu-panel {
     width: 92%;
     height: 236px;
   }
 
-  .app-footer {
+  .edu-chip {
+    padding: 7px 10px;
+    font-size: 0.52rem;
+    letter-spacing: 0.06em;
+  }
+
+  .edu-app-icon {
+    width: min(48%, 160px);
+  }
+
+  .edu-ring-one { width: 156px; height: 156px; }
+  .edu-ring-two { width: 196px; height: 196px; }
+
+  .app-footer,
+  .app-footer-three {
     display: grid;
     grid-template-columns: 1fr;
+  }
+
+  .app-footer-three .app-action {
+    min-height: 52px;
+    font-size: 0.86rem;
+    padding: 0 20px;
   }
 
   .app-action {
