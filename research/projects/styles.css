@@ -3300,3 +3300,20 @@ body .project-card.rich-card > .card-detail-panel-mobile .detail-scroll-hint {
     line-height: 1.55 !important;
   }
 }
+
+
+/* Final patch: mobile cards must remain simple links, not inline full-preview blocks.
+   Desktop hover preview stays handled by the live panel created from the template. */
+@media (max-width: 1050px) {
+  .project-card > .card-detail-panel,
+  .project-card.rich-card > .card-detail-panel,
+  .project-card > .card-detail-panel-mobile,
+  .project-card.rich-card > .card-detail-panel-mobile,
+  .project-card > .card-detail-panel-live,
+  .project-card.rich-card > .card-detail-panel-live {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
