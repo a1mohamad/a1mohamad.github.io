@@ -168,6 +168,52 @@ window.PROJECTS_DATA = [
     "image": "url(assets/images/tweets.png)"
   },
   {
+    "title": "Educational Database System",
+    "category": "Education",
+    "meta": [
+      "2026",
+      "Desktop App",
+      "C++",
+      "Qt Widgets",
+      "Data Management",
+      "Windows Release"
+    ],
+    "desc": "C++ Qt Widgets desktop system for educational data management with login authentication, sidebar navigation, tabbed CRUD pages, student and course records, reports, user management, local file persistence, and a packaged Windows release.",
+    "tools": [
+      "C++",
+      "Qt",
+      "Qt Widgets",
+      "Qt Creator",
+      "File I/O",
+      "Windows",
+      "GitHub Releases",
+      "OOP",
+      "CRUD",
+      "Authentication",
+      "Reports"
+    ],
+    "tags": [
+      "Desktop Application",
+      "Educational Database",
+      "Student Management",
+      "Teacher Management",
+      "Course Management",
+      "Term Management",
+      "Grade Management",
+      "User Management",
+      "Login System",
+      "Admin Panel",
+      "Reports Dashboard",
+      "Tabbed Interface",
+      "Sidebar Navigation",
+      "File Based Persistence",
+      "Windows Package",
+      "Software Engineering"
+    ],
+    "href": "https://a1mohamad.github.io/research/educational-database/index.html",
+    "image": "url(assets/images/educational-database.png)"
+  },
+  {
   "title": "SMS Spam Classification",
   "category": "Communication",
   "meta": [
