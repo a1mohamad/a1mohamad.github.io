@@ -199,28 +199,6 @@ function card(p) {
       </div>
       <span class="detail-scroll-hint">Scroll for full labels</span>
     </template>
-    <div class="card-detail-panel card-detail-panel-mobile" aria-hidden="false">
-      <div class="detail-head">
-        <span>Complete project labels <em>· full view</em></span>
-        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-      </div>
-      <div class="detail-scroll" tabindex="-1">
-        <p class="detail-description">${escapeHTML(p.desc)}</p>
-        <div class="detail-group">
-          <strong>Project</strong>
-          <div class="detail-chips">${renderFullChips([p.category, ...p.meta], "status")}</div>
-        </div>
-        <div class="detail-group">
-          <strong>Tools</strong>
-          <div class="detail-chips">${renderFullChips(p.tools, "tool")}</div>
-        </div>
-        <div class="detail-group">
-          <strong>Algorithms</strong>
-          <div class="detail-chips">${renderFullChips(p.tags, "tag")}</div>
-        </div>
-      </div>
-      <span class="detail-scroll-hint">Scroll for full labels</span>
-    </div>
   </a>`;
 }
 
@@ -268,6 +246,22 @@ function setupProjectPreviewPanels() {
   };
 
   document.querySelectorAll(".project-card").forEach(card => {
+    card.addEventListener("click", event => {
+      if (event.defaultPrevented || event.button !== 0) return;
+
+      // Keep the card as a real native link. The hover preview is inserted
+      // inside the anchor, so a normal click on either the card body or
+      // the preview should use the anchor href/target behavior. The old
+      // custom window.open() handler prevented that native navigation in
+      // some desktop browsers.
+      const href = card.getAttribute("href");
+      if (!href) return;
+
+      if (event.target.closest(".card-detail-panel-live")) {
+        card.dataset.previewClick = "true";
+      }
+    });
+
     card.addEventListener("pointerenter", () => createLivePanel(card), {passive: true});
     card.addEventListener("mouseenter", () => createLivePanel(card), {passive: true});
     card.addEventListener("focusin", () => createLivePanel(card), {passive: true});
