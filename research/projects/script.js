@@ -158,8 +158,9 @@ function card(p) {
   const richCard = toolCount + tagCount > 28;
   const previewToolLimit = 4;
   const previewTagLimit = 4;
+  const projectIndex = Math.max(0, projects.indexOf(p));
 
-  return `<a class="project-card${richCard ? " rich-card" : ""}" href="${p.href}" target="_blank" rel="noopener" aria-label="Open ${escapeHTML(p.title)} project page">
+  return `<a class="project-card${richCard ? " rich-card" : ""}" data-project-index="${projectIndex}" href="${p.href}" target="_blank" rel="noopener" aria-label="Open ${escapeHTML(p.title)} project page">
     <div class="thumb" style="--image:${p.image}"></div>
     <div class="card-content">
       <div class="tool-row compact-row meta-row">${renderAllChips([p.category, ...p.meta], "status")}</div>
@@ -176,27 +177,114 @@ function card(p) {
         </div>
       </div>
     </div>
-    <div class="card-detail-panel" aria-hidden="true">
+    <template class="card-detail-template">
       <div class="detail-head">
-        <span>Complete project labels</span>
+        <span>Complete project labels <em>· full view</em></span>
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
       </div>
-      <p>${escapeHTML(p.desc)}</p>
-      <div class="detail-group">
-        <strong>Project</strong>
-        <div class="detail-chips">${renderFullChips([p.category, ...p.meta], "status")}</div>
+      <div class="detail-scroll" tabindex="-1">
+        <p class="detail-description">${escapeHTML(p.desc)}</p>
+        <div class="detail-group">
+          <strong>Project</strong>
+          <div class="detail-chips">${renderFullChips([p.category, ...p.meta], "status")}</div>
+        </div>
+        <div class="detail-group">
+          <strong>Tools</strong>
+          <div class="detail-chips">${renderFullChips(p.tools, "tool")}</div>
+        </div>
+        <div class="detail-group">
+          <strong>Algorithms</strong>
+          <div class="detail-chips">${renderFullChips(p.tags, "tag")}</div>
+        </div>
       </div>
-      <div class="detail-group">
-        <strong>Tools</strong>
-        <div class="detail-chips">${renderFullChips(p.tools, "tool")}</div>
+      <span class="detail-scroll-hint">Scroll for full labels</span>
+    </template>
+    <div class="card-detail-panel card-detail-panel-mobile" aria-hidden="false">
+      <div class="detail-head">
+        <span>Complete project labels <em>· full view</em></span>
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
       </div>
-      <div class="detail-group">
-        <strong>Algorithms</strong>
-        <div class="detail-chips">${renderFullChips(p.tags, "tag")}</div>
+      <div class="detail-scroll" tabindex="-1">
+        <p class="detail-description">${escapeHTML(p.desc)}</p>
+        <div class="detail-group">
+          <strong>Project</strong>
+          <div class="detail-chips">${renderFullChips([p.category, ...p.meta], "status")}</div>
+        </div>
+        <div class="detail-group">
+          <strong>Tools</strong>
+          <div class="detail-chips">${renderFullChips(p.tools, "tool")}</div>
+        </div>
+        <div class="detail-group">
+          <strong>Algorithms</strong>
+          <div class="detail-chips">${renderFullChips(p.tags, "tag")}</div>
+        </div>
       </div>
+      <span class="detail-scroll-hint">Scroll for full labels</span>
     </div>
   </a>`;
 }
+
+function setupProjectPreviewPanels() {
+  const removeLivePanel = card => {
+    const live = card.querySelector(":scope > .card-detail-panel-live");
+    if (live) live.remove();
+  };
+
+  const removeAllLivePanels = () => {
+    document.querySelectorAll(".card-detail-panel-live").forEach(panel => panel.remove());
+  };
+
+  const createLivePanel = card => {
+    const template = card.querySelector(":scope > .card-detail-template");
+    if (!template || window.matchMedia("(max-width: 1050px)").matches) return;
+
+    removeAllLivePanels();
+
+    const panel = document.createElement("div");
+    panel.className = "card-detail-panel card-detail-panel-live";
+    panel.setAttribute("aria-hidden", "false");
+    panel.innerHTML = template.innerHTML;
+    card.appendChild(panel);
+
+    const resetPanelScroll = () => {
+      const scroller = panel.querySelector(".detail-scroll");
+      panel.scrollTop = 0;
+      panel.scrollLeft = 0;
+      if (scroller) {
+        scroller.scrollTop = 0;
+        scroller.scrollLeft = 0;
+      }
+    };
+
+    resetPanelScroll();
+    requestAnimationFrame(resetPanelScroll);
+    setTimeout(resetPanelScroll, 0);
+
+    const scroller = panel.querySelector(".detail-scroll");
+    if (scroller) {
+      scroller.addEventListener("wheel", event => event.stopPropagation(), {passive: true});
+      scroller.addEventListener("touchmove", event => event.stopPropagation(), {passive: true});
+    }
+  };
+
+  document.querySelectorAll(".project-card").forEach(card => {
+    card.addEventListener("pointerenter", () => createLivePanel(card), {passive: true});
+    card.addEventListener("mouseenter", () => createLivePanel(card), {passive: true});
+    card.addEventListener("focusin", () => createLivePanel(card), {passive: true});
+    card.addEventListener("pointerleave", () => removeLivePanel(card), {passive: true});
+    card.addEventListener("mouseleave", () => removeLivePanel(card), {passive: true});
+    card.addEventListener("focusout", () => setTimeout(() => {
+      if (!card.matches(":focus-within")) removeLivePanel(card);
+    }, 0), {passive: true});
+  });
+
+  if (!setupProjectPreviewPanels.boundGlobalEvents) {
+    window.addEventListener("scroll", removeAllLivePanels, {passive: true});
+    window.addEventListener("resize", removeAllLivePanels, {passive: true});
+    setupProjectPreviewPanels.boundGlobalEvents = true;
+  }
+}
+
 
 function filteredProjects() {
   const list = projects.filter(matches).map((project, index) => ({ project, index }));
@@ -264,6 +352,7 @@ function render() {
   const visible = list.slice(start, start + state.perPage);
 
   grid.innerHTML = visible.map(card).join("");
+  setupProjectPreviewPanels();
   empty.hidden = list.length !== 0;
   count.textContent = list.length
     ? `Showing ${start + 1}–${Math.min(start + state.perPage, list.length)} of ${list.length}`
