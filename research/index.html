@@ -1041,6 +1041,11 @@
             "Research Workflow & EDA": {
                 keywords: ["EDA", "Data Cleaning", "Data Preprocessing", "Feature Engineering", "Cross-Validation", "K-Fold", "Error Analysis", "Threshold Calibration", "F1 Optimization", "Confusion Matrix", "TTA", "Fine-Tuning", "Hyperparameter Tuning"],
                 desc: "Experiment workflow built around data understanding, validation strategy, metric analysis, threshold tuning, error review, and reproducible iteration."
+            },
+            "Other Areas": {
+                nonPythonOnly: true,
+                desc: "Research and application work outside the main AI/ML track, covering other computer-science domains and languages such as C++, desktop systems, GUI engineering, and non-Python software applications.",
+                evidence: "non-Python"
             }
         };
 
@@ -1058,6 +1063,11 @@
 
             const scored = Object.entries(expertiseRules).map(([title, config]) => {
                 const matchedProjects = projects.filter(project => {
+                    if (config.nonPythonOnly) {
+                        const tools = Array.isArray(project.tools) ? project.tools : [];
+                        return !tools.some(tool => String(tool).trim().toLowerCase() === "python");
+                    }
+
                     const searchable = collectProjectText(project);
                     return config.keywords.some(keyword => searchable.includes(keyword.toLowerCase()));
                 });
@@ -1076,7 +1086,7 @@
                     <div class="exp-item">
                         <div class="exp-header"><span class="exp-title">${item.title}</span><span class="exp-percent">${percent}%</span></div>
                         <div class="exp-bar-bg"><div class="exp-bar-fill" data-width="${barWidth}"></div></div>
-                        <p class="exp-desc">${item.desc} <strong>${item.count}</strong> matching ${projectLabel} detected from project metadata, tools, and tags.</p>
+                        <p class="exp-desc">${item.desc} <strong>${item.count}</strong> matching ${projectLabel} detected from ${item.evidence || "project metadata, tools, and tags"}.</p>
                     </div>`;
             }).join("");
         }
