@@ -655,6 +655,63 @@
             }
         }
 
+
+        /* Mobile-only steady viewport fix — prevents accidental left/right page drift without changing desktop */
+        @media (max-width: 900px) {
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+                overscroll-behavior-x: none;
+            }
+
+            body {
+                position: relative;
+                touch-action: pan-y;
+            }
+
+            nav,
+            .hero-section,
+            .section,
+            .section-inner,
+            .approach-grid,
+            .project-vitrine,
+            .contact-section,
+            .footer-bar {
+                max-width: 100%;
+                overflow-x: clip;
+            }
+
+            .hero-accent-blur {
+                width: min(700px, 120vw);
+                left: 50%;
+            }
+
+            .tech-marquee {
+                max-width: 100%;
+                overflow: hidden;
+            }
+
+            .nav-links {
+                max-width: 100%;
+                overscroll-behavior-inline: contain;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-section,
+            .section {
+                width: 100%;
+            }
+
+            .stats-strip,
+            .tech-categories,
+            .expertise-list {
+                min-width: 0;
+            }
+        }
+
     </style>
 </head>
 <body>
