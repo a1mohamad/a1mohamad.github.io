@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Database | C++ Qt Desktop Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">C++ &middot; Qt Widgets &middot; CRUD &middot; File I/O &middot; Reports &middot; Auth &middot; Windows Release</div>
+    <h1>Educational Database: From Console Logic to a Qt Desktop Management System</h1>
+    <div class="hero-subtitle">A C++ desktop application that turns an educational database console project into a structured Qt Widgets interface: login, sidebar navigation, tabbed CRUD pages, student and course records, term-grade workflows, report generation, user management, local file persistence, and a packaged Windows release.</div>
+    <div class="btn-group">
+      <a class="btn-modern-primary" href="https://github.com/a1mohamad/educational-database-qt" target="_blank">
+        <i class="fa-brands fa-github"></i>
+        <span>GitHub Repo</span>
+      </a>
+
+      <a class="btn-modern-secondary" href="https://github.com/a1mohamad/educational-database-qt/releases/download/v1.0.0/EducationalDatabase-v1.0.0-Windows-x64.zip" target="_blank">
+        <i class="fa-brands fa-windows"></i>
+        <span>Download</span>
+      </a>
+    </div>
+</div>
+
+<div class="main-layout">
+    <div class="metrics-strip wheat-metrics disaster-metrics">
+        <div class="metric-block" data-metric-target="7" data-metric-type="integer"><div class="metric-label">Database Tabs</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="9" data-metric-type="integer"><div class="metric-label">Storage Files</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block"><div class="metric-label">App OS</div><div class="metric-value metric-tech-value"><i class="fa-brands fa-windows"></i><span>Windows</span></div></div>
+        <div class="metric-block"><div class="metric-label">Programming Language</div><div class="metric-value metric-tech-value"><i class="devicon-cplusplus-plain colored metric-devicon cpp-icon"></i><span>C++</span></div></div>
+        <div class="metric-block"><div class="metric-label">App Launcher</div><div class="metric-value metric-tech-value"><i class="devicon-qt-original colored metric-devicon qt-icon"></i><span>Qt</span></div></div>
+    </div>
+
+    <div class="notebook-switcher disaster-switcher">
+        <button class="notebook-tab active" data-target="overview-panel"><i class="fa-solid fa-display"></i>Desktop Product</button>
+        <button class="notebook-tab" data-target="data-panel"><i class="fa-solid fa-database"></i>Data Layer</button>
+        <button class="notebook-tab" data-target="reports-panel"><i class="fa-solid fa-chart-column"></i>Reports + Users</button>
+        <button class="notebook-tab" data-target="release-panel"><i class="fa-brands fa-windows"></i>Release Package</button>
+    </div>
+
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Four-Part Desktop Strategy</span>
+                <h2>Console to Desktop Application Map</h2>
+                <p class="panel-desc">The page follows the real development path of the project: interface shell, database workflows, reports and users, then a packaged Windows release.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="theory-split">
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Desktop Shell</div><span class="theory-badge">Qt Widgets</span></div>
+                    <p class="theory-explanation">The old console interaction is replaced by a real desktop shell: login dialog, single main window, sidebar navigation, tabbed pages, input forms, tables, and action buttons.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Educational Records</div><span class="theory-badge champion-badge">CRUD</span></div>
+                    <p class="theory-explanation">The database area manages persons, students, teachers, courses, terms, term-course mappings, and grades through a consistent create/read/update/delete workflow.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Reports and Users</div><span class="theory-badge">System Layer</span></div>
+                    <p class="theory-explanation">Reports are embedded inside the same window, and user management is handled as a first-class workspace instead of a separate floating tool.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Release Package</div><span class="theory-badge champion-badge">Windows x64</span></div>
+                    <p class="theory-explanation">The final project is prepared as a downloadable Windows package, so the application can be opened by users without rebuilding it from source.</p>
+                </div>
+            </div>
+        </div></div>
+    </section>
+
+    <div class="notebook-panel active" id="overview-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Desktop Interface Overview</span>
+                    <h2>Application Scope</h2>
+                    <p class="panel-desc">The project is a software-engineering application, not an AI model: the focus is clean desktop workflows and structured data management.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The Educational Database System is a C++ and Qt Widgets desktop app for managing common university-style records. It converts the earlier console database idea into a visual product with form inputs, table views, search boxes, report generation, login flow, user roles, and a consistent sidebar layout. The design goal is simple: make the data model usable through a real interface instead of command-line menus.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Primary UI shape</strong><span>A single <code>MainWindow</code> organizes database, reports, users, and help areas through a left sidebar.</span></div>
+                        <div class="note-card"><strong>Data workflow</strong><span>Each record page follows the same pattern: inputs, <code>Add</code>, <code>Update</code>, <code>Refresh</code>, <code>Delete</code>, search, and table output.</span></div>
+                        <div class="note-card"><strong>Release goal</strong><span>The project is not only source code; it has a GitHub release package for Windows users.</span></div>
+                    </div>
+                </div>
+                <div class="dependency-list stagger-child" style="margin-top:24px;">
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-code"></i></div><div><strong>C++</strong><span>Implements the core entities, actions, validation logic, file loading, file saving, and application behavior.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-window-maximize"></i></div><div><strong>Qt Widgets</strong><span>Builds the native desktop interface with dialogs, tab widgets, stacked pages, buttons, input fields, tables, and layout managers.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-table"></i></div><div><strong>Table-Based Management</strong><span>Represents stored records in searchable table views so the user can inspect and select rows visually.</span></div></div>
+                    <div class="dependency-row"><div class="dep-icon"><i class="fa-solid fa-box-archive"></i></div><div><strong>Local Persistence</strong><span>Keeps application data in local system files, making the app lightweight and easy to package without a server dependency.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Login and Main Window</span>
+                    <h2>Desktop Flow</h2>
+                    <p class="panel-desc">The application starts with authentication and then moves into a unified sidebar-based management window.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid two stagger-child">
+                    <div class="viz-wrapper-card big-viz">
+                        <div class="viz-title">Login Dialog</div>
+                        <img src="assets/login.png" alt="Educational Database login dialog">
+                    </div>
+                    <div class="viz-wrapper-card big-viz">
+                        <div class="viz-title">Main Database Workspace</div>
+                        <img src="assets/mainwindow.png" alt="Educational Database main window with person records">
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table class="data-table">
+                        <thead><tr><th>Interface Area</th><th>Purpose</th><th>Why It Matters</th></tr></thead>
+                        <tbody>
+                            <tr><td>Login dialog</td><td>Receives username and password before opening the application.</td><td>Separates public app launch from authenticated management.</td></tr>
+                            <tr><td>Sidebar</td><td>Switches between Database, Reports, Users, and Help.</td><td>Keeps the app organized without multiple disconnected windows.</td></tr>
+                            <tr><td>Database tabs</td><td>Expose each entity group as a dedicated tab.</td><td>Makes a multi-table project readable for a normal user.</td></tr>
+                            <tr><td>Action buttons</td><td>Add, update, refresh, and delete the selected data.</td><td>Creates a predictable CRUD interface across the system.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Interaction Design</span>
+                    <h2>Navigation Contract</h2>
+                    <p class="panel-desc">The desktop interface uses a small set of repeated patterns so the user does not need to relearn each page.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Sidebar State</div><span class="theory-badge">MainWindow</span></div>
+                        <div class="theory-math-container"><code>Database → Reports → Users → Help</code></div>
+                        <div class="theory-explanation">The sidebar acts as the application-level router. The active item is highlighted, while the main content area changes without leaving the same window.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Tabbed Records</div><span class="theory-badge champion-badge">QTabWidget</span></div>
+                        <div class="theory-math-container"><code>Persons, Students, Teachers, Courses, Terms, Term Courses, Grades</code></div>
+                        <div class="theory-explanation">The records are split by entity type. This avoids one crowded screen and gives every data area room for its own form fields and table columns.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Form + Table Loop</div><span class="theory-badge">CRUD</span></div>
+                        <div class="theory-math-container"><code>input → action → save → refresh table</code></div>
+                        <div class="theory-explanation">The user edits values in forms, triggers an action, and sees the table update. This loop is repeated across persons, students, teachers, courses, terms, and grades.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Search Field</div><span class="theory-badge">Filtering</span></div>
+                        <div class="theory-math-container"><code>Search...</code></div>
+                        <div class="theory-explanation">Search is placed close to the table so the user can narrow records after loading data, which is much easier than scanning long lists manually.</div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="data-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Record Modeling</span>
+                    <h2>Entity and Table Design</h2>
+                    <p class="panel-desc">The database workspace represents educational records as connected C++ structures and local record files.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><div class="kpi-value">Persons</div><div class="kpi-label">National identity and contact information.</div></div>
+                    <div class="kpi-card"><div class="kpi-value">Students</div><div class="kpi-label">Student ID, national ID, entrance year, credits, and average.</div></div>
+                    <div class="kpi-card"><div class="kpi-value">Courses</div><div class="kpi-label">Course records used by terms and grades.</div></div>
+                    <div class="kpi-card"><div class="kpi-value">Grades</div><div class="kpi-label">Student-course evaluation data.</div></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table class="data-table">
+                        <thead><tr><th>Entity</th><th>Example Fields</th><th>Role in the System</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>NationalCore</code></td><td><code>melli</code>, first name, family</td><td>Stores the shared identity layer for people.</td></tr>
+                            <tr><td><code>NationalDetails</code></td><td>address, postal code, telephone</td><td>Adds contact information to national identity records.</td></tr>
+                            <tr><td><code>Student</code></td><td>student ID, national ID, entrance year, credits, grade</td><td>Connects a person to academic student information.</td></tr>
+                            <tr><td><code>Teacher</code></td><td>teacher-related identifiers and details</td><td>Represents instructors used in educational workflows.</td></tr>
+                            <tr><td><code>Course</code>, <code>Term</code>, <code>TermCourse</code></td><td>course and term mapping fields</td><td>Model the academic offering structure.</td></tr>
+                            <tr><td><code>Grade</code></td><td>student-course result fields</td><td>Captures performance and supports reports.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Student Workspace</span>
+                    <h2>CRUD Screen Pattern</h2>
+                    <p class="panel-desc">The students tab is a compact example of the app pattern: fields at the top, actions in the middle, records below.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="viz-wrapper-card big-viz">
+                        <div class="viz-title">Students Tab</div>
+                        <img src="assets/students.png" alt="Educational Database students tab">
+                    </div>
+                    <div class="matrix-table-container">
+                        <table class="data-table">
+                            <thead><tr><th>UI Element</th><th>Behavior</th></tr></thead>
+                            <tbody>
+                                <tr><td>Student ID</td><td>Unique student-side identifier used in the student table.</td></tr>
+                                <tr><td>National ID</td><td>Connects the student record to the person identity records.</td></tr>
+                                <tr><td>Entrance year</td><td>Stores the academic start year and supports student reporting.</td></tr>
+                                <tr><td>Search box</td><td>Filters visible rows so the user can inspect records quickly.</td></tr>
+                                <tr><td>Table headers</td><td>Show the current schema directly in the interface.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Persistence Layer</span>
+                    <h2>Local File Storage</h2>
+                    <p class="panel-desc">The project keeps the runtime simple by storing data in local files instead of requiring a database server.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-text">data/
+  national_core.txt
+  national_details.txt
+  students.txt
+  teachers.txt
+  courses.txt
+  terms.txt
+  term_courses.txt
+  grades.txt
+
+system_files/
+  users.dat</code></pre></div>
+                </div>
+                <div class="note-grid stagger-child" style="margin-top:24px;">
+                    <div class="note-card"><strong>Record separator</strong><span>Text records can be serialized with a delimiter such as <code>|</code>, keeping files readable and easy to inspect during development.</span></div>
+                    <div class="note-card"><strong>Load on startup</strong><span>The application reads stored files into memory so the UI tables can be populated after login.</span></div>
+                    <div class="note-card"><strong>Save after actions</strong><span>Add, update, and delete operations are reflected back into the storage files so state survives restarts.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Data Integrity</span>
+                    <h2>Validation, Refresh, and Search</h2>
+                    <p class="panel-desc">A desktop database app needs predictable behavior around editing, reloading, and inspecting records.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Add</div><span class="theory-badge champion-badge">Create</span></div>
+                        <div class="theory-math-container"><code>read form → validate → append record</code></div>
+                        <div class="theory-explanation">The add path takes the current form values and creates a new record only when the required identity fields are present.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Update</div><span class="theory-badge">Edit</span></div>
+                        <div class="theory-math-container"><code>select row → edit fields → save</code></div>
+                        <div class="theory-explanation">The update path lets the user correct existing information without removing and recreating a record manually.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Delete</div><span class="theory-badge">Remove</span></div>
+                        <div class="theory-math-container"><code>select record → confirm intent → remove</code></div>
+                        <div class="theory-explanation">The delete action is visually separated with a red button, which makes destructive operations easy to recognize.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Refresh</div><span class="theory-badge">Sync</span></div>
+                        <div class="theory-math-container"><code>reload model → repaint table</code></div>
+                        <div class="theory-explanation">Refresh provides a clean way to synchronize the table view with the current internal record state.</div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="reports-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Reporting Workspace</span>
+                    <h2>Report Generation Area</h2>
+                    <p class="panel-desc">The Reports page is embedded in the main window, keeping analytics and management in the same desktop product.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="viz-wrapper-card big-viz">
+                        <div class="viz-title">Reports Page</div>
+                        <img src="assets/reports.png" alt="Educational Database reports page">
+                    </div>
+                    <div class="matrix-table-container">
+                        <table class="data-table">
+                            <thead><tr><th>Report UI</th><th>Purpose</th></tr></thead>
+                            <tbody>
+                                <tr><td>Report selector</td><td>Lets the user choose the type of report to generate.</td></tr>
+                                <tr><td>Generate button</td><td>Runs the selected reporting logic and fills the output area.</td></tr>
+                                <tr><td>Clear button</td><td>Resets the report view for the next query.</td></tr>
+                                <tr><td>Output panel</td><td>Provides a large white workspace for report text or tabular result display.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="note-grid stagger-child" style="margin-top:24px;">
+                    <div class="note-card"><strong>Operational value</strong><span>Reports turn stored educational records into readable summaries instead of raw table rows only.</span></div>
+                    <div class="note-card"><strong>Same-window design</strong><span>The reports screen is not detached from the application shell, so navigation remains consistent.</span></div>
+                    <div class="note-card"><strong>Future path</strong><span>The report area can later expand into exports, filters, printable reports, and richer dashboards.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">User Administration</span>
+                    <h2>Users Management Page</h2>
+                    <p class="panel-desc">The users page handles accounts, password changes, roles, refresh, search, and logout from the same sidebar shell.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid single-centered stagger-child">
+                    <div class="viz-wrapper-card big-viz">
+                        <div class="viz-title">Users Management</div>
+                        <img src="assets/users.png" alt="Educational Database users management page">
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table class="data-table">
+                        <thead><tr><th>Control</th><th>Role</th><th>Interface Evidence</th></tr></thead>
+                        <tbody>
+                            <tr><td>Current user label</td><td>Shows who is logged in and whether the user is admin.</td><td><code>Current user: a1mohamad (admin)</code></td></tr>
+                            <tr><td>Add User</td><td>Creates another account from username, password, and role fields.</td><td>Located inside the Users Management panel.</td></tr>
+                            <tr><td>Change Password</td><td>Updates credentials for an existing user.</td><td>Uses the password/new-password input area.</td></tr>
+                            <tr><td>Delete User</td><td>Removes an account when permitted.</td><td>Grouped with user administration actions.</td></tr>
+                            <tr><td>Logout</td><td>Ends the current session and returns control to authentication.</td><td>Placed in the top-right of the users workspace.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Authentication Model</span>
+                    <h2>Login, Roles, and System Files</h2>
+                    <p class="panel-desc">The project introduces a lightweight account layer around the educational management interface.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Login Gate</div><span class="theory-badge champion-badge">Auth</span></div>
+                        <div class="theory-math-container"><code>username + password → session</code></div>
+                        <div class="theory-explanation">The login screen keeps the management area behind a simple credential check and gives the project a more complete application feel.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Role Dropdown</div><span class="theory-badge">Admin/User</span></div>
+                        <div class="theory-math-container"><code>role = admin | user</code></div>
+                        <div class="theory-explanation">Role selection gives the system a foundation for separating administrative actions from ordinary access in later versions.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">User Storage</div><span class="theory-badge">users.dat</span></div>
+                        <div class="theory-math-container"><code>system_files/users.dat</code></div>
+                        <div class="theory-explanation">Account data is stored separately from educational records, which keeps system configuration distinct from student and course data.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Session Control</div><span class="theory-badge">Logout</span></div>
+                        <div class="theory-math-container"><code>logout → close session → login again</code></div>
+                        <div class="theory-explanation">Logout makes the account flow explicit and prevents the users page from acting like a static settings panel.</div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Distribution Step</span>
+                    <h2>Windows Release Package</h2>
+                    <p class="panel-desc">A portfolio-ready release flow with a direct Windows download and visible repository/release context for reviewers.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="release-delivery-card stagger-child">
+                    <div class="release-main-icon"><i class="fa-brands fa-windows"></i></div>
+                    <div class="release-delivery-copy">
+                        <span class="release-eyebrow">Release-ready distribution</span>
+                        <h3>Windows ZIP package with source and release context.</h3>
+                        <p>The primary action downloads the prepared Windows x64 package directly, while the repository and release buttons remain visible for visitors who want to inspect the source code, version page, notes, and package history before running the app.</p>
+                    </div>
+                    <a class="release-download-action" href="https://github.com/a1mohamad/educational-database-qt/releases/download/v1.0.0/EducationalDatabase-v1.0.0-Windows-x64.zip" target="_blank" rel="noopener"><i class="fa-brands fa-windows"></i><span>Download</span></a>
+                </div>
+
+                <div class="release-mini-metrics stagger-child">
+                    <div class="release-mini-metric release-number-metric">
+                        <span>Database Tabs</span>
+                        <strong>7</strong>
+                        <p>Persons, students, teachers, courses, terms, term courses, and grades.</p>
+                    </div>
+                    <div class="release-mini-metric release-number-metric">
+                        <span>Storage Files</span>
+                        <strong>9</strong>
+                        <p>Local text/data files used for app records and authentication.</p>
+                    </div>
+                    <div class="release-mini-metric release-tech-metric">
+                        <span>App OS</span>
+                        <strong><i class="fa-brands fa-windows"></i> Windows</strong>
+                        <p>Packaged for Windows desktop usage.</p>
+                    </div>
+                    <div class="release-mini-metric release-tech-metric">
+                        <span>Programming Language</span>
+                        <strong><i class="devicon-cplusplus-plain colored release-devicon cpp-icon"></i> C++</strong>
+                        <p>Core application logic and Qt integration.</p>
+                    </div>
+                    <div class="release-mini-metric release-tech-metric">
+                        <span>App Launcher</span>
+                        <strong><i class="devicon-qt-original colored release-devicon qt-icon"></i> Qt</strong>
+                        <p>Desktop UI launched through Qt Widgets.</p>
+                    </div>
+                </div>
+
+                <div class="release-link-strip stagger-child">
+                    <a href="https://github.com/a1mohamad/educational-database-qt" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Repository</a>
+                    <a href="https://github.com/a1mohamad/educational-database-qt/releases/tag/v1.0.0" target="_blank" rel="noopener"><i class="fa-solid fa-box-open"></i> Release</a>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Project Shape</span>
+                    <h2>Repository and Runtime Structure</h2>
+                    <p class="panel-desc">The app is organized around UI code, backend actions, file persistence, authentication, and release assets.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><span></span><span></span><span></span></div>
+                    <div class="terminal-body"><pre><code class="language-text">educational-database-qt/
+  main.cpp
+  MainWindow.ui
+  MainWindow.cpp / MainWindow.h
+  actions.cpp / actions.h
+  fileIO.cpp / fileIO.h
+  auth.cpp / auth.h
+  structures.h
+  system_files/
+    users.dat
+  data/
+    national_core.txt
+    national_details.txt
+    students.txt
+    teachers.txt
+    courses.txt
+    terms.txt
+    term_courses.txt
+    grades.txt</code></pre></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table class="data-table">
+                        <thead><tr><th>Layer</th><th>Responsibility</th><th>Portfolio Signal</th></tr></thead>
+                        <tbody>
+                            <tr><td>Qt UI</td><td>Builds the login dialog, main window, sidebar, tabs, forms, and tables.</td><td>Desktop application development.</td></tr>
+                            <tr><td>Actions</td><td>Coordinates add, update, delete, refresh, search, and report operations.</td><td>Application logic beyond static UI screens.</td></tr>
+                            <tr><td>File I/O</td><td>Reads and writes local records for each entity group.</td><td>Persistence and state management.</td></tr>
+                            <tr><td>Auth</td><td>Handles accounts, roles, password changes, and logged-in user state.</td><td>System design and administrative workflows.</td></tr>
+                            <tr><td>Release</td><td>Packages the Windows build into a downloadable artifact.</td><td>User-facing delivery, not only source code.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Software Engineering Readout</span>
+                    <h2>Why This Project Matters</h2>
+                    <p class="panel-desc">The strength of the project is the bridge from basic C++ records to a usable desktop product.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="synthesis-gradient-box stagger-child">
+                    <p>This project matters because it demonstrates a different side of engineering from AI modeling: building a desktop interface, shaping a multi-entity data system, separating database records from user accounts, designing repeatable CRUD flows, embedding reports into the product, and shipping a Windows release. It shows that the portfolio is not limited to notebooks or model APIs; it also includes traditional software application development with C++ and Qt.</p>
+                </div>
+            </div></div>
+        </section>
+    </div>
+</div>
+<footer class="portfolio-footer-gate">
+    <div class="contact-icons">
+        <a class="icon-link" href="mailto:a1mohamad.askari@gmail.com" title="Gmail">
+            <i class="fa-brands fa-google"></i>
+        </a>
+
+        <a class="icon-link" href="mailto:amirmohmdaskari@icloud.com" title="iCloud">
+            <i class="fa-brands fa-apple"></i>
+        </a>
+
+        <a class="icon-link" href="tel:+989012223122" title="Phone">
+            <i class="fas fa-phone"></i>
+        </a>
+
+        <a class="icon-link" href="https://github.com/a1mohamad" target="_blank" title="GitHub">
+            <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a class="icon-link" href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" title="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+
+        <a class="icon-link" href="https://www.kaggle.com/amirmohamadaskari" target="_blank" title="Kaggle">
+            <i class="fa-brands fa-kaggle"></i>
+        </a>
+    </div>
+</footer>
+
+<div class="editorial-credits">
+    Amir Mohamad Askari · C++ Qt Desktop App · 2026
+</div>
+<script src="script.js"></script>
+</body>
+</html>
