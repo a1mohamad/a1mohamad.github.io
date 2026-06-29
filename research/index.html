@@ -134,9 +134,19 @@
         .btn-secondary i { font-size: 1.3rem; }
         .hero-actions .btn-primary,
         .hero-actions .btn-secondary {
-            width: 192px;
-            min-height: 52px;
+            width: 218px;
+            height: 64px;
+            min-height: 64px;
+            padding: 0 24px;
             justify-content: center;
+            flex: 0 0 218px;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        .hero-actions .btn-primary i,
+        .hero-actions .btn-secondary i {
+            flex: 0 0 auto;
         }
 
         .stats-strip {
@@ -715,6 +725,25 @@
             .tech-categories,
             .expertise-list {
                 min-width: 0;
+            }
+        }
+
+
+
+        /* Hero buttons true equal size — desktop and mobile, no other layout touched */
+        @media (max-width: 640px) {
+            .hero-actions {
+                align-items: flex-start;
+            }
+            .hero-actions .btn-primary,
+            .hero-actions .btn-secondary {
+                width: min(100%, 304px);
+                flex-basis: min(100%, 304px);
+                height: 72px;
+                min-height: 72px;
+                padding: 0 28px;
+                justify-content: center;
+                white-space: nowrap;
             }
         }
 
