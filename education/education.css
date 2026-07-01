@@ -347,3 +347,169 @@ body{
   .milestone-card,.learning-card,.book-card,.detail-panel,.media-card{max-width:100%}
   .milestone-thumb img,.milestone-thumb video{min-height:0}
 }
+
+
+/* ==== v7 platform logo wall + media-heavy milestone fix ==== */
+.platform-logo-wall{display:flex!important}
+.platform-logo-wall.real-brand-wall{
+  width:max-content;
+  max-width:100%;
+  margin-top:22px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  background:linear-gradient(180deg,rgba(255,255,255,.042),rgba(255,255,255,.012));
+  overflow:hidden;
+  box-shadow:0 26px 80px rgba(0,0,0,.28);
+}
+.real-brand-wall .platform-logo-item{
+  min-width:160px;
+  min-height:112px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:18px 26px;
+  position:relative;
+}
+.real-brand-wall .platform-logo-item:not(:last-child){border-right:1px solid rgba(255,255,255,.08)}
+.real-brand-wall img{
+  width:48px;
+  height:48px;
+  object-fit:contain;
+  filter:drop-shadow(0 12px 28px rgba(255,255,255,.06));
+}
+.real-brand-wall strong{
+  font-size:1.02rem;
+  line-height:1.1;
+  font-weight:900;
+  letter-spacing:-.035em;
+  color:#f3f3f3;
+  text-align:center;
+  white-space:nowrap;
+}
+.platform-logo-wall.real-brand-wall .platform-badge{display:none!important}
+/* Media-heavy milestone pages: avoid a long empty left column by turning the media stack into a full-width gallery below the text. */
+.milestone-grid.media-rich{display:block!important}
+.milestone-grid.media-rich > .detail-panel{max-width:920px}
+.milestone-grid.media-rich > .media-panel{
+  margin-top:22px;
+  display:grid!important;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
+.milestone-grid.media-rich .media-card{height:auto!important}
+.milestone-grid.media-rich .media-card img,
+.milestone-grid.media-rich .media-card video{
+  width:100%;
+  max-height:360px;
+  object-fit:contain;
+  background:#f4f4f4;
+}
+@media(max-width:900px){
+  .platform-logo-wall.real-brand-wall{width:100%;overflow-x:auto;scrollbar-width:none}
+  .platform-logo-wall.real-brand-wall::-webkit-scrollbar{display:none}
+  .real-brand-wall .platform-logo-item{min-width:138px;min-height:100px;padding:16px 20px}
+  .real-brand-wall img{width:42px;height:42px}
+  .real-brand-wall strong{font-size:.92rem}
+  .milestone-grid.media-rich > .media-panel{grid-template-columns:1fr}
+}
+
+
+/* ==== v8 local platform SVG wall + mobile one-row buttons ==== */
+.platform-logo-wall.local-brand-wall{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(112px,1fr));
+  width:100%;
+  max-width:760px;
+  border-radius:24px;
+}
+.local-brand-wall .platform-logo-item{
+  min-width:0;
+  min-height:126px;
+  padding:22px 18px;
+}
+.local-brand-wall .platform-logo-item img{
+  width:62px;
+  height:62px;
+  object-fit:contain;
+  filter:none!important;
+}
+.local-brand-wall .platform-logo-item strong{
+  font-size:1rem;
+  white-space:normal;
+}
+/* Keep buttons on one line on phones without causing page-wide horizontal scroll. */
+@media(max-width:900px){
+  .hero-actions,
+  .action-row,
+  .learning-card .action-row,
+  .book-card .action-row,
+  .detail-copy .action-row,
+  .milestone-hero .action-row{
+    display:flex!important;
+    flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    gap:8px!important;
+    width:100%;
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .hero-actions::-webkit-scrollbar,
+  .action-row::-webkit-scrollbar,
+  .learning-card .action-row::-webkit-scrollbar,
+  .book-card .action-row::-webkit-scrollbar,
+  .detail-copy .action-row::-webkit-scrollbar,
+  .milestone-hero .action-row::-webkit-scrollbar{display:none;}
+  .hero-actions .btn,
+  .hero-actions .primary-action,
+  .hero-actions .secondary-action,
+  .action-row .btn,
+  .learning-card .action-row .btn,
+  .book-card .action-row .btn,
+  .detail-copy .action-row .btn,
+  .milestone-hero .action-row .btn{
+    flex:0 0 auto!important;
+    width:auto!important;
+    min-width:max-content!important;
+    min-height:46px;
+    padding:0 13px!important;
+    font-size:.82rem!important;
+    white-space:nowrap!important;
+  }
+  .action-row .btn i,
+  .hero-actions .btn i,
+  .hero-actions .primary-action i,
+  .hero-actions .secondary-action i{font-size:1rem!important;}
+}
+@media(max-width:760px){
+  .platform-logo-wall.local-brand-wall{
+    grid-template-columns:repeat(5,112px);
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    scroll-snap-type:x proximity;
+  }
+  .platform-logo-wall.local-brand-wall::-webkit-scrollbar{display:none;}
+  .local-brand-wall .platform-logo-item{min-width:112px;min-height:112px;padding:18px 10px;scroll-snap-align:center;}
+  .local-brand-wall .platform-logo-item img{width:52px;height:52px;}
+  .local-brand-wall .platform-logo-item strong{font-size:.84rem;line-height:1.16;}
+}
+@media(max-width:420px){
+  .hero-actions .btn,
+  .hero-actions .primary-action,
+  .hero-actions .secondary-action,
+  .action-row .btn,
+  .learning-card .action-row .btn,
+  .book-card .action-row .btn,
+  .detail-copy .action-row .btn,
+  .milestone-hero .action-row .btn{
+    padding:0 11px!important;
+    font-size:.78rem!important;
+    min-height:44px;
+  }
+}
