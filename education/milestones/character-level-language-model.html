@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Character-Level Language Model · Education Milestone</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="../education.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div aria-hidden="true" class="grain"></div>
+<div aria-hidden="true" class="orb orb-one"></div>
+<div aria-hidden="true" class="orb orb-two"></div>
+<header class="site-header" id="top">
+<a aria-label="Home" class="nav-brand" href="https://a1mohamad.github.io/">
+<span class="brand-mark">A</span><span>Amir Mohammad Askari</span>
+</a>
+<button aria-label="Toggle menu" class="nav-toggle" type="button"><i class="fa-solid fa-bars"></i></button>
+<nav aria-label="Primary navigation" class="main-nav">
+<a href="https://a1mohamad.github.io/apps/index.html">Apps</a>
+<a href="https://a1mohamad.github.io/research/index.html">Research</a>
+<a class="active" href="../education.html">Education</a>
+<a href="https://a1mohamad.github.io/about-me/index.html">About Me</a>
+<a href="#contact">Contact Me</a>
+</nav>
+<a class="nav-cta" href="https://www.linkedin.com/in/amirmohammad-askari/" rel="noopener" target="_blank">Connect Me</a>
+</header>
+<main class="milestone-page">
+<a class="back-link" href="../education.html#courses"><i class="fa-solid fa-arrow-left"></i> Back to Education</a>
+<section class="milestone-hero">
+<div class="eyebrow">Deep Learning Specialization · Sequence Models</div>
+<h1>Character-Level Language Model</h1>
+<p>A character-level RNN built from scratch to generate dinosaur names and Shakespeare-style text one character at a time.</p>
+<div class="pill-row"><span>RNN from scratch</span><span>One-hot character modeling</span><span>Gradient clipping</span><span>Sampling</span><span>Text generation</span></div>
+<div class="action-row"><a class="btn" href="https://github.com/a1mohamad/DeepLearning_specialization" rel="noopener" target="_blank"><i class="fa-brands fa-github"></i>GitHub</a></div>
+</section>
+<section class="milestone-grid">
+<article class="detail-panel"><h2>What this project is about</h2><p>This project builds a language model at the smallest text unit: characters. It learns the next-character distribution and samples new dinosaur names, then extends the idea to Shakespeare-style generation.</p><h2>Implementation focus</h2><p>The main idea was sequence generation from scratch: forward pass, backward pass, gradient clipping, sampling, and how loss improvements gradually produce more realistic text.</p><h2>Key results and artifacts</h2><ul class="result-list"><li>Dinosaur corpus: 19,909 characters</li><li>Vocabulary: 27 characters</li><li>Default training loop: 35,000 iterations</li><li>Shakespeare section: 31,412 examples</li></ul><h2>What I learned</h2><p>The learning was foundational: language generation begins with predicting the next token, even when the token is only a character.</p></article>
+<aside class="media-panel"><figure class="media-card"><img alt="Dinosaur Island theme" loading="lazy" src="../assets/milestones/dino.jpg"/><figcaption>Dinosaur Island theme</figcaption></figure><figure class="media-card"><img alt="RNN diagram" loading="lazy" src="../assets/milestones/rnn.png"/><figcaption>RNN diagram</figcaption></figure><figure class="media-card"><img alt="Generated-name context" loading="lazy" src="../assets/milestones/dinos3.png"/><figcaption>Generated-name context</figcaption></figure></aside>
+</section>
+<section class="deep-dive-section milestone-deep-dive">
+<div class="detail-section-heading">
+<span class="section-label">Milestone deep dive</span>
+<h2>What this project proves in my learning path.</h2>
+<p>A character-level RNN built from scratch to generate dinosaur names and Shakespeare-style text one character at a time. The milestone is included because it shows a complete learning unit: a problem, a data representation, an implementation path, measurable outputs, and a lesson that later connects to larger AI systems.</p>
+</div>
+<div class="flow-strip premium-flow technical-flow">
+<div><span>Input layer</span><strong>ordered sequences of text, audio, dates, or musical events</strong></div>
+<i class="fa-solid fa-arrow-right-long"></i>
+<div><span>Model layer</span><strong>recurrent or attention-based sequence model</strong></div>
+<i class="fa-solid fa-arrow-right-long"></i>
+<div><span>Evaluation layer</span><strong>tests, metrics, plots, or qualitative output</strong></div>
+<i class="fa-solid fa-arrow-right-long"></i>
+<div><span>Artifact layer</span><strong>classification, generation, alignment, or trigger probabilities</strong></div>
+</div>
+<div class="insight-grid four">
+<article class="insight-card"><span>Problem framing</span><h3>What I was trying to solve</h3><p>This page is not just a lab description. It explains how I transformed the assignment idea into an engineering story: what the model receives, what it optimizes, what output it should produce, and how the result can be inspected.</p></article>
+<article class="insight-card"><span>Implementation</span><h3>What I coded or assembled</h3><p>The implementation focus was the mechanism behind the result: functions, model blocks, training logic, preprocessing, evaluation, and the small technical details that make the notebook work rather than only look correct.</p></article>
+<article class="insight-card"><span>Concepts</span><h3>Core concepts</h3><div class="chip-cloud"><span>RNN from scratch</span><span>One-hot character modeling</span><span>Gradient clipping</span><span>Sampling</span><span>Text generation</span></div><p>These tags show the technical ideas this milestone added to my toolkit.</p></article>
+<article class="insight-card"><span>Learning result</span><h3>What changed after it</h3><p>The learning was foundational: language generation begins with predicting the next token, even when the token is only a character.</p></article>
+</div>
+<div class="split-note-grid">
+<article class="note-panel"><h3>Important outputs and evidence</h3><ul><li>Dinosaur corpus: 19,909 characters</li><li>Vocabulary: 27 characters</li><li>Default training loop: 35,000 iterations</li><li>Shakespeare section: 31,412 examples</li></ul></article>
+<article class="note-panel"><h3>How I would explain it in an interview</h3><p>I would describe this milestone by starting from the data representation, then explain the model or algorithm, then show what was measured. The important part is not only the final number; it is the ability to reason about why the method works, what assumptions it makes, and what limitations should be improved next.</p></article>
+</div>
+</section>
+</main>
+<footer aria-label="Contact links" class="contact-footer" id="contact">
+<div aria-label="Contact icons" class="footer-icons">
+<a aria-label="Google mail" href="mailto:a1mohamad.askari@gmail.com" title="Google mail"><i class="fa-brands fa-google"></i></a>
+<a aria-label="iCloud" href="mailto:amirmohmdaskari@icloud.com" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+<a aria-label="Phone" href="tel:+989012223122" title="Phone"><i class="fa-solid fa-phone"></i></a>
+<a aria-label="GitHub" href="https://github.com/a1mohamad" rel="noopener" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+<a aria-label="LinkedIn" href="https://www.linkedin.com/in/amirmohammad-askari/" rel="noopener" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+<a aria-label="Kaggle" href="https://www.kaggle.com/amirmohamadaskari" rel="noopener" target="_blank" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+</div>
+<div class="footer-credits">© 2026 Amir Mohamad Askari. All rights reserved.</div>
+</footer>
+<script src="../education.js"></script>
+</body>
+</html>
