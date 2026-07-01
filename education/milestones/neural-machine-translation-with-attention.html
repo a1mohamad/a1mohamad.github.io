@@ -35,7 +35,7 @@
 <h1>Neural Machine Translation with Attention</h1>
 <p>A date-normalization model that uses a seq2seq architecture with attention to translate human-readable dates into YYYY-MM-DD format.</p>
 <div class="pill-row"><span>Seq2Seq</span><span>Attention mechanism</span><span>Bi-LSTM encoder</span><span>Decoder LSTM</span><span>Alignment visualization</span></div>
-<div class="action-row"><a class="btn" href="https://github.com/a1mohamad/DeepLearning_specialization" rel="noopener" target="_blank"><i class="fa-brands fa-github"></i>GitHub</a></div>
+<div class="action-row"><a class="btn" href="https://github.com/a1mohamad/DeepLearning_specialization/blob/main/course5_Sequence_models/Neural_machine_translation_with_attention-date_translation/Neural_machine_translation_with_attention.ipynb" rel="noopener" target="_blank"><i class="fa-brands fa-github"></i>GitHub</a></div>
 </section>
 <section class="milestone-grid">
 <article class="detail-panel"><h2>What this project is about</h2><p>The translation task normalizes human-written dates into machine-readable format. Attention lets the decoder focus on relevant input positions while producing each output character.</p><h2>Implementation focus</h2><p>The learning was alignment: the model does not need to compress everything into one vector; it can dynamically look back at the source sequence.</p><h2>Key results and artifacts</h2><ul class="result-list"><li>Dataset: 10,000 examples</li><li>Input length: 30; output length: 10</li><li>Examples translated dates like “5 April 09” → 2009-04-05</li></ul><h2>What I learned</h2><p>The most important idea was alignment: the decoder can learn where to look in the input while producing each output character.</p></article>
