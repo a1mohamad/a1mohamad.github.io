@@ -747,3 +747,265 @@ body{
   .platform-wordmark-wall{gap:18px 24px!important;}
   .platform-wordmark{flex:0 1 auto!important;}
 }
+
+/* ==== v12 mobile containment + clean platform wordmarks + milestone image zoom ==== */
+/* Keep the wordmark wall as pure text/wordmarks: no cards, no separators, no box frame. */
+.platform-wordmark-wall,
+.platform-wordmark-wall *{
+  box-sizing:border-box!important;
+}
+.platform-wordmark-wall,
+.platform-wordmark-wall.platform-logo-wall,
+.platform-logo-wall.platform-wordmark-wall{
+  width:100%!important;
+  max-width:100%!important;
+  margin:30px 0 0!important;
+  padding:8px 0 0!important;
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  align-items:center!important;
+  justify-items:center!important;
+  gap:clamp(18px,4vw,72px)!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+.platform-wordmark-wall::before,
+.platform-wordmark-wall::after,
+.platform-wordmark::before,
+.platform-wordmark::after{
+  display:none!important;
+  content:none!important;
+}
+.platform-wordmark,
+.platform-wordmark:last-child,
+.real-brand-wall .platform-wordmark,
+.local-brand-wall .platform-wordmark{
+  min-width:0!important;
+  min-height:0!important;
+  width:auto!important;
+  padding:4px 0!important;
+  border:0!important;
+  border-right:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  outline:0!important;
+  opacity:.86!important;
+}
+.platform-wordmark:hover{background:transparent!important;opacity:1!important;transform:translateY(-2px)!important;}
+
+/* Milestone media images can be opened in a zoom modal. */
+.milestone-page .media-card img,
+.milestone-page .detail-cover img{
+  cursor:zoom-in;
+}
+.milestone-page .media-card img:focus-visible,
+.milestone-page .detail-cover img:focus-visible{
+  outline:2px solid #fff;
+  outline-offset:4px;
+}
+.zoom-modal.dynamic-zoom .zoom-content img,
+.zoom-modal.open .zoom-content img{
+  max-width:min(94vw,1280px)!important;
+  max-height:82vh!important;
+  width:auto!important;
+  height:auto!important;
+  object-fit:contain!important;
+}
+
+@media(max-width:900px){
+  .platform-wordmark-wall,
+  .platform-wordmark-wall.platform-logo-wall,
+  .platform-logo-wall.platform-wordmark-wall{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    justify-content:center!important;
+    align-items:center!important;
+    gap:20px 34px!important;
+    width:100%!important;
+    max-width:100%!important;
+    overflow:visible!important;
+    padding:8px 0 0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+  .platform-wordmark{
+    flex:0 1 auto!important;
+    min-width:0!important;
+    min-height:0!important;
+    padding:3px 0!important;
+    border:0!important;
+    border-right:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+}
+
+/* Phone-only: stop horizontal clipping caused by full-width CTAs / sticky tabs / wordmark rows. */
+@media(max-width:760px){
+  html,body{
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:hidden!important;
+  }
+  body{position:relative!important;}
+  .education-shell,
+  .detail-page,
+  .milestone-page{
+    width:100%!important;
+    max-width:100%!important;
+    padding-left:18px!important;
+    padding-right:18px!important;
+    box-sizing:border-box!important;
+    overflow-x:hidden!important;
+  }
+  .tab-panel,
+  .hero-section,
+  .section,
+  .story-panel,
+  .education-console,
+  .future-card,
+  .specialization-head,
+  .detail-grid,
+  .milestone-grid,
+  .detail-panel,
+  .media-panel,
+  .media-card,
+  .learning-card,
+  .book-card,
+  .milestone-card{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+  }
+  .page-tabs{
+    width:calc(100vw - 36px)!important;
+    max-width:calc(100vw - 36px)!important;
+    margin-left:0!important;
+    margin-right:0!important;
+    left:18px!important;
+    right:18px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scrollbar-width:none!important;
+  }
+  .page-tabs::-webkit-scrollbar{display:none!important;}
+  .hero-left,
+  .hero-copy,
+  .detail-copy,
+  .milestone-hero,
+  .section-heading,
+  .story-panel p,
+  .detail-panel p,
+  .detail-panel li{
+    max-width:100%!important;
+    min-width:0!important;
+    overflow-wrap:break-word!important;
+  }
+  .hero-left h1,
+  .section-heading h2,
+  .detail-copy h1,
+  .milestone-hero h1{
+    max-width:100%!important;
+    overflow-wrap:normal!important;
+    word-break:normal!important;
+  }
+  .hero-actions,
+  .action-row,
+  .learning-card .action-row,
+  .book-card .action-row,
+  .detail-copy .action-row,
+  .milestone-hero .action-row{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    gap:10px!important;
+    overflow:visible!important;
+  }
+  .hero-actions .btn,
+  .hero-actions .primary-action,
+  .hero-actions .secondary-action,
+  .action-row .btn,
+  .learning-card .action-row .btn,
+  .book-card .action-row .btn,
+  .detail-copy .action-row .btn,
+  .milestone-hero .action-row .btn{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+    justify-content:center!important;
+    white-space:normal!important;
+    text-align:center!important;
+  }
+  .stack-map,
+  .pill-row,
+  .chip-cloud{
+    max-width:100%!important;
+    overflow:visible!important;
+  }
+  .stack-map span,
+  .pill-row span,
+  .chip-cloud span{
+    max-width:100%!important;
+    white-space:normal!important;
+  }
+  .platform-wordmark-wall,
+  .platform-wordmark-wall.platform-logo-wall,
+  .platform-logo-wall.platform-wordmark-wall{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    justify-content:flex-start!important;
+    align-items:center!important;
+    gap:18px 26px!important;
+    width:100%!important;
+    max-width:100%!important;
+    padding:8px 0 0!important;
+    margin-top:26px!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    overflow:visible!important;
+  }
+  .platform-wordmark{
+    flex:0 1 auto!important;
+    width:auto!important;
+    max-width:100%!important;
+    padding:0!important;
+    border:0!important;
+    border-right:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+  .coursera-wordmark{font-size:1.12rem!important;}
+  .ibm-wordmark{font-size:1.45rem!important;}
+  .harvard-wordmark,.stanford-wordmark{font-size:1.04rem!important;}
+  .kaggle-wordmark{font-size:1.12rem!important;}
+}
+
+@media(max-width:420px){
+  .education-shell,
+  .detail-page,
+  .milestone-page{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+  .page-tabs{
+    width:calc(100vw - 32px)!important;
+    max-width:calc(100vw - 32px)!important;
+    left:16px!important;
+    right:16px!important;
+  }
+  .platform-wordmark-wall{gap:16px 22px!important;}
+}
