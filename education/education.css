@@ -513,3 +513,157 @@ body{
     min-height:44px;
   }
 }
+
+
+/* ==== v9 platform wordmark wall: no external SVG dependency ==== */
+.platform-logo-wall,
+.platform-logo-wall.real-brand-wall,
+.platform-logo-wall.local-brand-wall{
+  display:none!important;
+}
+.platform-wordmark-wall{
+  width:100%;
+  max-width:760px;
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  align-items:center;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.042),rgba(255,255,255,.018));
+  box-shadow:0 28px 80px rgba(0,0,0,.28);
+}
+.platform-wordmark{
+  min-height:118px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:18px 20px;
+  color:#fff;
+  line-height:1;
+  border-right:1px solid rgba(255,255,255,.075);
+  opacity:.9;
+  transition:opacity .2s ease, transform .2s ease, background .2s ease;
+  user-select:none;
+}
+.platform-wordmark:last-child{border-right:0;}
+.platform-wordmark:hover{
+  opacity:1;
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.035);
+}
+.coursera-wordmark{
+  font-family:Manrope,system-ui,sans-serif;
+  font-size:1.28rem;
+  font-weight:900;
+  letter-spacing:-.07em;
+}
+.ibm-wordmark{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:1.7rem;
+  font-weight:900;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+}
+.harvard-wordmark{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:1.18rem;
+  font-weight:900;
+  letter-spacing:-.045em;
+}
+.stanford-wordmark{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:1.22rem;
+  font-weight:900;
+  letter-spacing:-.045em;
+}
+.kaggle-wordmark{
+  font-family:Manrope,system-ui,sans-serif;
+  font-size:1.3rem;
+  font-weight:900;
+  letter-spacing:-.05em;
+}
+@media(max-width:900px){
+  .platform-wordmark-wall{
+    display:flex;
+    width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    scroll-snap-type:x proximity;
+  }
+  .platform-wordmark-wall::-webkit-scrollbar{display:none;}
+  .platform-wordmark{
+    flex:0 0 138px;
+    min-height:96px;
+    padding:15px 14px;
+    scroll-snap-align:center;
+  }
+  .ibm-wordmark{font-size:1.45rem;}
+  .coursera-wordmark,.kaggle-wordmark{font-size:1.12rem;}
+  .harvard-wordmark,.stanford-wordmark{font-size:1.05rem;}
+}
+@media(max-width:420px){
+  .platform-wordmark{flex-basis:126px;min-height:88px;}
+}
+
+/* ==== v10 final phone button behavior + larger milestone GitHub CTA ==== */
+/* Milestone pages have only the GitHub CTA, so make it more prominent on desktop and mobile. */
+.milestone-hero .action-row .btn{
+  min-height:76px!important;
+  padding:0 38px!important;
+  font-size:1.28rem!important;
+  border-radius:22px!important;
+  gap:16px!important;
+}
+.milestone-hero .action-row .btn i{
+  font-size:1.55rem!important;
+}
+
+/* Phone only: one button per line, no horizontal button scrolling. Desktop/tablet stays unchanged. */
+@media(max-width:760px){
+  .hero-actions,
+  .action-row,
+  .learning-card .action-row,
+  .book-card .action-row,
+  .detail-copy .action-row,
+  .milestone-hero .action-row{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    flex-direction:initial!important;
+    flex-wrap:initial!important;
+    gap:10px!important;
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:visible!important;
+    overflow-y:visible!important;
+  }
+
+  .hero-actions .btn,
+  .hero-actions .primary-action,
+  .hero-actions .secondary-action,
+  .action-row .btn,
+  .learning-card .action-row .btn,
+  .book-card .action-row .btn,
+  .detail-copy .action-row .btn,
+  .milestone-hero .action-row .btn{
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    justify-content:center!important;
+    white-space:nowrap!important;
+  }
+
+  .milestone-hero .action-row .btn{
+    min-height:72px!important;
+    padding:0 24px!important;
+    font-size:1.14rem!important;
+    border-radius:20px!important;
+  }
+
+  .milestone-hero .action-row .btn i{
+    font-size:1.42rem!important;
+  }
+}
