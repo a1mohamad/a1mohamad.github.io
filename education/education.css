@@ -667,3 +667,83 @@ body{
     font-size:1.42rem!important;
   }
 }
+
+/* ==== v11 platform wordmark wall refinement: no boxes, exact desktop row ==== */
+.platform-wordmark-wall{
+  width:100%!important;
+  max-width:none!important;
+  margin:30px 0 0!important;
+  padding:10px 0 0!important;
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  align-items:center!important;
+  justify-items:center!important;
+  gap:clamp(22px,4.8vw,86px)!important;
+  border:0!important;
+  border-radius:0!important;
+  overflow:visible!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.platform-wordmark{
+  min-height:0!important;
+  padding:8px 0!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  opacity:.82!important;
+  transition:opacity .2s ease, transform .2s ease!important;
+}
+
+.platform-wordmark:hover{
+  opacity:1!important;
+  transform:translateY(-3px)!important;
+  background:transparent!important;
+}
+
+.coursera-wordmark,
+.ibm-wordmark,
+.harvard-wordmark,
+.stanford-wordmark,
+.kaggle-wordmark{
+  line-height:1!important;
+  white-space:nowrap!important;
+}
+
+.coursera-wordmark{font-size:clamp(1.22rem,1.5vw,1.6rem)!important;}
+.ibm-wordmark{font-size:clamp(1.55rem,1.8vw,2rem)!important;}
+.harvard-wordmark{font-size:clamp(1.18rem,1.45vw,1.55rem)!important;}
+.stanford-wordmark{font-size:clamp(1.2rem,1.48vw,1.6rem)!important;}
+.kaggle-wordmark{font-size:clamp(1.22rem,1.55vw,1.65rem)!important;}
+
+@media(max-width:900px){
+  .platform-wordmark-wall{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    justify-content:center!important;
+    align-items:center!important;
+    gap:22px 30px!important;
+    width:100%!important;
+    max-width:100%!important;
+    overflow:visible!important;
+    scroll-snap-type:none!important;
+    padding-top:8px!important;
+  }
+
+  .platform-wordmark{
+    flex:0 1 auto!important;
+    min-height:0!important;
+    padding:6px 4px!important;
+    scroll-snap-align:unset!important;
+  }
+
+  .ibm-wordmark{font-size:1.55rem!important;}
+  .coursera-wordmark,.kaggle-wordmark{font-size:1.18rem!important;}
+  .harvard-wordmark,.stanford-wordmark{font-size:1.1rem!important;}
+}
+
+@media(max-width:420px){
+  .platform-wordmark-wall{gap:18px 24px!important;}
+  .platform-wordmark{flex:0 1 auto!important;}
+}
