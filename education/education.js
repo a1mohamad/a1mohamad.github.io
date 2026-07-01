@@ -16,17 +16,59 @@
   const hash = window.location.hash.replace('#','');
   if(hash && document.getElementById(hash + '-panel')) activateTab(hash + '-panel', false);
   document.querySelectorAll('.accordion-trigger').forEach(trigger => trigger.addEventListener('click', () => trigger.closest('.edu-accordion')?.classList.toggle('open')));
-  const modal = document.getElementById('zoomModal');
+  function ensureZoomModal(){
+    let modal = document.getElementById('zoomModal');
+    if(!modal){
+      modal = document.createElement('div');
+      modal.id = 'zoomModal';
+      modal.className = 'zoom-modal dynamic-zoom';
+      modal.setAttribute('aria-hidden', 'true');
+      modal.innerHTML = '<button class="zoom-close" type="button" aria-label="Close preview"><i class="fa-solid fa-xmark"></i></button><div class="zoom-content"><img alt="Preview"/><h3></h3></div>';
+      document.body.appendChild(modal);
+    }
+    return modal;
+  }
+  const modal = ensureZoomModal();
   const modalImg = modal?.querySelector('img');
   const modalTitle = modal?.querySelector('h3');
-  document.querySelectorAll('[data-zoom-src]').forEach(card => card.addEventListener('click', () => {
+  function openZoom(src, title){
+    if(!modal || !modalImg || !src) return;
+    modalImg.src = src;
+    modalImg.alt = title || 'Preview';
+    if(modalTitle) modalTitle.textContent = title || '';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('zoom-open');
+  }
+  function closeModal(){
     if(!modal || !modalImg) return;
-    modalImg.src = card.dataset.zoomSrc;
-    modalImg.alt = card.dataset.zoomTitle || 'Preview';
-    if(modalTitle) modalTitle.textContent = card.dataset.zoomTitle || '';
-    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    modalImg.src='';
+    document.body.classList.remove('zoom-open');
+  }
+  document.querySelectorAll('[data-zoom-src]').forEach(card => card.addEventListener('click', () => {
+    openZoom(card.dataset.zoomSrc, card.dataset.zoomTitle || card.getAttribute('aria-label') || 'Preview');
   }));
-  function closeModal(){ if(!modal || !modalImg) return; modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); modalImg.src=''; }
+  document.querySelectorAll('.milestone-page .media-card img, .milestone-page .detail-cover img').forEach(img => {
+    if(!img.src) return;
+    img.classList.add('zoomable-media');
+    img.setAttribute('role', 'button');
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('title', 'Click to zoom');
+    const title = img.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || img.alt || 'Milestone image';
+    img.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
+      openZoom(img.currentSrc || img.src, title);
+    });
+    img.addEventListener('keydown', event => {
+      if(event.key === 'Enter' || event.key === ' '){
+        event.preventDefault();
+        openZoom(img.currentSrc || img.src, title);
+      }
+    });
+  });
   document.querySelector('.zoom-close')?.addEventListener('click', closeModal);
   modal?.addEventListener('click', e => { if(e.target === modal) closeModal(); });
   window.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
