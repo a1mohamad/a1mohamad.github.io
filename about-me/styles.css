@@ -3460,123 +3460,33 @@ h2,h3{color:#eadfcb;}
   }
 }
 
-/* V14 — mobile-only fixes: Personal Archive flow + selected-work image fit
-   Keeps desktop unchanged. Prevents the archive tab rail from overlaying panel titles
-   and makes project-card images contained and balanced on phones. */
+/* V15 — phone-only work card image fill
+   Keeps desktop/tablet image behavior intact, but removes the mobile contain/padding
+   treatment so every project visual fills the full media window on phones. */
 @media(max-width:840px){
-  .vault-layout.wide-tabs{
-    display:flex !important;
-    flex-direction:column !important;
-    overflow:hidden !important;
-  }
-
-  .vault-layout.wide-tabs .vault-tabs{
-    order:1 !important;
-    position:static !important;
-    inset:auto !important;
-    top:auto !important;
-    right:auto !important;
-    bottom:auto !important;
-    left:auto !important;
-    transform:none !important;
-    z-index:2 !important;
-    width:100% !important;
-    margin:0 !important;
-  }
-
-  .vault-layout.wide-tabs .profile-panels{
-    order:2 !important;
-    position:relative !important;
-    z-index:1 !important;
-  }
-
-  .profile-panels .vault-panel,
-  .vault-panel{
-    padding-top:28px !important;
-  }
-
-  .vault-panel .panel-meta{
-    margin-bottom:16px !important;
-  }
-
-  .vault-panel h3{
-    margin-top:0 !important;
-    padding-top:0 !important;
-    position:relative !important;
-    z-index:1 !important;
-  }
-
-  .book-strip{
-    margin-top:22px !important;
-  }
-
   .work-media{
-    height:240px !important;
-    aspect-ratio:auto !important;
-    padding:0 !important;
+    display:block !important;
+    aspect-ratio:16 / 10 !important;
+    min-height:220px !important;
   }
 
   .work-media img,
   .work-education .work-media img,
   .work-tweet .work-media img,
   .work-quora .work-media img{
-    width:auto !important;
-    height:auto !important;
-    max-width:82% !important;
-    max-height:78% !important;
-    object-fit:contain !important;
+    width:100% !important;
+    height:100% !important;
+    max-width:none !important;
+    display:block !important;
+    object-fit:cover !important;
+    object-position:center center !important;
     padding:0 !important;
-  }
-
-  .work-lung .work-media img{
-    max-width:92% !important;
-    max-height:86% !important;
-  }
-
-  .work-education .work-media img{
-    max-width:76% !important;
-    max-height:76% !important;
-  }
-
-  .work-tweet .work-media img,
-  .work-quora .work-media img{
-    max-width:72% !important;
-    max-height:72% !important;
   }
 }
 
 @media(max-width:560px){
   .work-media{
-    height:218px !important;
-  }
-
-  .work-media img,
-  .work-education .work-media img,
-  .work-tweet .work-media img,
-  .work-quora .work-media img{
-    max-width:78% !important;
-    max-height:76% !important;
-  }
-
-  .work-lung .work-media img{
-    max-width:92% !important;
-    max-height:84% !important;
-  }
-
-  .work-education .work-media img{
-    max-width:72% !important;
-    max-height:72% !important;
-  }
-
-  .work-tweet .work-media img,
-  .work-quora .work-media img{
-    max-width:68% !important;
-    max-height:68% !important;
-  }
-}
-
-@media(max-width:380px){
-  .work-media{
-    height:202px !important;
+    aspect-ratio:16 / 10 !important;
+    min-height:230px !important;
   }
 }
