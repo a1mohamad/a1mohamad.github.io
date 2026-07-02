@@ -1009,3 +1009,155 @@ body{
   }
   .platform-wordmark-wall{gap:16px 22px!important;}
 }
+
+
+/* ==== v13 mobile media centering + certificate zoom polish ==== */
+/* Milestone media cards should always sit in the visual center on phones. */
+.milestone-page .media-panel{
+  justify-items:center!important;
+}
+.milestone-page .media-card{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.milestone-page .media-card img,
+.milestone-page .media-card video{
+  display:block!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  object-position:center center!important;
+}
+
+/* Course/Kaggle certificate hero images are zoomable too. */
+.detail-page .detail-cover img,
+.detail-page .detail-cover-image{
+  cursor:zoom-in;
+}
+.detail-page .detail-cover img:focus-visible,
+.detail-page .detail-cover-image:focus-visible{
+  outline:2px solid #fff;
+  outline-offset:4px;
+}
+
+/* A real centered zoom modal for both milestone images and course certificates. */
+.zoom-modal,
+.zoom-modal.dynamic-zoom{
+  align-items:center!important;
+  justify-content:center!important;
+  padding:24px!important;
+}
+.zoom-modal.open,
+.zoom-modal.dynamic-zoom.open{
+  display:flex!important;
+}
+.zoom-modal .zoom-content,
+.zoom-modal.dynamic-zoom .zoom-content{
+  width:100%!important;
+  max-width:min(1180px,calc(100vw - 48px))!important;
+  max-height:calc(100dvh - 64px)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  margin:auto!important;
+  text-align:center!important;
+}
+.zoom-modal .zoom-content img,
+.zoom-modal.dynamic-zoom .zoom-content img{
+  display:block!important;
+  margin:0 auto!important;
+  width:auto!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:calc(100dvh - 165px)!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+}
+.zoom-modal .zoom-content h3,
+.zoom-modal.dynamic-zoom .zoom-content h3{
+  width:100%!important;
+  text-align:center!important;
+}
+
+@media(max-width:760px){
+  /* hard-stop the media gallery from becoming wider than the phone viewport */
+  .milestone-page,
+  .milestone-grid,
+  .milestone-grid.media-rich,
+  .milestone-grid.media-rich > .media-panel,
+  .milestone-page .media-panel{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    overflow-x:hidden!important;
+    box-sizing:border-box!important;
+  }
+  .milestone-grid.media-rich > .media-panel,
+  .milestone-page .media-panel{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:18px!important;
+  }
+  .milestone-page .media-card,
+  .milestone-grid.media-rich .media-card{
+    width:100%!important;
+    max-width:calc(100vw - 36px)!important;
+    min-width:0!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    padding:12px!important;
+    box-sizing:border-box!important;
+  }
+  .milestone-page .media-card img,
+  .milestone-page .media-card video,
+  .milestone-grid.media-rich .media-card img,
+  .milestone-grid.media-rich .media-card video{
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:52vh!important;
+    object-fit:contain!important;
+    object-position:center center!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    border-radius:16px!important;
+  }
+  .milestone-page .media-card figcaption{
+    width:100%!important;
+    text-align:left!important;
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+  .zoom-modal,
+  .zoom-modal.dynamic-zoom{
+    padding:16px!important;
+  }
+  .zoom-modal .zoom-content,
+  .zoom-modal.dynamic-zoom .zoom-content{
+    max-width:calc(100vw - 32px)!important;
+    max-height:calc(100dvh - 56px)!important;
+    justify-content:center!important;
+  }
+  .zoom-modal .zoom-content img,
+  .zoom-modal.dynamic-zoom .zoom-content img{
+    max-width:100%!important;
+    max-height:calc(100dvh - 170px)!important;
+    border-radius:18px!important;
+  }
+  .zoom-close{
+    top:18px!important;
+    right:18px!important;
+    z-index:101!important;
+  }
+}
+
+@media(max-width:420px){
+  .milestone-page .media-card,
+  .milestone-grid.media-rich .media-card{
+    max-width:calc(100vw - 32px)!important;
+  }
+}
