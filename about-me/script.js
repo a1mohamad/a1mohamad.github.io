@@ -25,10 +25,21 @@ const panels = document.querySelectorAll('.vault-panel');
 function focusVaultPanelOnMobile(tab, target) {
   if (!window.matchMedia('(max-width: 840px)').matches) return;
 
+  const activePanel = document.getElementById(target);
   const tabBar = tab.closest('.vault-tabs');
-  if (!tabBar) return;
+  if (!activePanel || !tabBar) return;
 
   tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+  const topbarHeight = topbar ? topbar.offsetHeight : 74;
+  const tabBarHeight = tabBar.offsetHeight || 0;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targetY = activePanel.getBoundingClientRect().top + window.pageYOffset - topbarHeight - tabBarHeight - 14;
+
+  window.scrollTo({
+    top: Math.max(targetY, 0),
+    behavior: reducedMotion ? 'auto' : 'smooth'
+  });
 }
 
 tabs.forEach(tab => {
