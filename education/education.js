@@ -50,13 +50,13 @@
   document.querySelectorAll('[data-zoom-src]').forEach(card => card.addEventListener('click', () => {
     openZoom(card.dataset.zoomSrc, card.dataset.zoomTitle || card.getAttribute('aria-label') || 'Preview');
   }));
-  document.querySelectorAll('.milestone-page .media-card img, .milestone-page .detail-cover img').forEach(img => {
+  document.querySelectorAll('.milestone-page .media-card img, .milestone-page .detail-cover img, .detail-page .detail-cover img, .detail-page .detail-cover-image').forEach(img => {
     if(!img.src) return;
     img.classList.add('zoomable-media');
     img.setAttribute('role', 'button');
     img.setAttribute('tabindex', '0');
     img.setAttribute('title', 'Click to zoom');
-    const title = img.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || img.alt || 'Milestone image';
+    const title = img.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || img.alt || img.closest('.detail-cover')?.getAttribute('aria-label') || 'Preview';
     img.addEventListener('click', event => {
       event.preventDefault();
       event.stopPropagation();
