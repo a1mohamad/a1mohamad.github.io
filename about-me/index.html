@@ -196,7 +196,7 @@
     <section class="stack-board reveal">
       <div class="section-head narrow">
         <span class="section-kicker">Grouped skills</span>
-        <h2>Tooling grouped by responsibility, not by project names.</h2>
+        <h2>Areas of Expertise</h2>
         <p>This map focuses on the tools, libraries, model families, and engineering practices behind the portfolio.</p>
       </div>
 
@@ -214,8 +214,8 @@
 
     <section class="skill-atlas reveal" id="skill-atlas">
       <div class="section-head narrow">
-        <span class="section-kicker">Skill atlas</span>
-        <h2>A compact map of the stack behind the work.</h2>
+        <span class="section-kicker">Tools in General</span>
+        <h2>Full view of Tools</h2>
         <p>A table-style view of the languages, AI skills, deployment tools, MLOps practices, education signals, and research directions that shape the portfolio.</p>
       </div>
 
@@ -312,6 +312,76 @@
           <div class="skill-category" role="cell"><i class="fa-solid fa-graduation-cap"></i><span>Education signals</span></div>
           <div class="skill-items" role="cell"><span>Andrew Ng ML/DL</span><span>TensorFlow Specialization</span><span>CS50</span><span>MIT Deep Learning</span><span>Core AI books</span><span>Software Engineering GPA 19.10</span></div>
         </div>
+      </div>
+    </section>
+
+    <section class="works-section reveal" id="selected-work">
+      <div class="section-head narrow">
+        <span class="section-kicker">Selected projects</span>
+        <h2>Some of My works</h2>
+        <p>Four representative projects from my portfolio: medical AI, desktop software engineering, NLP deployment, and duplicate-question research.</p>
+      </div>
+
+      <div class="works-grid" aria-label="Selected portfolio projects">
+        <article class="work-card work-lung">
+          <div class="work-media">
+            <img src="assets/lung.png" alt="Lung disease detection project preview" loading="lazy" />
+          </div>
+          <div class="work-body">
+            <div class="work-tags"><span>Medical AI</span><span>Computer Vision</span><span>MLOps</span></div>
+            <h3>Lung Disease Detection App</h3>
+            <p>End-to-end medical imaging application with classification models, segmentation, FastAPI serving, Docker deployment, PostgreSQL prediction storage, image storage, Hugging Face hosting, and MLOps layers with MLflow, Airflow, and Kafka simulation.</p>
+            <div class="work-actions">
+              <a class="primary-action" href="https://a1mohamad.github.io/apps/lung-disease-detection/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open App</a>
+              <a class="secondary-action" href="https://github.com/a1mohamad/lung-disease-detection-app" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card work-education">
+          <div class="work-media">
+            <img src="assets/educational-database-app.png" alt="Educational database system preview" loading="lazy" />
+          </div>
+          <div class="work-body">
+            <div class="work-tags"><span>C++</span><span>Qt Widgets</span><span>Desktop App</span></div>
+            <h3>Educational Database System</h3>
+            <p>A C++ and Qt Widgets desktop system for educational data management, including students, teachers, courses, terms, grades, reports, login authentication, sidebar navigation, tabbed CRUD pages, and clean file-based persistence.</p>
+            <div class="work-actions">
+              <a class="primary-action" href="https://github.com/a1mohamad/educational-database-qt/releases/download/v1.0.0/EducationalDatabase-v1.0.0-Windows-x64.zip" target="_blank" rel="noopener"><i class="fa-brands fa-windows"></i> Download</a>
+              <a class="secondary-action" href="https://github.com/a1mohamad/educational-database-qt" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card work-tweet">
+          <div class="work-media">
+            <img src="assets/twitter.png" alt="Disaster tweet classification project preview" loading="lazy" />
+          </div>
+          <div class="work-body">
+            <div class="work-tags"><span>NLP</span><span>FastAPI</span><span>Docker</span></div>
+            <h3>Disaster Tweet Classification App</h3>
+            <p>Trained disaster tweet classifier served as a web app with PyTorch BiLSTM modeling, GloVe-backed text features, FastAPI/Jinja templates, SQLite logging, Docker packaging, and a clean prediction interface for real-time inference.</p>
+            <div class="work-actions">
+              <a class="primary-action" href="https://disaster-tweet-app.onrender.com/" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open App</a>
+              <a class="secondary-action" href="https://github.com/a1mohamad/disaster-tweet-app" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub Repo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="work-card work-quora">
+          <div class="work-media">
+            <img src="assets/quora.png" alt="Quora question pairs project preview" loading="lazy" />
+          </div>
+          <div class="work-body">
+            <div class="work-tags"><span>NLP</span><span>Attention</span><span>Research</span></div>
+            <h3>Quora Question Pairs</h3>
+            <p>Duplicate-question research lab with Siamese question-pair modeling, LSTM attention, manual attention experiments, MLflow tracking, calibrated F1 optimization, error analysis, and reusable framework-style research code.</p>
+            <div class="work-actions">
+              <a class="primary-action" href="https://a1mohamad.github.io/research/quora-questions-pairs/index.html" target="_blank" rel="noopener"><i class="fa-solid fa-flask"></i> Research Page</a>
+              <a class="secondary-action" href="https://github.com/a1mohamad/quora-questions-pairs" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub Repo</a>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
