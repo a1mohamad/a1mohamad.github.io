@@ -1,0 +1,178 @@
+/*
+  Lung Disease Detection — mobile stability layer
+  Load this file AFTER styles.css.
+
+  Responsibilities:
+  1. A compact five-tab dock appears after the original tabs scroll away.
+  2. Long API URLs, curl commands, schemas, and code examples remain inside cards.
+  3. Existing desktop styling and the generated React bundle remain untouched.
+*/
+
+.lung-mobile-tab-dock {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  /*
+    `overflow-x: hidden` on #root can create an unexpected scroll container in
+    mobile Safari and interfere with fixed/sticky UI. `clip` prevents sideways
+    page overflow without creating that extra scrolling context.
+  */
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip !important;
+  }
+
+  #root {
+    max-width: 100%;
+    min-width: 0;
+    overflow: visible !important;
+  }
+
+  /*
+    Restore safe overflow behavior. The main stylesheet currently changes this
+    utility to overflow-x: visible on phones, which clips long API examples.
+  */
+  .overflow-x-auto {
+    width: 100%;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+
+  /*
+    Wrap long technical content inside its own card. Users can still swipe the
+    wrapper horizontally when a component needs scrolling.
+  */
+  pre,
+  pre code,
+  .overflow-x-auto code,
+  .overflow-x-auto .font-mono {
+    max-width: 100% !important;
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  pre {
+    width: 100%;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  code {
+    max-width: 100%;
+  }
+
+  /*
+    Prevent flex/grid children and mobile table cells from forcing their parent
+    cards wider than the viewport.
+  */
+  .grid > *,
+  .flex > *,
+  table.w-full tbody td > * {
+    min-width: 0 !important;
+    max-width: 100%;
+  }
+
+  table.w-full tbody td code {
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+
+  /*
+    Compact mobile dock. It is hidden at the top of the page and becomes visible
+    only after the original App / Arch / Dataset / Training / API row scrolls out.
+  */
+  .lung-mobile-tab-dock {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+
+    width: 100%;
+    min-height: 54px;
+    padding: 8px 10px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+    background:
+      linear-gradient(180deg, rgba(5, 8, 15, 0.985), rgba(5, 8, 15, 0.94));
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-110%);
+    transition:
+      transform 180ms ease,
+      opacity 180ms ease,
+      visibility 180ms ease;
+  }
+
+  .lung-mobile-tab-dock.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .lung-mobile-tab-dock a {
+    min-width: 0;
+    min-height: 38px;
+    padding: 0 2px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+    color: #aab4c5;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 0.74rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .lung-mobile-tab-dock a:hover,
+  .lung-mobile-tab-dock a:focus-visible,
+  .lung-mobile-tab-dock a.is-active {
+    color: #ffffff;
+    background: rgba(59, 130, 246, 0.16);
+    outline: none;
+  }
+
+  /* Give hash-linked sections enough room below the fixed compact dock. */
+  section[id],
+  [id][class*="scroll"] {
+    scroll-margin-top: 70px;
+  }
+}
+
+@media (min-width: 701px) {
+  .lung-mobile-tab-dock {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lung-mobile-tab-dock {
+    transition: none;
+  }
+}
