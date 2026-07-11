@@ -280,12 +280,53 @@
 }
 
 @media (max-width: 380px) {
-  body.lung-mobile-nav-compact .lung-landing-tabs a,
+  /*
+    Landing header:
+    App, Dataset, and Training use their real text.
+    Architecture and Integration keep the existing shortened Arch/API labels.
+  */
+  body.lung-mobile-nav-compact.lung-route-landing
+    .lung-landing-tabs
+    a {
+    font-size: 0.69rem !important;
+  }
+
+  body.lung-mobile-nav-compact.lung-route-landing
+    .lung-landing-tabs
+    a:nth-child(2),
+  body.lung-mobile-nav-compact.lung-route-landing
+    .lung-landing-tabs
+    a:nth-child(5) {
+    font-size: 0 !important;
+  }
+
+  body.lung-mobile-nav-compact.lung-route-landing
+    .lung-landing-tabs
+    a:nth-child(2)::after,
+  body.lung-mobile-nav-compact.lung-route-landing
+    .lung-landing-tabs
+    a:nth-child(5)::after {
+    font-size: 0.69rem !important;
+  }
+
+  /*
+    App/docs React header:
+    Hide the original full route names and show only the existing shortened
+    pseudo-labels: App, Arch, Dataset, Training, API.
+  */
   body.lung-mobile-nav-compact.lung-route-app
     .top-ribbon
     .header-actions
     > .hidden-mobile
     a {
+    font-size: 0 !important;
+  }
+
+  body.lung-mobile-nav-compact.lung-route-app
+    .top-ribbon
+    .header-actions
+    > .hidden-mobile
+    a::after {
     font-size: 0.69rem !important;
   }
 }
