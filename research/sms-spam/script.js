@@ -1,5 +1,106 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    // ========== LIGHTWEIGHT SYNTAX COLORING FOR DEPLOYMENT CODE LABS ==========
+    const codeKeywords = {
+        python: [
+            'and', 'as', 'async', 'await', 'class', 'def', 'elif', 'else',
+            'except', 'False', 'finally', 'for', 'from', 'if', 'import', 'in',
+            'is', 'lambda', 'None', 'not', 'or', 'pass', 'raise', 'return',
+            'True', 'try', 'with', 'yield',
+        ],
+        typescript: [
+            'as', 'async', 'await', 'catch', 'class', 'const', 'else', 'export',
+            'false', 'for', 'from', 'function', 'if', 'import', 'interface',
+            'let', 'new', 'null', 'return', 'throw', 'true', 'try', 'type',
+            'undefined', 'var', 'while',
+        ],
+        sql: [
+            'AND', 'AS', 'ASC', 'BETWEEN', 'BY', 'CHECK', 'CREATE', 'DEFAULT',
+            'DELETE', 'DESC', 'FROM', 'INSERT', 'INTO', 'KEY', 'LIMIT', 'NOT',
+            'NULL', 'OR', 'ORDER', 'PRIMARY', 'SELECT', 'SET', 'TABLE', 'UNIQUE',
+            'UPDATE', 'VALUES', 'WHERE',
+        ],
+        yaml: [
+            'branches', 'env', 'if', 'jobs', 'name', 'needs', 'on',
+            'pull_request', 'push', 'run', 'runs-on', 'services', 'steps',
+            'uses', 'with', 'workflow_dispatch',
+        ],
+        dockerfile: [
+            'ADD', 'ARG', 'AS', 'CMD', 'COPY', 'ENTRYPOINT', 'ENV', 'EXPOSE',
+            'FROM', 'HEALTHCHECK', 'LABEL', 'RUN', 'USER', 'VOLUME', 'WORKDIR',
+        ],
+        nginx: [
+            'access_log', 'add_header', 'expires', 'index', 'listen', 'location',
+            'proxy_connect_timeout', 'proxy_pass', 'proxy_read_timeout',
+            'proxy_set_header', 'proxy_ssl_name', 'proxy_ssl_server_name',
+            'return', 'root', 'server', 'try_files',
+        ],
+        shell: [
+            'alembic', 'compose', 'curl', 'docker', 'done', 'echo', 'else', 'fi',
+            'for', 'if', 'in', 'make', 'npm', 'python', 'then',
+        ],
+    };
+
+    const escapeCodeHtml = value => value
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;');
+
+    document.querySelectorAll('pre[data-language]').forEach(pre => {
+        const language = pre.dataset.language;
+        if (!language || language === 'plaintext') return;
+
+        const keywords = codeKeywords[language] || [];
+        const keywordSource = keywords.length
+            ? `\\b(?:${keywords.join('|')})\\b`
+            : '(?!)';
+        const commentSource = language === 'typescript'
+            ? '\\/\\/[^\\n]*'
+            : language === 'sql'
+                ? '--[^\\n]*'
+                : '#[^\\n]*';
+        const stringSource = '"(?:\\\\.|[^"\\\\])*"|\'(?:\\\\.|[^\'\\\\])*\'|`(?:\\\\.|[^`\\\\])*`';
+        const tokenPattern = new RegExp(
+            `(?<comment>${commentSource})|` +
+            `(?<string>${stringSource})|` +
+            `(?<decorator>@[A-Za-z_][\\w.]*)|` +
+            `(?<keyword>${keywordSource})|` +
+            `(?<property>\\b[A-Za-z_][\\w-]*(?=\\s*:))|` +
+            `(?<fn>\\b[A-Za-z_$][\\w$]*(?=\\s*\\())|` +
+            '(?<number>\\b\\d+(?:\\.\\d+)?\\b)',
+            'gm',
+        );
+
+        const source = pre.textContent;
+        let output = '';
+        let cursor = 0;
+
+        for (const match of source.matchAll(tokenPattern)) {
+            output += escapeCodeHtml(source.slice(cursor, match.index));
+            const group = Object.entries(match.groups)
+                .find(([, value]) => value !== undefined)?.[0];
+            const className = {
+                comment: 'code-comment',
+                string: 'code-str',
+                decorator: 'code-fn',
+                keyword: 'code-keyword',
+                property: 'code-fn',
+                fn: 'code-fn',
+                number: 'code-num',
+            }[group] || '';
+            output += `<span class="${className}">${escapeCodeHtml(match[0])}</span>`;
+            cursor = match.index + match[0].length;
+        }
+
+        output += escapeCodeHtml(source.slice(cursor));
+        pre.innerHTML = output;
+        pre.classList.add('syntax-colored');
+        const terminalPanel = pre.closest('.terminal-panel');
+        terminalPanel?.setAttribute('data-language', language);
+        terminalPanel?.querySelector('.terminal-title')
+            ?.setAttribute('data-language', language);
+    });
+
     // ========== RESPONSIVE TABLE LABELS (used by mobile CSS only) ==========
     document.querySelectorAll('table').forEach(table => {
         const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
@@ -185,26 +286,58 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-    notebookTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const targetId = tab.dataset.target;
-            notebookTabs.forEach(item => item.classList.remove('active'));
-            notebookPanels.forEach(panel => panel.classList.remove('active'));
-            tab.classList.add('active');
-            const targetPanel = document.getElementById(targetId);
-            if (targetPanel) {
-                targetPanel.classList.add('active');
-                targetPanel.querySelectorAll('.section-collapsible.expanded').forEach(revealSectionChildren);
-                requestAnimationFrame(() => {
-                    refreshExpandedHeights();
-                    centerMobileNotebookTab(tab);
-                    window.dispatchEvent(new Event('resize'));
-                    if (window.matchMedia('(max-width: 760px)').matches) {
-                        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                        targetPanel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-                    }
-                });
+    const activateNotebookTab = (tab, moveFocus = false) => {
+        const targetId = tab.dataset.target;
+        notebookTabs.forEach(item => {
+            const selected = item === tab;
+            item.classList.toggle('active', selected);
+            item.setAttribute('aria-selected', String(selected));
+            item.tabIndex = selected ? 0 : -1;
+        });
+        notebookPanels.forEach(panel => {
+            const selected = panel.id === targetId;
+            panel.classList.toggle('active', selected);
+            panel.setAttribute('aria-hidden', String(!selected));
+        });
+
+        const targetPanel = document.getElementById(targetId);
+        if (!targetPanel) return;
+        targetPanel.classList.add('active');
+        targetPanel.querySelectorAll('.section-collapsible.expanded').forEach(revealSectionChildren);
+        if (moveFocus) tab.focus();
+
+        requestAnimationFrame(() => {
+            refreshExpandedHeights();
+            centerMobileNotebookTab(tab);
+            window.dispatchEvent(new Event('resize'));
+            if (window.matchMedia('(max-width: 760px)').matches) {
+                const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                targetPanel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
             }
+        });
+    };
+
+    notebookTabs.forEach((tab, index) => {
+        const targetPanel = document.getElementById(tab.dataset.target);
+        tab.id = tab.id || `research-tab-${index + 1}`;
+        if (targetPanel) {
+            targetPanel.setAttribute('role', 'tabpanel');
+            targetPanel.setAttribute('aria-labelledby', tab.id);
+            targetPanel.setAttribute('aria-hidden', String(!targetPanel.classList.contains('active')));
+        }
+        tab.setAttribute('aria-selected', String(tab.classList.contains('active')));
+        tab.tabIndex = tab.classList.contains('active') ? 0 : -1;
+
+        tab.addEventListener('click', () => activateNotebookTab(tab));
+        tab.addEventListener('keydown', event => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+            event.preventDefault();
+            let nextIndex = index;
+            if (event.key === 'ArrowRight') nextIndex = (index + 1) % notebookTabs.length;
+            if (event.key === 'ArrowLeft') nextIndex = (index - 1 + notebookTabs.length) % notebookTabs.length;
+            if (event.key === 'Home') nextIndex = 0;
+            if (event.key === 'End') nextIndex = notebookTabs.length - 1;
+            activateNotebookTab(notebookTabs[nextIndex], true);
         });
     });
 
