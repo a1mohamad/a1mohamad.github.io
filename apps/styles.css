@@ -945,6 +945,23 @@ code {
   z-index: 3;
 }
 
+.sms-app-card {
+  grid-column: 1 / -1;
+}
+
+.spam-visual {
+  background:
+    radial-gradient(circle at 50% 40%, rgba(96, 165, 250, 0.2), transparent 48%),
+    linear-gradient(135deg, #071b4a, #17194f);
+}
+
+.spam-app-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 .tweet-stack span {
   position: absolute;
   width: 230px;
@@ -1264,6 +1281,12 @@ code {
 .brand-html { --brand-halo: rgba(227, 79, 38, 0.26); }
 .brand-css { --brand-halo: rgba(21, 114, 182, 0.26); }
 .brand-js { --brand-halo: rgba(247, 223, 30, 0.24); }
+.brand-react { --brand-halo: rgba(97, 218, 251, 0.28); }
+.brand-typescript { --brand-halo: rgba(49, 120, 198, 0.28); }
+.brand-vite { --brand-halo: rgba(189, 52, 254, 0.27); }
+.brand-nginx { --brand-halo: rgba(0, 150, 57, 0.27); }
+.brand-actions { --brand-halo: rgba(32, 136, 255, 0.27); }
+.brand-playwright { --brand-halo: rgba(45, 181, 93, 0.27); }
 .brand-vscode { --brand-halo: rgba(0, 122, 204, 0.27); }
 .brand-jupyter { --brand-halo: rgba(242, 132, 32, 0.26); }
 .brand-github { --brand-halo: rgba(255, 255, 255, 0.18); }
