@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMS Spam Classification | Amir Mohamad Askari</title>
+    <title>SMS Spam Classifier | Research-to-Production NLP Platform | Amir Mohamad Askari</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,11 +20,13 @@
 <body>
 <div class="hero-section">
     <div class="hero-accent-blur"></div>
-    <div class="hero-meta">Natural Language Processing · SMS Spam Detection</div>
-    <h1>SMS Spam Classification: EDA + Bidirectional LSTM Pipeline</h1>
-    <div class="hero-subtitle">A two-notebook project built on the UCI/Kaggle SMS Spam Collection Dataset: one notebook focuses on exploratory analysis and text diagnostics, while the second constructs a TensorFlow <strong>Bidirectional LSTM</strong> classifier with <strong>Optuna-based hyperparameter tuning</strong>, class balancing, and a production-style <code>tf.data</code> pipeline.</div>
+    <div class="hero-meta">NLP · Bidirectional LSTM · ONNX · FastAPI · React · Neon · CI/CD</div>
+    <h1>SMS Spam Classifier: Research‑to‑Production NLP Platform</h1>
+    <div class="hero-subtitle">An end-to-end SMS intelligence system built from the UCI/Kaggle corpus: exploratory text analysis and <strong>Optuna-tuned Bidirectional LSTM</strong> training lead into portable <strong>ONNX inference</strong>, a validated FastAPI service, encrypted Neon PostgreSQL persistence, a responsive React + TypeScript interface served by Nginx, Docker-based runtime parity, layered automated tests, and migration-first CI/CD deployments on Render.</div>
     <div class="btn-group">
         <a class="btn-modern-primary" href="https://github.com/a1mohamad/machine-learning-portfolio/tree/main/SMS%20Spam" target="_blank"><i class="fa-brands fa-github"></i><span>Research Lab</span></a>
+        <a class="btn-modern-secondary" href="https://sms-spam-frontend-vdg0.onrender.com/app" target="_blank"><i class="fa-solid fa-window-restore"></i><span>Web App</span></a>
+        <a class="btn-modern-secondary" href="https://github.com/a1mohamad/sms-spam-app" target="_blank"><i class="fa-brands fa-github"></i><span>App Repository</span></a>
         <a class="btn-modern-secondary" href="https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset" target="_blank"><i class="fa-brands fa-kaggle"></i><span>Kaggle Dataset</span></a>
     </div>
 </div>
@@ -39,9 +41,15 @@
         <div class="metric-block" data-metric-type="integer" data-metric-target="8439"><div class="metric-label">Learned Vocabulary Size</div><div class="metric-value">0</div></div>
     </div>
 
-    <div class="notebook-switcher">
-        <button class="notebook-tab active" data-target="eda-panel"><i class="fa-solid fa-chart-pie"></i>EDA Notebook</button>
-        <button class="notebook-tab" data-target="model-panel"><i class="fa-solid fa-brain"></i>Model Notebook</button>
+    <div class="notebook-switcher deployment-tabs" role="tablist" aria-label="SMS Spam research sections">
+        <button class="notebook-tab active" type="button" role="tab" aria-selected="true" aria-controls="eda-panel" data-target="eda-panel"><i class="fa-solid fa-chart-pie"></i>EDA Notebook</button>
+        <button class="notebook-tab" type="button" role="tab" aria-selected="false" aria-controls="model-panel" data-target="model-panel"><i class="fa-solid fa-brain"></i>Model Notebook</button>
+        <button class="notebook-tab" type="button" role="tab" aria-selected="false" aria-controls="backend-panel" data-target="backend-panel"><i class="fa-solid fa-server"></i>FastAPI Backend</button>
+        <button class="notebook-tab" type="button" role="tab" aria-selected="false" aria-controls="database-panel" data-target="database-panel"><i class="fa-solid fa-database"></i>Database</button>
+        <button class="notebook-tab" type="button" role="tab" aria-selected="false" aria-controls="ui-panel" data-target="ui-panel"><i class="fa-solid fa-display"></i>UI</button>
+        <button class="notebook-tab" type="button" role="tab" aria-selected="false" aria-controls="tests-panel" data-target="tests-panel"><i class="fa-solid fa-vial-circle-check"></i>Tests</button>
+        <button class="notebook-tab" type="button" role="tab" aria-selected="false" aria-controls="cicd-panel" data-target="cicd-panel"><i class="fa-solid fa-code-branch"></i>CI/CD</button>
+        <button class="notebook-tab" type="button" role="tab" aria-selected="false" aria-controls="deployment-panel" data-target="deployment-panel"><i class="fa-solid fa-cloud-arrow-up"></i>Deployment</button>
     </div>
 
     <div class="notebook-panel active" id="eda-panel">
@@ -555,6 +563,1029 @@ optimizer = tf.keras.optimizers.AdamW(
                         <li>Test character-level or subword tokenization for noisy SMS variants.</li>
                     </ul>
                 </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="backend-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Backend Infrastructure</span>
+                    <h2>FastAPI Tools & Libraries</h2>
+                    <p class="panel-desc">The production API combines validated HTTP contracts, lightweight ONNX inference, transactional persistence, and startup-time dependency checks.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-bolt dep-icon"></i><div><strong>FastAPI & Uvicorn</strong><span>FastAPI defines the typed HTTP interface and OpenAPI documentation, while Uvicorn serves the ASGI application in development and production containers.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-shield-halved dep-icon"></i><div><strong>Pydantic 2</strong><span>Validates incoming SMS text and the public prediction response, enforcing non-empty input, a <code>1,000</code>-character limit, valid labels, and probabilities between <code>0</code> and <code>1</code>.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-microchip dep-icon"></i><div><strong>ONNX Runtime & NumPy</strong><span>Load the exported neural network, transform message tokens into model-ready arrays, and execute portable CPU inference without the full TensorFlow training stack.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-layer-group dep-icon"></i><div><strong>SQLAlchemy, Psycopg & Cryptography</strong><span>Coordinate request-scoped database sessions, PostgreSQL connectivity, repository transactions, and authenticated Fernet encryption before any message reaches storage.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Request Lifecycle</span>
+                    <h2>From HTTP Request to Persisted Prediction</h2>
+                    <p class="panel-desc">Inference and persistence are deliberately separated into middleware, route, predictor, service, and repository layers.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Bound and identify the request</strong><span>The ASGI body-limit middleware rejects payloads above <code>16,384</code> bytes, and request-ID middleware assigns a UUID returned in the <code>X-Request-ID</code> response header.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Validate the contract</strong><span><code>PredictRequest</code> strips surrounding whitespace and rejects empty or oversized SMS input before inference begins.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Normalize and infer</strong><span>The predictor applies the saved preprocessing contract, runs the ONNX graph, and compares the spam probability against the configurable default threshold of <code>0.5</code>.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Encrypt and transact</strong><span>The service encrypts the original message in memory, creates a prediction record through the repository, commits once, and rolls back cleanly on persistence errors.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Return a minimal response</strong><span>The public response exposes only <code>label</code> and <code>spam_probability</code>; internal ciphertext and database details never leave the backend.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">API Contract & Reliability</span>
+                    <h2>Routes, Startup Gates & Failure Boundaries</h2>
+                    <p class="panel-desc">The API fails early when artifacts or secrets are invalid and returns consistent, traceable responses during normal operation.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Surface</th><th>Purpose</th><th>Production Behavior</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>GET /</code></td><td><span class="taxonomy-tag">Metadata</span></td><td>Returns the service name, version <code>1.0.0</code>, and the OpenAPI documentation path at <code>/docs</code>.</td></tr>
+                            <tr><td><code>GET /health</code></td><td><span class="taxonomy-tag">Readiness</span></td><td>Executes a PostgreSQL readiness query, so Render only treats the service as healthy when the API and database path both work.</td></tr>
+                            <tr><td><code>POST /predict</code></td><td><span class="taxonomy-tag target-style">Inference</span></td><td>Classifies one validated SMS, saves an encrypted record, and returns the label plus spam probability.</td></tr>
+                            <tr><td>Application lifespan</td><td><span class="taxonomy-tag">Startup</span></td><td>Validates artifact paths, creates and warms the predictor, verifies the Fernet key, and disposes pooled database connections on shutdown.</td></tr>
+                            <tr><td>Error handlers</td><td><span class="taxonomy-tag">Safety</span></td><td>Translate validation, encryption, inference, and persistence failures into a stable error envelope without leaking plaintext or internal exception details.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="note-grid">
+                    <div class="note-card stagger-child"><strong>Portable runtime</strong><span>The Docker image serves the ONNX artifact instead of importing the complete training environment.</span></div>
+                    <div class="note-card stagger-child"><strong>Traceability</strong><span>The same request UUID links the HTTP response, server logs, and the corresponding PostgreSQL row.</span></div>
+                    <div class="note-card stagger-child"><strong>Configuration</strong><span>Database URL, encryption key, threshold, request size, message length, and connection timeout are supplied through environment variables.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Runtime Contract</span>
+                    <h2>Inference Architecture & Configuration Snapshot</h2>
+                    <p class="panel-desc">The deployed backend is intentionally smaller than the research environment: three model artifacts, one ONNX session, one database pool, and one encrypted write per prediction.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="architecture-strip stagger-child" aria-label="Backend request architecture">
+                    <div class="architecture-step"><i class="fa-solid fa-mobile-screen"></i><strong>Client</strong><span>JSON body with one SMS text field.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-solid fa-shield-halved"></i><strong>Middleware</strong><span>16 KB body cap and UUID correlation.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-solid fa-microchip"></i><strong>ONNX</strong><span>Normalize, tokenize, infer, threshold.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-solid fa-lock"></i><strong>Persistence</strong><span>Encrypt, flush, commit, return result.</span></div>
+                </div>
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><div class="kpi-label">Public Routes</div><div class="kpi-value">3</div></div>
+                    <div class="kpi-card"><div class="kpi-label">Decision Threshold</div><div class="kpi-value good">0.50</div></div>
+                    <div class="kpi-card"><div class="kpi-label">Max SMS Length</div><div class="kpi-value">1,000</div></div>
+                    <div class="kpi-card"><div class="kpi-label">Max Body Size</div><div class="kpi-value">16 KB</div></div>
+                </div>
+                <div class="contract-ribbon stagger-child">
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>Python 3.13</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>FastAPI 0.117.1</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>ONNX Runtime 1.26</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>Uvicorn 0.40</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>Pydantic 2.12</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>CPU inference</span>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Implementation Lab</span>
+                    <h2>Route, Lifespan & Safe Error Code</h2>
+                    <p class="panel-desc">Representative production code shows where inference is validated, where dependencies are warmed, and how internal exceptions become stable client responses.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">app/api/routes.py</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="python">@router.post("/predict")
+def predict(payload, request, session):
+    result = PredictionResponse.model_validate(
+        request.app.state.predictor.predict(payload.text)
+    )
+    PredictionService(
+        session=session,
+        repository=PredictionRepository(session),
+        message_cipher=request.app.state.message_cipher,
+    ).save_prediction(
+        request_id=UUID(request.state.request_id),
+        message=payload.text,
+        label=result.label,
+        spam_probability=result.spam_probability,
+        threshold=request.app.state.predictor.threshold,
+    )
+    return result</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">app/main.py</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="python">@asynccontextmanager
+async def lifespan(app):
+    validate_artifact_paths()
+    predictor = create_predictor()
+    warmup_predictor(predictor)
+    cipher = MessageCipher(
+        AppConfig.get_message_encryption_key()
+    )
+    app.state.predictor = predictor
+    app.state.message_cipher = cipher
+    try:
+        yield
+    finally:
+        database.dispose()</pre></div>
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Failure</th><th>Public Status</th><th>Stable Code</th><th>What Remains Private</th></tr></thead>
+                        <tbody>
+                            <tr><td>Invalid request</td><td>422</td><td><code>validation_error</code></td><td>Framework internals and rejected data beyond safe field feedback.</td></tr>
+                            <tr><td>Oversized body</td><td>413</td><td><code>request_too_large</code></td><td>Buffered body content.</td></tr>
+                            <tr><td>Inference failure</td><td>503</td><td><code>prediction_unavailable</code></td><td>Model exception and stack trace.</td></tr>
+                            <tr><td>Persistence failure</td><td>503</td><td><code>persistence_unavailable</code></td><td>SQL, credentials, parameters, and submitted plaintext.</td></tr>
+                            <tr><td>Readiness failure</td><td>503</td><td><code>database_unavailable</code></td><td>Neon hostname, driver exception, and connection details.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section-callout stagger-child"><strong>Design principle:</strong> detailed tracebacks stay in server logs, while the client receives a stable machine-readable code, a safe explanation, and the same request ID used to locate the corresponding log event.</div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="database-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Persistence Infrastructure</span>
+                    <h2>Database Tools & Libraries</h2>
+                    <p class="panel-desc">Managed PostgreSQL, explicit migrations, pooled application connections, and application-level encryption form the persistence layer.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-cloud dep-icon"></i><div><strong>Neon PostgreSQL</strong><span>Provides the managed production database independently from Render, with TLS-required public connection strings and scale-to-zero behavior suitable for the demo workload.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-layer-group dep-icon"></i><div><strong>SQLAlchemy 2</strong><span>Defines the typed prediction model, check constraints, session lifecycle, repository boundary, and explicit transaction commit or rollback behavior.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-plug dep-icon"></i><div><strong>Psycopg 3</strong><span>Supplies the PostgreSQL driver used by SQLAlchemy; standard Neon URLs are normalized to the <code>postgresql+psycopg</code> dialect at runtime.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-code-branch dep-icon"></i><div><strong>Alembic</strong><span>Versions the schema, upgrades fresh and existing databases, verifies migration state in CI, and applies production changes before a new API release is triggered.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-lock dep-icon"></i><div><strong>Fernet Cryptography</strong><span>Encrypts each original SMS with authenticated symmetric encryption; only ciphertext is given to the repository or stored in PostgreSQL.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Schema Contract</span>
+                    <h2>The <code>predictions</code> Record</h2>
+                    <p class="panel-desc">The schema keeps the minimum useful audit metadata while protecting the submitted message body.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Column</th><th>Type / Constraint</th><th>Reason</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>id</code></td><td><span class="taxonomy-tag">Integer PK</span></td><td>Internal database identity for the prediction row.</td></tr>
+                            <tr><td><code>request_id</code></td><td><span class="taxonomy-tag target-style">Unique UUID</span></td><td>Correlates the database record with the API response and request logs while preventing duplicate request records.</td></tr>
+                            <tr><td><code>message_ciphertext</code></td><td><span class="taxonomy-tag">LargeBinary</span></td><td>Stores authenticated Fernet bytes; plaintext is never sent to PostgreSQL.</td></tr>
+                            <tr><td><code>label</code></td><td><span class="taxonomy-tag">ham / spam</span></td><td>A check constraint restricts the public classification to the two supported labels.</td></tr>
+                            <tr><td><code>spam_probability</code></td><td><span class="taxonomy-tag">Float 0–1</span></td><td>Preserves the model confidence used to form the public result.</td></tr>
+                            <tr><td><code>threshold</code></td><td><span class="taxonomy-tag">Float 0–1</span></td><td>Records the exact decision boundary used at prediction time.</td></tr>
+                            <tr><td><code>message_length</code></td><td><span class="taxonomy-tag">Positive integer</span></td><td>Retains safe operational metadata without exposing message content.</td></tr>
+                            <tr><td><code>created_at</code></td><td><span class="taxonomy-tag">Timezone timestamp</span></td><td>Uses the PostgreSQL server clock for a consistent creation time.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Security & Migration Flow</span>
+                    <h2>Pooled Runtime, Direct Migrations & Reversible Encryption</h2>
+                    <p class="panel-desc">The application and deployment workflow use different connection modes for different jobs, while one protected key governs message recovery.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Serve through the pooled URL</strong><span>The long-running API uses Neon’s pooled connection endpoint so concurrent web requests share database resources efficiently.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Migrate through the direct URL</strong><span>GitHub Actions injects <code>NEON_DIRECT_DATABASE_URL</code> and runs <code>alembic upgrade head</code> before asking Render to deploy application code.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Encrypt before the repository</strong><span>Fernet produces authenticated ciphertext in application memory; plaintext never crosses the persistence boundary.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Recover only with the same key</strong><span>The original SMS can be decrypted later by authorized application code using the unchanged <code>MESSAGE_ENCRYPTION_KEY</code>; losing or rotating it without a migration makes old ciphertext unreadable.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Verify the state</strong><span>CI applies migrations, runs <code>alembic check</code>, persists a smoke-test prediction, and queries the table to confirm the row exists.</span></div></div></div>
+                </div>
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>Separation of responsibilities:</strong> Neon owns durable PostgreSQL operation, Alembic owns schema evolution, SQLAlchemy owns application transactions, and Fernet protects sensitive message content before storage.</p>
+                    <p><strong>Important operational rule:</strong> database URLs and the encryption key remain environment secrets. They belong in local uncommitted <code>.env</code> files or host secret stores, never in Git history or browser code.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Connection Topology</span>
+                    <h2>Local PostgreSQL, Neon Pooling & Alembic Direct Access</h2>
+                    <p class="panel-desc">Three connection contexts use the same schema but different lifecycles: persistent local development, pooled web traffic, and short-lived migration sessions.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Local Compose Database</div><span class="theory-badge">postgres:16</span></div><p class="theory-explanation">A named volume preserves developer data. The migrate container waits for <code>pg_isready</code>, upgrades to Alembic head, exits successfully, and only then allows the API to start.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Neon Pooled Runtime</div><span class="theory-badge champion-badge">API traffic</span></div><p class="theory-explanation">The Render API uses Neon’s pooler hostname. SQLAlchemy adds <code>pool_pre_ping</code>, a bounded pool checkout timeout, a network connect timeout, and hidden parameters in engine logs.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Neon Direct Migration</div><span class="theory-badge">Alembic</span></div><p class="theory-explanation">GitHub Actions uses the direct production URL with Alembic’s <code>NullPool</code>. The connection exists only for schema work and is closed before Render deployment begins.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">URL Normalization</div><span class="theory-badge">Psycopg 3</span></div><p class="theory-explanation"><code>postgres://</code> and <code>postgresql://</code> provider URLs are normalized to <code>postgresql+psycopg://</code>, keeping deployment configuration compatible with SQLAlchemy 2.</p></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Context</th><th>Connection Strategy</th><th>Lifetime</th><th>Failure Policy</th></tr></thead>
+                        <tbody>
+                            <tr><td>API request</td><td>Pooled engine + request-scoped session</td><td>Session closes after request; engine survives process</td><td>Rollback incomplete work and return safe 503.</td></tr>
+                            <tr><td>Health check</td><td><code>SELECT 1</code> through engine</td><td>One round trip per readiness probe</td><td>Service becomes unhealthy if PostgreSQL cannot answer.</td></tr>
+                            <tr><td>Local migration</td><td>Compose migrate service</td><td>One-shot container</td><td>API dependency remains blocked on non-zero exit.</td></tr>
+                            <tr><td>Production migration</td><td>Direct Neon URL + <code>NullPool</code></td><td>One GitHub Actions step</td><td>Render hooks are never called when Alembic fails.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Persistence Lab</span>
+                    <h2>Encryption, Transactions & Useful SQL</h2>
+                    <p class="panel-desc">The data path makes plaintext exposure difficult by construction and keeps enough metadata for auditing, debugging, and aggregate monitoring.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">service transaction</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="python">ciphertext = message_cipher.encrypt(message)
+try:
+    prediction = repository.create(
+        request_id=request_id,
+        message_ciphertext=ciphertext,
+        label=label,
+        spam_probability=probability,
+        threshold=threshold,
+        message_length=len(message),
+    )
+    session.commit()
+except SQLAlchemyError:
+    session.rollback()
+    raise PersistenceError(
+        "Prediction transaction failed."
+    )</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Neon SQL editor</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="sql">SELECT
+    request_id,
+    label,
+    ROUND(spam_probability::numeric, 4) AS probability,
+    threshold,
+    message_length,
+    octet_length(message_ciphertext) AS cipher_bytes,
+    created_at
+FROM predictions
+ORDER BY created_at DESC
+LIMIT 25;</pre></div>
+                    </div>
+                </div>
+                <div class="note-grid">
+                    <div class="note-card stagger-child"><strong>Authenticated encryption</strong><span>Fernet detects modified or corrupted ciphertext and raises a dedicated decryption error instead of returning damaged plaintext.</span></div>
+                    <div class="note-card stagger-child"><strong>Key continuity</strong><span>The same key can recover the original message later. A planned rotation must decrypt and re-encrypt old rows before the previous key is retired.</span></div>
+                    <div class="note-card stagger-child"><strong>Safe analytics</strong><span>Label, probability, threshold, length, timestamp, and ciphertext size support monitoring without decrypting message bodies.</span></div>
+                </div>
+                <div class="section-callout stagger-child"><strong>Why ciphertext can be longer than the SMS:</strong> Fernet stores versioning, timestamp, initialization material, authentication data, padding, and URL-safe base64 representation in addition to the encrypted message bytes.</div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="ui-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Frontend Infrastructure</span>
+                    <h2>UI Tools & Libraries</h2>
+                    <p class="panel-desc">The interface is a typed React application built as static assets and served by a small Nginx production container.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-react dep-icon"></i><div><strong>React 19 & React DOM</strong><span>Provide the component model, state-driven prediction experience, responsive navigation, inspector panels, theme controls, and reusable research views.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-code dep-icon"></i><div><strong>TypeScript 5</strong><span>Adds static contracts for API payloads, prediction state, navigation data, UI components, and build-time safety across the frontend.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-gauge-high dep-icon"></i><div><strong>Vite 7</strong><span>Runs the fast local development server and compiles an optimized production bundle after TypeScript validation.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-arrows-rotate dep-icon"></i><div><strong>TanStack React Query & Zod</strong><span>Manage server state, loading and error transitions, and runtime validation of health and prediction responses crossing the API boundary.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-icons dep-icon"></i><div><strong>Lucide React & React Icons</strong><span>Supply consistent product, navigation, GitHub, notebook, research, contact, theme, and status iconography with accessible labels.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-server dep-icon"></i><div><strong>Nginx</strong><span>Serves the compiled SPA, exposes a lightweight frontend health endpoint, caches hashed assets, and proxies same-origin <code>/api</code> requests to FastAPI.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Experience Architecture</span>
+                    <h2>One Interface for Prediction, Data & Training Context</h2>
+                    <p class="panel-desc">The UI turns a simple classifier endpoint into an explorable product without moving training or inference logic into the browser.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>App workspace</strong><span>The default route presents the SMS composer, example messages, submit action, probability meter, classification result, request ID, encrypted-save confirmation, and session-only activity list.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Dataset workspace</strong><span>Summarizes corpus size, ham/spam balance, learned vocabulary, message patterns, and source context from the research notebooks.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Training workspace</strong><span>Presents model architecture, split strategy, metrics, threshold, runtime artifact information, and a source-of-truth link to the training repository.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Same-origin API call</strong><span>The browser posts to <code>/api/predict</code>; Nginx removes the prefix and forwards the request securely to the Render API host, avoiding client-side production host configuration.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Validated result rendering</strong><span>Zod checks the response before React updates the probability, label, inspector facts, and session metadata. The submitted plaintext is not retained in browser history.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Responsive & Accessible UI</span>
+                    <h2>Desktop Shell, Mobile Navigation & Interaction States</h2>
+                    <p class="panel-desc">The interface adapts its navigation and detail surfaces while preserving keyboard access, readable contrast, and explicit feedback.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid">
+                    <div class="tech-card stagger-child"><span class="tech-badge">Desktop</span><h3>Three-area application shell</h3><p>A persistent sidebar orders <strong>App, Datasets, Training</strong>; the central canvas holds the active workspace; and a right inspector presents the selected prediction or research context.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Mobile</span><h3>Compact route navigation</h3><p>The layout removes desktop-only chrome, keeps core actions reachable, and converts secondary detail into a mobile-friendly sheet or stacked section without horizontal page overflow.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Accessibility</span><h3>Keyboard and semantic controls</h3><p>Interactive icons have names or tooltips, focus remains visible, routes are keyboard reachable, the search shortcut uses a single-line <code>K</code> hint, and live result states remain understandable without color alone.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Themes</span><h3>Dark, light & high contrast</h3><p>Theme controls preserve legibility across neutral surfaces, status colors, cards, charts, borders, and focus indicators while respecting reduced-motion preferences in tested interactions.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Status</span><h3>Honest server-state feedback</h3><p>The API badge, loading action, validation message, error state, probability result, persistence confirmation, and request ID make each stage of a prediction visible to the user.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">External context</span><h3>Source, notebooks & research</h3><p>Header links connect the deployed product to the application repository, training notebooks, and this research page without mixing those destinations into primary navigation.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Product State Model</span>
+                    <h2>Prediction UX From Idle to Result or Recovery</h2>
+                    <p class="panel-desc">The frontend treats prediction as a visible state machine, not a single button click, so latency and free-tier wake-up behavior remain understandable.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="architecture-strip stagger-child" aria-label="Frontend prediction state flow">
+                    <div class="architecture-step"><i class="fa-regular fa-message"></i><strong>Compose</strong><span>Type or select a realistic SMS example.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-solid fa-spinner"></i><strong>Pending</strong><span>Disable duplicate submits and show progress.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-solid fa-shield-halved"></i><strong>Validate</strong><span>Zod checks label and probability.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-solid fa-chart-simple"></i><strong>Explain</strong><span>Label, meter, threshold, save state, request ID.</span></div>
+                </div>
+                <div class="theory-split">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Ready</div><span class="theory-badge champion-badge">API online</span></div><p class="theory-explanation">Health polling reports a ready service, the composer is enabled, example chips can populate the textarea, and the current message count remains visible.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Sleeping / Unavailable</div><span class="theory-badge">free tier</span></div><p class="theory-explanation">The UI explains that the API may be waking and does not pretend the browser or model has failed permanently. A later health refresh can recover naturally.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Spam Result</div><span class="theory-badge">probability ≥ 0.5</span></div><p class="theory-explanation">The result region announces “Spam detected,” emphasizes the probability, places it against the threshold, confirms encrypted persistence, and exposes the correlation ID.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Recoverable Error</div><span class="theory-badge">message preserved</span></div><p class="theory-explanation">A friendly alert appears without clearing the textarea, letting the user retry after a temporary API or storage failure instead of re-entering the message.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Frontend Implementation</span>
+                    <h2>Typed API Boundary, Responsive Contract & Privacy</h2>
+                    <p class="panel-desc">The browser knows the public contract, while Nginx owns production routing and the backend owns model and persistence logic.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">frontend/src/api.ts</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="typescript">const predictionSchema = z.object({
+  label: z.enum(["ham", "spam"]),
+  spam_probability: z.number().min(0).max(1),
+});
+
+export async function createPrediction(text: string) {
+  const response = await fetch("/api/predict", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  });
+  const result = predictionSchema.parse(
+    await response.json()
+  );
+  return {
+    ...result,
+    requestId: response.headers.get("x-request-id"),
+  };
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">responsive behavior</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="plaintext">Desktop
+  icon rail + labeled sidebar
+  main workspace + right inspector
+  sidebar can be hidden and restored
+
+Mobile
+  desktop rail hidden
+  compact primary navigation visible
+  cards become one-column
+  selected details open as a sheet
+  touch targets remain at least 44px
+
+All viewports
+  App → Datasets → Training
+  dark → light → high contrast
+  K focuses global search</pre></div>
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Frontend Data</th><th>Lifetime</th><th>Storage Location</th><th>Privacy Decision</th></tr></thead>
+                        <tbody>
+                            <tr><td>Typed SMS text</td><td>Current interaction</td><td>React component memory</td><td>Sent to the API only when the user submits.</td></tr>
+                            <tr><td>Prediction metadata</td><td>Current page session</td><td>In-memory activity list</td><td>Label, probability, time, and request ID can be shown without retaining plaintext.</td></tr>
+                            <tr><td>Original message</td><td>Server-side durable record</td><td>Neon as Fernet ciphertext</td><td>Never written to browser storage or rendered in history.</td></tr>
+                            <tr><td>Theme</td><td>Device preference</td><td>UI state</td><td>Non-sensitive presentation preference only.</td></tr>
+                            <tr><td>Research metrics</td><td>Build-time static</td><td>Frontend bundle</td><td>Public notebook-derived facts; no database request needed.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="contract-ribbon stagger-child">
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>Semantic navigation</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>Named icon controls</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>Visible focus</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>WCAG A/AA scans</span>
+                    <span class="contract-pill"><i class="fa-solid fa-check"></i>Reduced-motion aware</span>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="tests-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Quality Infrastructure</span>
+                    <h2>Testing Tools & Libraries</h2>
+                    <p class="panel-desc">The project tests Python behavior, database integration, React interactions, browser workflows, accessibility, and the composed container deployment.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-python dep-icon"></i><div><strong>Pytest, HTTPX & ONNX</strong><span>Exercise preprocessing, predictor contracts, API routes, middleware, encryption, repositories, migrations, smoke behavior, and model artifact compatibility.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-vial dep-icon"></i><div><strong>Vitest & JSDOM</strong><span>Run fast TypeScript unit and component tests in a browser-like environment as the frontend’s default test command.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-react dep-icon"></i><div><strong>React Testing Library & User Event</strong><span>Test the application through visible roles, labels, routes, typing, submission, theme controls, and navigation instead of component internals.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-network-wired dep-icon"></i><div><strong>Mock Service Worker</strong><span>Intercepts frontend API calls with realistic health and prediction responses, making UI tests deterministic without writing to Neon.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-window-maximize dep-icon"></i><div><strong>Playwright Chromium</strong><span>Checks the production-style build at desktop and mobile viewports, including navigation, prediction flows, responsive layout, and browser-visible behavior.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-universal-access dep-icon"></i><div><strong>Axe Core for Playwright</strong><span>Scans dark, light, and high-contrast routes for detectable WCAG A and AA violations during browser testing.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Coverage Map</span>
+                    <h2>What Each Test Layer Proves</h2>
+                    <p class="panel-desc">Every layer answers a different reliability question, from a pure function to the full Docker Compose stack.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Layer</th><th>Main Scope</th><th>Failure It Catches</th></tr></thead>
+                        <tbody>
+                            <tr><td>Backend unit tests</td><td><span class="taxonomy-tag">Pure behavior</span></td><td>Text normalization drift, invalid artifact metadata, threshold mistakes, cipher errors, and configuration edge cases.</td></tr>
+                            <tr><td>API tests</td><td><span class="taxonomy-tag">HTTP contract</span></td><td>Wrong status codes or response shapes, missing request IDs, validation regressions, body-limit failures, and unsafe error leakage.</td></tr>
+                            <tr><td>Database integration</td><td><span class="taxonomy-tag">Persistence</span></td><td>Broken migrations, invalid constraints, failed commits or rollbacks, duplicate request IDs, and missing encrypted prediction rows.</td></tr>
+                            <tr><td>Frontend unit/component</td><td><span class="taxonomy-tag">Interaction</span></td><td>Broken routing, inaccessible controls, stale loading states, malformed API handling, missing prediction results, and incorrect theme behavior.</td></tr>
+                            <tr><td>Browser & accessibility</td><td><span class="taxonomy-tag target-style">User journey</span></td><td>Desktop/mobile layout regressions, failed real-browser navigation, focus and semantic issues, and detectable WCAG A/AA violations.</td></tr>
+                            <tr><td>Deployment smoke</td><td><span class="taxonomy-tag">Containers</span></td><td>Images that build but cannot start together, migrations that do not complete, unhealthy services, broken prediction calls, or absent database persistence.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Release Confidence</span>
+                    <h2>Test Isolation, Real Dependencies & Deployment Gates</h2>
+                    <p class="panel-desc">Fast tests remain isolated, integration tests use disposable infrastructure, and production cannot deploy until both paths pass.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Validate configuration</strong><span>CI first verifies Docker Compose parsing and prepares only non-sensitive defaults from <code>.env.example</code>.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Test Python with PostgreSQL</strong><span>A disposable PostgreSQL 16 service receives Alembic migrations before the backend suite and application smoke test run.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Test and build the UI</strong><span><code>npm ci</code>, Vitest, the TypeScript/Vite production build, Playwright Chromium, and axe checks run as an independent job.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Smoke the deployable stack</strong><span>Docker Compose starts PostgreSQL, the one-shot migration container, and the API image; a real prediction is sent and its database row is verified.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Keep test data disposable</strong><span>Compose logs are printed on failure, then containers and the isolated CI volume are removed. Frontend tests use MSW and never contact production Neon.</span></div></div></div>
+                </div>
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>Gate design:</strong> production deployment depends on the runtime tests, frontend tests, and composed deployment smoke test. A green isolated test suite alone is not enough.</p>
+                    <p><strong>Representative verified frontend scope:</strong> unit/component tests cover navigation and prediction behavior, while Playwright covers applicable desktop and mobile journeys with intentional viewport-specific skips where appropriate.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Test Inventory</span>
+                    <h2>Repository Coverage by Concern</h2>
+                    <p class="panel-desc">The suite contains 91 declared Python and TypeScript test cases across API, integration, unit, smoke, component, browser, responsive, and accessibility concerns.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><div class="kpi-label">Declared Test Cases</div><div class="kpi-value good">91</div></div>
+                    <div class="kpi-card"><div class="kpi-label">Backend Test Groups</div><div class="kpi-value">4</div></div>
+                    <div class="kpi-card"><div class="kpi-label">Frontend Test Layers</div><div class="kpi-value">2</div></div>
+                    <div class="kpi-card"><div class="kpi-label">Axe Theme Scans</div><div class="kpi-value">3</div></div>
+                </div>
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Area</th><th>Representative Files</th><th>Important Assertions</th></tr></thead>
+                        <tbody>
+                            <tr><td>API</td><td><code>test_predict.py</code>, <code>test_health.py</code>, <code>test_error_handling.py</code></td><td>Success contract, schema limits, request IDs, 413 body cap, safe 503 shapes, and readiness.</td></tr>
+                            <tr><td>ML runtime</td><td><code>test_predictor.py</code>, <code>test_onnx_model.py</code>, <code>test_artifacts.py</code></td><td>Artifact integrity, preprocessing agreement, valid probabilities, threshold logic, and portable runtime imports.</td></tr>
+                            <tr><td>Persistence</td><td><code>test_database_persistence.py</code>, <code>test_prediction_repository.py</code>, <code>test_prediction_service.py</code></td><td>Encrypted writes, lookup paths, commits, rollbacks, constraints, and error translation.</td></tr>
+                            <tr><td>Security/config</td><td><code>test_message_cipher.py</code>, <code>test_config.py</code>, <code>test_environment_template.py</code></td><td>Fernet round trips, invalid tokens, required secrets, URL normalization, and safe example configuration.</td></tr>
+                            <tr><td>React component</td><td><code>App.navigation.test.tsx</code>, <code>App.prediction.test.tsx</code></td><td>Route order, search shortcut, themes, sidebar state, links, pending/result/error states, and malformed responses.</td></tr>
+                            <tr><td>Browser</td><td><code>e2e/app.spec.ts</code></td><td>Desktop/mobile navigation, full prediction journey, mobile details sheet, and WCAG A/AA scans in three themes.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Executable Examples</span>
+                    <h2>Behavior Tests & Developer Shortcuts</h2>
+                    <p class="panel-desc">Tests describe product behavior in readable code, while Makefile targets keep local execution aligned with CI.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">frontend prediction test</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="typescript">it("renders a spam prediction", async () => {
+  server.use(
+    http.post("*/api/predict", () =>
+      HttpResponse.json(
+        { label: "spam", spam_probability: 0.9123 },
+        { headers: { "x-request-id": requestId } },
+      ),
+    ),
+  );
+
+  await user.type(messageBox, "Claim your free prize");
+  await user.click(analyzeButton);
+
+  expect(await screen.findByText("Spam detected"))
+    .toBeVisible();
+  expect(screen.getByText("Encrypted record saved"))
+    .toBeVisible();
+});</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">quality commands</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="shell">make test-unit
+make test-api
+make test-integration
+make test-smoke
+make test-local
+
+make frontend-test
+make frontend-test-watch
+make frontend-test-e2e
+make frontend-check
+
+docker compose config --quiet
+docker compose up --build --wait</pre></div>
+                    </div>
+                </div>
+                <div class="tech-grid" style="margin-top:24px;">
+                    <div class="tech-card stagger-child"><span class="tech-badge">Determinism</span><h3>Mock only the network edge</h3><p>MSW returns realistic JSON and headers while React Query, Zod, rendering, events, and application state remain real. This catches client bugs without depending on a sleeping host.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Integration</span><h3>Use real PostgreSQL where it matters</h3><p>Database tests and deployment smoke tests run against PostgreSQL rather than replacing SQLAlchemy behavior with a mock that could hide migration or dialect problems.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Accessibility</span><h3>Combine automation with semantics</h3><p>Testing Library queries by roles and names, Playwright checks real viewport behavior, and axe finds detectable violations across dark, light, and high-contrast themes.</p></div>
+                    <div class="tech-card stagger-child"><span class="tech-badge">Artifacts</span><h3>Test the shipped model contract</h3><p>The suite loads checked-in ONNX and preprocessing artifacts so CI can detect missing files, incompatible metadata, or runtime-only import regressions before image deployment.</p></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="cicd-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Automation Infrastructure</span>
+                    <h2>CI/CD Tools & Services</h2>
+                    <p class="panel-desc">One GitHub Actions workflow validates code and containers, migrates Neon, and triggers both Render services in a controlled order.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-github dep-icon"></i><div><strong>GitHub Actions</strong><span>Runs the unified <code>CI/CD</code> workflow on pushes and pull requests targeting <code>main</code>, with <code>workflow_dispatch</code> retained for deliberate manual runs.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-docker dep-icon"></i><div><strong>Docker & Docker Compose</strong><span>Validate configuration, build the deployable image, run the API and migration services against PostgreSQL, wait for health, and verify end-to-end persistence.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-database dep-icon"></i><div><strong>PostgreSQL 16 & Alembic</strong><span>Give CI a real relational dependency and ensure schema upgrades are valid locally, in the composed stack, and against production Neon.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-node-js dep-icon"></i><div><strong>Python 3.13 & Node.js 22</strong><span>Provide pinned build environments for backend dependencies, Pytest, TypeScript compilation, Vitest, Vite, Playwright, and accessibility scans.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-link dep-icon"></i><div><strong>Render Deploy Hooks</strong><span>Decouple Render’s build trigger from source pushes so deployments start only after migrations and all release gates succeed.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Pipeline Topology</span>
+                    <h2>From Commit to Production Release</h2>
+                    <p class="panel-desc">Independent runtime and frontend checks converge on a deployable-stack smoke test before the production job receives control.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Trigger the workflow</strong><span>A push to <code>main</code>, pull request to <code>main</code>, or authorized manual dispatch starts the same declared pipeline.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Run parallel CI jobs</strong><span><code>runtime-tests</code> validates Python, migrations, and API behavior while <code>frontend-tests</code> validates React, the production build, browser flows, and accessibility.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Exercise Docker Compose</strong><span><code>deployment-smoke</code> depends on both CI jobs, builds the API image once, starts the stack, confirms the migration exit code, sends a prediction, and checks persistence.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Protect pull requests</strong><span>Pull requests stop after validation. Only non-PR events may enter the production environment and use deployment secrets.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Migrate production first</strong><span>The deploy job validates secret presence, installs runtime dependencies, runs <code>alembic upgrade head</code>, and reports the current Neon revision.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">06</span><div><strong>Trigger both Render services</strong><span>After the database is compatible, authenticated hook URLs start the API deployment and then the frontend deployment.</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Secrets & Release Safety</span>
+                    <h2>Production Inputs, Concurrency & Ownership</h2>
+                    <p class="panel-desc">Sensitive values remain in scoped secret stores, while committed files define only names, defaults, and reproducible release behavior.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Secret / Control</th><th>Used By</th><th>Role</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>MESSAGE_ENCRYPTION_KEY</code></td><td><span class="taxonomy-tag">Tests & API</span></td><td>Initializes Fernet for encrypted persistence; the real value is never committed.</td></tr>
+                            <tr><td><code>NEON_DIRECT_DATABASE_URL</code></td><td><span class="taxonomy-tag target-style">Production migration</span></td><td>Connects Alembic directly to Neon before any Render release begins.</td></tr>
+                            <tr><td><code>RENDER_API_DEPLOY_HOOK_URL</code></td><td><span class="taxonomy-tag">CD</span></td><td>Starts the API build only after successful production migration.</td></tr>
+                            <tr><td><code>RENDER_FRONTEND_DEPLOY_HOOK_URL</code></td><td><span class="taxonomy-tag">CD</span></td><td>Starts the Nginx/React frontend build after all release checks pass.</td></tr>
+                            <tr><td><code>production</code> environment</td><td><span class="taxonomy-tag">GitHub</span></td><td>Scopes deployment credentials and provides a natural place for future reviewers or approval rules.</td></tr>
+                            <tr><td>Concurrency group</td><td><span class="taxonomy-tag">Release ordering</span></td><td><code>cancel-in-progress: false</code> prevents a newer run from interrupting an in-flight production migration or deployment.</td></tr>
+                            <tr><td>Render auto-deploy off</td><td><span class="taxonomy-tag">Render</span></td><td>Prevents Render from bypassing GitHub Actions and deploying code before tests or Alembic complete.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>Why the workflow is unified:</strong> CI and CD live in one dependency graph, so the production job cannot accidentally run without the exact runtime, frontend, and container checks defined for the same commit.</p>
+                    <p><strong>Why migrations are not a permanent service:</strong> Alembic is a one-shot release action. It runs whenever a schema-changing version is deployed; if no code changes for months, there is no new schema to apply.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Job Dependency Graph</span>
+                    <h2>Parallel Validation, Converged Smoke Test, Serialized Release</h2>
+                    <p class="panel-desc">The workflow is a dependency graph: two fast quality branches meet at a real container test, and only that combined result can unlock production.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="architecture-strip stagger-child" aria-label="CI/CD job dependency graph">
+                    <div class="architecture-step"><i class="fa-brands fa-git-alt"></i><strong>Commit</strong><span>Push, pull request, or manual dispatch.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-solid fa-code-branch"></i><strong>Parallel CI</strong><span>Runtime tests + frontend tests.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-brands fa-docker"></i><strong>Compose Smoke</strong><span>Migrate, predict, query persisted row.</span></div>
+                    <div class="architecture-arrow">→</div>
+                    <div class="architecture-step"><i class="fa-solid fa-rocket"></i><strong>Production</strong><span>Neon migration, API hook, frontend hook.</span></div>
+                </div>
+                <div class="phase-stack stagger-child">
+                    <div class="phase-row"><div class="phase-index">Job 1</div><div class="phase-main"><strong>Runtime tests</strong><span>Python 3.13, PostgreSQL 16, Compose validation, Alembic upgrade/check, Pytest suite, application smoke.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Needs</span><span class="phase-metric-value">—</span></div><div><span class="phase-metric-label">DB</span><span class="phase-metric-value">Postgres</span></div><div><span class="phase-metric-label">Output</span><span class="phase-metric-value good">gate</span></div></div></div>
+                    <div class="phase-row"><div class="phase-index">Job 2</div><div class="phase-main"><strong>Frontend tests</strong><span>Node 22, deterministic install, Vitest, TypeScript/Vite build, Playwright Chromium, and axe accessibility.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Needs</span><span class="phase-metric-value">—</span></div><div><span class="phase-metric-label">Browser</span><span class="phase-metric-value">Chromium</span></div><div><span class="phase-metric-label">Output</span><span class="phase-metric-value good">gate</span></div></div></div>
+                    <div class="phase-row rank-leader"><div class="phase-index">Job 3</div><div class="phase-main"><strong>Deployment smoke</strong><span>Build once, start the stack, verify the one-shot migration exit code, exercise the API, and count prediction rows.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Needs</span><span class="phase-metric-value">1 + 2</span></div><div><span class="phase-metric-label">Stack</span><span class="phase-metric-value">Compose</span></div><div><span class="phase-metric-label">Output</span><span class="phase-metric-value good">release</span></div></div></div>
+                    <div class="phase-row"><div class="phase-index">Job 4</div><div class="phase-main"><strong>Production deploy</strong><span>Skip pull requests, validate four secrets, migrate Neon, and call the two Render deploy hooks without cancelling a release in progress.</span></div><div class="phase-metrics"><div><span class="phase-metric-label">Needs</span><span class="phase-metric-value">3</span></div><div><span class="phase-metric-label">Env</span><span class="phase-metric-value">production</span></div><div><span class="phase-metric-label">Order</span><span class="phase-metric-value good">DB → apps</span></div></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Workflow Source</span>
+                    <h2>Triggers, Dependencies & Migration-First CD</h2>
+                    <p class="panel-desc">The workflow file makes release policy executable instead of relying on a manual checklist.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">.github/workflows/ci-cd.yml</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="yaml">name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  runtime-tests:
+  frontend-tests:
+  deployment-smoke:
+    needs: [runtime-tests, frontend-tests]
+  production-deploy:
+    needs: deployment-smoke
+    if: github.event_name != 'pull_request'</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">production release steps</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="yaml">- name: Apply production migrations
+  env:
+    DATABASE_URL: ${{ secrets.NEON_DIRECT_DATABASE_URL }}
+  run: |
+    alembic upgrade head
+    alembic current
+
+- name: Trigger Render API
+  run: curl --fail --request POST \
+    "$RENDER_API_DEPLOY_HOOK_URL"
+
+- name: Trigger Render frontend
+  run: curl --fail --request POST \
+    "$RENDER_FRONTEND_DEPLOY_HOOK_URL"</pre></div>
+                    </div>
+                </div>
+                <div class="note-grid">
+                    <div class="note-card stagger-child"><strong>Pull request behavior</strong><span>Every quality and deployment-smoke check runs, but production secrets and deploy hooks remain inaccessible because the release job is skipped.</span></div>
+                    <div class="note-card stagger-child"><strong>Main-branch behavior</strong><span>The same checked commit proceeds automatically from tests to migration and both deployments—this is continuous delivery/deployment under one workflow.</span></div>
+                    <div class="note-card stagger-child"><strong>Manual behavior</strong><span><code>workflow_dispatch</code> provides an explicit rerun path for recovery or verification without changing the normal push-to-main release policy.</span></div>
+                </div>
+            </div></div>
+        </section>
+    </div>
+
+    <div class="notebook-panel" id="deployment-panel">
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Hosting Infrastructure</span>
+                    <h2>Deployment Tools & Services</h2>
+                    <p class="panel-desc">Two Render web services and one Neon database turn the repository into a public, independently scalable application.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list">
+                    <div class="dependency-row stagger-child"><i class="fa-brands fa-docker dep-icon"></i><div><strong>Docker Multi-Stage Images</strong><span>The API image installs only runtime Python dependencies and model artifacts; the frontend image builds with Node.js 22 Alpine and copies only compiled assets into Nginx 1.27 Alpine.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-cloud-arrow-up dep-icon"></i><div><strong>Render Web Services</strong><span>Hosts <code>sms-spam-api</code> and <code>sms-spam-frontend</code> as separate Docker services with independent health checks, logs, URLs, environment variables, and deploy hooks.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-file-code dep-icon"></i><div><strong>Render Blueprint</strong><span><code>render.yaml</code> declares both service names, Docker contexts, health endpoints, free plans, Ohio region, non-secret defaults, and intentionally disabled automatic deploys.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-server dep-icon"></i><div><strong>Nginx 1.27 Alpine</strong><span>Serves the React SPA, falls back to <code>index.html</code> for client routes, caches immutable assets for one year, and reverse-proxies API traffic over HTTPS.</span></div></div>
+                    <div class="dependency-row stagger-child"><i class="fa-solid fa-database dep-icon"></i><div><strong>Neon Managed PostgreSQL</strong><span>Keeps durable prediction data outside ephemeral web containers and allows the API and GitHub Actions migration job to connect from different hosts.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Production Architecture</span>
+                    <h2>Browser → Nginx → FastAPI → Neon</h2>
+                    <p class="panel-desc">The frontend, API, and database are separate services connected through public TLS endpoints and narrowly scoped environment configuration.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="timeline-flow">
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">01</span><div><strong>Open the React application</strong><span>The browser loads <code>https://sms-spam-frontend-vdg0.onrender.com/app</code>; Nginx serves the compiled SPA and its hashed assets.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">02</span><div><strong>Submit on the same origin</strong><span>React calls <code>/api/predict</code> on the frontend origin, so the browser does not need direct cross-origin access to the API.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">03</span><div><strong>Proxy to Render API</strong><span>Nginx uses <code>API_UPSTREAM=sms-spam-api-gou5.onrender.com</code>, strips the <code>/api/</code> prefix, preserves forwarding headers, and enables TLS server-name verification behavior.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">04</span><div><strong>Infer and persist</strong><span>FastAPI runs ONNX inference, encrypts the SMS, saves the prediction through SQLAlchemy to Neon, and returns only label and probability.</span></div></div></div>
+                    <div class="flow-node stagger-child"><div class="flow-dot"></div><div class="flow-content"><span class="flow-step">05</span><div><strong>Render the verified response</strong><span>The frontend validates the JSON and displays the probability, classification, persistence status, and request identifier.</span></div></div></div>
+                </div>
+                <div class="note-grid">
+                    <div class="note-card stagger-child"><strong>Independent hosts</strong><span>The frontend, backend, and database do not need one central provider; HTTPS URLs and secret connection strings form their contract.</span></div>
+                    <div class="note-card stagger-child"><strong>Durable state</strong><span>Render containers can be rebuilt or replaced without losing predictions because Neon owns storage.</span></div>
+                    <div class="note-card stagger-child"><strong>Free-tier behavior</strong><span>Idle web services may spin down and the first request can be delayed while a container wakes; the health and UI states make that observable.</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Service Blueprint</span>
+                    <h2>Images, Health Checks & Runtime Configuration</h2>
+                    <p class="panel-desc">Each deployed unit has one responsibility and a health signal appropriate to its role.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Unit</th><th>Build / Runtime</th><th>Health & Configuration</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>sms-spam-api</code></td><td><span class="taxonomy-tag target-style">Python Docker</span></td><td>Built from the root <code>Dockerfile</code>; Render checks <code>/health</code>; runtime secrets include <code>DATABASE_URL</code> and <code>MESSAGE_ENCRYPTION_KEY</code>.</td></tr>
+                            <tr><td><code>sms-spam-frontend</code></td><td><span class="taxonomy-tag">Node build + Nginx</span></td><td>Built from <code>frontend/Dockerfile</code>; Render checks <code>/frontend-health</code>; <code>API_UPSTREAM</code> selects the FastAPI hostname.</td></tr>
+                            <tr><td>Neon production branch</td><td><span class="taxonomy-tag">Managed PostgreSQL</span></td><td>Accepts pooled application traffic and direct migration traffic over required TLS; stores the Alembic revision and encrypted prediction rows.</td></tr>
+                            <tr><td>Alembic release task</td><td><span class="taxonomy-tag">GitHub Actions</span></td><td>Runs once per production release before deploy hooks; it is intentionally not a continuously running Render service.</td></tr>
+                            <tr><td>Local parity stack</td><td><span class="taxonomy-tag">Docker Compose</span></td><td>Uses PostgreSQL, a one-shot migrate container, and the API so the same operational sequence can be tested before production.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>Deployment outcome:</strong> model training remains an offline research concern, while the production image carries only the artifacts and libraries required for inference.</p>
+                    <p><strong>Routing outcome:</strong> the public API URL remains useful for documentation and health checks, but end users visit the separate frontend URL. Nginx connects that interface to FastAPI behind the scenes.</p>
+                    <p><strong>Release outcome:</strong> Render does not deploy immediately on every repository push. GitHub Actions owns the gate, applies Neon migrations first, and then triggers both Docker services through deploy hooks.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Container Build Lab</span>
+                    <h2>Lean API Image & Multi-Stage Frontend Image</h2>
+                    <p class="panel-desc">The two images optimize for different workloads: Python inference with checked-in artifacts, and static React delivery with no Node process in production.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">API Dockerfile</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="dockerfile">FROM python:3.13-slim
+WORKDIR /app
+
+RUN addgroup --system appgroup \
+ && adduser --system --ingroup appgroup appuser
+
+COPY requirements.txt .
+RUN python -m pip install -r requirements.txt
+
+COPY app ./app
+COPY migrations ./migrations
+COPY alembic.ini ./
+COPY artifacts/sms-spam-model.onnx ./artifacts/
+COPY artifacts/vocabs_config.json ./artifacts/
+COPY artifacts/label_mapping.json ./artifacts/
+
+USER appuser
+CMD ["sh", "-c", "exec uvicorn app.main:app \
+ --host 0.0.0.0 --port ${PORT:-8000}"]</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">Frontend Dockerfile</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="dockerfile">FROM node:22-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+FROM nginx:1.27-alpine
+COPY --from=build /app/dist \
+  /usr/share/nginx/html
+COPY nginx/default.conf.template \
+  /etc/nginx/templates/default.conf.template
+
+EXPOSE 10000
+CMD ["nginx", "-g", "daemon off;"]</pre></div>
+                    </div>
+                </div>
+                <div class="theory-split" style="margin-top:24px;">
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">No TensorFlow Runtime</div><span class="theory-badge champion-badge">smaller API</span></div><p class="theory-explanation">The deployed service carries ONNX Runtime, NumPy, the ONNX graph, vocabulary configuration, and label mapping. Training-only TensorFlow/Keras stays outside the image.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Non-Root API User</div><span class="theory-badge">appuser</span></div><p class="theory-explanation">Runtime files are owned by an unprivileged system user, reducing the impact of accidental process-level filesystem access.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">No Node Server</div><span class="theory-badge champion-badge">static runtime</span></div><p class="theory-explanation">Node and the dependency tree exist only in the build stage. The final container contains Nginx plus the generated HTML, CSS, JavaScript, and hashed assets.</p></div>
+                    <div class="theory-block stagger-child"><div class="theory-card-header"><div class="theory-title">Layer Caching</div><span class="theory-badge">repeatable builds</span></div><p class="theory-explanation">Dependency manifests are copied before source files, so unchanged Python requirements or npm lockfiles can reuse Docker build layers.</p></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Edge Routing & Operations</span>
+                    <h2>Nginx Proxy Rules, SPA Fallback & Deployment Runbook</h2>
+                    <p class="panel-desc">Nginx joins the independently hosted services for the browser, while health endpoints and logs provide clear operational checkpoints.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">nginx/default.conf.template</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="nginx">location = /frontend-health {
+    access_log off;
+    return 200 "ok\n";
+}
+
+location /api/ {
+    proxy_pass https://${API_UPSTREAM}/;
+    proxy_ssl_server_name on;
+    proxy_ssl_name ${API_UPSTREAM};
+    proxy_set_header Host ${API_UPSTREAM};
+    proxy_read_timeout 90s;
+}
+
+location /assets/ {
+    expires 1y;
+    add_header Cache-Control "public, immutable";
+}
+
+location / {
+    try_files $uri $uri/ /index.html;
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">production checkpoints</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-language="plaintext">1. GitHub checks are green
+2. Compose smoke saved a prediction
+3. Alembic upgraded Neon to head
+4. Render API hook accepted the release
+5. GET /health returns {"status":"ok"}
+6. Render frontend hook accepted the release
+7. GET /frontend-health returns "ok"
+8. /app loads through SPA fallback
+9. Browser prediction returns X-Request-ID
+10. Neon row matches that request UUID</pre></div>
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Observed Symptom</th><th>Likely Layer</th><th>First Check</th><th>Expected Recovery</th></tr></thead>
+                        <tbody>
+                            <tr><td>Frontend URL initially slow</td><td>Render free-tier sleep</td><td><code>/frontend-health</code> and service events</td><td>Wait for container wake-up; no redeploy needed.</td></tr>
+                            <tr><td>UI says API sleeping</td><td>API wake-up or readiness</td><td>Public <code>/health</code> and API logs</td><td>API becomes ready after startup and Neon connection succeeds.</td></tr>
+                            <tr><td>API health returns 503</td><td>Database connection</td><td>Render <code>DATABASE_URL</code> and Neon status</td><td>Restore valid pooled URL/TLS credentials or wait for Neon recovery.</td></tr>
+                            <tr><td>Prediction returns storage error</td><td>Transaction or schema</td><td>Request ID in API logs, Alembic current revision</td><td>Correct schema/configuration, then retry without exposing message content.</td></tr>
+                            <tr><td>Direct React route returns 404</td><td>Nginx SPA fallback</td><td><code>try_files $uri $uri/ /index.html</code></td><td>Restore template and redeploy frontend image.</td></tr>
+                            <tr><td>Old JS persists after deploy</td><td>Asset caching</td><td>Hashed Vite filenames and HTML response</td><td>HTML points to new hashes; immutable old assets remain harmless.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="section-callout stagger-child"><strong>Why Render and Neon can be separate:</strong> service boundaries are ordinary network contracts. The frontend needs only the API hostname, the API needs only its database URL and encryption key, and GitHub Actions needs direct migration and deploy-hook secrets.</div>
             </div></div>
         </section>
     </div>
