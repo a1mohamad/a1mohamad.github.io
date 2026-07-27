@@ -42,7 +42,7 @@
           <a class="secondary-action" href="https://github.com/a1mohamad" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Source Archive</a>
         </div>
         <div class="signal-strip" aria-label="Application engineering signals">
-          <div><strong data-count="3">0</strong><span>Apps shipped</span></div>
+          <div><strong data-count="4">0</strong><span>Apps shipped</span></div>
           <div><strong data-count="5">0</strong><span>Model families</span></div>
           <div><strong data-count="4">0</strong><span>Database systems</span></div>
           <div><strong data-count="3">0</strong><span>Cloud targets</span></div>
@@ -65,9 +65,9 @@
           <span class="route route-c"></span>
         </div>
         <div class="console-table">
-          <div><span>Serving</span><strong>FastAPI · Uvicorn</strong></div>
-          <div><span>Packaging</span><strong>Docker · ONNX</strong></div>
-          <div><span>Persistence</span><strong>PostgreSQL · SQLite · MSSQL</strong></div>
+          <div><span>Serving</span><strong>FastAPI · Uvicorn · Nginx</strong></div>
+          <div><span>Packaging</span><strong>Docker · ONNX · Vite</strong></div>
+          <div><span>Persistence</span><strong>PostgreSQL · Neon · SQLite · MSSQL</strong></div>
           <div><span>Targets</span><strong>Render · Hugging Face · Spaces</strong></div>
         </div>
       </aside>
@@ -118,7 +118,7 @@
         <div>
           <span class="section-label">Application archive</span>
           <h2>Current deployed AI apps.</h2>
-          <p>Only two apps right now, but this page is designed to scale as more trained models become product-grade interfaces.</p>
+          <p>Three deployed AI apps now, with this archive designed to scale as more trained models become product-grade interfaces.</p>
         </div>
       </div>
 
@@ -145,7 +145,7 @@
             </div>
           </div>
           <div class="app-body">
-            <div class="app-meta"><span>Python</span><span>Medical AI</span><span>Computer Vision</span><span>MLOps</span></div>
+            <div class="app-meta"><span>Python</span><span>Medical AI</span><span>Computer Vision</span><span>Full-stack AI</span><span>MLOps</span></div>
             <h3>Lung Disease Detection App</h3>
             <p>
               End-to-end medical imaging application: classification ensemble, segmentation model, FastAPI backend, Docker deployment, PostgreSQL prediction storage, Supabase image storage, Hugging Face model hosting, and MLOps layers with MLflow, Airflow, and local Kafka simulation.
@@ -170,7 +170,7 @@
             <div class="pulse-ring"></div>
           </div>
           <div class="app-body">
-            <div class="app-meta"><span>Python</span><span>NLP</span><span>Text Classification</span><span>FastAPI</span></div>
+            <div class="app-meta"><span>Python</span><span>NLP</span><span>Text Classification</span><span>Full-stack AI</span></div>
             <h3>Disaster Tweet Classification App</h3>
             <p>
               Trained disaster tweet classifier served as a web application with FastAPI, SQLite logging, Jinja frontend templates, Docker packaging, and a clean prediction interface for real-time text inference.
@@ -182,6 +182,27 @@
               <a href="https://disaster-tweet-app.onrender.com/" class="app-action app-action-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open App</span></a>
               <a href="https://github.com/a1mohamad/disaster-tweet-app" target="_blank" rel="noopener" class="app-action app-action-secondary"><i class="fa-brands fa-github"></i><span>GitHub Repo</span></a>
               <a href="https://a1mohamad.github.io/research/disaster-tweets/index.html" class="app-action app-action-secondary"><i class="fa-solid fa-flask"></i><span>Research Page</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="app-card sms-app-card">
+          <div class="app-visual spam-visual" aria-hidden="true">
+            <img src="assets/spam.png" alt="" class="spam-app-image" loading="lazy" />
+          </div>
+          <div class="app-body">
+            <div class="app-meta"><span>Python</span><span>NLP</span><span>Text Classification</span><span>Full-stack AI</span></div>
+            <h3>SMS Spam Classifier</h3>
+            <p>
+              Production SMS classification application built around a BiLSTM model exported to ONNX, a validated FastAPI service, encrypted prediction persistence in Neon PostgreSQL, Alembic migrations, and a responsive React and TypeScript interface served through Nginx and deployed with Docker-based CI/CD on Render.
+            </p>
+            <div class="architecture-strip">
+              <span>Python</span><span>TensorFlow</span><span>Keras</span><span>BiLSTM</span><span>ONNX Runtime</span><span>FastAPI</span><span>SQLAlchemy</span><span>Alembic</span><span>Fernet</span><span>Cryptography</span><span>Neon</span><span>PostgreSQL</span><span>React</span><span>TypeScript</span><span>Vite</span><span>Nginx</span><span>Docker</span><span>Render</span><span>GitHub Actions</span><span>CI/CD</span>
+            </div>
+            <div class="app-footer app-footer-three">
+              <a href="https://sms-spam-frontend-vdg0.onrender.com/app" target="_blank" rel="noopener" class="app-action app-action-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open App</span></a>
+              <a href="https://github.com/a1mohamad/sms-spam-app" target="_blank" rel="noopener" class="app-action app-action-secondary"><i class="fa-brands fa-github"></i><span>GitHub Repo</span></a>
+              <a href="https://a1mohamad.github.io/research/sms-spam/index.html" class="app-action app-action-secondary"><i class="fa-solid fa-flask"></i><span>Research Page</span></a>
             </div>
           </div>
         </article>
@@ -261,18 +282,25 @@
         <div class="stack-logo-card brand-html"><i class="devicon-html5-plain colored"></i><span>HTML5</span></div>
         <div class="stack-logo-card brand-css"><i class="devicon-css3-plain colored"></i><span>CSS3</span></div>
         <div class="stack-logo-card brand-js"><i class="devicon-javascript-plain colored"></i><span>JavaScript</span></div>
+        <div class="stack-logo-card brand-react"><i class="devicon-react-original colored"></i><span>React</span></div>
+        <div class="stack-logo-card brand-typescript"><i class="devicon-typescript-plain colored"></i><span>TypeScript</span></div>
+        <div class="stack-logo-card brand-vite"><i class="devicon-vitejs-plain colored"></i><span>Vite</span></div>
+        <div class="stack-logo-card brand-nginx"><i class="devicon-nginx-original colored"></i><span>Nginx</span></div>
+        <div class="stack-logo-card brand-actions"><i class="devicon-githubactions-plain colored"></i><span>GitHub Actions</span></div>
+        <div class="stack-logo-card brand-playwright"><i class="devicon-playwright-plain colored"></i><span>Playwright</span></div>
         <div class="stack-logo-card brand-vscode"><i class="devicon-vscode-plain colored"></i><span>VS Code</span></div>
         <div class="stack-logo-card brand-jupyter"><i class="devicon-jupyter-plain colored"></i><span>Jupyter</span></div>
         <div class="stack-logo-card brand-github"><i class="devicon-github-original"></i><span>GitHub</span></div>
       </div>
 
       <div class="stack-matrix">
-        <div class="stack-row"><span>Model serving</span><strong>FastAPI, Uvicorn, Pydantic, ONNX-ready model artifacts</strong></div>
-        <div class="stack-row"><span>Containers</span><strong>Docker, reproducible backend environments, image-based deployment</strong></div>
-        <div class="stack-row"><span>Databases</span><strong>PostgreSQL, SQLite3, MSSQL, MongoDB experiments</strong></div>
+        <div class="stack-row"><span>Model serving</span><strong>FastAPI, Uvicorn, Pydantic, ONNX Runtime, request validation, and structured inference responses</strong></div>
+        <div class="stack-row"><span>Containers</span><strong>Docker multi-stage builds, Nginx reverse proxying, reproducible environments, and image-based deployment</strong></div>
+        <div class="stack-row"><span>Databases</span><strong>PostgreSQL, Neon managed Postgres, SQLAlchemy, Alembic migrations, SQLite3, MSSQL, and encrypted records</strong></div>
         <div class="stack-row"><span>Storage</span><strong>Supabase object storage, Hugging Face Hub model registry</strong></div>
         <div class="stack-row"><span>MLOps</span><strong>MLflow tracking, Airflow automation, Kafka local event-driven simulation</strong></div>
-        <div class="stack-row"><span>Frontend</span><strong>HTML, CSS, JavaScript, Jinja templates, portfolio-grade app interfaces</strong></div>
+        <div class="stack-row"><span>Frontend</span><strong>HTML, CSS, JavaScript, React, TypeScript, Vite, Nginx, Jinja templates, and responsive accessible interfaces</strong></div>
+        <div class="stack-row"><span>Testing &amp; CI/CD</span><strong>Pytest, Vitest, React Testing Library, MSW, Playwright, axe accessibility checks, GitHub Actions, and Render deploy hooks</strong></div>
         <div class="stack-row stack-row-separated"><span>Other apps</span><strong>C++, Qt Widgets, desktop interfaces, data structures, CRUD workflows, and educational management systems</strong></div>
       </div>
     </section>
@@ -387,13 +415,13 @@
           <article class="focus-panel" id="focus-ui" role="tabpanel" aria-labelledby="tab-ui" hidden>
             <div class="focus-copy">
               <span class="focus-kicker">Interface layer</span>
-              <h3>The frontend is what turns a backend into a usable AI product.</h3>
-              <p>Beyond the model, I want to practice building clear interfaces for uploads, forms, prediction cards, status feedback, and portfolio-grade presentation.</p>
-              <div class="focus-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Jinja</span></div>
+              <h3>The frontend is what turns a backend into a usable, testable AI product.</h3>
+              <p>Beyond the model, I build responsive interfaces for uploads and text input, prediction cards, API status feedback, technical exploration, and portfolio-grade presentation.</p>
+              <div class="focus-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>React</span><span>TypeScript</span><span>Vite</span><span>Nginx</span></div>
               <ul class="focus-list">
-                <li>Create flows for text input or medical image upload.</li>
-                <li>Display predictions, confidence, and metadata clearly.</li>
-                <li>Design interfaces that feel like real applications, not demos.</li>
+                <li>Create responsive flows for text input or medical image upload.</li>
+                <li>Display predictions, confidence, persistence status, and metadata clearly.</li>
+                <li>Verify desktop, mobile, theme, and accessibility behavior before deployment.</li>
               </ul>
             </div>
             <div class="focus-visual ui-visual" aria-hidden="true">
