@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEFL Vocab | Offline iOS Vocabulary Trainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            chtml: { scale: 1, displayAlign: 'left' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="hero-section">
+    <div class="hero-accent-blur"></div>
+    <div class="hero-meta">iOS &middot; SwiftUI &middot; Offline-First &middot; XcodeGen &middot; GitHub Actions &middot; Sideloadly</div>
+    <h1>TOEFL Vocab: An Offline iOS Vocabulary Trainer Built Without a Mac</h1>
+    <div class="hero-subtitle">A SwiftUI iPhone app for two classic TOEFL word lists, developed entirely on Windows with no Xcode GUI and no local Simulator. Every commit is compiled, tested and screenshotted on GitHub Actions' free macOS runners, the Xcode project is generated from a manifest and never committed, and the whole study engine — adaptive ordering, a five-answer cycle rule, and reporting — is deterministic and unit-tested because CI is the only feedback that exists.</div>
+    <div class="btn-group">
+        <a class="btn-modern-primary" href="https://github.com/a1mohamad/toefl-vocabs-ios-app" target="_blank"><i class="fa-brands fa-github"></i><span>GitHub Repo</span></a>
+        <a class="btn-modern-secondary" href="https://github.com/a1mohamad/toefl-vocabs-ios-app/blob/main/Resources/VocabData/vocabs.json" target="_blank"><i class="fa-solid fa-database"></i><span>Dataset</span></a>
+        <a class="btn-modern-secondary" href="https://github.com/a1mohamad/toefl-vocabs-ios-app/blob/main/docs/PROJECT_PLAN.md" target="_blank"><i class="fa-solid fa-book"></i><span>Design Notes</span></a>
+    </div>
+</div>
+
+<div class="main-layout">
+
+    <div class="metrics-strip cols-6">
+        <div class="metric-block" data-metric-target="358" data-metric-type="integer"><div class="metric-label">Vocabulary Entries</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="17" data-metric-type="integer"><div class="metric-label">Sections Across Two Books</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="67" data-metric-type="integer"><div class="metric-label">Unit Tests</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="18" data-metric-type="integer"><div class="metric-label">Screens Captured per CI Run</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="28" data-metric-type="integer"><div class="metric-label">Swift Source Files</div><div class="metric-value">0</div></div>
+        <div class="metric-block"><div class="metric-label">Developer Machine</div><div class="metric-value metric-tech-value"><i class="fa-brands fa-windows"></i><span>Windows</span></div></div>
+    </div>
+
+    <div class="metrics-strip tool-metrics-strip">
+        <div class="metric-block"><div class="metric-label">Language</div><div class="metric-value tool-value">Swift 5.0</div></div>
+        <div class="metric-block"><div class="metric-label">Interface</div><div class="metric-value tool-value">SwiftUI</div></div>
+        <div class="metric-block"><div class="metric-label">Project Gen</div><div class="metric-value tool-value">XcodeGen</div></div>
+        <div class="metric-block"><div class="metric-label">Speech</div><div class="metric-value tool-value">AVFoundation</div></div>
+        <div class="metric-block"><div class="metric-label">CI/CD</div><div class="metric-value tool-value">GitHub Actions</div></div>
+        <div class="metric-block"><div class="metric-label">Delivery</div><div class="metric-value tool-value">Sideloadly</div></div>
+    </div>
+
+    <div class="notebook-switcher cols-6" role="tablist" aria-label="TOEFL Vocab project areas">
+        <button class="notebook-tab active" role="tab" aria-selected="true" data-target="content-panel"><i class="fa-solid fa-database"></i>Content</button>
+        <button class="notebook-tab" role="tab" aria-selected="false" data-target="engine-panel"><i class="fa-solid fa-brain"></i>Practice Engine</button>
+        <button class="notebook-tab" role="tab" aria-selected="false" data-target="ui-panel"><i class="fa-solid fa-mobile-screen"></i>App &amp; UI</button>
+        <button class="notebook-tab" role="tab" aria-selected="false" data-target="persistence-panel"><i class="fa-solid fa-floppy-disk"></i>Persistence</button>
+        <button class="notebook-tab" role="tab" aria-selected="false" data-target="tests-panel"><i class="fa-solid fa-vial"></i>Tests</button>
+        <button class="notebook-tab" role="tab" aria-selected="false" data-target="cicd-panel"><i class="fa-solid fa-code-branch"></i>CI/CD</button>
+    </div>
+
+    <section class="section section-collapsible expanded">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">System Map</span>
+                <h2>Constraint-Driven Application Architecture</h2>
+                <p class="panel-desc">Four layers, each shaped by the same constraint: the only machine that ever compiles this code is a cloud runner.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="theory-split cols-4">
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Content Layer</div><span class="theory-badge">358 entries</span></div>
+                    <p class="theory-explanation">Two bundled JSON files — words and ordering — merged at launch into an indexed catalog. Adding vocabulary is a data change with no Swift change.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Engine Layer</div><span class="theory-badge champion-badge">Deterministic</span></div>
+                    <p class="theory-explanation">Weakness scoring, the five-answer cycle rule, and report aggregation. Pure functions with no randomness, so the same history always yields the same queue.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Interface Layer</div><span class="theory-badge">SwiftUI</span></div>
+                    <p class="theory-explanation">MVVM with a <code>Router</code>, five observable stores injected at the root, and a design system that treats light and dark as equally first-class.</p>
+                </div>
+                <div class="theory-block stagger-child">
+                    <div class="theory-card-header"><div class="theory-title">Delivery Layer</div><span class="theory-badge champion-badge">4 CI jobs</span></div>
+                    <p class="theory-explanation">XcodeGen regenerates the project, four jobs lint, test, screenshot and package, and tagged builds emit an unsigned <code>.ipa</code> for sideloading.</p>
+                </div>
+            </div>
+        </div></div>
+    </section>
+
+    <!-- ==================== TAB 1: CONTENT ==================== -->
+    <div class="notebook-panel active" id="content-panel">
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Content Foundation</span>
+                    <h2>Bundled Vocabulary Data</h2>
+                    <p class="panel-desc">All content ships inside the app: no account, no server, no network call at any point.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>The app is built on two published word lists — <strong>504 Absolutely Essential Words</strong> (Barron's) and <strong>400 Must-Have Words for the TOEFL</strong> (McGraw-Hill). Both are bundled as JSON and read at launch. Each section carries two independent lists: <code>main</code>, the book's own words, and <code>extras</code>, additional words collected alongside them. Either may be absent, and a review section with no extras simply does not offer that list.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Fully offline</strong><span>Nothing is fetched. The word lists, the ordering metadata and the app icon are all inside the bundle.</span></div>
+                        <div class="note-card"><strong>Data-only growth</strong><span>Appending a day means editing two JSON files and running the validator — no Swift change is required.</span></div>
+                        <div class="note-card"><strong>Licensing boundary</strong><span>MIT covers the code and tooling. The word selections remain their publishers'; the definitions are the author's own study notes.</span></div>
+                    </div>
+                </div>
+                <div class="kpi-grid stagger-child">
+                    <div class="kpi-card"><span class="kpi-label">Total Entries</span><span class="kpi-value good">358</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Main Words</span><span class="kpi-value">194</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Extra Words</span><span class="kpi-value">164</span></div>
+                    <div class="kpi-card"><span class="kpi-label">Sections</span><span class="kpi-value good">17</span></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>Content Tooling &amp; Dependencies</h2>
+                    <p class="panel-desc">The content layer is deliberately thin — Foundation on the device, Python on the developer's Windows machine.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><i class="fa-solid fa-code dep-icon"></i><div><strong>Foundation &amp; Codable</strong><span>Decodes <code>vocabs.json</code> and <code>catalog.json</code> into typed models inside <code>VocabCatalogLoader</code>, with per-field defaults so an older or partial file still loads.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-box-archive dep-icon"></i><div><strong>Bundle Resources</strong><span>Both JSON files are declared in <code>project.yml</code> with <code>buildPhase: resources</code>, which copies them rather than handing them to the Swift compiler.</span></div></div>
+                    <div class="dependency-row"><i class="fa-brands fa-python dep-icon"></i><div><strong>Python 3.12 Validator</strong><span><code>Scripts/validate_content.py</code> is the only local feedback loop — it runs on Windows in about a second and gates the whole CI pipeline.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-shuffle dep-icon"></i><div><strong>Migration Script</strong><span><code>Scripts/migrate_vocabs.py</code> converts legacy <code>{term: definition}</code> blocks into the ordered-array form used by the current schema.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-image dep-icon"></i><div><strong>Pillow</strong><span><code>Scripts/make_app_icon.py</code> squares off rounded or transparent corners — iOS applies its own mask and rejects an alpha channel — then resizes artwork to 1024×1024.</span></div></div>
+                </div>
+                <div class="library-strip">
+                    <span>Foundation</span><span>Codable</span><span>JSONDecoder</span><span>python 3.12</span><span>Pillow</span>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Data Taxonomy</span>
+                    <h2>Two-File Content Model</h2>
+                    <p class="panel-desc">Words live in one file, order and presentation copy in another — because JSON objects have no guaranteed key order.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table class="pipeline-table">
+                        <thead><tr><th>Artifact</th><th>Shape</th><th>Role</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>vocabs.json</code></td><td>book &rarr; section &rarr; category</td><td>Every word and definition. Word order is stored as an explicit array, not object keys.</td></tr>
+                            <tr><td><code>catalog.json</code></td><td>ordered <code>books[]</code> array</td><td>Book and section order, display titles, and the intro copy shown before each book and section.</td></tr>
+                            <tr><td><code>main</code></td><td>array of <code>{term, definition}</code></td><td>The book's own words for that section — 194 across the library.</td></tr>
+                            <tr><td><code>extras</code></td><td>array of <code>{term, definition}</code></td><td>Additional words collected alongside the section. Optional; review sections omit it.</td></tr>
+                            <tr><td><code>schemaVersion</code></td><td>integer</td><td>Currently <code>1</code>. Present so a future format change can be detected rather than guessed.</td></tr>
+                            <tr class="target-row-highlight"><td><code>kind</code></td><td><span class="taxonomy-tag target-style">lesson | review</span></td><td>Distinguishes a numbered day from a consolidation round, which the UI labels differently.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">vocabs.json</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="yaml">{
+  "504": {
+    "day_1": {
+      "main": [
+        {
+          "term": "abandon",
+          "definition": "desert; leave without planning to come back"
+        }
+      ],
+      "extras": [
+        { "term": "disobey", "definition": "fail to obey" }
+      ]
+    }
+  }
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">catalog.json</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="yaml">{
+  "schemaVersion": 1,
+  "books": [
+    {
+      "id": "504",
+      "title": "504 Absolutely Essential Words",
+      "shortTitle": "504 Essential",
+      "author": "Barron's",
+      "theme": "indigo",
+      "sections": [
+        { "id": "day_6",   "title": "Day 6",   "kind": "lesson" },
+        { "id": "review_1","title": "Review 1","kind": "review" },
+        { "id": "day_7",   "title": "Day 7",   "kind": "lesson" }
+      ]
+    }
+  ]
+}</pre></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Data Intelligence</span>
+                    <h2>Why Ordering Needs Its Own File</h2>
+                    <p class="panel-desc">A real ordering problem, not ceremony: no sort function could place a review section correctly.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">The Key-Order Problem</div><span class="theory-badge">JSON</span></div>
+                        <div class="theory-explanation">A decoded JSON object has no guaranteed key order, so section sequence can never be derived from <code>vocabs.json</code> itself. In the 504 book, <code>review_1</code> belongs between <code>day_6</code> and <code>day_7</code> — alphabetical or numeric sorting would both place it wrong.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Graceful Degradation</div><span class="theory-badge champion-badge">Resilience</span></div>
+                        <div class="theory-explanation">A section present in <code>vocabs.json</code> but missing from the catalog is not hidden — it is appended at the end with a generated title (<code>day_9</code> becomes "Day 9") and a default intro. Forgetting the catalog line degrades presentation, never availability.</div>
+                    </div>
+                </div>
+                <div class="tech-grid" style="margin-top:24px;">
+                    <div class="tech-card stagger-child">
+                        <span class="tech-badge"><i class="fa-solid fa-layer-group"></i> Loader Contract</span>
+                        <h3>What VocabCatalogLoader guarantees</h3>
+                        <ul>
+                            <li>Merges both files into an ordered, indexed <code>VocabCatalog</code></li>
+                            <li>Assigns each word a stable <code>VocabID</code> and an <code>orderIndex</code></li>
+                            <li>Falls back to the legacy word format when it encounters one</li>
+                            <li>Returns a usable catalog even when content is partially missing</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card stagger-child">
+                        <span class="tech-badge"><i class="fa-solid fa-palette"></i> Presentation Metadata</span>
+                        <h3>What the catalog adds</h3>
+                        <ul>
+                            <li>Book <code>theme</code> — <code>indigo</code> for 504, <code>teal</code> for 400</li>
+                            <li><code>shortTitle</code> for compact rendering in Reports</li>
+                            <li>Per-book and per-section <code>intro</code> copy</li>
+                            <li><code>kind</code> to separate lessons from review rounds</li>
+                        </ul>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Implementation</span>
+                    <h2>Content Validation Pipeline</h2>
+                    <p class="panel-desc">With no local compiler, the validator is the entire local feedback loop — and it gates every macOS runner minute.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid stagger-child">
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-circle-check"></i> What It Catches</span>
+                        <h3>validate_content.py</h3>
+                        <ul>
+                            <li>Duplicate terms within a section</li>
+                            <li>Empty or whitespace-only definitions</li>
+                            <li>Stray leading and trailing whitespace</li>
+                            <li>Catalog entries referencing sections that do not exist</li>
+                            <li>Sections present in data but absent from the catalog</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-gauge-high"></i> Why It Runs First</span>
+                        <h3>Cost asymmetry</h3>
+                        <p>The validator runs on Ubuntu in roughly <strong>15 seconds</strong> and gates both macOS jobs. A hand-edited JSON mistake fails in seconds instead of consuming a six-minute macOS build, and the same script runs unchanged on Windows before every push.</p>
+                    </div>
+                </div>
+                <div class="terminal-panel code-showcase stagger-child" style="margin-top:24px;">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">local_content_loop.sh</div><div></div></div>
+                    <div class="terminal-body"><pre data-lang="bash"># The only verification available before code reaches CI
+python Scripts/validate_content.py
+
+# Convert legacy {term: definition} blocks to the ordered-array form
+python Scripts/migrate_vocabs.py
+
+# Rebuild the app icon: square the corners, strip alpha, resize to 1024
+python Scripts/make_app_icon.py path/to/artwork.png
+
+# The same check CI runs, with warnings promoted to failures
+python Scripts/validate_content.py --strict</pre></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Analytics Layer</span>
+                    <h2>Library &amp; Section Navigation</h2>
+                    <p class="panel-desc">How the content model surfaces in the app. Click any image to enlarge.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid three">
+                    <div class="viz-wrapper-card stagger-child"><img src="images/library-dark.png" alt="Library screen listing both vocabulary books with progress meters"><div class="viz-meta-text">Library — both books with progress at a glance, driven by the catalog's ordering</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="images/book-dark.png" alt="Book introduction screen with section list"><div class="viz-meta-text">Book intro — the <code>intro</code> copy and section list come straight from catalog.json</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="images/section-dark.png" alt="Section screen with Main and Extra list pickers and a preview of queued words"><div class="viz-meta-text">Section — Main/Extra picker, with the adaptive queue previewed before starting</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Content Synthesis</span>
+                    <h2>What the Data Layer Buys</h2>
+                    <p class="panel-desc">Separating order from content is what makes the app extensible without touching Swift.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Design readout:</strong> Splitting content across two files costs one extra edit per new day and removes an entire class of bug. The app reads whatever is present at launch, unlisted sections degrade to a generated title rather than disappearing, and the validator catches the realistic mistakes — duplicates, empty definitions, catalog drift — before a single macOS runner minute is spent.</p>
+                </div>
+            </div></div>
+        </section>
+
+    </div>
+
+    <!-- ==================== TAB 2: PRACTICE ENGINE ==================== -->
+    <div class="notebook-panel" id="engine-panel">
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Engine Blueprint</span>
+                    <h2>Adaptive Practice Engine</h2>
+                    <p class="panel-desc">The promise the app makes: reopen a section and the words you get wrong come first.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>Words are presented one at a time. The user hears the word, decides whether they knew it, and the definition is then revealed. Five boxes under each word track the last five answers; when the fifth lands, the cycle banks and resets. Ordering is <strong>deterministic and score-based</strong> — no shuffling — so the same history always produces the same queue. That is what makes the behaviour explainable to the user and testable in CI, which matters more here than usual because CI is the only place the code runs.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Self-graded</strong><span>Two choices — <em>I knew it</em> or <em>Didn't know</em> — with the meaning revealed immediately after.</span></div>
+                        <div class="note-card"><strong>Untouched sections</strong><span>Play in book order, because every word scores identically and the tie-break is source position.</span></div>
+                        <div class="note-card"><strong>Separate counters</strong><span>The Extra Practice drill keeps its own statistics and never moves main progress.</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>Engine Dependencies</h2>
+                    <p class="panel-desc">Deliberately dependency-free: the engine is plain Swift so it can be tested without a running app.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><i class="fa-solid fa-code dep-icon"></i><div><strong>Foundation</strong><span>The only import in <code>AdaptiveOrdering</code> and <code>StatsAggregator</code>. Both are <code>enum</code> namespaces of static functions with no instance state.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-sliders dep-icon"></i><div><strong>OrderingWeights</strong><span>A struct exposing every tunable constant, so the scoring behaviour is pinned down in tests instead of hidden as magic numbers.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-diagram-project dep-icon"></i><div><strong>WordStats</strong><span>The per-word record — lifetime totals, current cycle, banked cycle, streak — that both the ordering score and the reports read from.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-chart-simple dep-icon"></i><div><strong>MetricSummary</strong><span>One rolled-up shape reused at every level: whole library, one book, one section, one category.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Model Mechanics</span>
+                    <h2>The Five-Answer Cycle Rule</h2>
+                    <p class="panel-desc">The checklist fills left to right; the fifth answer banks the cycle and starts a fresh row.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Bank, Then Reset</div><span class="theory-badge">cycleLength = 5</span></div>
+                        <div class="theory-explanation">When the fifth box lands, the cycle is copied into <code>lastCycle</code> and <code>currentCycle</code> is emptied. The banked row stays visible as a "last 5" recap until the user moves on, so the fifth answer is actually seen instead of the row blanking out underneath them.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Mastery</div><span class="theory-badge champion-badge">masteryStreak = 3</span></div>
+                        <div class="theory-explanation">A word is mastered once it has finished at least one cycle in this run <em>and</em> is currently on a streak of three or more correct answers. Both conditions matter — a long-ago cycle with recent mistakes is not mastery.</div>
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table class="compact-param-table">
+                        <thead><tr><th>Field</th><th>Value</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>attempts / correct / incorrect</code></td><td>lifetime</td><td>Never reset, so Reports can show real history across runs.</td></tr>
+                            <tr><td><code>currentCycle</code></td><td><code>[Bool]</code>, 0–4 long</td><td>The row being filled right now.</td></tr>
+                            <tr><td><code>lastCycle</code></td><td><code>[Bool]?</code></td><td>The banked five-answer recap, shown until the user advances.</td></tr>
+                            <tr><td><code>completedCyclesThisRun</code></td><td>integer</td><td>Drives "is this word done for this run?" and the global completion notice.</td></tr>
+                            <tr><td><code>consecutiveCorrect</code></td><td>integer</td><td>Feeds the mastery check and the ordering score's mastery decay.</td></tr>
+                            <tr class="target-row-highlight"><td><code>maxStoredSessions</code></td><td><span class="taxonomy-tag target-style">250</span></td><td>Caps session history so the progress file cannot grow without bound.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Mathematical Mechanics</span>
+                    <h2>Weakness Score &amp; Deterministic Ordering</h2>
+                    <p class="panel-desc">A Laplace-smoothed error rate, adjusted by recency and mastery, with a total-order tie-break.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Smoothed Error Rate</div><span class="theory-badge">Laplace</span></div>
+                        <div class="theory-math-container">$$e = \frac{\text{incorrect} + 0.5}{\text{attempts} + 1}$$</div>
+                        <div class="theory-explanation">Smoothing stops a single wrong answer reading as a 100% error rate forever. It also places an unseen word at exactly <strong>0.5</strong> — below anything actually got wrong, above anything being got right.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Full Weakness Score</div><span class="theory-badge champion-badge">Ranking</span></div>
+                        <div class="theory-math-container">$$s = w_e\,e + b\,[\text{last wrong}] - p\min(k, 5) - c\min(y, 5)$$</div>
+                        <div class="theory-explanation">Where $k$ is the correct streak and $y$ the cycles finished this run. A recent mistake lifts a word above an unseen one immediately; mastery and completion push it back down.</div>
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table class="compact-param-table">
+                        <thead><tr><th>Weight</th><th>Value</th><th>Effect</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>errorWeight</code></td><td><code>1.0</code></td><td>Multiplier on the smoothed error rate — the main signal.</td></tr>
+                            <tr><td><code>recentMistakeBonus</code></td><td><code>0.35</code></td><td>Added when the most recent answer was wrong. Large enough to lift a word above an unseen one at once.</td></tr>
+                            <tr><td><code>masteryPenaltyPerStreak</code></td><td><code>0.06</code></td><td>Subtracted per consecutive correct answer, so mastered words sink.</td></tr>
+                            <tr><td><code>completedCyclePenalty</code></td><td><code>0.04</code></td><td>Subtracted per finished cycle this run, so genuinely done words stop crowding the front.</td></tr>
+                            <tr><td><code>maximumStreakConsidered</code></td><td><code>5</code></td><td>Caps the mastery decay so a long streak cannot drive the score arbitrarily negative.</td></tr>
+                            <tr class="target-row-highlight"><td><code>unseenScore</code></td><td><span class="taxonomy-tag target-style">0.5</span></td><td>The score for a word with no history — the pivot the whole ranking is built around.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Why a total ordering:</strong> Swift's <code>sort</code> is not stable, so a comparator that only checks the score could shuffle equal-scoring words between launches. Ties break first on <code>orderIndex</code>, then on the raw <code>VocabID</code>, which makes the queue completely reproducible — and lets a test assert an exact sequence.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Optimization Strategy</span>
+                    <h2>Extra Practice Drill</h2>
+                    <p class="panel-desc">A library-wide drill ranked by main-mode weakness, with its own counters.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid stagger-child">
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-ranking-star"></i> Ranking Rule</span>
+                        <h3>Ranked by main, tie-broken by drill count</h3>
+                        <p>The queue is ordered by <strong>main-mode</strong> weakness, because that is where the real learning history lives. Among equally weak words the ones drilled <em>least</em> come first, so a long session keeps moving instead of looping over the same handful.</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-sliders"></i> Scope</span>
+                        <h3>Weakest 25, 50, or everything</h3>
+                        <p>A scope selector caps the queue length. Running the full list weakest-to-strongest is what produces the promised behaviour: wrong words first, then the rest, then a full pass is complete and the queue starts over.</p>
+                    </div>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Isolation guarantee:</strong> <code>PracticeMode</code> routes every answer to either the <code>main</code> or the <code>extra</code> dictionary. A heavy drilling session can never flatter — or wreck — the study progress shown in the Library and Reports.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Implementation</span>
+                    <h2>Core Engine Code</h2>
+                    <p class="panel-desc">The scoring function, the comparator, and the cycle rule as they appear in the source.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">AdaptiveOrdering.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">static func weakness(_ stats: WordStats?,
+                     weights: OrderingWeights = .default) -&gt; Double {
+    guard let stats, stats.attempts &gt; 0 else { return unseenScore }
+
+    // Smoothed so one wrong answer is not a 100% error rate forever.
+    let smoothedErrorRate =
+        (Double(stats.incorrect) + 0.5) / (Double(stats.attempts) + 1.0)
+    var score = weights.errorWeight * smoothedErrorRate
+
+    if stats.lastAnswerWasCorrect == false {
+        score += weights.recentMistakeBonus
+    }
+
+    let streak = min(stats.consecutiveCorrect, weights.maximumStreakConsidered)
+    score -= Double(streak) * weights.masteryPenaltyPerStreak
+
+    let cycles = min(stats.completedCyclesThisRun, weights.maximumCyclesConsidered)
+    score -= Double(cycles) * weights.completedCyclePenalty
+
+    return score
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">WordStats.record</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">// Records one self-graded answer and applies the five-step reset rule.
+@discardableResult
+mutating func record(correct isCorrect: Bool,
+                     at date: Date = Date()) -&gt; Bool {
+    attempts += 1
+    if isCorrect {
+        correct += 1
+        consecutiveCorrect += 1
+    } else {
+        incorrect += 1
+        consecutiveCorrect = 0
+    }
+    lastAnsweredAt = date
+    currentCycle.append(isCorrect)
+
+    guard currentCycle.count &gt;= Self.cycleLength else { return false }
+    lastCycle = currentCycle
+    currentCycle = []
+    completedCycles += 1
+    completedCyclesThisRun += 1
+    return true
+}</pre></div>
+                    </div>
+                </div>
+                <div class="terminal-panel code-showcase stagger-child" style="margin-top:24px;">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">total_ordering.swift</div><div></div></div>
+                    <div class="terminal-body"><pre data-lang="swift">// Weakest first. Ties break on source order, then on id, giving a total
+// ordering — `sort` is not stable in Swift, so the comparator has to be
+// complete or the queue could shuffle between launches.
+items
+    .map { (item: $0, score: weakness(stats($0.id), weights: weights)) }
+    .sorted { lhs, rhs in
+        if lhs.score != rhs.score { return lhs.score &gt; rhs.score }
+        if lhs.item.orderIndex != rhs.item.orderIndex {
+            return lhs.item.orderIndex &lt; rhs.item.orderIndex
+        }
+        return lhs.item.id.rawValue &lt; rhs.item.id.rawValue
+    }
+    .map(\.item)</pre></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Analytics Layer</span>
+                    <h2>Practice Flow &amp; Reporting</h2>
+                    <p class="panel-desc">The engine as the user experiences it — question, reveal, summary, and the rolled-up report.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid four">
+                    <div class="viz-wrapper-card stagger-child"><img src="images/practice-dark.png" alt="Practice screen showing a word, pronunciation control and the five-box checklist"><div class="viz-meta-text">Practice — the word, the pronunciation control, and the five-box checklist</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="images/practice-revealed-dark.png" alt="Practice screen after answering, showing the revealed definition"><div class="viz-meta-text">Revealed — self-grade first, then the definition appears</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="images/summary-dark.png" alt="Session summary showing accuracy ring and next-step options"><div class="viz-meta-text">Summary — accuracy, cycles completed, and where to go next</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="images/reports-dark.png" alt="Reports screen with mastery ring and section heat grid"><div class="viz-meta-text">Reports — mastery ring, section heat grid, and the Extra Practice launcher</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Evaluation Matrix</span>
+                    <h2>Aggregation &amp; Report Semantics</h2>
+                    <p class="panel-desc">How raw per-word records become the numbers on the Reports screen.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Metric</th><th>Definition</th><th>Why It Is Defined That Way</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>seen</code></td><td>Words with at least one attempt</td><td>Distinguishes "never opened" from "opened and struggling".</td></tr>
+                            <tr><td><code>completed</code></td><td>Finished a cycle this run</td><td>Per-run rather than lifetime, so a restart genuinely resets the goal.</td></tr>
+                            <tr><td><code>mastered</code></td><td>Completed <em>and</em> on a 3+ streak</td><td>Requires both history and current form, not one or the other.</td></tr>
+                            <tr class="target-row-highlight"><td><code>needsWork</code></td><td><span class="taxonomy-tag target-style">incorrect &gt; 0 and not mastered</span></td><td>Deliberately not a score threshold — the number has to match what a user would count by hand.</td></tr>
+                            <tr><td><code>weakest</code></td><td>Top 8 by weakness score</td><td>Only words answered wrong at least once qualify; an unseen word is new, not weak.</td></tr>
+                            <tr><td><code>allWordsCompleted</code></td><td>Every word banked a cycle</td><td>Drives the "you've been through everything" notice and the new-run offer.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Diagnostic breakdown:</strong> <code>StatsAggregator</code> is pure and synchronous — the same catalog and progress always return the same numbers. With only a few hundred words, a full recompute per render is cheaper than any caching scheme would be to maintain, and it keeps the whole reporting path trivially testable.</p>
+                </div>
+            </div></div>
+        </section>
+
+    </div>
+
+    <!-- ==================== TAB 3: APP & UI ==================== -->
+    <div class="notebook-panel" id="ui-panel">
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Interface Blueprint</span>
+                    <h2>SwiftUI Application Shell</h2>
+                    <p class="panel-desc">MVVM with a Router standing in for a coordinator, and exactly one view model in the whole app.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>Five observable stores are injected once at the root — <code>ContentProvider</code>, <code>ProgressStore</code>, <code>SettingsStore</code>, <code>PronunciationService</code> and <code>Router</code>. Only the practice screen has a dedicated view model; every other screen is a pure function of the stores, recomputed on render. The app targets <strong>iOS 16</strong>, is iPhone-only and portrait-only, and treats light and dark appearance as equally first-class — both are verified on every CI run.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>One view model</strong><span><code>PracticeViewModel</code> owns the session state machine. Everything else derives from the stores.</span></div>
+                        <div class="note-card"><strong>No previews, no Interface Builder</strong><span>There is no local Simulator, so a layout is only ever seen once CI screenshots it.</span></div>
+                        <div class="note-card"><strong>Bilingual</strong><span>English and Persian, with automatic right-to-left layout when Persian is selected.</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>Interface Libraries &amp; Dependencies</h2>
+                    <p class="panel-desc">Apple frameworks only — no third-party packages anywhere in the app target.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><i class="fa-brands fa-swift dep-icon"></i><div><strong>SwiftUI</strong><span>Every screen, the tab shell, navigation stacks, the modal practice session, and the <code>fileExporter</code>/<code>fileImporter</code> flows used for progress backup.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-volume-high dep-icon"></i><div><strong>AVFoundation</strong><span><code>AVSpeechSynthesizer</code> for on-device pronunciation, plus <code>AVAudioSession</code> configured as <code>.playback</code> with <code>.duckOthers</code>.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-mobile-screen dep-icon"></i><div><strong>UIKit Feedback Generators</strong><span>Wrapped in <code>Haptics</code> so the practice screen can confirm an answer physically without importing UIKit across the app.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-file-lines dep-icon"></i><div><strong>UniformTypeIdentifiers</strong><span>Declares the JSON content type for <code>ProgressBackupDocument</code>, the <code>FileDocument</code> wrapper required by SwiftUI's exporter.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-language dep-icon"></i><div><strong>Strings (custom)</strong><span>A hand-rolled string table resolving English and Persian with RTL support, rather than <code>.strings</code> files — one Swift file is easier to keep in sync without a local build.</span></div></div>
+                </div>
+                <div class="library-strip">
+                    <span>SwiftUI</span><span>AVFoundation</span><span>UIKit</span><span>UniformTypeIdentifiers</span><span>Foundation</span>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Workflow Blueprint</span>
+                    <h2>Navigation &amp; Module Structure</h2>
+                    <p class="panel-desc">From the library down to a practice session, and back out through the summary.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="architecture-flow">
+                    <div class="flow-step"><span>01</span><strong>Library</strong><p>Both books with progress meters and a "continue" offer from <code>lastLocation</code>.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>02</span><strong>Book &amp; Section</strong><p>Intro copy, then a Main/Extra picker with the adaptive queue previewed.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>03</span><strong>Practice</strong><p>Modal session driven by <code>PracticeViewModel</code> and a <code>PracticeConfiguration</code>.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>04</span><strong>Summary</strong><p>Accuracy, cycles, and three exits: next section, practise again, back to menu.</p></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table class="pipeline-table">
+                        <thead><tr><th>Module</th><th>Responsibility</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>App/RootView.swift</code></td><td>Root tab shell and one-time dependency wiring for all five stores.</td></tr>
+                            <tr><td><code>Navigation/Router.swift</code></td><td>Tab and stack navigation plus modal practice sessions — a coordinator in all but name.</td></tr>
+                            <tr><td><code>DesignSystem/Theme.swift</code></td><td>Palette, typography and the per-book indigo/teal accents.</td></tr>
+                            <tr><td><code>DesignSystem/Components.swift</code></td><td>Shared building blocks: checklist row, progress meter, section tiles, buttons.</td></tr>
+                            <tr><td><code>Features/Practice/PracticeViewModel.swift</code></td><td>The practice session state machine — queue, reveal state, answer routing, completion.</td></tr>
+                            <tr><td><code>Features/Reports/ReportsView.swift</code></td><td>Mastery ring, section heat grid, weakest-words list, and the drill launcher.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Runtime Contract</span>
+                    <h2>On-Device Pronunciation</h2>
+                    <p class="panel-desc">Three accents with no bundled audio and no network access.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Why Synthesis, Not Audio Files</div><span class="theory-badge">Offline</span></div>
+                        <div class="theory-explanation">US, UK and AU are three system voices that already ship with iOS. Nothing is bundled and nothing is downloaded, which keeps the <code>.ipa</code> small and means a word added to <code>vocabs.json</code> is instantly pronounceable with no extra work.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Quality Fallback</div><span class="theory-badge champion-badge">Graceful</span></div>
+                        <div class="theory-explanation">Enhanced voices sound markedly better but are an optional download the user may not have. Voice selection falls through the tiers — enhanced, then any matching voice, then the locale, then <code>en-US</code> — so speech never simply fails.</div>
+                    </div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">voice_selection.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">private static func voice(for accent: SpeechAccent) -&gt; AVSpeechSynthesisVoice? {
+    let matching = AVSpeechSynthesisVoice.speechVoices()
+        .filter { $0.language == accent.localeIdentifier }
+
+    if let enhanced = matching.first(where: { $0.quality == .enhanced }) {
+        return enhanced
+    }
+    if let any = matching.first { return any }
+
+    return AVSpeechSynthesisVoice(language: accent.localeIdentifier)
+        ?? AVSpeechSynthesisVoice(language: "en-US")
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">audio_session.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">// `.playback` so pronunciation still works with the ring/silent switch
+// flipped to silent — a muted vocabulary app is a bug report.
+// `.duckOthers` lowers the user's music instead of stopping it.
+let session = AVAudioSession.sharedInstance()
+try session.setCategory(.playback,
+                        mode: .spokenAudio,
+                        options: [.duckOthers])
+try session.setActive(true)</pre></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Accessibility Layer</span>
+                    <h2>Dynamic Type, VoiceOver &amp; Bilingual Layout</h2>
+                    <p class="panel-desc">Accessibility is structural here, not a pass at the end — it cannot be spot-checked locally.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="tech-grid stagger-child">
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-text-height"></i> Typography</span>
+                        <h3>Dynamic Type throughout</h3>
+                        <p>No fixed point sizes in body text. Because there is no local Simulator to sanity-check a layout at large text sizes, avoiding hard-coded sizes is the only reliable defence against clipping.</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-universal-access"></i> VoiceOver</span>
+                        <h3>Combined controls</h3>
+                        <p>Multi-part controls — a word with its checklist and pronunciation button — are combined into single readable elements, so VoiceOver announces one meaningful item rather than five fragments.</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-language"></i> Localization</span>
+                        <h3>English and Persian</h3>
+                        <p>A custom <code>Strings</code> table resolves both languages, with automatic right-to-left layout for Persian. String coverage across both languages is asserted in the test suite rather than checked by eye.</p>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Analytics Layer</span>
+                    <h2>Light and Dark Appearance</h2>
+                    <p class="panel-desc">Both appearances are captured for every screen on every CI run — the same screen, both ways.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="viz-display-grid two">
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">Reports &mdash; Light</div><img src="images/reports-light.png" alt="Reports screen in light appearance"></div>
+                    <div class="viz-wrapper-card stagger-child"><div class="viz-title">Reports &mdash; Dark</div><img src="images/reports-dark.png" alt="Reports screen in dark appearance"></div>
+                </div>
+                <div class="viz-display-grid three" style="margin-top:24px;">
+                    <div class="viz-wrapper-card stagger-child"><img src="images/settings-light.png" alt="Settings screen in light appearance"><div class="viz-meta-text">Settings — accent, speech rate, language, and progress backup controls</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="images/about-dark.png" alt="About screen"><div class="viz-meta-text">About — version, licensing, and the content attribution notice</div></div>
+                    <div class="viz-wrapper-card stagger-child"><img src="images/practice-light.png" alt="Practice screen in light appearance"><div class="viz-meta-text">Practice in light appearance — the same layout, re-themed</div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Interface Synthesis</span>
+                    <h2>Designing Without Seeing</h2>
+                    <p class="panel-desc">What building a UI with no previews and no local Simulator actually changes.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Design readout:</strong> Without SwiftUI Previews, every layout decision is a hypothesis until CI renders it. That pushes the design toward things that fail safely — Dynamic Type instead of fixed sizes, stores instead of scattered state, one view model instead of many — and makes the automatic screenshot job the real design tool. Eighteen images per run is what replaces the canvas.</p>
+                </div>
+            </div></div>
+        </section>
+
+    </div>
+
+    <!-- ==================== TAB 4: PERSISTENCE ==================== -->
+    <div class="notebook-panel" id="persistence-panel">
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Persistence Blueprint</span>
+                    <h2>One File, Written Atomically</h2>
+                    <p class="panel-desc">All progress is a single Codable JSON file in Application Support — no database, no sync.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p><code>ProgressStore</code> owns all mutable user progress and its one file on disk. Answers arrive a tap at a time, so writes are <strong>debounced by 600&nbsp;ms</strong> and batched to keep the app off the filesystem during a fast session; anything that must not be lost — a restore, a new run, a reset — writes through immediately instead.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Atomic writes</strong><span>A single <code>Data.write(to:options:[.atomic])</code> call, so a crash mid-save cannot leave a half-written file.</span></div>
+                        <div class="note-card"><strong>Never crashes on load</strong><span>An unreadable file is moved aside as <code>progress-corrupt-&lt;timestamp&gt;.json</code> and the app starts clean.</span></div>
+                        <div class="note-card"><strong>Bounded growth</strong><span>Session history is capped at 250 records, so the file cannot grow without limit.</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>Storage Dependencies</h2>
+                    <p class="panel-desc">Foundation only — the decision not to adopt SwiftData is itself the main dependency choice.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><i class="fa-solid fa-file-code dep-icon"></i><div><strong>JSONEncoder / JSONDecoder</strong><span>Configured with <code>.iso8601</code> dates and <code>.sortedKeys</code> output, so a saved file diffs cleanly and can be read by a human.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-folder-open dep-icon"></i><div><strong>FileManager</strong><span>Resolves <code>applicationSupportDirectory</code> for <code>progress.json</code> and performs the quarantine move when a file fails to decode.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-arrows-rotate dep-icon"></i><div><strong>Swift Concurrency</strong><span>The debounced save is a cancellable <code>Task</code>; each new answer cancels the pending write and reschedules it.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-file-export dep-icon"></i><div><strong>FileDocument &amp; UTType</strong><span><code>ProgressBackupDocument</code> bridges the encoded backup into SwiftUI's <code>fileExporter</code> and <code>fileImporter</code>.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Persistence Layer</span>
+                    <h2>Why a Codable File and Not SwiftData</h2>
+                    <p class="panel-desc">Three reasons, all downstream of having no local Simulator.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split cols-3">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Deployment Target</div><span class="theory-badge">iOS 16</span></div>
+                        <div class="theory-explanation">SwiftData requires iOS 17, which would cut off older devices for a sideloaded build that already carries enough install friction.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Debug Cost</div><span class="theory-badge champion-badge">CI round trip</span></div>
+                        <div class="theory-explanation">A schema or migration bug costs one full CI round trip to observe and another to confirm a fix. One atomic write has far less that can go wrong.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Actual Load</div><span class="theory-badge">358 records</span></div>
+                        <div class="theory-explanation">The whole dataset is a few hundred small records. There is no query load here that would justify a database engine.</div>
+                    </div>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>The door stays open:</strong> <code>ProgressState</code> is the only shape that would need porting, and <code>ProgressStore</code> is the only type the UI talks to. The migration is contained by construction rather than by promise.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Data Integrity</span>
+                    <h2>Defensive Decoding &amp; Quarantine</h2>
+                    <p class="panel-desc">Every persisted type decodes field by field with defaults, because a hard throw would wipe real study history.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Failure Mode</th><th>Handling</th><th>Rationale</th></tr></thead>
+                        <tbody>
+                            <tr><td>Field added since the file was written</td><td><code>decodeIfPresent</code> with a default</td><td>A save from an older build must still load rather than throw.</td></tr>
+                            <tr><td><code>completedCyclesThisRun</code> missing</td><td>Falls back to <code>completedCycles</code></td><td>Preserves meaning for files written before the per-run counter existed.</td></tr>
+                            <tr class="target-row-highlight"><td>Hand-edited or truncated cycle</td><td><span class="taxonomy-tag target-style">trimmed to 4 marks</span></td><td>A <code>currentCycle</code> at or over capacity would never bank; trimming restores the invariant.</td></tr>
+                            <tr><td>File fails to decode entirely</td><td>Moved to <code>progress-corrupt-&lt;ts&gt;.json</code></td><td>The user gets a working app and the original is still there to inspect.</td></tr>
+                            <tr><td>Save throws</td><td>Logged in <code>DEBUG</code>, otherwise ignored</td><td>A failed write must not crash a study session; the next debounce retries.</td></tr>
+                            <tr><td>Session list grows unbounded</td><td>Oldest records dropped past 250</td><td>Keeps the file small enough to encode on every debounce without cost.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Portability</span>
+                    <h2>Progress Export &amp; Import</h2>
+                    <p class="panel-desc">Sideloaded builds expire weekly, which makes a manual backup path a real requirement rather than a nicety.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Why an Envelope</div><span class="theory-badge">Validation</span></div>
+                        <div class="theory-explanation">A bare <code>ProgressState</code> would round-trip fine, but any <code>.json</code> the user picked would decode into <em>something</em> and silently replace real history. The <code>app</code> marker and <code>format</code> field make a mistaken pick fail loudly.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Decode Before Touching</div><span class="theory-badge champion-badge">Safe restore</span></div>
+                        <div class="theory-explanation">Import validates completely before anything is replaced, so an invalid file leaves existing progress intact. A confirmed restore then writes through immediately rather than waiting for the debounce.</div>
+                    </div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">ProgressStore.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">// Answers arrive one tap at a time; batching keeps the app off
+// the filesystem during a fast session.
+private static let saveDebounceNanoseconds: UInt64 = 600_000_000
+
+private func scheduleSave() {
+    saveTask?.cancel()
+    saveTask = Task { [weak self] in
+        try? await Task.sleep(nanoseconds: ProgressStore.saveDebounceNanoseconds)
+        guard !Task.isCancelled, let self else { return }
+        self.saveNow()
+    }
+}
+
+func saveNow() {
+    saveTask?.cancel()
+    saveTask = nil
+    guard let fileURL else { return }
+    let data = try ProgressStore.encoder.encode(state)
+    try data.write(to: fileURL, options: [.atomic])
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">ProgressBackup.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">// Throws rather than returning a partial result, so a caller can
+// never half-apply a bad file.
+static func decode(from data: Data) throws -&gt; ProgressBackup {
+    let backup: ProgressBackup
+    do {
+        backup = try decoder.decode(ProgressBackup.self, from: data)
+    } catch {
+        throw BackupError.notABackupFile
+    }
+
+    guard backup.app == marker else { throw BackupError.notABackupFile }
+    guard backup.format &lt;= currentFormat else {
+        throw BackupError.newerFormat(backup.format)
+    }
+    return backup
+}</pre></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Persistence Synthesis</span>
+                    <h2>Storage Readout</h2>
+                    <p class="panel-desc">The cheapest thing that could possibly work, chosen on purpose.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="executive-summary-box stagger-child">
+                    <p><strong>Diagnostic breakdown:</strong> Every persistence decision here trades capability for failure surface, because the cost of observing a failure is a full CI round trip. Atomic single-file writes, field-by-field decoding with defaults, quarantine instead of crash, and a validated backup envelope together mean the realistic bad days — an old save file, a hand edit, a wrong file picked at import — all degrade instead of destroying study history.</p>
+                </div>
+            </div></div>
+        </section>
+
+    </div>
+
+    <!-- ==================== TAB 5: TESTS ==================== -->
+    <div class="notebook-panel" id="tests-panel">
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Quality Blueprint</span>
+                    <h2>Tests as the Only Fast Feedback</h2>
+                    <p class="panel-desc">With no local Simulator, the unit tests carry more weight than they would in a normal iOS project.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p><strong>67 tests across five files</strong> target exactly the logic a screenshot cannot show: the cycle rule, the ordering formula, catalog assembly, backup validation, and bilingual string coverage. They run on a macOS runner in their own CI job, kept separate from the screenshot job so a failing test still produces a picture of the UI.</p>
+                    <div class="kpi-grid">
+                        <div class="kpi-card"><span class="kpi-label">Total Tests</span><span class="kpi-value good">67</span></div>
+                        <div class="kpi-card"><span class="kpi-label">Test Files</span><span class="kpi-value">5</span></div>
+                        <div class="kpi-card"><span class="kpi-label">Coverage Gathering</span><span class="kpi-value">Enabled</span></div>
+                        <div class="kpi-card"><span class="kpi-label">Swift LOC Under Test</span><span class="kpi-value good">5,694</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>Testing Dependencies</h2>
+                    <p class="panel-desc">XCTest and in-memory doubles — no mocking framework, no fixture files.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><i class="fa-solid fa-vial dep-icon"></i><div><strong>XCTest</strong><span>The whole suite. Declared as a <code>bundle.unit-test</code> target in <code>project.yml</code> with <code>gatherCoverageData: true</code> on the scheme.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-memory dep-icon"></i><div><strong>ProgressStore.inMemory</strong><span>A file-less store used by tests and previews, so persistence behaviour can be exercised without touching the filesystem.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-sliders dep-icon"></i><div><strong>OrderingWeights injection</strong><span>Every scoring constant is a parameter with a default, so a test can pin exact weights instead of asserting against tuned magic numbers.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-code dep-icon"></i><div><strong>Inline JSON fixtures</strong><span>Catalog and progress fixtures are built in Swift inside the tests rather than loaded from disk, keeping each test self-contained.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Coverage Map</span>
+                    <h2>What Each Test File Proves</h2>
+                    <p class="panel-desc">Each file maps to one part of the engine that has no visual signal.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table class="pipeline-table">
+                        <thead><tr><th>Test File</th><th>Tests</th><th>Covers</th></tr></thead>
+                        <tbody>
+                            <tr class="target-row-highlight"><td><code>ReportingAndStringsTests.swift</code></td><td><span class="taxonomy-tag target-style">16</span></td><td>Stats aggregation, run-completion logic, and bilingual string-table coverage.</td></tr>
+                            <tr><td><code>AdaptiveOrderingTests.swift</code></td><td>14</td><td>The weakness-scoring formula, ordering determinism, and the Extra Practice queue.</td></tr>
+                            <tr><td><code>VocabCatalogLoaderTests.swift</code></td><td>14</td><td>Book/section ordering against <code>catalog.json</code>, legacy word-format fallback, graceful degradation on missing content.</td></tr>
+                            <tr><td><code>WordStatsCycleTests.swift</code></td><td>13</td><td>The five-answer cycle rule, recap display, and resilience against a hand-edited or truncated save file.</td></tr>
+                            <tr><td><code>ProgressBackupTests.swift</code></td><td>10</td><td>Backup envelope validation, format rejection, and non-destructive failure on a wrong file.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tech-grid stagger-child" style="margin-top:24px;">
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-crosshairs"></i> Test Selection</span>
+                        <h3>What is deliberately not tested</h3>
+                        <p>There are no view tests and no UI automation. A screenshot proves the layout renders; a unit test proves the numbers underneath it are right. Duplicating either in the other place would add maintenance without adding signal.</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-shield-halved"></i> Determinism</span>
+                        <h3>Why exact assertions are possible</h3>
+                        <p>Because ordering has a total tie-break and the aggregator is pure, tests assert exact sequences and exact counts rather than tolerances. Any drift in the scoring constants shows up as a hard failure.</p>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Executable Examples</span>
+                    <h2>Running the Suite</h2>
+                    <p class="panel-desc">Runnable only inside CI or on a real Mac — there is no local target for it.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="terminal-panel code-showcase stagger-child">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">run_tests.sh</div><div></div></div>
+                    <div class="terminal-body"><pre data-lang="bash"># Generate the project first — TOEFLVocab.xcodeproj is never committed
+xcodegen generate
+
+# Pick whatever iPhone simulator the runner happens to provide
+UDID=$(xcrun simctl list devices available \
+  | grep -m 1 "iPhone" \
+  | grep -Eo '[0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12}')
+
+xcodebuild test \
+  -project TOEFLVocab.xcodeproj \
+  -scheme TOEFLVocab \
+  -destination "id=$UDID" \
+  -derivedDataPath buildTests \
+  CODE_SIGNING_ALLOWED=NO</pre></div>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Why the simulator is discovered, not pinned:</strong> hard-coding a device name breaks whenever the runner image changes its installed simulators. Grepping the first available iPhone keeps the workflow stable across Xcode updates without pinning an image version.</p>
+                </div>
+            </div></div>
+        </section>
+
+    </div>
+
+    <!-- ==================== TAB 6: CI/CD ==================== -->
+    <div class="notebook-panel" id="cicd-panel">
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Automation Blueprint</span>
+                    <h2>The No-Local-Build Workflow</h2>
+                    <p class="panel-desc">The constraint that shaped the repository: the only machine that compiles this code is a GitHub runner.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>Development happens entirely on Windows. There is no Mac, no Xcode GUI, no Interface Builder, no SwiftUI Previews and no local Simulator — a change is only verified once it reaches CI. The <code>.xcodeproj</code> is never written by hand: <strong>XcodeGen</strong> regenerates it from <code>project.yml</code> on every run, and it is excluded from version control entirely.</p>
+                    <div class="note-grid">
+                        <div class="note-card"><strong>Public by necessity</strong><span>A public repository is what keeps GitHub Actions' macOS runner minutes unlimited and free.</span></div>
+                        <div class="note-card"><strong>Free-tier signing</strong><span>A free personal Apple ID means nothing can depend on paid entitlements — no push, no iCloud, no App Groups.</span></div>
+                        <div class="note-card"><strong>Disposable project file</strong><span>Generated fresh every run, so project drift and merge conflicts in a <code>.pbxproj</code> simply cannot happen.</span></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Automation Infrastructure</span>
+                    <h2>Pipeline Tools &amp; Services</h2>
+                    <p class="panel-desc">Everything that runs between a push on Windows and an app on a phone.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><i class="fa-brands fa-github dep-icon"></i><div><strong>GitHub Actions</strong><span>Four jobs on <code>ubuntu-latest</code> and <code>macos-14</code>, with a concurrency group that cancels superseded runs on the same ref.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-diagram-project dep-icon"></i><div><strong>XcodeGen</strong><span>Installed via Homebrew on each macOS job and run as <code>xcodegen generate</code> to rebuild the project from <code>project.yml</code>.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-hammer dep-icon"></i><div><strong>xcodebuild</strong><span>Drives test, Simulator build, and the Release device build with <code>CODE_SIGNING_ALLOWED=NO</code>.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-mobile-screen dep-icon"></i><div><strong>simctl</strong><span>Boots a simulator, sets light/dark appearance, launches the app with a screenshot argument, and captures each frame.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-file-zipper dep-icon"></i><div><strong>Artifact Upload</strong><span>Publishes the 18-image screenshot set on every run, and an unsigned <code>.ipa</code> on tagged runs.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-download dep-icon"></i><div><strong>Sideloadly</strong><span>Signs and installs the downloaded <code>.ipa</code> with a free Apple ID — the only step performed by hand.</span></div></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Pipeline Topology</span>
+                    <h2>Four-Job CI Pipeline</h2>
+                    <p class="panel-desc">A cheap Ubuntu gate first, then two parallel macOS jobs, then a tag-only release build.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="architecture-flow">
+                    <div class="flow-step"><span>01</span><strong>content-lint</strong><p>Ubuntu, ~15s. Validates both JSON files and gates everything below.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>02</span><strong>unit-tests</strong><p>macOS. <code>xcodebuild test</code> — the only fast feedback on the engine.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>03</span><strong>simulator-check</strong><p>macOS. Builds, verifies the bundle, screenshots every screen twice.</p></div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-step"><span>04</span><strong>device-build</strong><p>Tags only. Release build packaged as an unsigned <code>.ipa</code>.</p></div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table class="pipeline-table">
+                        <thead><tr><th>Job</th><th>Runner / Trigger</th><th>Purpose</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>content-lint</code></td><td>ubuntu · every push/PR</td><td><code>validate_content.py --strict</code>. Gates the macOS jobs so a bad JSON edit never costs a runner minute.</td></tr>
+                            <tr><td><code>unit-tests</code></td><td>macos-14 · every push/PR</td><td>Runs all 67 tests. Kept separate so a test failure still lets the screenshot job produce a picture.</td></tr>
+                            <tr class="target-row-highlight"><td><code>simulator-check</code></td><td><span class="taxonomy-tag target-style">macos-14 · every push/PR</span></td><td>Builds, verifies bundled JSON and the compiled icon are really inside the <code>.app</code>, then captures 18 screenshots.</td></tr>
+                            <tr><td><code>device-build</code></td><td>macos-14 · tags matching <code>v*</code></td><td>Release build with signing disabled, zipped into a <code>Payload/</code> structure as an unsigned <code>.ipa</code>.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Verification Layer</span>
+                    <h2>Deterministic Screenshot Capture</h2>
+                    <p class="panel-desc">Nine screens in two appearances, seeded so nothing is ever photographed empty.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Launch-Argument Harness</div><span class="theory-badge">DEBUG only</span></div>
+                        <div class="theory-explanation">The app is relaunched once per screen with a <code>screenshot:&lt;name&gt;</code> argument. The harness seeds deterministic progress and opens straight to that page — so there is no UI automation script to go stale as the interface changes.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Count as a Guard</div><span class="theory-badge champion-badge">18 expected</span></div>
+                        <div class="theory-explanation">A crash on launch still yields a screenshot — of the home screen — so a plausible file count is not proof of success. A <em>short</em> count, however, is proof of failure, and the job fails below 18.</div>
+                    </div>
+                </div>
+                <div class="terminal-panel code-showcase stagger-child" style="margin-top:24px;">
+                    <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">capture_every_screen.sh</div><div></div></div>
+                    <div class="terminal-body"><pre data-lang="bash">BUNDLE=io.github.a1mohamad.toeflvocab
+SCREENS="library book section practice practice-revealed summary reports settings about"
+
+for appearance in light dark; do
+  xcrun simctl ui "$UDID" appearance "$appearance"
+  for screen in $SCREENS; do
+    xcrun simctl terminate "$UDID" "$BUNDLE" || true
+    xcrun simctl launch "$UDID" "$BUNDLE" "screenshot:$screen"
+    sleep 3
+    xcrun simctl io "$UDID" screenshot "screenshots/${screen}-${appearance}.png"
+  done
+done
+
+COUNT=$(ls -1 screenshots | wc -l | tr -d ' ')
+if [ "$COUNT" -lt 18 ]; then
+  echo "::error::expected 18 screenshots, got $COUNT"
+  exit 1
+fi</pre></div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Release Confidence</span>
+                    <h2>The Bundle Verification Guard</h2>
+                    <p class="panel-desc">A failure mode that builds, launches and screenshots perfectly while shipping nothing.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="overview-text stagger-child">
+                    <p>If the <code>buildPhase: resources</code> entry in <code>project.yml</code> were ever dropped, XcodeGen would silently produce a working app with <strong>no vocabulary data at all</strong>. It would build, launch, and screenshot to an empty library — a failure that looks exactly like a UI bug and would cost a full round trip to diagnose. The job checks the artifact instead of trusting the build.</p>
+                </div>
+                <div class="tech-grid stagger-child" style="margin-top:24px;">
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-magnifying-glass"></i> What Is Asserted</span>
+                        <h3>Three checks on the .app</h3>
+                        <ul>
+                            <li><code>vocabs.json</code> and <code>catalog.json</code> present in the bundle</li>
+                            <li><code>Assets.car</code> exists — the asset catalog really compiled</li>
+                            <li>At least one <code>AppIcon*.png</code> at the bundle root</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-triangle-exclamation"></i> The Subtle Part</span>
+                        <h3>Why the icon check keys on PNGs</h3>
+                        <p>A single-size asset catalog makes <code>actool</code> write <code>CFBundleIcons</code> rather than <code>CFBundleIconName</code>, so asserting on the latter is a false alarm. The rendered PNGs at the bundle root are what iOS actually draws, so their presence is the real signal.</p>
+                    </div>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Why it matters here specifically:</strong> a missing icon is invisible until the app is on a home screen, which on this project means a tag, an artifact download and a Sideloadly run. Catching it in CI turns a multi-step manual discovery into a red check mark.</p>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Distribution Step</span>
+                    <h2>Tagged Release &amp; Sideloading</h2>
+                    <p class="panel-desc">Regular pushes only run the free Simulator check; a real installable build needs a version tag.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="implementation-grid stagger-child">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">release.sh</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="bash"># Only a v* tag triggers the device-build job
+git tag v1.2
+git push origin v1.2
+
+# Then: download the unsigned .ipa artifact from the run,
+# sign and install it with Sideloadly using a free Apple ID.</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">package_unsigned_ipa.sh</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="bash">xcodebuild build \
+  -project TOEFLVocab.xcodeproj \
+  -scheme TOEFLVocab \
+  -sdk iphoneos \
+  -configuration Release \
+  CODE_SIGNING_ALLOWED=NO \
+  -derivedDataPath buildDevice
+
+APP_PATH=$(find buildDevice/Build/Products -maxdepth 2 -name "*.app" | head -n 1)
+mkdir -p Payload
+cp -R "$APP_PATH" Payload/
+zip -qr TOEFLVocab.ipa Payload</pre></div>
+                    </div>
+                </div>
+                <div class="matrix-table-container stagger-child" style="margin-top:24px;">
+                    <table>
+                        <thead><tr><th>Free-Tier Limit</th><th>Consequence</th><th>Status</th></tr></thead>
+                        <tbody>
+                            <tr><td>Sideloaded builds expire</td><td>Re-signing needed roughly weekly</td><td><span class="taxonomy-tag">Known limit</span></td></tr>
+                            <tr><td>App ID registration cap</td><td>Only a few IDs per rolling 7-day window</td><td><span class="taxonomy-tag">Known limit</span></td></tr>
+                            <tr><td>No paid entitlements</td><td>No push, iCloud sync, or App Groups</td><td><span class="taxonomy-tag">By design</span></td></tr>
+                            <tr><td>No App Store distribution</td><td>Install is manual via Sideloadly</td><td><span class="taxonomy-tag">By design</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+    </div>
+
+    <!-- ==================== FINAL SYNTHESIS ==================== -->
+    <section class="section section-collapsible">
+        <div class="section-header">
+            <div class="panel-header-content">
+                <span class="panel-tag">Conclusion</span>
+                <h2>Project Synthesis &amp; Roadmap</h2>
+                <p class="panel-desc">What a hard constraint produced, and where the project would go if it were lifted.</p>
+            </div>
+            <div class="chevron"></div>
+        </div>
+        <div class="section-body"><div class="section-body-inner">
+            <div class="synthesis-gradient-box stagger-child">
+                <p><strong>Delivered:</strong> A complete offline iOS vocabulary trainer — <strong>358 entries</strong> across 17 sections and two books, an adaptive practice engine with a deterministic weakness score, a five-answer cycle rule, library-wide Extra Practice, full reporting, on-device pronunciation in three accents, English/Persian UI with RTL, and progress backup and restore. <strong>28 Swift files</strong>, <strong>5,694 lines</strong>, <strong>67 unit tests</strong>.</p>
+                <p><strong>Engineering result:</strong> The whole repository is an answer to one constraint — no Mac. That produced a generated-not-committed project file, a Python content validator as the local feedback loop, a four-job pipeline that gates expensive runners behind a 15-second check, an 18-image screenshot suite standing in for SwiftUI Previews, and a bundle-verification step that catches a build which succeeds while shipping nothing.</p>
+                <p><strong>Where it stops:</strong> Progress does not sync across devices, installed builds expire roughly weekly, and there are no push reminders. All three are consequences of the free Apple ID tier rather than design gaps.</p>
+                <p><strong>Moving forward:</strong></p>
+                <ul>
+                    <li>Grow the library beyond 358 entries — a data-only change, already validated by tooling.</li>
+                    <li>Revisit SwiftData once iOS 17 is a safe floor; <code>ProgressState</code> is the only shape that would need porting.</li>
+                    <li>Add spaced-repetition scheduling on top of the existing weakness score, using <code>lastAnsweredAt</code>, which is already recorded but unused for timing.</li>
+                    <li>App Store distribution, iCloud progress sync and push reminders — all gated behind the paid Apple Developer Program this project deliberately avoids.</li>
+                </ul>
+            </div>
+        </div></div>
+    </section>
+
+    <footer class="portfolio-footer-gate">
+        <div class="contact-icons">
+            <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail"><i class="fa-brands fa-google"></i></a>
+            <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud"><i class="fa-brands fa-apple"></i></a>
+            <a href="tel:+989012223122" class="icon-link" title="Phone"><i class="fas fa-phone"></i></a>
+            <a href="https://github.com/a1mohamad" target="_blank" class="icon-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" class="icon-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" class="icon-link" title="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+        </div>
+    </footer>
+</div>
+
+<div class="editorial-credits">Amir Mohamad Askari &middot; iOS Development Lab &middot; 2026</div>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+    <div class="lightbox-wrapper">
+        <span class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></span>
+        <img id="lightboxImage" src="" alt="Expanded View">
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
