@@ -1539,10 +1539,25 @@ td code {
         font-size: 0.8rem; line-height: 1.45; overflow-wrap: anywhere;
     }
 
-    /* Footer: icons get a tap target on phones, still no visible box. */
-    .portfolio-footer-gate { margin-top: 26px; padding: 30px 16px; }
-    .contact-icons { width: 100%; justify-content: center; gap: 18px; }
-    .icon-link { width: 44px; height: 44px; font-size: 1.15rem; }
+    /* Footer: icons get a tap target on phones, still no visible box.
+       The row must stay on ONE line at every phone width -- a contact icon
+       wrapping to a second line reads as a broken footer. `nowrap` plus a
+       fluid gap and a shrinkable icon box keeps all six on one row without
+       ever overflowing the viewport. */
+    .portfolio-footer-gate { margin-top: 26px; padding: 30px 12px; }
+    .contact-icons {
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: center;
+        gap: clamp(4px, 2.2vw, 16px);
+    }
+    .icon-link {
+        flex: 0 1 auto;
+        width: auto;
+        min-width: 36px;
+        height: 44px;
+        font-size: clamp(0.92rem, 4.2vw, 1.15rem);
+    }
     .editorial-credits { margin-top: 20px; padding: 0 18px; line-height: 1.6; overflow-wrap: anywhere; }
 
     .lightbox-overlay { padding: 16px; }
@@ -1572,6 +1587,14 @@ td code {
     .notebook-switcher { display: flex !important; grid-template-columns: none !important; }
     .notebook-tab { min-width: 112px; padding-inline: 11px !important; font-size: 0.76rem !important; }
     .matrix-table-container td, table.data-table td { grid-template-columns: 1fr; gap: 6px; }
+}
+/* Last-resort footer floor. Scoped well below the common phone widths (375 and
+   360 keep the roomier 36px icons) so it only engages on genuinely tiny
+   viewports, where it is the difference between one row and an overflow. */
+@media (max-width: 340px) {
+    .portfolio-footer-gate { padding-left: 8px; padding-right: 8px; }
+    .contact-icons { gap: 3px; }
+    .icon-link { min-width: 28px; font-size: 0.9rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
