@@ -190,6 +190,45 @@ window.PROJECTS_DATA = [
     "image": "url(assets/images/tweets.png)"
   },
   {
+    "title": "TOEFL Vocab iOS App",
+    "category": "Education",
+    "meta": [
+      "2026",
+      "Mobile App",
+      "iOS",
+      "Offline App",
+      "CI/CD"
+    ],
+    "desc": "Offline SwiftUI vocabulary trainer for two TOEFL word lists, built entirely on Windows with no Mac: a deterministic weakness-scoring practice engine, five-answer cycle tracking, on-device pronunciation, an English/Persian RTL interface, single-file progress persistence with backup and restore, a Python content validator, and a four-job GitHub Actions pipeline that generates the Xcode project with XcodeGen, runs 67 unit tests, and screenshots every screen in light and dark.",
+    "tools": [
+      "Swift",
+      "SwiftUI",
+      "XcodeGen",
+      "AVFoundation",
+      "XCTest",
+      "GitHub Actions",
+      "JSON",
+      "Sideloadly"
+    ],
+    "tags": [
+      "Mobile Application",
+      "iOS Development",
+      "SwiftUI",
+      "MVVM",
+      "Offline First",
+      "Adaptive Ordering",
+      "On-Device Speech",
+      "File Based Persistence",
+      "Localization",
+      "Accessibility",
+      "Unit Testing",
+      "CI/CD",
+      "Software Engineering"
+    ],
+    "href": "https://a1mohamad.github.io/research/toefl-vocabs-ios/index.html",
+    "image": "url(assets/images/toefl-vocab.png)"
+  },
+  {
     "title": "Educational Database System",
     "category": "Education",
     "meta": [
