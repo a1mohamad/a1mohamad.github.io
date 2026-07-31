@@ -199,7 +199,7 @@ window.PROJECTS_DATA = [
       "Offline App",
       "CI/CD"
     ],
-    "desc": "Offline SwiftUI vocabulary trainer for two TOEFL word lists, built entirely on Windows with no Mac: a deterministic weakness-scoring practice engine, five-answer cycle tracking, on-device pronunciation, an English/Persian RTL interface, single-file progress persistence with backup and restore, a Python content validator, and a four-job GitHub Actions pipeline that generates the Xcode project with XcodeGen, runs 67 unit tests, and screenshots every screen in light and dark.",
+    "desc": "Offline SwiftUI vocabulary trainer for two TOEFL word lists, built entirely on Windows with no Mac: a deterministic weakness-scoring practice engine, five-answer cycle tracking, on-device pronunciation, grammar usage tips split out of the source definitions, an English/Persian RTL interface bridged across SwiftUI and UIKit, single-file progress persistence with backup and restore, a Python content validator, and a four-job GitHub Actions pipeline that generates the Xcode project with XcodeGen, runs 69 unit tests, and screenshots every screen in light and dark.",
     "tools": [
       "Swift",
       "SwiftUI",

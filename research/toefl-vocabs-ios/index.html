@@ -36,9 +36,9 @@
     <div class="metrics-strip cols-6">
         <div class="metric-block" data-metric-target="358" data-metric-type="integer"><div class="metric-label">Vocabulary Entries</div><div class="metric-value champion-color">0</div></div>
         <div class="metric-block" data-metric-target="17" data-metric-type="integer"><div class="metric-label">Sections Across Two Books</div><div class="metric-value">0</div></div>
-        <div class="metric-block" data-metric-target="67" data-metric-type="integer"><div class="metric-label">Unit Tests</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="69" data-metric-type="integer"><div class="metric-label">Unit Tests</div><div class="metric-value champion-color">0</div></div>
         <div class="metric-block" data-metric-target="18" data-metric-type="integer"><div class="metric-label">Screens Captured per CI Run</div><div class="metric-value">0</div></div>
-        <div class="metric-block" data-metric-target="28" data-metric-type="integer"><div class="metric-label">Swift Source Files</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="29" data-metric-type="integer"><div class="metric-label">Swift Source Files</div><div class="metric-value">0</div></div>
         <div class="metric-block"><div class="metric-label">Developer Machine</div><div class="metric-value metric-tech-value"><i class="fa-brands fa-windows"></i><span>Windows</span></div></div>
     </div>
 
@@ -164,6 +164,7 @@
                             <tr><td><code>extras</code></td><td>array of <code>{term, definition}</code></td><td>Additional words collected alongside the section. Optional; review sections omit it.</td></tr>
                             <tr><td><code>schemaVersion</code></td><td>integer</td><td>Currently <code>1</code>. Present so a future format change can be detected rather than guessed.</td></tr>
                             <tr class="target-row-highlight"><td><code>kind</code></td><td><span class="taxonomy-tag target-style">lesson | review</span></td><td>Distinguishes a numbered day from a consolidation round, which the UI labels differently.</td></tr>
+                            <tr><td><code>---</code> in a definition</td><td>inline marker</td><td>Everything after it is a grammar usage note, not part of the meaning. Split out at load time into <code>usageTip</code> — 24 of the 358 entries carry one.</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -177,6 +178,10 @@
         {
           "term": "abandon",
           "definition": "desert; leave without planning to come back"
+        },
+        {
+          "term": "impact",
+          "definition": "a strong influence --- followed by on or of"
         }
       ],
       "extras": [
@@ -237,6 +242,7 @@
                         <ul>
                             <li>Merges both files into an ordered, indexed <code>VocabCatalog</code></li>
                             <li>Assigns each word a stable <code>VocabID</code> and an <code>orderIndex</code></li>
+                            <li>Splits a definition at <code>---</code> into meaning and <code>usageTip</code></li>
                             <li>Falls back to the legacy word format when it encounters one</li>
                             <li>Returns a usable catalog even when content is partially missing</li>
                         </ul>
@@ -250,6 +256,81 @@
                             <li>Per-book and per-section <code>intro</code> copy</li>
                             <li><code>kind</code> to separate lessons from review rounds</li>
                         </ul>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Record Modeling</span>
+                    <h2>Usage Tips Split from Definitions</h2>
+                    <p class="panel-desc">Some definitions carry grammar advice after a <code>---</code> marker. Advice about using a word is not what the word means, so it must not be memorised as the answer.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Two Facts in One Field</div><span class="theory-badge">Parsing</span></div>
+                        <div class="theory-explanation">The source lists write collocation notes inline: <code>"a strong influence --- followed by on or of"</code>. Shown unsplit, the note becomes part of the text the learner is grading themselves against — so <strong>24 of the 358 entries</strong> would train the wrong recall. The split happens once in <code>VocabCatalogLoader</code>, which keeps every screen downstream working with a clean <code>definition</code> and an optional <code>usageTip</code> rather than parsing strings itself.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Failing Toward the Meaning</div><span class="theory-badge champion-badge">Resilience</span></div>
+                        <div class="theory-explanation">A row that is only a note, or that has nothing before the marker, keeps its original text and reports no tip. Losing a definition to an over-eager split would be far worse than rendering one unsplit line, so the guard is deliberately biased toward keeping the meaning. Further markers after the first belong to the note, not to a third field.</div>
+                    </div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">split_usage_tip.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">static func splitUsageTip(from raw: String)
+    -&gt; (definition: String, usageTip: String?) {
+
+    let whole = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+
+    let parts = whole.components(separatedBy: usageTipSeparator)
+    guard parts.count &gt; 1 else { return (whole, nil) }
+
+    let definition = parts[0]
+        .trimmingCharacters(in: .whitespacesAndNewlines)
+    // Any further markers belong to the note, not to another field.
+    let tip = parts.dropFirst()
+        .joined(separator: usageTipSeparator)
+        .trimmingCharacters(in: .whitespacesAndNewlines)
+
+    guard !definition.isEmpty else { return (whole, nil) }
+    return (definition, tip.isEmpty ? nil : tip)
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">usage_tip_view.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">// Rendered only after the definition is revealed, and styled as an
+// aside rather than as more dictionary text.
+if let tip = item.usageTip {
+    UsageTipView(tip: tip)
+}
+
+// Inside UsageTipView: the label repeats what the icon says, so the
+// emoji is never the only cue, and the whole block is one VoiceOver
+// element rather than three fragments.
+Text(strings[.practiceTip].uppercased())
+    .foregroundStyle(Palette.warning)
+.background(Palette.warningSoft)
+.accessibilityElement(children: .ignore)
+.accessibilityLabel("\(strings[.practiceTip]): \(tip)")</pre></div>
+                    </div>
+                </div>
+                <div class="tech-grid stagger-child" style="margin-top:24px;">
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-lightbulb"></i> Presentation</span>
+                        <h3>An aside, not a second definition</h3>
+                        <p>The tip appears under the revealed definition in a tinted card with a lightbulb and a localised <em>Tip</em> / <em>نکته</em> label. <code>Palette.warningSoft</code> was added to the design system for it, in both light and dark variants, so the aside reads as advisory in either appearance without inventing a one-off colour.</p>
+                    </div>
+                    <div class="tech-card">
+                        <span class="tech-badge"><i class="fa-solid fa-vial"></i> Verification</span>
+                        <h3>Proven by the loader tests</h3>
+                        <p>The splitting rule is pure and total, so it is asserted directly: a plain definition passes through untouched, a marked one splits, a note-only row keeps its text, and repeated markers stay inside the tip. That is what took <code>VocabCatalogLoaderTests</code> from 14 tests to 16.</p>
                     </div>
                 </div>
             </div></div>
@@ -651,7 +732,7 @@ items
                 <div class="dependency-list stagger-child">
                     <div class="dependency-row"><i class="fa-brands fa-swift dep-icon"></i><div><strong>SwiftUI</strong><span>Every screen, the tab shell, navigation stacks, the modal practice session, and the <code>fileExporter</code>/<code>fileImporter</code> flows used for progress backup.</span></div></div>
                     <div class="dependency-row"><i class="fa-solid fa-volume-high dep-icon"></i><div><strong>AVFoundation</strong><span><code>AVSpeechSynthesizer</code> for on-device pronunciation, plus <code>AVAudioSession</code> configured as <code>.playback</code> with <code>.duckOthers</code>.</span></div></div>
-                    <div class="dependency-row"><i class="fa-solid fa-mobile-screen dep-icon"></i><div><strong>UIKit Feedback Generators</strong><span>Wrapped in <code>Haptics</code> so the practice screen can confirm an answer physically without importing UIKit across the app.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-mobile-screen dep-icon"></i><div><strong>UIKit</strong><span>Feedback generators wrapped in <code>Haptics</code>, and <code>UIWindowScene</code> reached through <code>LayoutDirectionBridge</code> to force the window's writing direction. Both are contained in one file each rather than imported across the app.</span></div></div>
                     <div class="dependency-row"><i class="fa-solid fa-file-lines dep-icon"></i><div><strong>UniformTypeIdentifiers</strong><span>Declares the JSON content type for <code>ProgressBackupDocument</code>, the <code>FileDocument</code> wrapper required by SwiftUI's exporter.</span></div></div>
                     <div class="dependency-row"><i class="fa-solid fa-language dep-icon"></i><div><strong>Strings (custom)</strong><span>A hand-rolled string table resolving English and Persian with RTL support, rather than <code>.strings</code> files — one Swift file is easier to keep in sync without a local build.</span></div></div>
                 </div>
@@ -687,7 +768,8 @@ items
                             <tr><td><code>App/RootView.swift</code></td><td>Root tab shell and one-time dependency wiring for all five stores.</td></tr>
                             <tr><td><code>Navigation/Router.swift</code></td><td>Tab and stack navigation plus modal practice sessions — a coordinator in all but name.</td></tr>
                             <tr><td><code>DesignSystem/Theme.swift</code></td><td>Palette, typography and the per-book indigo/teal accents.</td></tr>
-                            <tr><td><code>DesignSystem/Components.swift</code></td><td>Shared building blocks: checklist row, progress meter, section tiles, buttons.</td></tr>
+                            <tr><td><code>DesignSystem/Components.swift</code></td><td>Shared building blocks: checklist row, progress meter, section tiles, buttons, usage-tip card.</td></tr>
+                            <tr><td><code>Core/Localization/LayoutDirectionBridge.swift</code></td><td>Forces UIKit's writing direction to match the app's language setting — the whole UIKit surface area outside <code>Haptics</code>.</td></tr>
                             <tr><td><code>Features/Practice/PracticeViewModel.swift</code></td><td>The practice session state machine — queue, reveal state, answer routing, completion.</td></tr>
                             <tr><td><code>Features/Reports/ReportsView.swift</code></td><td>Mastery ring, section heat grid, weakest-words list, and the drill launcher.</td></tr>
                         </tbody>
@@ -771,8 +853,67 @@ try session.setActive(true)</pre></div>
                     <div class="tech-card">
                         <span class="tech-badge"><i class="fa-solid fa-language"></i> Localization</span>
                         <h3>English and Persian</h3>
-                        <p>A custom <code>Strings</code> table resolves both languages, with automatic right-to-left layout for Persian. String coverage across both languages is asserted in the test suite rather than checked by eye.</p>
+                        <p>A custom <code>Strings</code> table resolves both languages, with automatic right-to-left layout for Persian. String coverage across both languages is asserted in the test suite rather than checked by eye — though, as the next section shows, the SwiftUI environment alone was not enough to make the direction actually stick.</p>
                     </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Implementation Core</span>
+                    <h2>Language Switching &amp; the UIKit Direction Bridge</h2>
+                    <p class="panel-desc">A settings toggle that changes the writing direction is not a text change — it is a layout change in two frameworks at once.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">The Symptom</div><span class="theory-badge">Layout</span></div>
+                        <div class="theory-explanation">Switching to Persian and back left English text on screen backwards. <code>\.layoutDirection</code> describes only the SwiftUI tree; the UIKit layer underneath — the window, and the scroll views backing <code>ScrollView</code>, <code>List</code> and <code>Form</code> — carries its own <code>semanticContentAttribute</code>, and UIKit mirrors a right-to-left scroll view by <em>transforming</em> it rather than laying it out differently. After a round trip the window was still right-to-left while the content had gone back to left-to-right, and a mirrored container holding unmirrored content is what put the text on backwards.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">The Two-Part Fix</div><span class="theory-badge champion-badge">Deterministic</span></div>
+                        <div class="theory-explanation">First, writing the attribute onto every connected window on each change, so the two layers agree. Second, keying the root view on the language so a switch <strong>rebuilds</strong> the tree instead of re-laying out the existing one — SwiftUI otherwise reuses a scroll view that was built for the other direction, and a reused container keeps a mirroring transform its new contents do not expect.</div>
+                    </div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">layout_direction_bridge.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">@MainActor
+static func apply(_ direction: LayoutDirection) {
+    let attribute = attribute(for: direction)
+
+    for scene in UIApplication.shared.connectedScenes {
+        guard let windowScene = scene as? UIWindowScene else { continue }
+        for window in windowScene.windows
+        where window.semanticContentAttribute != attribute {
+            window.semanticContentAttribute = attribute
+            // The attribute alone marks the hierarchy dirty; this is
+            // what makes already-visible views redraw in the new
+            // direction instead of waiting for the next layout pass.
+            window.subviews.forEach { $0.setNeedsLayout() }
+        }
+    }
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">app_scene.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">RootView()
+    .environment(\.strings, settings.strings)
+    .environment(\.layoutDirection, layoutDirection)
+    // Rebuild rather than re-lay-out on a language change.
+    .id(language)
+    .preferredColorScheme(settings.settings.theme.colorScheme)
+    // Keep the UIKit layer pointing the same way as the SwiftUI one.
+    .onAppear { LayoutDirectionBridge.apply(layoutDirection) }
+    .onChange(of: layoutDirection) { LayoutDirectionBridge.apply($0) }</pre></div>
+                    </div>
+                </div>
+                <div class="executive-summary-box stagger-child" style="margin-top:24px;">
+                    <p><strong>Why this one was expensive:</strong> a direction bug is exactly the class of defect the no-local-Simulator constraint punishes hardest. It only appears <em>after</em> a settings round trip, so no single screenshot can show it — the CI gallery relaunches the app for each screen, so every image looked correct. This is the one place in the app where reaching past SwiftUI into UIKit was the right answer rather than a shortcut.</p>
                 </div>
             </div></div>
         </section>
@@ -1015,12 +1156,12 @@ static func decode(from data: Data) throws -&gt; ProgressBackup {
             </div>
             <div class="section-body"><div class="section-body-inner">
                 <div class="overview-text stagger-child">
-                    <p><strong>67 tests across five files</strong> target exactly the logic a screenshot cannot show: the cycle rule, the ordering formula, catalog assembly, backup validation, and bilingual string coverage. They run on a macOS runner in their own CI job, kept separate from the screenshot job so a failing test still produces a picture of the UI.</p>
+                    <p><strong>69 tests across five files</strong> target exactly the logic a screenshot cannot show: the cycle rule, the ordering formula, catalog assembly and definition splitting, backup validation, and bilingual string coverage. They run on a macOS runner in their own CI job, kept separate from the screenshot job so a failing test still produces a picture of the UI.</p>
                     <div class="kpi-grid">
-                        <div class="kpi-card"><span class="kpi-label">Total Tests</span><span class="kpi-value good">67</span></div>
+                        <div class="kpi-card"><span class="kpi-label">Total Tests</span><span class="kpi-value good">69</span></div>
                         <div class="kpi-card"><span class="kpi-label">Test Files</span><span class="kpi-value">5</span></div>
                         <div class="kpi-card"><span class="kpi-label">Coverage Gathering</span><span class="kpi-value">Enabled</span></div>
-                        <div class="kpi-card"><span class="kpi-label">Swift LOC Under Test</span><span class="kpi-value good">5,694</span></div>
+                        <div class="kpi-card"><span class="kpi-label">Swift LOC Under Test</span><span class="kpi-value good">5,853</span></div>
                     </div>
                 </div>
             </div></div>
@@ -1060,8 +1201,8 @@ static func decode(from data: Data) throws -&gt; ProgressBackup {
                         <thead><tr><th>Test File</th><th>Tests</th><th>Covers</th></tr></thead>
                         <tbody>
                             <tr class="target-row-highlight"><td><code>ReportingAndStringsTests.swift</code></td><td><span class="taxonomy-tag target-style">16</span></td><td>Stats aggregation, run-completion logic, and bilingual string-table coverage.</td></tr>
+                            <tr><td><code>VocabCatalogLoaderTests.swift</code></td><td>16</td><td>Book/section ordering against <code>catalog.json</code>, usage-tip splitting and its edge cases, legacy word-format fallback, graceful degradation on missing content.</td></tr>
                             <tr><td><code>AdaptiveOrderingTests.swift</code></td><td>14</td><td>The weakness-scoring formula, ordering determinism, and the Extra Practice queue.</td></tr>
-                            <tr><td><code>VocabCatalogLoaderTests.swift</code></td><td>14</td><td>Book/section ordering against <code>catalog.json</code>, legacy word-format fallback, graceful degradation on missing content.</td></tr>
                             <tr><td><code>WordStatsCycleTests.swift</code></td><td>13</td><td>The five-answer cycle rule, recap display, and resilience against a hand-edited or truncated save file.</td></tr>
                             <tr><td><code>ProgressBackupTests.swift</code></td><td>10</td><td>Backup envelope validation, format rejection, and non-destructive failure on a wrong file.</td></tr>
                         </tbody>
@@ -1186,7 +1327,7 @@ xcodebuild test \
                         <thead><tr><th>Job</th><th>Runner / Trigger</th><th>Purpose</th></tr></thead>
                         <tbody>
                             <tr><td><code>content-lint</code></td><td>ubuntu · every push/PR</td><td><code>validate_content.py --strict</code>. Gates the macOS jobs so a bad JSON edit never costs a runner minute.</td></tr>
-                            <tr><td><code>unit-tests</code></td><td>macos-14 · every push/PR</td><td>Runs all 67 tests. Kept separate so a test failure still lets the screenshot job produce a picture.</td></tr>
+                            <tr><td><code>unit-tests</code></td><td>macos-14 · every push/PR</td><td>Runs all 69 tests. Kept separate so a test failure still lets the screenshot job produce a picture.</td></tr>
                             <tr class="target-row-highlight"><td><code>simulator-check</code></td><td><span class="taxonomy-tag target-style">macos-14 · every push/PR</span></td><td>Builds, verifies bundled JSON and the compiled icon are really inside the <code>.app</code>, then captures 18 screenshots.</td></tr>
                             <tr><td><code>device-build</code></td><td>macos-14 · tags matching <code>v*</code></td><td>Release build with signing disabled, zipped into a <code>Payload/</code> structure as an unsigned <code>.ipa</code>.</td></tr>
                         </tbody>
@@ -1338,7 +1479,7 @@ zip -qr TOEFLVocab.ipa Payload</pre></div>
         </div>
         <div class="section-body"><div class="section-body-inner">
             <div class="synthesis-gradient-box stagger-child">
-                <p><strong>Delivered:</strong> A complete offline iOS vocabulary trainer — <strong>358 entries</strong> across 17 sections and two books, an adaptive practice engine with a deterministic weakness score, a five-answer cycle rule, library-wide Extra Practice, full reporting, on-device pronunciation in three accents, English/Persian UI with RTL, and progress backup and restore. <strong>28 Swift files</strong>, <strong>5,694 lines</strong>, <strong>67 unit tests</strong>.</p>
+                <p><strong>Delivered:</strong> A complete offline iOS vocabulary trainer — <strong>358 entries</strong> across 17 sections and two books, an adaptive practice engine with a deterministic weakness score, a five-answer cycle rule, library-wide Extra Practice, full reporting, on-device pronunciation in three accents, grammar usage tips split out of the definitions that carry them, English/Persian UI with RTL held consistent across the SwiftUI and UIKit layers, and progress backup and restore. <strong>29 Swift files</strong>, <strong>5,853 lines</strong>, <strong>69 unit tests</strong>.</p>
                 <p><strong>Engineering result:</strong> The whole repository is an answer to one constraint — no Mac. That produced a generated-not-committed project file, a Python content validator as the local feedback loop, a four-job pipeline that gates expensive runners behind a 15-second check, an 18-image screenshot suite standing in for SwiftUI Previews, and a bundle-verification step that catches a build which succeeds while shipping nothing.</p>
                 <p><strong>Where it stops:</strong> Progress does not sync across devices, installed builds expire roughly weekly, and there are no push reminders. All three are consequences of the free Apple ID tier rather than design gaps.</p>
                 <p><strong>Moving forward:</strong></p>
