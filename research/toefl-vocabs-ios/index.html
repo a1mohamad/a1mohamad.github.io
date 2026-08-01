@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOEFL Vocab | Offline iOS Vocabulary Trainer</title>
+    <title>TOEFL Vocab | Offline Vocabulary Trainer for iOS and Android</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -21,13 +21,16 @@
 
 <div class="hero-section">
     <div class="hero-accent-blur"></div>
-    <div class="hero-meta">iOS &middot; SwiftUI &middot; Offline-First &middot; XcodeGen &middot; GitHub Actions &middot; Sideloadly</div>
-    <h1>TOEFL Vocab: An Offline iOS Vocabulary Trainer Built Without a Mac</h1>
-    <div class="hero-subtitle">A SwiftUI iPhone app for two classic TOEFL word lists, developed entirely on Windows with no Xcode GUI and no local Simulator. Every commit is compiled, tested and screenshotted on GitHub Actions' free macOS runners, the Xcode project is generated from a manifest and never committed, and the whole study engine — adaptive ordering, a five-answer cycle rule, and reporting — is deterministic and unit-tested because CI is the only feedback that exists.</div>
+    <div class="hero-meta">iOS &middot; SwiftUI &middot; Android &middot; Jetpack Compose &middot; Offline-First &middot; GitHub Actions</div>
+    <h1>TOEFL Vocab: One Offline Vocabulary Trainer, Two Native Codebases, Neither Built Locally</h1>
+    <div class="hero-subtitle">The same study app for two classic TOEFL word lists, shipped twice — a SwiftUI iPhone build and a screen-for-screen Kotlin and Jetpack Compose Android port — both developed entirely on one Windows machine with no Mac, no Xcode GUI, no Android Studio, no local SDK and no simulator or emulator of any kind. Every commit for both platforms is compiled, tested and screenshotted on GitHub Actions runners, and the shared study engine — adaptive ordering, a five-answer cycle rule, and reporting — is deterministic and unit-tested because CI is the only feedback that exists.</div>
     <div class="btn-group">
-        <a class="btn-modern-primary" href="https://github.com/a1mohamad/toefl-vocabs-ios-app" target="_blank"><i class="fa-brands fa-github"></i><span>GitHub Repo</span></a>
-        <a class="btn-modern-secondary" href="https://github.com/a1mohamad/toefl-vocabs-ios-app/blob/main/Resources/VocabData/vocabs.json" target="_blank"><i class="fa-solid fa-database"></i><span>Dataset</span></a>
-        <a class="btn-modern-secondary" href="https://github.com/a1mohamad/toefl-vocabs-ios-app/blob/main/docs/PROJECT_PLAN.md" target="_blank"><i class="fa-solid fa-book"></i><span>Design Notes</span></a>
+        <a class="btn-modern-primary" href="https://github.com/a1mohamad/toefl-vocabs-ios-app" target="_blank"><i class="fa-brands fa-github"></i><span>iOS Repo</span></a>
+        <a class="btn-modern-primary" href="https://github.com/a1mohamad/toefl-vocabs-android-app" target="_blank"><i class="fa-brands fa-github"></i><span>Android Repo</span></a>
+        <a class="btn-modern-secondary" href="https://github.com/a1mohamad/toefl-vocabs-ios-app/releases/latest" target="_blank"><i class="fa-brands fa-apple"></i><span>Download for iPhone</span></a>
+        <a class="btn-modern-secondary" href="https://github.com/a1mohamad/toefl-vocabs-android-app/releases/latest" target="_blank"><i class="fa-brands fa-android"></i><span>Download for Android</span></a>
+        <a class="btn-modern-secondary" href="https://a1mohamad.github.io/apps/toefl-vocab/index.html" target="_blank"><i class="fa-solid fa-mobile-screen"></i><span>App Page</span></a>
+        <a class="btn-modern-secondary" href="https://github.com/a1mohamad/toefl-vocabs-android-app/blob/main/docs/PROJECT_PLAN.md" target="_blank"><i class="fa-solid fa-book"></i><span>Design Notes</span></a>
     </div>
 </div>
 
@@ -36,28 +39,29 @@
     <div class="metrics-strip cols-6">
         <div class="metric-block" data-metric-target="358" data-metric-type="integer"><div class="metric-label">Vocabulary Entries</div><div class="metric-value champion-color">0</div></div>
         <div class="metric-block" data-metric-target="17" data-metric-type="integer"><div class="metric-label">Sections Across Two Books</div><div class="metric-value">0</div></div>
-        <div class="metric-block" data-metric-target="69" data-metric-type="integer"><div class="metric-label">Unit Tests</div><div class="metric-value champion-color">0</div></div>
-        <div class="metric-block" data-metric-target="18" data-metric-type="integer"><div class="metric-label">Screens Captured per CI Run</div><div class="metric-value">0</div></div>
-        <div class="metric-block" data-metric-target="29" data-metric-type="integer"><div class="metric-label">Swift Source Files</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="128" data-metric-type="integer"><div class="metric-label">Unit Tests Across Both Builds</div><div class="metric-value champion-color">0</div></div>
+        <div class="metric-block" data-metric-target="36" data-metric-type="integer"><div class="metric-label">Screens Captured per CI Run</div><div class="metric-value">0</div></div>
+        <div class="metric-block" data-metric-target="64" data-metric-type="integer"><div class="metric-label">Swift + Kotlin Source Files</div><div class="metric-value">0</div></div>
         <div class="metric-block"><div class="metric-label">Developer Machine</div><div class="metric-value metric-tech-value"><i class="fa-brands fa-windows"></i><span>Windows</span></div></div>
     </div>
 
     <div class="metrics-strip tool-metrics-strip">
-        <div class="metric-block"><div class="metric-label">Language</div><div class="metric-value tool-value">Swift 5.0</div></div>
-        <div class="metric-block"><div class="metric-label">Interface</div><div class="metric-value tool-value">SwiftUI</div></div>
-        <div class="metric-block"><div class="metric-label">Project Gen</div><div class="metric-value tool-value">XcodeGen</div></div>
-        <div class="metric-block"><div class="metric-label">Speech</div><div class="metric-value tool-value">AVFoundation</div></div>
+        <div class="metric-block"><div class="metric-label">iOS Language</div><div class="metric-value tool-value">Swift 5.0</div></div>
+        <div class="metric-block"><div class="metric-label">iOS Interface</div><div class="metric-value tool-value">SwiftUI</div></div>
+        <div class="metric-block"><div class="metric-label">Android Language</div><div class="metric-value tool-value">Kotlin 2.0</div></div>
+        <div class="metric-block"><div class="metric-label">Android Interface</div><div class="metric-value tool-value">Jetpack Compose</div></div>
         <div class="metric-block"><div class="metric-label">CI/CD</div><div class="metric-value tool-value">GitHub Actions</div></div>
-        <div class="metric-block"><div class="metric-label">Delivery</div><div class="metric-value tool-value">Sideloadly</div></div>
+        <div class="metric-block"><div class="metric-label">Delivery</div><div class="metric-value tool-value">Sideloadly &middot; Signed APK</div></div>
     </div>
 
-    <div class="notebook-switcher cols-6" role="tablist" aria-label="TOEFL Vocab project areas">
+    <div class="notebook-switcher cols-7" role="tablist" aria-label="TOEFL Vocab project areas">
         <button class="notebook-tab active" role="tab" aria-selected="true" data-target="content-panel"><i class="fa-solid fa-database"></i>Content</button>
         <button class="notebook-tab" role="tab" aria-selected="false" data-target="engine-panel"><i class="fa-solid fa-brain"></i>Practice Engine</button>
         <button class="notebook-tab" role="tab" aria-selected="false" data-target="ui-panel"><i class="fa-solid fa-mobile-screen"></i>App &amp; UI</button>
         <button class="notebook-tab" role="tab" aria-selected="false" data-target="persistence-panel"><i class="fa-solid fa-floppy-disk"></i>Persistence</button>
         <button class="notebook-tab" role="tab" aria-selected="false" data-target="tests-panel"><i class="fa-solid fa-vial"></i>Tests</button>
         <button class="notebook-tab" role="tab" aria-selected="false" data-target="cicd-panel"><i class="fa-solid fa-code-branch"></i>CI/CD</button>
+        <button class="notebook-tab" role="tab" aria-selected="false" data-target="porting-panel"><i class="fa-brands fa-android"></i>Android Port</button>
     </div>
 
     <section class="section section-collapsible expanded">
@@ -1467,6 +1471,177 @@ zip -qr TOEFLVocab.ipa Payload</pre></div>
 
     </div>
 
+    <div class="notebook-panel" id="porting-panel">
+
+        <section class="section section-collapsible expanded">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Port Blueprint</span>
+                    <h2>The Same App, Rebuilt in Kotlin</h2>
+                    <p class="panel-desc">Screen for screen, rule for rule. What changed is the platform underneath — and the constraint that shaped it did not change at all.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split cols-4">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Identical Content</div><span class="theory-badge champion-badge">Byte-for-byte</span></div>
+                        <p class="theory-explanation"><code>vocabs.json</code> and <code>catalog.json</code> ship in the Android APK unchanged from the iOS bundle. Adding a word updates both apps; neither file was forked.</p>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Identical Engine</div><span class="theory-badge">Deterministic</span></div>
+                        <p class="theory-explanation">The Laplace-smoothed weakness score, the five-answer cycle rule and the Extra Practice queue were reimplemented in Kotlin to produce the same ordering for the same history.</p>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Identical Save File</div><span class="theory-badge">Interchangeable</span></div>
+                        <p class="theory-explanation">The serialized progress format matches, so a backup exported on iPhone restores on Android and back again. Cross-platform migration needs no converter.</p>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Rebuilt Surface</div><span class="theory-badge">35 Kotlin files</span></div>
+                        <p class="theory-explanation">Every view, icon, chart, navigation route and speech call had to be re-chosen for the platform. <strong>8,373 lines</strong> of Kotlin against <strong>5,853</strong> of Swift.</p>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Infrastructure</span>
+                    <h2>Android Libraries &amp; Dependencies</h2>
+                    <p class="panel-desc">Platform libraries and one serialization package — the dependency budget stayed as tight as the iOS build's.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="dependency-list stagger-child">
+                    <div class="dependency-row"><i class="fa-brands fa-android dep-icon"></i><div><strong>Jetpack Compose (BOM 2024.12)</strong><span>Every screen, the tab shell, the modal practice session and the Reports bar chart, which is drawn on a <code>Canvas</code> rather than pulling in a charting library.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-palette dep-icon"></i><div><strong>Material 3 + Material Icons Extended</strong><span>The icon set behind the <code>AppSymbol</code> enum, including the auto-mirrored chevron and back-arrow variants that keep Persian flipping correctly.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-volume-high dep-icon"></i><div><strong>android.speech.tts.TextToSpeech</strong><span>On-device pronunciation with US, UK and Australian accents. Falls back through the other two locales when an engine reports <code>LANG_MISSING_DATA</code>.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-code dep-icon"></i><div><strong>kotlinx.serialization 1.7.3</strong><span>The only non-platform dependency in the app target — decodes the bundled catalog and encodes the progress file.</span></div></div>
+                    <div class="dependency-row"><i class="fa-solid fa-gears dep-icon"></i><div><strong>Gradle (Kotlin DSL) + AGP 8.7</strong><span>Versions live in a single <code>libs.versions.toml</code> catalog. R8 folds <code>BuildConfig.DEBUG</code> and strips the screenshot harness from release builds.</span></div></div>
+                </div>
+                <div class="library-strip">
+                    <span>Jetpack Compose</span><span>Material 3</span><span>kotlinx.serialization</span><span>TextToSpeech</span><span>Gradle</span><span>JUnit</span>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Translation Matrix</span>
+                    <h2>Every Place the Two Codebases Genuinely Differ</h2>
+                    <p class="panel-desc">Everything a user can see or do is the same. These are the decisions the platform forced, and the reasoning behind each.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="matrix-table-container stagger-child">
+                    <table>
+                        <thead><tr><th>Area</th><th>iOS</th><th>Android</th><th>Why It Changed</th></tr></thead>
+                        <tbody>
+                            <tr><td>Icons</td><td>SF Symbols, named by string</td><td><code>AppSymbol</code> enum &rarr; Material Icons</td><td>The two icon sets do not correspond, so each had to be re-chosen. An enum turns a wrong name into a compile error instead of a blank square discovered in CI.</td></tr>
+                            <tr><td>Rounded font</td><td><code>.system(design: .rounded)</code></td><td>Platform default</td><td>Android has no rounded system face. The weights carrying the hierarchy are unchanged.</td></tr>
+                            <tr><td>Charts</td><td>Swift Charts</td><td>Compose <code>Canvas</code></td><td>Swift Charts is a system framework; every Android equivalent is third-party. Twelve bars did not justify a dependency.</td></tr>
+                            <tr><td>Navigation</td><td><code>NavigationStack(path:)</code></td><td><code>List&lt;Route&gt;</code> + <code>BackHandler</code></td><td>The original rewrites its path array wholesale — "back to menu" empties it. A navigation graph would turn those single state changes into multi-step animations.</td></tr>
+                            <tr><td>Value types</td><td>Mutating <code>struct</code>s</td><td>Immutable <code>data class</code>es</td><td>Swift gets value semantics free. In Kotlin a shared mutable record would both alias into the progress map and fail to trigger recomposition.</td></tr>
+                            <tr><td>Speech rate</td><td><code>AVSpeechUtterance</code>, 0.5 is normal</td><td><code>TextToSpeech</code>, 1.0 is normal</td><td>The <em>stored</em> value keeps AVFoundation's scale so a settings blob stays interchangeable; conversion happens at the point the service talks to the engine.</td></tr>
+                            <tr><td>Rate clamping</td><td>Clamped in <code>init</code></td><td><code>clampedSpeechRate</code> accessor</td><td>A Kotlin <code>data class</code> cannot rewrite a <code>val</code> in <code>init</code>, so every read site uses the clamped accessor instead.</td></tr>
+                            <tr><td>Voice availability</td><td>Every English locale ships</td><td>May report <code>LANG_MISSING_DATA</code></td><td>Android engines can lack a locale the user never downloaded, so the accent falls back rather than going silent.</td></tr>
+                            <tr><td>Haptics</td><td><code>UIFeedbackGenerator</code></td><td><code>View.performHapticFeedback</code></td><td>The View API is what respects the system-wide haptics setting and needs no permission.</td></tr>
+                            <tr><td>Backup files</td><td><code>fileExporter</code> / <code>fileImporter</code></td><td>Storage Access Framework</td><td>Same two-step flow — decode and validate <em>before</em> prompting to overwrite.</td></tr>
+                            <tr><td>Reduce motion</td><td><code>accessibilityReduceMotion</code></td><td>Animator duration scale of 0</td><td>Android has no single switch; the duration scale is the signal apps are expected to read.</td></tr>
+                            <tr><td>Debug harness</td><td><code>#if DEBUG</code>, launch argument</td><td><code>BuildConfig.DEBUG</code>, intent extra</td><td><code>am start</code> passes extras, not argv. R8 folds the constant and strips the branch from release.</td></tr>
+                            <tr><td>Distribution</td><td>Sideloadly, expires weekly</td><td>Signed APK, no expiry</td><td>Android has no equivalent of the free-provisioning seven-day limit.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Implementation Core</span>
+                    <h2>Value Semantics: The One Difference That Reached Every File</h2>
+                    <p class="panel-desc">Swift's mutating struct is the single idiom with no safe Kotlin equivalent — and correcting it changed the shape of the whole model layer.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="theory-split">
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">Why a Direct Translation Breaks</div><span class="theory-badge">Two failures</span></div>
+                        <div class="theory-explanation">A Swift <code>struct</code> copies on assignment, so <code>stats.record(...)</code> mutates a private copy that is then written back into the map. Translating that to a Kotlin <code>class</code> with <code>var</code> fields produces a record that is <strong>shared</strong>, not copied — so mutating it aliases straight into the stored progress map. Worse for Compose, mutating an object in place leaves its identity unchanged, so recomposition never fires and the checklist silently stops updating on screen.</div>
+                    </div>
+                    <div class="theory-block stagger-child">
+                        <div class="theory-card-header"><div class="theory-title">The Kotlin Shape</div><span class="theory-badge champion-badge">Immutable</span></div>
+                        <div class="theory-explanation"><code>record()</code> returns a <strong>new</strong> <code>WordStats</code> via <code>copy()</code> rather than mutating the receiver, and returns it wrapped in a <code>RecordResult</code> that also carries whether the five-answer cycle completed — the same boolean the Swift version returns through its <code>mutating</code> call. The caller stores the returned value, which gives Compose a new identity to diff against and makes aliasing structurally impossible.</div>
+                    </div>
+                </div>
+                <div class="implementation-grid stagger-child" style="margin-top:24px;">
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">PracticeModels.swift</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="swift">mutating func record(correct isCorrect: Bool,
+                     at date: Date = Date()) -> Bool {
+    attempts += 1
+    if isCorrect {
+        correct += 1
+        consecutiveCorrect += 1
+    } else {
+        incorrect += 1
+        consecutiveCorrect = 0
+    }
+    lastAnsweredAt = date
+    currentCycle.append(isCorrect)
+
+    guard currentCycle.count >= Self.cycleLength else { return false }
+    // ... bank the cycle, then reset it
+}</pre></div>
+                    </div>
+                    <div class="terminal-panel implementation-code">
+                        <div class="terminal-header"><div class="terminal-dots"><div class="terminal-dot"></div><div class="terminal-dot"></div><div class="terminal-dot"></div></div><div class="terminal-title">PracticeModels.kt</div><div></div></div>
+                        <div class="terminal-body compact-code"><pre data-lang="kotlin">fun record(correct: Boolean,
+           at: Instant = Instant.now()): RecordResult {
+    val nextCycle = currentCycle + correct
+    val base = copy(
+        attempts = attempts + 1,
+        correct = if (correct) this.correct + 1 else this.correct,
+        incorrect = if (correct) this.incorrect else this.incorrect + 1,
+        consecutiveCorrect = if (correct) consecutiveCorrect + 1 else 0,
+        lastAnsweredAt = at,
+        currentCycle = nextCycle,
+    )
+
+    if (nextCycle.size &lt; CYCLE_LENGTH) return RecordResult(base, false)
+    // ... bank the cycle into lastCycle, then clear it
+}</pre></div>
+                    </div>
+                </div>
+            </div></div>
+        </section>
+
+        <section class="section section-collapsible">
+            <div class="section-header">
+                <div class="panel-header-content">
+                    <span class="panel-tag">Port Synthesis</span>
+                    <h2>What Shipping Twice Actually Proved</h2>
+                    <p class="panel-desc">The second build is the evidence that the first one was not a one-off.</p>
+                </div>
+                <div class="chevron"></div>
+            </div>
+            <div class="section-body"><div class="section-body-inner">
+                <div class="synthesis-gradient-box stagger-child">
+                    <p><strong>The constraint held on a second platform.</strong> The iOS build proved a native app could be produced on Windows with no Mac. The Android build repeats the method against a different toolchain — no Android Studio, no local SDK, no emulator, no Compose Previews — and reaches the same place: <strong>59 JVM unit tests</strong>, an 18-image screenshot suite per run, and a signed, installable artifact, none of it ever compiled on the developer's machine.</p>
+                    <p><strong>The engine survived translation intact.</strong> Because the ordering algorithm is deterministic and score-based, the Kotlin port could be verified against the same expectations as the Swift original rather than by eye. That is what made a screen-for-screen port tractable without an emulator to check it in.</p>
+                    <p><strong>The port exposed one genuine design weakness.</strong> Swift's mutating value types had quietly carried a guarantee — copy on assignment — that the Kotlin translation had to make explicit. The Android model layer is arguably the clearer of the two as a result.</p>
+                </div>
+            </div></div>
+        </section>
+
+    </div>
+
     <!-- ==================== FINAL SYNTHESIS ==================== -->
     <section class="section section-collapsible">
         <div class="section-header">
@@ -1479,15 +1654,15 @@ zip -qr TOEFLVocab.ipa Payload</pre></div>
         </div>
         <div class="section-body"><div class="section-body-inner">
             <div class="synthesis-gradient-box stagger-child">
-                <p><strong>Delivered:</strong> A complete offline iOS vocabulary trainer — <strong>358 entries</strong> across 17 sections and two books, an adaptive practice engine with a deterministic weakness score, a five-answer cycle rule, library-wide Extra Practice, full reporting, on-device pronunciation in three accents, grammar usage tips split out of the definitions that carry them, English/Persian UI with RTL held consistent across the SwiftUI and UIKit layers, and progress backup and restore. <strong>29 Swift files</strong>, <strong>5,853 lines</strong>, <strong>69 unit tests</strong>.</p>
-                <p><strong>Engineering result:</strong> The whole repository is an answer to one constraint — no Mac. That produced a generated-not-committed project file, a Python content validator as the local feedback loop, a four-job pipeline that gates expensive runners behind a 15-second check, an 18-image screenshot suite standing in for SwiftUI Previews, and a bundle-verification step that catches a build which succeeds while shipping nothing.</p>
-                <p><strong>Where it stops:</strong> Progress does not sync across devices, installed builds expire roughly weekly, and there are no push reminders. All three are consequences of the free Apple ID tier rather than design gaps.</p>
+                <p><strong>Delivered:</strong> The same complete offline vocabulary trainer on two platforms — <strong>358 entries</strong> across 17 sections and two books, an adaptive practice engine with a deterministic weakness score, a five-answer cycle rule, library-wide Extra Practice, full reporting, on-device pronunciation in three accents, grammar usage tips split out of the definitions that carry them, English/Persian UI with RTL held consistent, and progress backup and restore that is interchangeable between the two builds. <strong>29 Swift files / 5,853 lines</strong> and <strong>35 Kotlin files / 8,373 lines</strong>, covered by <strong>128 unit tests</strong> in total.</p>
+                <p><strong>Engineering result:</strong> Both repositories are an answer to the same constraint — the developer's machine can build neither platform. That produced a generated-not-committed Xcode project, a shared Python content validator as the only local feedback loop, a four-job pipeline on each side that gates expensive runners behind a 15-second check, an 18-image screenshot suite per platform standing in for SwiftUI Previews and Compose Previews alike, and an artifact-verification step that catches a build which succeeds while shipping nothing.</p>
+                <p><strong>Where it stops:</strong> Progress still does not sync across devices, and there are no push reminders on either platform. The iOS build additionally expires roughly weekly — a consequence of the free Apple ID tier that the Android build, signed with a self-managed keystore, does not share.</p>
                 <p><strong>Moving forward:</strong></p>
                 <ul>
-                    <li>Grow the library beyond 358 entries — a data-only change, already validated by tooling.</li>
-                    <li>Revisit SwiftData once iOS 17 is a safe floor; <code>ProgressState</code> is the only shape that would need porting.</li>
-                    <li>Add spaced-repetition scheduling on top of the existing weakness score, using <code>lastAnsweredAt</code>, which is already recorded but unused for timing.</li>
-                    <li>App Store distribution, iCloud progress sync and push reminders — all gated behind the paid Apple Developer Program this project deliberately avoids.</li>
+                    <li>Grow the library beyond 358 entries — a data-only change that now updates both apps at once, already validated by shared tooling.</li>
+                    <li>Add spaced-repetition scheduling on top of the existing weakness score, using <code>lastAnsweredAt</code>, which is already recorded on both platforms but unused for timing.</li>
+                    <li>Revisit SwiftData once iOS 17 is a safe floor; <code>ProgressState</code> is the only shape that would need porting, and the Kotlin side would have to keep writing the current format to stay interchangeable.</li>
+                    <li>Store distribution and cloud sync — gated behind the paid Apple Developer Program on one side and a Play Console account on the other, both deliberately avoided so far.</li>
                 </ul>
             </div>
         </div></div>
@@ -1505,7 +1680,7 @@ zip -qr TOEFLVocab.ipa Payload</pre></div>
     </footer>
 </div>
 
-<div class="editorial-credits">Amir Mohamad Askari &middot; iOS Development Lab &middot; 2026</div>
+<div class="editorial-credits">Amir Mohamad Askari &middot; Mobile Development Lab &middot; 2026</div>
 
 <div class="lightbox-overlay" id="lightboxOverlay">
     <div class="lightbox-wrapper">
