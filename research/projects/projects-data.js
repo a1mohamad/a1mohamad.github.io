@@ -190,22 +190,28 @@ window.PROJECTS_DATA = [
     "image": "url(assets/images/tweets.png)"
   },
   {
-    "title": "TOEFL Vocab iOS App",
+    "title": "TOEFL Vocab iOS & Android App",
     "category": "Education",
     "meta": [
       "2026",
       "Mobile App",
       "iOS",
+      "Android",
       "Offline App",
       "CI/CD"
     ],
-    "desc": "Offline SwiftUI vocabulary trainer for two TOEFL word lists, built entirely on Windows with no Mac: a deterministic weakness-scoring practice engine, five-answer cycle tracking, on-device pronunciation, grammar usage tips split out of the source definitions, an English/Persian RTL interface bridged across SwiftUI and UIKit, single-file progress persistence with backup and restore, a Python content validator, and a four-job GitHub Actions pipeline that generates the Xcode project with XcodeGen, runs 69 unit tests, and screenshots every screen in light and dark.",
+    "desc": "One offline vocabulary trainer for two TOEFL word lists, shipped twice from a single Windows machine: a SwiftUI iPhone build with no Mac, and a screen-for-screen Kotlin and Jetpack Compose Android port with no Android Studio, no local SDK and no emulator. Shares a deterministic weakness-scoring practice engine, five-answer cycle tracking, on-device pronunciation, grammar usage tips split out of the source definitions, an English/Persian RTL interface, and a byte-identical progress file whose backups move between the two builds unchanged. 128 unit tests across both codebases, with a four-job GitHub Actions pipeline per platform that generates the Xcode project with XcodeGen, builds the signed APK with Gradle, and screenshots every screen in light and dark.",
     "tools": [
       "Swift",
       "SwiftUI",
+      "Kotlin",
+      "Jetpack Compose",
       "XcodeGen",
+      "Gradle",
       "AVFoundation",
+      "TextToSpeech",
       "XCTest",
+      "JUnit",
       "GitHub Actions",
       "JSON",
       "Sideloadly"
@@ -213,7 +219,10 @@ window.PROJECTS_DATA = [
     "tags": [
       "Mobile Application",
       "iOS Development",
+      "Android Development",
       "SwiftUI",
+      "Jetpack Compose",
+      "Cross-Platform Port",
       "MVVM",
       "Offline First",
       "Adaptive Ordering",
