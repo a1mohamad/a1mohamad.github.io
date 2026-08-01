@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TOEFL Vocab — Learn the words, offline</title>
+<meta name="description" content="A free, offline vocabulary trainer for two classic TOEFL word lists. Available for iPhone and Android. No account, no ads, nothing uploaded.">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="switchbar">
+  <div class="wrap">
+    <a class="brandmini" href="https://a1mohamad.github.io/apps/index.html" aria-label="Back to apps">
+      <img src="assets/icon.png" alt=""> <span>TOEFL Vocab</span>
+    </a>
+    <div class="seg" role="tablist" aria-label="Choose your phone">
+      <div class="thumb" id="thumb"></div>
+      <button role="tab" aria-selected="true" data-p="ios"><i class="fa-brands fa-apple"></i><span>iPhone</span></button>
+      <button role="tab" aria-selected="false" data-p="android"><i class="fa-brands fa-android"></i><span>Android</span></button>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="aura"></div>
+  <div class="wrap">
+    <div class="badge"><span class="dot"></span> In active development &middot; free &middot; works offline</div>
+    <h1>904 words that show up on the <em>TOEFL</em>. In your pocket.</h1>
+    <p class="sub">Two classic word lists, one word at a time. The app watches which ones you keep missing and quietly puts those in front of you first. Everything stays on your phone.</p>
+
+    <div class="stats">
+      <div class="stat"><b>904</b><span>Words so far</span></div>
+      <div class="stat"><b>17</b><span>Sections so far</span></div>
+      <div class="stat"><b>3</b><span>Accents</span></div>
+      <div class="stat"><b>0</b><span>Ads or logins</span></div>
+    </div>
+    <p class="growing"><b>Still being built.</b> Both books are fully playable today, and new sections, words and refinements are being added as the app grows — so these numbers keep going up.</p>
+  </div>
+</section>
+
+<section class="try">
+  <div class="wrap">
+    <div class="lead">
+      <h2>Try it before you install it.</h2>
+      <p>This is exactly how studying works inside the app — one word, one honest answer, the meaning right after. Four words is enough to tell.</p>
+    </div>
+
+    <div class="demo">
+      <div class="dhead">
+        <span id="counter">Word 1 of 4</span>
+        <div class="boxes" id="boxes"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div id="play">
+        <div class="word">
+          <h3 id="term">abandon</h3>
+          <button class="speak" id="speak"><i class="fa-solid fa-volume-high"></i> Hear it</button>
+        </div>
+
+        <div class="reveal" id="reveal">
+          <div class="def" id="def"></div>
+          <div class="tip" id="tipbox" hidden>
+            <i class="fa-solid fa-lightbulb"></i><span id="tip"></span>
+          </div>
+        </div>
+
+        <div class="answers" id="answers">
+          <button class="ans knew">I knew it</button>
+          <button class="ans didnt">Didn't know</button>
+        </div>
+        <button class="next" id="next">Next word &rarr;</button>
+      </div>
+
+      <div class="done" id="done">
+        <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="11"></circle>
+          <circle id="arc" cx="60" cy="60" r="50" fill="none" stroke="var(--accent)" stroke-width="11"
+            stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314"
+            transform="rotate(-90 60 60)"></circle>
+          <text id="pct" x="60" y="69" text-anchor="middle" font-size="26" font-weight="700" fill="#f4f6f8">0%</text>
+        </svg>
+        <h3>That's the whole loop.</h3>
+        <p id="donetext"></p>
+        <button class="again" id="again">Run it again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="stage">
+  <div class="wrap stagegrid">
+    <div class="beats">
+
+      <article class="beat on" data-shot="library" data-cap="Your library">
+        <div class="num">01</div>
+        <h2>Pick a book. Pick a day.</h2>
+        <p>Two well-known lists come built in — <b>504 Absolutely Essential Words</b> and <b>400 Must-Have Words for the TOEFL</b>. They're already split into short daily sections, so you never face a wall of vocabulary.</p>
+        <div class="tick">
+          <div><i class="fa-solid fa-check"></i><span>Each section takes about ten minutes</span></div>
+          <div><i class="fa-solid fa-check"></i><span>A progress bar per book, so you can see the finish line</span></div>
+        </div>
+        <div class="beatshot"><div class="fr"><img alt="The library screen, listing both vocabulary books with progress meters"></div></div>
+      </article>
+
+      <article class="beat" data-shot="practice" data-cap="One word at a time">
+        <div class="num">02</div>
+        <h2>Be honest with yourself.</h2>
+        <p>A word appears on its own. Tap the speaker to hear it. Then answer the only question that matters — <b>did you know it, or not?</b> No multiple choice to guess your way through.</p>
+        <div class="tick">
+          <div><i class="fa-solid fa-check"></i><span>The meaning appears right after you answer</span></div>
+          <div><i class="fa-solid fa-check"></i><span>Five little boxes track your last five tries</span></div>
+        </div>
+        <div class="beatshot"><div class="fr"><img alt="The practice screen showing a single word and the five-box checklist"></div></div>
+      </article>
+
+      <article class="beat" data-shot="practice-revealed" data-cap="Meaning revealed">
+        <div class="num">03</div>
+        <h2>Your weak words come back first.</h2>
+        <p>Open the same section tomorrow and it won't be in the same order. The words you keep getting wrong float to the top, and the ones you've nailed step aside. You don't have to organise anything.</p>
+        <div class="tick">
+          <div><i class="fa-solid fa-check"></i><span>Grammar tips appear with the definition where they help</span></div>
+          <div><i class="fa-solid fa-check"></i><span>Hear every word in a US, UK or Australian accent</span></div>
+        </div>
+        <div class="beatshot"><div class="fr"><img alt="The practice screen after answering, with the definition revealed"></div></div>
+      </article>
+
+      <article class="beat" data-shot="reports" data-cap="Reports">
+        <div class="num">04</div>
+        <h2>See where you actually stand.</h2>
+        <p>A single screen shows how much of the library you've mastered and which sections are still shaky. From there, one tap starts an <b>Extra Practice</b> drill built entirely from your weakest words.</p>
+        <div class="tick">
+          <div><i class="fa-solid fa-check"></i><span>The drill never disturbs your main progress</span></div>
+          <div><i class="fa-solid fa-check"></i><span>Export your progress and carry it to a new phone</span></div>
+        </div>
+        <div class="beatshot"><div class="fr"><img alt="The reports screen with a mastery ring and section heat grid"></div></div>
+      </article>
+
+    </div>
+
+    <div class="rail">
+      <div class="phone">
+        <div class="halo"></div>
+        <div class="shell">
+          <div class="notch"></div>
+          <div class="screen" id="screen"></div>
+        </div>
+        <div class="caption" id="cap">Your library</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <h2>Free, offline, and yours.</h2>
+    <p>No sign-up, no subscription, no server. Install it, turn off your data, and it still works exactly the same.</p>
+    <div class="free">
+      <span><i></i> Works with no internet</span>
+      <span><i></i> Nothing is uploaded</span>
+      <span><i></i> Open source</span>
+    </div>
+    <div class="cta" id="cta"></div>
+    <div class="beta">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span>This app is still under active development, so expect a few rough edges — and expect it to keep improving. Updates install straight over the top without touching your progress.</span>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="contact-icons">
+      <a href="mailto:a1mohamad.askari@gmail.com" class="icon-link" title="Gmail" aria-label="Gmail"><i class="fa-brands fa-google"></i></a>
+      <a href="mailto:amirmohmdaskari@icloud.com" class="icon-link" title="iCloud" aria-label="iCloud"><i class="fa-brands fa-apple"></i></a>
+      <a href="tel:+989012223122" class="icon-link" title="Phone" aria-label="Phone"><i class="fas fa-phone"></i></a>
+      <a href="https://github.com/a1mohamad" target="_blank" rel="noopener" class="icon-link" title="GitHub" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/amirmohammad-askari/" target="_blank" rel="noopener" class="icon-link" title="LinkedIn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://www.kaggle.com/amirmohamadaskari" target="_blank" rel="noopener" class="icon-link" title="Kaggle" aria-label="Kaggle"><i class="fa-brands fa-kaggle"></i></a>
+    </div>
+    <div class="fnote">
+      Word lists selected from Barron's <em>504 Absolutely Essential Words</em> and McGraw-Hill's <em>400 Must-Have Words for the TOEFL</em>.<br>
+      Definitions are the author's own study notes.
+    </div>
+    <div class="rights">&copy; 2026 Amir Mohamad Askari. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
