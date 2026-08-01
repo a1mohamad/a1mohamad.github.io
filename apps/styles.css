@@ -2376,7 +2376,9 @@ button.app-action-secondary {
 .app-action-menu {
   position: absolute;
   z-index: 40;
-  top: calc(100% + 8px);
+  /* Opens upward: .app-card clips with overflow:hidden and this footer is the
+     last element in the card, so a downward menu would be cut off. */
+  bottom: calc(100% + 8px);
   left: 0;
   right: 0;
   min-width: 100%;
