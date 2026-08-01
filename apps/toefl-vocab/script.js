@@ -8,7 +8,7 @@ const REPO = {
   ios:     'https://github.com/a1mohamad/toefl-vocabs-ios-app',
   android: 'https://github.com/a1mohamad/toefl-vocabs-android-app'
 };
-const RESEARCH = 'https://a1mohamad.github.io/research/toefl-vocabs-ios/index.html';
+const RESEARCH = 'https://a1mohamad.github.io/research/toefl-vocabs/index.html';
 
 const SHOTS = ['library', 'practice', 'practice-revealed', 'reports'];
 const FILE = {
