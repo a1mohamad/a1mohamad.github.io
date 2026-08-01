@@ -235,18 +235,36 @@
             </div>
           </div>
           <div class="app-body">
-            <div class="app-meta"><span>Swift</span><span>SwiftUI</span><span>iOS App</span><span>Offline First</span></div>
-            <h3>TOEFL Vocab iOS App</h3>
+            <div class="app-meta"><span>Swift</span><span>SwiftUI</span><span>Kotlin</span><span>Jetpack Compose</span><span>iOS &amp; Android</span><span>Offline First</span></div>
+            <h3>TOEFL Vocab</h3>
             <p>
-              An offline iPhone vocabulary trainer built entirely on Windows with no Mac, no Xcode GUI and no local Simulator: a deterministic weakness-scoring practice engine, five-answer cycle tracking, on-device pronunciation in three accents, grammar usage tips shown alongside the revealed definition, an English and Persian right-to-left interface, and single-file progress persistence with backup and restore. Every commit is compiled, unit-tested and screenshotted on GitHub Actions macOS runners, with the Xcode project generated from a manifest instead of being committed.
+              One offline vocabulary trainer shipped twice — a SwiftUI iPhone build and a screen-for-screen Kotlin and Jetpack Compose Android port — both developed entirely on Windows with no Mac, no Android Studio and no local simulator or emulator: a deterministic weakness-scoring practice engine, five-answer cycle tracking, on-device pronunciation in three accents, grammar usage tips shown alongside the revealed definition, an English and Persian right-to-left interface, and single-file progress persistence whose backups move between the two builds unchanged. Every commit on both platforms is compiled, unit-tested and screenshotted on GitHub Actions runners.
             </p>
             <div class="architecture-strip">
-              <span>Swift</span><span>SwiftUI</span><span>XcodeGen</span><span>AVFoundation</span><span>XCTest</span><span>GitHub Actions</span><span>JSON</span><span>MVVM</span><span>Codable Persistence</span><span>Sideloadly</span>
+              <span>Swift</span><span>SwiftUI</span><span>Kotlin</span><span>Jetpack Compose</span><span>XcodeGen</span><span>Gradle</span><span>AVFoundation</span><span>TextToSpeech</span><span>XCTest</span><span>JUnit</span><span>GitHub Actions</span><span>JSON</span><span>MVVM</span><span>Codable Persistence</span>
             </div>
             <div class="app-footer app-footer-three">
-              <a href="https://github.com/a1mohamad/toefl-vocabs-ios-app/releases/tag/v1.2" target="_blank" rel="noopener" class="app-action app-action-primary"><i class="fa-brands fa-apple"></i><span>Download</span></a>
-              <a href="https://github.com/a1mohamad/toefl-vocabs-ios-app" target="_blank" rel="noopener" class="app-action app-action-secondary"><i class="fa-brands fa-github"></i><span>GitHub Repo</span></a>
-              <a href="https://a1mohamad.github.io/research/toefl-vocabs-ios/index.html" class="app-action app-action-secondary"><i class="fa-solid fa-flask"></i><span>Research Page</span></a>
+              <div class="app-action-group">
+                <button type="button" class="app-action app-action-primary" aria-haspopup="true" aria-expanded="false" aria-controls="toefl-download-menu"><i class="fa-solid fa-download"></i><span>Download</span><i class="fa-solid fa-chevron-down app-action-caret"></i></button>
+                <div class="app-action-menu" id="toefl-download-menu" role="menu" hidden>
+                  <a role="menuitem" href="https://github.com/a1mohamad/toefl-vocabs-ios-app/releases/latest" target="_blank" rel="noopener"><i class="fa-brands fa-apple"></i><span>For iPhone</span><em>.ipa</em></a>
+                  <a role="menuitem" href="https://github.com/a1mohamad/toefl-vocabs-android-app/releases/latest" target="_blank" rel="noopener"><i class="fa-brands fa-android"></i><span>For Android</span><em>.apk</em></a>
+                </div>
+              </div>
+              <div class="app-action-group">
+                <button type="button" class="app-action app-action-secondary" aria-haspopup="true" aria-expanded="false" aria-controls="toefl-repo-menu"><i class="fa-brands fa-github"></i><span>GitHub</span><i class="fa-solid fa-chevron-down app-action-caret"></i></button>
+                <div class="app-action-menu" id="toefl-repo-menu" role="menu" hidden>
+                  <a role="menuitem" href="https://github.com/a1mohamad/toefl-vocabs-ios-app" target="_blank" rel="noopener"><i class="fa-brands fa-apple"></i><span>iOS repo</span><em>Swift</em></a>
+                  <a role="menuitem" href="https://github.com/a1mohamad/toefl-vocabs-android-app" target="_blank" rel="noopener"><i class="fa-brands fa-android"></i><span>Android repo</span><em>Kotlin</em></a>
+                </div>
+              </div>
+              <div class="app-action-group">
+                <button type="button" class="app-action app-action-secondary" aria-haspopup="true" aria-expanded="false" aria-controls="toefl-explore-menu"><i class="fa-solid fa-compass"></i><span>Explore</span><i class="fa-solid fa-chevron-down app-action-caret"></i></button>
+                <div class="app-action-menu" id="toefl-explore-menu" role="menu" hidden>
+                  <a role="menuitem" href="https://a1mohamad.github.io/apps/toefl-vocab/index.html" target="_blank" rel="noopener"><i class="fa-solid fa-mobile-screen"></i><span>App page</span><em>Overview</em></a>
+                  <a role="menuitem" href="https://a1mohamad.github.io/research/toefl-vocabs-ios/index.html" target="_blank" rel="noopener"><i class="fa-solid fa-flask"></i><span>Research page</span><em>Write-up</em></a>
+                </div>
+              </div>
             </div>
           </div>
         </article>
