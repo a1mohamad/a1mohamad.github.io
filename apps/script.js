@@ -72,3 +72,66 @@ focusTabs.forEach((tab) => {
     });
   });
 });
+
+/* --------------------------------------------------------------------------
+   Split action buttons
+   Only wires groups that actually exist, so cards with a single destination
+   stay plain links. Click, click-outside, Escape and arrow keys.
+   -------------------------------------------------------------------------- */
+
+document.querySelectorAll('.app-action-group').forEach((group) => {
+  const trigger = group.querySelector('.app-action');
+  const menu = group.querySelector('.app-action-menu');
+  if (!trigger || !menu) return;
+  const items = [...menu.querySelectorAll('a')];
+
+  const close = () => {
+    group.classList.remove('open');
+    menu.hidden = true;
+    trigger.setAttribute('aria-expanded', 'false');
+  };
+
+  const open = () => {
+    document.querySelectorAll('.app-action-group.open').forEach((other) => {
+      if (other === group) return;
+      other.classList.remove('open');
+      other.querySelector('.app-action-menu').hidden = true;
+      other.querySelector('.app-action').setAttribute('aria-expanded', 'false');
+    });
+    group.classList.add('open');
+    menu.hidden = false;
+    trigger.setAttribute('aria-expanded', 'true');
+  };
+
+  trigger.addEventListener('click', (event) => {
+    event.stopPropagation();
+    menu.hidden ? open() : close();
+  });
+
+  trigger.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      open();
+      items[0].focus();
+    }
+  });
+
+  menu.addEventListener('keydown', (event) => {
+    const index = items.indexOf(document.activeElement);
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      close();
+      trigger.focus();
+    } else if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      items[(index + 1) % items.length].focus();
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      items[(index - 1 + items.length) % items.length].focus();
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!group.contains(event.target)) close();
+  });
+});

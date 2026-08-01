@@ -2335,3 +2335,96 @@ code {
     gap: 7px;
   }
 }
+
+/* ==========================================================================
+   Split action buttons
+   A card whose product ships to more than one destination keeps the same
+   three-button footer and puts the choice inside the button. One target
+   still renders a plain link with no caret and no JS, so every other card
+   on this page is untouched.
+   ========================================================================== */
+
+.app-action-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+button.app-action {
+  width: 100%;
+  font-family: inherit;
+  border: 0;
+  cursor: pointer;
+}
+
+button.app-action-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.app-action-caret {
+  font-size: 0.62rem !important;
+  opacity: 0.55;
+  transition: transform 0.25s ease;
+}
+
+.app-action-group.open .app-action-caret {
+  transform: rotate(180deg);
+}
+
+.app-action-menu {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  min-width: 100%;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #101013;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.62);
+}
+
+.app-action-menu[hidden] {
+  display: none;
+}
+
+.app-action-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 11px;
+  color: #f4f4f5;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.app-action-menu a:hover,
+.app-action-menu a:focus-visible {
+  background: rgba(255, 255, 255, 0.085);
+  outline: none;
+}
+
+.app-action-menu a i {
+  font-size: 0.9rem;
+  width: 16px;
+  text-align: center;
+}
+
+.app-action-menu a em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0.5;
+}
