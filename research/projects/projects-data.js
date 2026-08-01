@@ -234,7 +234,7 @@ window.PROJECTS_DATA = [
       "CI/CD",
       "Software Engineering"
     ],
-    "href": "https://a1mohamad.github.io/research/toefl-vocabs-ios/index.html",
+    "href": "https://a1mohamad.github.io/research/toefl-vocabs/index.html",
     "image": "url(assets/images/toefl-vocab.png)"
   },
   {
