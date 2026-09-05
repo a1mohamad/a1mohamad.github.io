@@ -314,6 +314,225 @@ body { margin: 0; }
 <script>
 (() => {
  'use strict';
+function createNeural3D(root, fallbackCanvas, nodes, edges) {
+ const surface = document.createElement('canvas');
+ surface.className = fallbackCanvas.className;
+ surface.setAttribute('aria-hidden','true');
+ surface.style.pointerEvents='none';
+ const gl = surface.getContext('webgl', {alpha:true, antialias:false, depth:true, premultipliedAlpha:true, powerPreference:'low-power'});
+ if (!gl) return null;
+ let lost=false, ready=false, pixelWidth=1, pixelHeight=1, blurWidth=1, blurHeight=1;
+ let sceneProgram, blurProgram, compositeProgram, meshBuffer, quadBuffer, sceneTarget, blurA, blurB;
+ const shaderSources = {
+  vertex: `
+   attribute vec3 a_position;
+   attribute vec3 a_normal;
+   attribute vec3 a_info;
+   uniform vec2 u_resolution;
+   uniform vec2 u_pointer;
+   uniform float u_time;
+   uniform float u_motion;
+   varying vec3 v_normal;
+   varying vec3 v_position;
+   varying vec3 v_info;
+   mat3 rx(float a){float c=cos(a),s=sin(a);return mat3(1.,0.,0.,0.,c,s,0.,-s,c);}
+   mat3 ry(float a){float c=cos(a),s=sin(a);return mat3(c,0.,-s,0.,1.,0.,s,0.,c);}
+   mat3 rz(float a){float c=cos(a),s=sin(a);return mat3(c,s,0.,-s,c,0.,0.,0.,1.);}
+   void main(){
+    float yaw=-.62+sin(u_time*.14)*.17*u_motion+u_pointer.x*.18;
+    float pitch=.35+cos(u_time*.11)*.08*u_motion+u_pointer.y*.11;
+    mat3 rotation=rz(-.21)*rx(pitch)*ry(yaw);
+    vec3 p=rotation*a_position;
+    p.y+=sin(u_time*.23)*.025*u_motion;
+    v_normal=rotation*a_normal;v_position=p;v_info=a_info;
+    float camera=6.5;
+    float aspect=u_resolution.x/u_resolution.y;
+    float scale=min(aspect/4.9,1./2.95)*2.;
+    float w=camera-p.z;
+    vec2 xy=p.xy*scale*camera;
+    xy.x/=aspect;xy.y+=.055*w;
+    gl_Position=vec4(xy,1.01005*w-.201005,w);
+   }
+  `,
+  fragment: `
+   precision mediump float;
+   varying vec3 v_normal;
+   varying vec3 v_position;
+   varying vec3 v_info;
+   uniform float u_time;
+   void main(){
+    vec3 n=normalize(v_normal);
+    vec3 view=normalize(vec3(0.,0.,6.5)-v_position);
+    vec3 light=normalize(vec3(-1.4,2.6,3.3));
+    vec3 rimLight=normalize(vec3(2.3,-.7,1.));
+    float diffuse=max(dot(n,light),0.);
+    float rimDiffuse=max(dot(n,rimLight),0.);
+    float spec=pow(max(dot(n,normalize(light+view)),0.),64.);
+    float specWide=pow(max(dot(n,normalize(light+view)),0.),13.);
+    float rim=pow(1.-abs(dot(n,view)),2.5);
+    float phase=mod(u_time*.78,8.4)-.75;
+    float dist=phase-v_info.x;
+    float active=exp(-dist*dist/ .10);
+    float tail=exp(-pow((dist-.23)/.35,2.))*.42;
+    vec3 blue=vec3(.20,.48,.80);
+    vec3 gold=vec3(1.,.65,.26);
+    vec3 lightGold=vec3(1.,.91,.72);
+    float isNode=v_info.z;
+    vec3 metal=vec3(.018,.042,.073)*( .35+diffuse*.8 );
+    metal+=blue*(diffuse*.08+rimDiffuse*.055+rim*.21);
+    metal+=vec3(.90,.95,1.)*(spec*.88+specWide*.12)*isNode;
+    metal+=blue*.09*(1.-isNode)*v_info.y;
+    metal+=gold*(active*.8+tail*.19)*( .45+isNode*.55 );
+    metal+=lightGold*active*(spec*.85+rim*.17);
+    metal+=lightGold*active*active*(1.-isNode)*.75*v_info.y;
+    float depth=clamp((v_position.z+2.2)/4.4,0.,1.);
+    metal*=.38+.62*depth;
+    metal=1.-exp(-metal*1.65);
+    gl_FragColor=vec4(metal,1.);
+   }
+  `,
+  quad: `
+   attribute vec2 a_position;
+   varying vec2 v_uv;
+   void main(){v_uv=a_position*.5+.5;gl_Position=vec4(a_position,0.,1.);}
+  `,
+  blur: `
+   precision mediump float;
+   uniform sampler2D u_texture;
+   uniform vec2 u_step;
+   uniform float u_threshold;
+   varying vec2 v_uv;
+   vec3 tap(vec2 uv){vec3 c=texture2D(u_texture,uv).rgb;float b=max(c.r,max(c.g,c.b));return c*mix(1.,smoothstep(.12,.62,b),u_threshold);}
+   void main(){
+    vec3 c=tap(v_uv)*.227027;
+    c+=(tap(v_uv+u_step*1.384615)+tap(v_uv-u_step*1.384615))*.316216;
+    c+=(tap(v_uv+u_step*3.230769)+tap(v_uv-u_step*3.230769))*.070270;
+    gl_FragColor=vec4(c,1.);
+   }
+  `,
+  composite: `
+   precision mediump float;
+   uniform sampler2D u_scene;
+   uniform sampler2D u_glow;
+   varying vec2 v_uv;
+   void main(){
+    vec4 scene=texture2D(u_scene,v_uv);
+    vec3 bloom=texture2D(u_glow,v_uv).rgb;
+    vec3 c=scene.rgb+bloom*1.35;
+    float a=max(scene.a,max(c.r,max(c.g,c.b)));
+    gl_FragColor=vec4(min(c,vec3(1.)),min(a,1.));
+   }
+  `
+ };
+ const vertices=[];
+ const add=(p,n,layer,weight,type)=>vertices.push(p[0],p[1],p[2],n[0],n[1],n[2],layer,weight,type);
+ const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+ const normalize=a=>{const d=Math.hypot(...a)||1;return a.map(v=>v/d);};
+ const tau=Math.PI*2;
+ // Spheres are lit meshes; the connections are curved tubes in the same 3D space.
+ nodes.forEach(node=>{
+  const rings=8,sectors=12,radius=node.layer===6?.062:.039+node.seed*.013;
+  const point=(i,j)=>{
+   const v=i/rings*Math.PI,u=j/sectors*tau,n=[Math.sin(v)*Math.cos(u),Math.cos(v),Math.sin(v)*Math.sin(u)];
+   return {p:[node.x+n[0]*radius,node.y+n[1]*radius,node.z+n[2]*radius],n};
+  };
+  for(let i=0;i<rings;i++)for(let j=0;j<sectors;j++){
+   const a=point(i,j),b=point(i+1,j),c=point(i,j+1),d=point(i+1,j+1);
+   [a,b,c,b,d,c].forEach(v=>add(v.p,v.n,node.layer,1,1));
+  }
+ });
+ edges.forEach(edge=>{
+  const a=nodes[edge.a],b=nodes[edge.b];
+  const direction=normalize([b.x-a.x,b.y-a.y,b.z-a.z]);
+  const side=normalize(cross(direction,Math.abs(direction[1])<.9?[0,1,0]:[0,0,1]));
+  const up=normalize(cross(direction,side));
+  const segments=10,sides=5,radius=.0038+edge.weight*.002;
+  const point=(i,j)=>{
+   const t=i/segments,angle=j/sides*tau,bend=Math.sin(t*Math.PI)*edge.bend*.11;
+   const center=[a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t+side[1]*bend,a.z+(b.z-a.z)*t+side[2]*bend];
+   const n=side.map((v,k)=>v*Math.cos(angle)+up[k]*Math.sin(angle));
+   return {p:center.map((v,k)=>v+n[k]*radius),n,t};
+  };
+  for(let i=0;i<segments;i++)for(let j=0;j<sides;j++){
+   const a=point(i,j),b=point(i+1,j),c=point(i,j+1),d=point(i+1,j+1);
+   [a,b,c,b,d,c].forEach(v=>add(v.p,v.n,edge.layer+v.t,edge.weight,0));
+  }
+ });
+ const mesh=new Float32Array(vertices);
+ function shader(type,source){
+  const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);
+  if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){const message=gl.getShaderInfoLog(s);gl.deleteShader(s);throw new Error(message);}
+  return s;
+ }
+ function program(vertex,fragment){
+  const v=shader(gl.VERTEX_SHADER,vertex),f=shader(gl.FRAGMENT_SHADER,fragment),p=gl.createProgram();
+  gl.attachShader(p,v);gl.attachShader(p,f);gl.linkProgram(p);gl.deleteShader(v);gl.deleteShader(f);
+  if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));
+  return p;
+ }
+ function target(depth){
+  const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+  return {texture,framebuffer:gl.createFramebuffer(),depth:depth?gl.createRenderbuffer():null};
+ }
+ function sizeTarget(t,w,h){
+  gl.bindTexture(gl.TEXTURE_2D,t.texture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,w,h,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
+  gl.bindFramebuffer(gl.FRAMEBUFFER,t.framebuffer);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t.texture,0);
+  if(t.depth){gl.bindRenderbuffer(gl.RENDERBUFFER,t.depth);gl.renderbufferStorage(gl.RENDERBUFFER,gl.DEPTH_COMPONENT16,w,h);gl.framebufferRenderbuffer(gl.FRAMEBUFFER,gl.DEPTH_ATTACHMENT,gl.RENDERBUFFER,t.depth);}
+  if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw new Error('Incomplete render target');
+ }
+ function init(){
+  sceneProgram=program(shaderSources.vertex,shaderSources.fragment);
+  blurProgram=program(shaderSources.quad,shaderSources.blur);
+  compositeProgram=program(shaderSources.quad,shaderSources.composite);
+  meshBuffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,meshBuffer);gl.bufferData(gl.ARRAY_BUFFER,mesh,gl.STATIC_DRAW);
+  quadBuffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,quadBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+  sceneTarget=target(true);blurA=target(false);blurB=target(false);ready=true;
+ }
+ function resize(width,height,ratio){
+  if(lost||!ready)return;
+  pixelWidth=Math.max(1,Math.round(width*Math.min(ratio,1.5)));
+  pixelHeight=Math.max(1,Math.round(height*Math.min(ratio,1.5)));
+  surface.width=pixelWidth;surface.height=pixelHeight;
+  blurWidth=Math.max(1,Math.round(pixelWidth*.5));blurHeight=Math.max(1,Math.round(pixelHeight*.5));
+  try{sizeTarget(sceneTarget,pixelWidth,pixelHeight);sizeTarget(blurA,blurWidth,blurHeight);sizeTarget(blurB,blurWidth,blurHeight);}
+  catch{ready=false;surface.style.visibility='hidden';fallbackCanvas.style.visibility='visible';}
+ }
+ const uni=(p,name)=>gl.getUniformLocation(p,name);
+ function bindQuad(p){
+  gl.useProgram(p);gl.bindBuffer(gl.ARRAY_BUFFER,quadBuffer);
+  for(let i=0;i<3;i++)gl.disableVertexAttribArray(i);
+  const a=gl.getAttribLocation(p,'a_position');gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,2,gl.FLOAT,false,0,0);
+ }
+ function bindTexture(p,name,texture,unit){gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,texture);gl.uniform1i(uni(p,name),unit);}
+ function blur(source,destination,x,y,threshold){
+  gl.bindFramebuffer(gl.FRAMEBUFFER,destination.framebuffer);gl.viewport(0,0,blurWidth,blurHeight);
+  bindQuad(blurProgram);bindTexture(blurProgram,'u_texture',source.texture,0);
+  gl.uniform2f(uni(blurProgram,'u_step'),x,y);gl.uniform1f(uni(blurProgram,'u_threshold'),threshold);gl.drawArrays(gl.TRIANGLES,0,6);
+ }
+ function render(time,pointerX,pointerY){
+  if(!ready||lost)return false;
+  gl.bindFramebuffer(gl.FRAMEBUFFER,sceneTarget.framebuffer);gl.viewport(0,0,pixelWidth,pixelHeight);
+  gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.BLEND);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  gl.useProgram(sceneProgram);gl.bindBuffer(gl.ARRAY_BUFFER,meshBuffer);
+  ['a_position','a_normal','a_info'].forEach((name,i)=>{const a=gl.getAttribLocation(sceneProgram,name);gl.enableVertexAttribArray(a);gl.vertexAttribPointer(a,3,gl.FLOAT,false,36,i*12);});
+  gl.uniform2f(uni(sceneProgram,'u_resolution'),pixelWidth,pixelHeight);gl.uniform2f(uni(sceneProgram,'u_pointer'),pointerX,pointerY);
+  gl.uniform1f(uni(sceneProgram,'u_time'),time);gl.uniform1f(uni(sceneProgram,'u_motion'),matchMedia('(prefers-reduced-motion: reduce)').matches?0:1);
+  gl.drawArrays(gl.TRIANGLES,0,mesh.length/9);
+  gl.disable(gl.DEPTH_TEST);
+  blur(sceneTarget,blurA,2.1/pixelWidth,0,1);blur(blurA,blurB,0,2.1/pixelHeight,0);
+  gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,pixelWidth,pixelHeight);
+  bindQuad(compositeProgram);bindTexture(compositeProgram,'u_scene',sceneTarget.texture,0);bindTexture(compositeProgram,'u_glow',blurB.texture,1);gl.drawArrays(gl.TRIANGLES,0,6);
+  fallbackCanvas.style.visibility='hidden';surface.style.visibility='visible';return true;
+ }
+ try{init();fallbackCanvas.parentElement.insertBefore(surface,fallbackCanvas);}
+ catch{surface.remove();return null;}
+ surface.addEventListener('webglcontextlost',e=>{e.preventDefault();lost=true;surface.style.visibility='hidden';fallbackCanvas.style.visibility='visible';});
+ surface.addEventListener('webglcontextrestored',()=>{lost=false;try{init();resize(pixelWidth,pixelHeight,1);}catch{ready=false;}});
+ return {resize,render};
+}
+
  const root = document.getElementById('amir-latent');
  if (!root) return;
  const canvas = root.querySelector('.sculpture');
@@ -362,6 +581,7 @@ body { margin: 0; }
   });
  }
 
+ const spatial = createNeural3D(root,canvas,nodes,edges);
  function project(x,y,z) {
   const drift = reduced.matches ? 0 : Math.sin(elapsed*.12)*.024;
   const yaw=-.46+pointerX*.10+drift, pitch=.17+pointerY*.07, roll=-.17;
@@ -403,6 +623,8 @@ body { margin: 0; }
   if(!ctx)return;
   ctx.setTransform(ratio,0,0,ratio,0,0);
   ctx.clearRect(0,0,width,height);
+  if(spatial&&spatial.render(elapsed,pointerX,pointerY))return;
+  canvas.style.visibility='visible';
   const pts=nodes.map(n=>project(n.x,n.y,n.z));
   const phase=(elapsed*.78)%8.4-.75;
 
@@ -484,7 +706,9 @@ body { margin: 0; }
   const box=canvas.getBoundingClientRect();
   width=Math.max(1,box.width);height=Math.max(1,box.height);
   ratio=Math.min(devicePixelRatio||1,1.7);
-  canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);render();
+  canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
+  if(spatial)spatial.resize(width,height,ratio);
+  render();
  }
  function schedule() {
   if(ctx&&!frame&&visible&&!document.hidden&&root.isConnected)frame=requestAnimationFrame(tick);
